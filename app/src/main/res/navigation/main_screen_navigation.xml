@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_screen_navigation"
+    app:startDestination="@+id/navigation_jobs">
+
+    <fragment
+        android:id="@+id/navigation_jobs"
+        android:name="com.tt.handsomeman.ui.jobs.JobsFragment"
+        android:label="@string/jobs"
+        tools:layout="@layout/fragment_jobs" />
+
+    <fragment
+        android:id="@+id/navigation_messages"
+        android:name="com.tt.handsomeman.ui.messages.MessagesFragment"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_messages" />
+
+    <fragment
+        android:id="@+id/navigation_my_projects"
+        android:name="com.tt.handsomeman.ui.my_projects.MyProjectsFragment"
+        android:label="@string/my_projects"
+        tools:layout="@layout/fragment_my_projects" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.tt.handsomeman.ui.notifications.NotificationsFragment"
+        android:label="@string/notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.tt.handsomeman.ui.more.MoreFragment"
+        android:label="@string/more"
+        tools:layout="@layout/fragment_more" />
+</navigation>
