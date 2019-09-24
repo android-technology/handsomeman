@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.ui.Register;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
@@ -29,8 +28,8 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
 
         String type = sharedPreferencesUtils.get("type", String.class);
 
-        if (!type.isEmpty()){
-            startActivity(new Intent(getApplicationContext(), Register.class));
+        if (!type.isEmpty()) {
+            startActivity(new Intent(Start.this, Register.class));
             finish();
         }
 
@@ -44,13 +43,13 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.continue_handyman:
                 sharedPreferencesUtils.put("type", "handyman");
-                startActivity(new Intent(getApplicationContext(), Register.class));
+                startActivity(new Intent(Start.this, Register.class));
                 finish();
                 break;
 
             case R.id.continue_customer:
                 sharedPreferencesUtils.put("type", "customer");
-                Toast.makeText(getApplicationContext(), "Customer", Toast.LENGTH_LONG).show();
+                Toast.makeText(Start.this, "Customer", Toast.LENGTH_LONG).show();
                 break;
         }
     }

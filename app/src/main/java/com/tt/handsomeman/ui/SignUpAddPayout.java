@@ -57,7 +57,7 @@ public class SignUpAddPayout extends AppCompatActivity {
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_LONG).show();
+                Toast.makeText(SignUpAddPayout.this, "Test", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -190,7 +190,7 @@ public class SignUpAddPayout extends AppCompatActivity {
             }
         });
 
-        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(getApplicationContext(), country);
+        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(SignUpAddPayout.this, country);
         spinnerCountry.setAdapter(spinnerCountryPayout);
     }
 
@@ -207,7 +207,7 @@ public class SignUpAddPayout extends AppCompatActivity {
             }
         });
 
-        SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(getApplicationContext(), type);
+        SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(SignUpAddPayout.this, type);
         spinnerType.setAdapter(spinnerTypePayout);
     }
 

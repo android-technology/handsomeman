@@ -145,14 +145,14 @@ public class Login extends AppCompatActivity {
                             finish();
                         } else {
                             pgLogin.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         pgLogin.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }

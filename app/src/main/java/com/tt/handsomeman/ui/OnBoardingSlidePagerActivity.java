@@ -58,20 +58,20 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-                    startActivity(new Intent(getApplicationContext(), SignUpAddPayout.class));
+                    startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
                     finish();
                 } else {
-                    startActivity(new Intent(getApplicationContext(), Start.class));
+                    startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
                     finish();
                 }
             }
         });
 
         if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-            startActivity(new Intent(getApplicationContext(), SignUpAddPayout.class));
+            startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
             finish();
         } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
-            startActivity(new Intent(getApplicationContext(), HandyManMainScreen.class));
+            startActivity(new Intent(OnBoardingSlidePagerActivity.this, HandyManMainScreen.class));
             finish();
         }
 

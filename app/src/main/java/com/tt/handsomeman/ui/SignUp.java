@@ -95,19 +95,19 @@ public class SignUp extends AppCompatActivity {
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.CREATED)) {
                             pgSignUp.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUp.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                             startActivity(new Intent(SignUp.this, Login.class));
                             finish();
                         } else {
                             pgSignUp.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUp.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<StandardResponse> call, Throwable t) {
                         pgSignUp.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUp.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }

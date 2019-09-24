@@ -50,7 +50,7 @@ public class Register extends AppCompatActivity {
         findViewById(R.id.loginFBLinear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Login Facebook", Toast.LENGTH_LONG).show();
+                Toast.makeText(Register.this, "Login Facebook", Toast.LENGTH_LONG).show();
             }
         });
 
