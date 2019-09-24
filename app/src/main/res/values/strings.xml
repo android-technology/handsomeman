@@ -293,10 +293,10 @@
     <string name="not_valid_first_name">First name must be >2 characters</string>
     <string name="not_valid_last_name">Last name must be >2 characters</string>
     <string name="not_valid_address">Address must be >3 characters</string>
-    <string name="not_valid_portal_code">Portal code must be >5 characters</string>
+    <string name="not_valid_portal_code">Portal code must be 6 characters</string>
     <string name="not_valid_email">Not a valid email</string>
-    <string name="not_valid_account_number">Account number must be >10 character</string>
-    <string name="not_valid_account_routing">Account routing must be >5 characters</string>
+    <string name="not_valid_account_number">Account number must be >11 character</string>
+    <string name="not_valid_account_routing">Account routing must be 9 characters</string>
     <string name="not_valid_birthday">Not a valid date of birth</string>
     <string name="search_by_word">Search By Word</string>
     <string name="your_location">Your Location</string>

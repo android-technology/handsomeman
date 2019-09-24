@@ -2,6 +2,7 @@ package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,16 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+
+import javax.inject.Inject;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class OnBoardingSlidePagerActivity extends FragmentActivity{
+public class OnBoardingSlidePagerActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
@@ -32,11 +38,42 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity{
      */
     private PagerAdapter pagerAdapter;
 
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_Launcher);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding_slide_pager);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        HandymanApp.getComponent().inject(this);
+
+        Integer state = sharedPreferencesUtils.get("state", Integer.class);
+
+        findViewById(R.id.skipOnBoarding).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                    startActivity(new Intent(getApplicationContext(), SignUpAddPayout.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(getApplicationContext(), Start.class));
+                    finish();
+                }
+            }
+        });
+
+        if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+            startActivity(new Intent(getApplicationContext(), SignUpAddPayout.class));
+            finish();
+        } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+            startActivity(new Intent(getApplicationContext(), HandyManMainScreen.class));
+            finish();
+        }
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.boardingPager);
@@ -47,14 +84,6 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity{
 
         CircleIndicator indicator = findViewById(R.id.boardingIndicator);
         indicator.setViewPager(mPager);
-
-        findViewById(R.id.skipOnBoarding).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
-                finish();
-            }
-        });
     }
 
     @Override

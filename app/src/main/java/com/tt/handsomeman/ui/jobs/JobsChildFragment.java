@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,6 @@ import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
-import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.StartScreenService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -83,22 +81,18 @@ public class JobsChildFragment extends Fragment {
         double lng = -96.7181396484375;
         double radius = 10d;
 
-        jobsViewModel.getListJob(authorizationCode, lat, lng, radius);
+        jobsViewModel.initData(authorizationCode, lat, lng, radius);
 
-        jobsViewModel.getStartScreenData().observe(this, new Observer<StartScreenData>() {
-            @Override
-            public void onChanged(StartScreenData data) {
-                pgJob.setVisibility(View.GONE);
-                jobArrayList.clear();
-                jobArrayList.addAll(data.getJobList());
+        jobsViewModel.getStartScreenData().observe(this, data -> {
+            pgJob.setVisibility(View.GONE);
+            jobArrayList.clear();
+            jobArrayList.addAll(data.getJobList());
+            jobAdapter.notifyDataSetChanged();
 
-                pgCategory.setVisibility(View.GONE);
-                categoryArrayList.clear();
-                categoryArrayList.addAll(data.getCategoryList());
-
-                jobAdapter.notifyDataSetChanged();
-                categoryAdapter.notifyDataSetChanged();
-            }
+            pgCategory.setVisibility(View.GONE);
+            categoryArrayList.clear();
+            categoryArrayList.addAll(data.getCategoryList());
+            categoryAdapter.notifyDataSetChanged();
         });
 
         return view;

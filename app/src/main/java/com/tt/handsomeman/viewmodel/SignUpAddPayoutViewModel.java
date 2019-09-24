@@ -59,7 +59,7 @@ public class SignUpAddPayoutViewModel extends ViewModel {
     }
 
     private boolean isPortalCodeValid(String portalCode) {
-        return portalCode != null && portalCode.trim().length() > 5;
+        return portalCode != null && portalCode.trim().length() == 6;
     }
 
     private boolean isEmailValid(String email) {
@@ -74,11 +74,11 @@ public class SignUpAddPayoutViewModel extends ViewModel {
     }
 
     private boolean isAccountNumberValid(String accountNumber) {
-        return accountNumber != null && accountNumber.trim().length() > 10;
+        return accountNumber != null && accountNumber.trim().length() > 11;
     }
 
     private boolean isAccountRoutingValid(String accountRouting) {
-        return accountRouting != null && accountRouting.trim().length() > 5;
+        return accountRouting != null && accountRouting.trim().length() == 9;
     }
 
     private boolean isBirthdayValid(String birthday) {

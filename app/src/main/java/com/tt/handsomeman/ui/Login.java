@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -56,8 +57,7 @@ public class Login extends AppCompatActivity {
         btForgot = findViewById(R.id.buttonForgotPassword);
         pgLogin = findViewById(R.id.progressBarLogin);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        HandymanApp.getComponent().inject(this);
 
         findViewById(R.id.loginBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,18 +129,20 @@ public class Login extends AppCompatActivity {
                 String mail = edtMail.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                HandymanApp.getComponent().inject(Login.this);
-
-                loginService.login(mail, password).enqueue(new Callback<LoginResponse>() {
+                loginService.doLogin(mail, password).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.body() != null && response.body().getData() != null) {
                             String token = response.body().getData().getToken();
+                            Integer state = response.body().getData().getState();
                             pgLogin.setVisibility(View.GONE);
 
                             sharedPreferencesUtils.put("token", token);
+                            sharedPreferencesUtils.put("state", state);
 
-                            startActivity(new Intent(getApplicationContext(), SignUpAddPayout.class));
+                            startActivity(new Intent(Login.this, SignUpAddPayout.class));
+                            Register.register.finish();
+                            finish();
                         } else {
                             pgLogin.setVisibility(View.GONE);
                             Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();

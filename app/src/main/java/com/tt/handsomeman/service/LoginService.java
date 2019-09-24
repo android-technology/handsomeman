@@ -11,5 +11,5 @@ import retrofit2.http.POST;
 public interface LoginService {
     @FormUrlEncoded
     @POST(Constants.LOGIN_SUFFIX)
-    Call<LoginResponse> login(@Field("email") String email, @Field("password") String password);
+    Call<LoginResponse> doLogin(@Field("email") String email, @Field("password") String password);
 }

@@ -45,8 +45,15 @@ public class SignUpAddPayout extends AppCompatActivity {
         Spinner spinnerCountry = findViewById(R.id.spinnerCountryPayout);
         ibBirthDay = findViewById(R.id.imageButtonSignUpBirthday);
         ibCheck = findViewById(R.id.imageButtonCheckSignUpPayout);
-
         ibCheck.setEnabled(false);
+
+        findViewById(R.id.signUpPayoutBackButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,12 +70,6 @@ public class SignUpAddPayout extends AppCompatActivity {
         final EditText edtAccountRouting = findViewById(R.id.editTextAccountRoutingSignUpPayout);
         edtBirthday = findViewById(R.id.editTextBirthdaySignUpPayout);
 
-        findViewById(R.id.signUpPayoutBackButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
         signUpAddPayoutViewModel = ViewModelProviders.of(this).get(SignUpAddPayoutViewModel.class);
 
@@ -226,5 +227,11 @@ public class SignUpAddPayout extends AppCompatActivity {
 
         edtBirthday.setText(sdf.format(myCalendar.getTime()));
         edtBirthday.setError(null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Register.register = null;
     }
 }

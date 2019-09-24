@@ -41,13 +41,13 @@
     <string name="individual">Cá nhân</string>
     <string name="business">Dịch vụ</string>
     <string name="add_payout">Thêm tài khoản thanh toán</string>
-    <string name="not_valid_account_number">Số tài khoản phải có trên 10 ký tự</string>
-    <string name="not_valid_account_routing">Định hướng tài khoản phải có trên 5 ký tự</string>
+    <string name="not_valid_account_number">Số tài khoản phải có trên 11 ký tự</string>
+    <string name="not_valid_account_routing">Định hướng tài khoản phải có 9 ký tự</string>
     <string name="not_valid_address">Địa chỉ phải có trên 3 ký tự</string>
     <string name="not_valid_email">Email không hợp lệ</string>
     <string name="not_valid_first_name">Họ phải có trên 2 ký tự</string>
     <string name="not_valid_last_name">Tên phải có trên 2 ký tự</string>
-    <string name="not_valid_portal_code">Mã bưu điện phải có trên 5 ký tự</string>
+    <string name="not_valid_portal_code">Mã bưu điện phải có 6 ký tự</string>
     <string name="not_valid_birthday">Ngày sinh không hợp lệ</string>
     <string name="search_by_word">Tìm kiếm theo Tên</string>
     <string name="your_location">Vị trí của bạn</string>
