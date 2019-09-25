@@ -8,6 +8,7 @@ import com.tt.handsomeman.di.component.DaggerAppComponent;
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.LoginModule;
 import com.tt.handsomeman.di.module.NetworkModule;
+import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
 import com.tt.handsomeman.di.module.SignUpModule;
 import com.tt.handsomeman.di.module.StartScreenModule;
 
@@ -40,6 +41,7 @@ public class HandymanApp extends Application {
                 .startScreenModule(new StartScreenModule())
                 .loginModule(new LoginModule())
                 .signUpModule(new SignUpModule())
+                .signUpAddPayoutModule(new SignUpAddPayoutModule())
                 .build();
     }
 

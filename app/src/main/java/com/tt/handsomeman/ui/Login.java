@@ -2,12 +2,10 @@ package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +20,10 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.response.LoginResponse;
 import com.tt.handsomeman.service.LoginService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusCodeConstant;
+import com.tt.handsomeman.util.StatusConstant;
 
 import javax.inject.Inject;
 
@@ -66,6 +67,86 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        edtChangedListener();
+
+        doLogin();
+
+        doForgotPassword();
+
+        viewPassword();
+    }
+
+    private void viewPassword() {
+        cbVisiblePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cbVisiblePassword.isChecked()) {
+                    edtPassword.setTransformationMethod(null);
+                } else {
+                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                edtPassword.setSelection(edtPassword.length());
+            }
+        });
+    }
+
+    private void doForgotPassword() {
+        btForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, ForgotPassword.class));
+            }
+        });
+    }
+
+    private void doLogin() {
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                pgLogin.setVisibility(View.VISIBLE);
+                btLogin.setEnabled(false);
+                String mail = edtMail.getText().toString();
+                String password = edtPassword.getText().toString();
+
+                loginService.doLogin(mail, password).enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
+                            String token = response.body().getData().getToken();
+                            Integer state = response.body().getData().getState();
+                            pgLogin.setVisibility(View.GONE);
+
+                            sharedPreferencesUtils.put("token", token);
+                            sharedPreferencesUtils.put("state", state);
+
+                            if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                                startActivity(new Intent(Login.this, SignUpAddPayout.class));
+                                Register.register.finish();
+                                finish();
+                            } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                                startActivity(new Intent(Login.this, HandyManMainScreen.class));
+                                Register.register.finish();
+                                finish();
+                            }
+                        } else {
+                            pgLogin.setVisibility(View.GONE);
+                            btLogin.setEnabled(true);
+                            Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+                        pgLogin.setVisibility(View.GONE);
+                        btLogin.setEnabled(true);
+                        Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void edtChangedListener() {
         edtMail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -119,61 +200,6 @@ public class Login extends AppCompatActivity {
                 if (mailValidate && passwordValidate) {
                     btLogin.setEnabled(true);
                 }
-            }
-        });
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                pgLogin.setVisibility(View.VISIBLE);
-                String mail = edtMail.getText().toString();
-                String password = edtPassword.getText().toString();
-
-                loginService.doLogin(mail, password).enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        if (response.body() != null && response.body().getData() != null) {
-                            String token = response.body().getData().getToken();
-                            Integer state = response.body().getData().getState();
-                            pgLogin.setVisibility(View.GONE);
-
-                            sharedPreferencesUtils.put("token", token);
-                            sharedPreferencesUtils.put("state", state);
-
-                            startActivity(new Intent(Login.this, SignUpAddPayout.class));
-                            Register.register.finish();
-                            finish();
-                        } else {
-                            pgLogin.setVisibility(View.GONE);
-                            Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        pgLogin.setVisibility(View.GONE);
-                        Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-
-        btForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, ForgotPassword.class));
-            }
-        });
-
-        cbVisiblePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (cbVisiblePassword.isChecked()) {
-                    edtPassword.setTransformationMethod(null);
-                } else {
-                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
-                }
-                edtPassword.setSelection(edtPassword.length());
             }
         });
     }

@@ -37,11 +37,9 @@ public class SpinnerTypePayout extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.spinner_signup_payout, null);
-            TextView typeName = view.findViewById(R.id.textViewSpinnerPayout);
-            typeName.setText(type[i]);
-        }
+        view = inflater.inflate(R.layout.spinner_signup_payout, null);
+        TextView typeName = view.findViewById(R.id.textViewSpinnerPayout);
+        typeName.setText(type[i]);
         return view;
     }
 }

@@ -1,13 +1,16 @@
 package com.tt.handsomeman.ui;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,15 +19,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SpinnerCountryPayout;
 import com.tt.handsomeman.adapter.SpinnerTypePayout;
 import com.tt.handsomeman.model.SignUpAddPayoutFormState;
+import com.tt.handsomeman.model.UserActivatingAccount;
+import com.tt.handsomeman.response.StandardResponse;
+import com.tt.handsomeman.service.SignUpAddPayoutService;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusCodeConstant;
+import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.SignUpAddPayoutViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpAddPayout extends AppCompatActivity {
     String[] type, country;
@@ -34,32 +50,19 @@ public class SignUpAddPayout extends AppCompatActivity {
 
     private SignUpAddPayoutViewModel signUpAddPayoutViewModel;
 
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+
+    @Inject
+    SignUpAddPayoutService signUpAddPayoutService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_add_payout);
+
         type = getResources().getStringArray(R.array.type_array);
         country = getResources().getStringArray(R.array.countries_array);
-
-        Spinner spinnerType = findViewById(R.id.spinnerTypePayout);
-        Spinner spinnerCountry = findViewById(R.id.spinnerCountryPayout);
-        ibBirthDay = findViewById(R.id.imageButtonSignUpBirthday);
-        ibCheck = findViewById(R.id.imageButtonCheckSignUpPayout);
-        ibCheck.setEnabled(false);
-
-        findViewById(R.id.signUpPayoutBackButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        ibCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(SignUpAddPayout.this, "Test", Toast.LENGTH_LONG).show();
-            }
-        });
 
         final EditText edtFirstName = findViewById(R.id.editTextFirstNameSignUpPayout);
         final EditText edtLastName = findViewById(R.id.editTextLastNameSignUpPayout);
@@ -69,10 +72,172 @@ public class SignUpAddPayout extends AppCompatActivity {
         final EditText edtAccountNumber = findViewById(R.id.editTextAccountNumberSignUpPayout);
         final EditText edtAccountRouting = findViewById(R.id.editTextAccountRoutingSignUpPayout);
         edtBirthday = findViewById(R.id.editTextBirthdaySignUpPayout);
+        FrameLayout progressBarHolder = findViewById(R.id.progressBarHolder);
 
+        Spinner spinnerType = findViewById(R.id.spinnerTypePayout);
+        Spinner spinnerCountry = findViewById(R.id.spinnerCountryPayout);
+        ibBirthDay = findViewById(R.id.imageButtonSignUpBirthday);
+        ibCheck = findViewById(R.id.imageButtonCheckSignUpPayout);
+        ibCheck.setEnabled(false);
 
+        HandymanApp.getComponent().inject(this);
         signUpAddPayoutViewModel = ViewModelProviders.of(this).get(SignUpAddPayoutViewModel.class);
 
+        findViewById(R.id.signUpPayoutBackButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        observeSignUpAddPayoutState(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting);
+
+        edtChangedListener(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting);
+
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+        showBirthdayPickerDialog(date);
+
+        generateTypeSpinner(spinnerType);
+        generateCountrySpinner(spinnerCountry);
+
+        doAddPayout(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, progressBarHolder, spinnerType, spinnerCountry);
+    }
+
+    private void doAddPayout(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, FrameLayout progressBarHolder, Spinner spinnerType, Spinner spinnerCountry) {
+        ibCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlphaAnimation inAnimation;
+
+                progressBarHolder.bringToFront();
+                inAnimation = new AlphaAnimation(0f, 1f);
+                inAnimation.setDuration(300);
+                progressBarHolder.setAnimation(inAnimation);
+                progressBarHolder.setVisibility(View.VISIBLE);
+
+                ibCheck.setEnabled(false);
+
+                String token = sharedPreferencesUtils.get("token", String.class);
+
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                edtBirthday.setText(sdf.format(myCalendar.getTime()));
+
+                String firstName = edtFirstName.getText().toString();
+                String lastName = edtLastName.getText().toString();
+                String address = edtAddress.getText().toString();
+                Integer portalCode = Integer.parseInt(edtPortalCode.getText().toString());
+                String birthday = sdf.format(myCalendar.getTime());
+                String selectedType = type[spinnerType.getSelectedItemPosition()];
+                String email = edtEmail.getText().toString();
+                String accountNumber = edtAccountNumber.getText().toString();
+                String accountRouting = edtAccountRouting.getText().toString();
+                String selectedCountry = country[spinnerCountry.getSelectedItemPosition()];
+                String accountStatus = "T"; // only one character
+                String businessNumber = "123456";
+
+                String kindOfHandyman = "CPR";
+
+                UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry, accountStatus, businessNumber);
+
+                signUpAddPayoutService.doSignUpAddPayout(token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
+                    @Override
+                    public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                        if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
+                            Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(SignUpAddPayout.this, HandyManMainScreen.class));
+                            finish();
+                        } else {
+                            AlphaAnimation outAnimation;
+
+                            outAnimation = new AlphaAnimation(1f, 0f);
+                            outAnimation.setDuration(200);
+                            progressBarHolder.setAnimation(outAnimation);
+                            progressBarHolder.setVisibility(View.GONE);
+                            ibCheck.setEnabled(true);
+                            Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StandardResponse> call, Throwable t) {
+                        AlphaAnimation outAnimation;
+
+                        outAnimation = new AlphaAnimation(1f, 0f);
+                        outAnimation.setDuration(200);
+                        progressBarHolder.setAnimation(outAnimation);
+                        progressBarHolder.setVisibility(View.GONE);
+                        ibCheck.setEnabled(true);
+                        Toast.makeText(SignUpAddPayout.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void showBirthdayPickerDialog(DatePickerDialog.OnDateSetListener date) {
+        ibBirthDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                showDatePickerDialog(date);
+            }
+        });
+
+        edtBirthday.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                showDatePickerDialog(date);
+            }
+        });
+    }
+
+    private void edtChangedListener(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                signUpAddPayoutViewModel.signUpPayOutDateChanged(edtFirstName.getText().toString(), edtLastName.getText().toString(), edtAddress.getText().toString(),
+                        edtPortalCode.getText().toString(), edtEmail.getText().toString(), edtAccountNumber.getText().toString(),
+                        edtAccountRouting.getText().toString(), edtBirthday.getText().toString());
+            }
+        };
+
+        edtFirstName.addTextChangedListener(textWatcher);
+        edtLastName.addTextChangedListener(textWatcher);
+        edtAddress.addTextChangedListener(textWatcher);
+        edtPortalCode.addTextChangedListener(textWatcher);
+        edtEmail.addTextChangedListener(textWatcher);
+        edtAccountNumber.addTextChangedListener(textWatcher);
+        edtAccountRouting.addTextChangedListener(textWatcher);
+    }
+
+    private void observeSignUpAddPayoutState(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
         signUpAddPayoutViewModel.getUpAddPayoutFormState().observe(this, new Observer<SignUpAddPayoutFormState>() {
             @Override
             public void onChanged(SignUpAddPayoutFormState signUpAddPayoutFormState) {
@@ -114,101 +279,16 @@ public class SignUpAddPayout extends AppCompatActivity {
                 }
             }
         });
-
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                signUpAddPayoutViewModel.signUpPayOutDateChanged(edtFirstName.getText().toString(), edtLastName.getText().toString(), edtAddress.getText().toString(),
-                        edtPortalCode.getText().toString(), edtEmail.getText().toString(), edtAccountNumber.getText().toString(),
-                        edtAccountRouting.getText().toString(), edtBirthday.getText().toString());
-            }
-        };
-
-        edtFirstName.addTextChangedListener(textWatcher);
-        edtLastName.addTextChangedListener(textWatcher);
-        edtAddress.addTextChangedListener(textWatcher);
-        edtPortalCode.addTextChangedListener(textWatcher);
-        edtEmail.addTextChangedListener(textWatcher);
-        edtAccountNumber.addTextChangedListener(textWatcher);
-        edtAccountRouting.addTextChangedListener(textWatcher);
-
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-
-        };
-
-        ibBirthDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO Auto-generated method stub
-                showDatePickerDialog(date);
-            }
-        });
-
-        edtBirthday.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                showDatePickerDialog(date);
-            }
-        });
-
-        generateTypeSpinner(spinnerType);
-        generateCountrySpinner(spinnerCountry);
-    }
-
-    private void generateCountrySpinner(Spinner spinnerCountry) {
-        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(SignUpAddPayout.this, country);
-        spinnerCountry.setAdapter(spinnerCountryPayout);
     }
 
     private void generateTypeSpinner(Spinner spinnerType) {
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(SignUpAddPayout.this, type);
         spinnerType.setAdapter(spinnerTypePayout);
+    }
+
+    private void generateCountrySpinner(Spinner spinnerCountry) {
+        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(SignUpAddPayout.this, country);
+        spinnerCountry.setAdapter(spinnerCountryPayout);
     }
 
 //    private void showDatePickerDialog(DatePickerDialog.OnDateSetListener date) {

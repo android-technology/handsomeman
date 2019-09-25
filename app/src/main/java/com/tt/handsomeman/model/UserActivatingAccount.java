@@ -1,64 +1,33 @@
 package com.tt.handsomeman.model;
 
-import java.util.Date;
-
 public class UserActivatingAccount {
 
-    private String email;
-
     private String firstName;
-
     private String lastName;
-
     private String address;
-
     private Integer portalCode;
-
-    private Date birthday;
-
+    private String birthday;
     private String type;
-
-    private String country;
-
-    private String status;
-
-    private String number;
-
+    private String email;
     private String accountNumber;
-
     private String accountRouting;
+    private String country;
+    private String accountStatus;
+    private String businessNumber;
 
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public UserActivatingAccount(String firstName, String lastName, String address, Integer portalCode, String birthday, String type, String email, String accountNumber, String accountRouting, String country, String accountStatus, String businessNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.portalCode = portalCode;
+        this.birthday = birthday;
+        this.type = type;
         this.email = email;
+        this.accountNumber = accountNumber;
+        this.accountRouting = accountRouting;
+        this.country = country;
+        this.accountStatus = accountStatus;
+        this.businessNumber = businessNumber;
     }
 
     public String getFirstName() {
@@ -85,19 +54,19 @@ public class UserActivatingAccount {
         this.address = address;
     }
 
-    public int getPortalCode() {
+    public Integer getPortalCode() {
         return portalCode;
     }
 
-    public void setPortalCode(int portalCode) {
+    public void setPortalCode(Integer portalCode) {
         this.portalCode = portalCode;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -107,6 +76,14 @@ public class UserActivatingAccount {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAccountNumber() {
@@ -123,5 +100,29 @@ public class UserActivatingAccount {
 
     public void setAccountRouting(String accountRouting) {
         this.accountRouting = accountRouting;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+
+    public String getBusinessNumber() {
+        return businessNumber;
+    }
+
+    public void setBusinessNumber(String businessNumber) {
+        this.businessNumber = businessNumber;
     }
 }

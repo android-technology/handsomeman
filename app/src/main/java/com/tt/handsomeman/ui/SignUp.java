@@ -84,7 +84,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pgSignUp.setVisibility(View.VISIBLE);
-
+                btnSignUp.setEnabled(false);
                 String name = edtName.getText().toString();
                 String mail = edtMail.getText().toString();
                 String password = edtPassword.getText().toString();
@@ -100,6 +100,7 @@ public class SignUp extends AppCompatActivity {
                             finish();
                         } else {
                             pgSignUp.setVisibility(View.GONE);
+                            btnSignUp.setEnabled(true);
                             Toast.makeText(SignUp.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -107,6 +108,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<StandardResponse> call, Throwable t) {
                         pgSignUp.setVisibility(View.GONE);
+                        btnSignUp.setEnabled(true);
                         Toast.makeText(SignUp.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });

@@ -3,7 +3,9 @@ package com.tt.handsomeman.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Job {
 
@@ -68,6 +70,29 @@ public class Job {
         this.location = location;
     }
 
+    public String setCreateTimeBinding(Date createTime) {
+        String myFormat = "h"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        return sdf.format(createTime) + " hour(s) ago";
+    }
+
+    public String setBudgetRange(Integer budgetMin, Integer budgetMax) {
+        return ("$ " + budgetMin + " -" + " $" + budgetMax);
+    }
+
+    public String setLocationBinding(String location) {
+        if (location.length() > 10) {
+            location = location.substring(0, 11) + "...";
+        }
+        return location;
+    }
+
+    public String setDeadlineBinding(Date deadline) {
+        String myFormat = "dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        return sdf.format(deadline) + " day(s) left";
+    }
+
     public Integer getId() {
         return id;
     }
@@ -96,8 +121,8 @@ public class Job {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public Date getDeadline() {
+        return deadline;
     }
 
     public String getDetail() {
@@ -124,20 +149,9 @@ public class Job {
         this.budgetMax = budgetMax;
     }
 
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
 
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public Double getLat() {
@@ -204,4 +218,15 @@ public class Job {
         this.status = status;
     }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

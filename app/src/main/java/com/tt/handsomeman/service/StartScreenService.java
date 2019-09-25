@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface StartScreenService {
     @FormUrlEncoded
     @POST(Constants.START_SCREEN_SUFFIX)
-    Single<Response<StartScreenResponse>> getStartScreen(@Header("Authorization") String authorization, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Double radius);
+    Single<Response<StartScreenResponse>> getStartScreen(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Double radius);
 }
