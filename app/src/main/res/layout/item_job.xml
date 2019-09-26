@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-
-        <variable
-            name="obj"
-            type="com.tt.handsomeman.model.Job" />
-    </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="15dp"
@@ -21,7 +14,6 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:text="@{obj.title}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +23,6 @@
         android:layout_height="wrap_content"
         android:textColor="#a2a2a2"
         android:textSize="12sp"
-        android:text="@{obj.setCreateTimeBinding(obj.createTime)}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewJobName" />
 
@@ -64,7 +55,6 @@
                 android:id="@+id/textViewBudgetRange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{obj.setBudgetRange(obj.budgetMin, obj.budgetMax)}"
                 android:textColor="#a2a2a2"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -88,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#a2a2a2"
-                android:text="@{obj.setLocationBinding(obj.location)}"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -111,7 +100,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#a2a2a2"
-                android:text="@{obj.setDeadlineBinding(obj.deadline)}"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -135,4 +123,4 @@
         android:background="#f3f3f3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-</androidx.constraintlayout.widget.ConstraintLayout></layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
