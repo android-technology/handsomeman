@@ -1,5 +1,7 @@
 package com.tt.handsomeman.util;
 
+import androidx.lifecycle.MutableLiveData;
+
 public class Constants {
     public static final String BASE_URL = "https://handsomeman.herokuapp.com/";
     public static final String LOGIN_SUFFIX = "api/login";
@@ -10,4 +12,6 @@ public class Constants {
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;
 
+    public static MutableLiveData<Double> Longitude = new MutableLiveData<>();
+    public static MutableLiveData<Double> Latitude = new MutableLiveData<>();
 }

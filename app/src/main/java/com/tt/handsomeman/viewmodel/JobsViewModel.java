@@ -36,7 +36,7 @@ public class JobsViewModel extends AndroidViewModel {
         this.startScreenService = startScreenService;
     }
 
-    public void initData(String authorization, Double lat, Double lng, Double radius) {
+    public void fetchData(String authorization, Double lat, Double lng, Double radius) {
         compositeDisposable
                 .add(startScreenService.getStartScreen(authorization, lat, lng, radius)
                         .subscribeOn(Schedulers.io())

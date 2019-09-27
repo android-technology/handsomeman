@@ -45,7 +45,7 @@ public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<BaseRe
         }
 
         public void bind(Object obj) {
-            binding.setVariable(BR.obj, obj);
+//            binding.setVariable(BR.obj, obj);
             binding.executePendingBindings();
         }
     }

@@ -1,17 +1,30 @@
 package com.tt.handsomeman.ui.jobs;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CategoryAdapter;
@@ -19,6 +32,7 @@ import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.service.StartScreenService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -59,29 +73,58 @@ public class JobsChildFragment extends Fragment {
         pgJob = view.findViewById(R.id.progressBarJobs);
         pgCategory = view.findViewById(R.id.progressBarCategory);
 
+        createJobRecycleView(view);
+
+        createCategoryRecycleView(view);
+
+        fetchData(Constants.Latitude.getValue(), Constants.Longitude.getValue());
+
+        Constants.Latitude.observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double aDouble) {
+                fetchData(aDouble, Constants.Longitude.getValue());
+            }
+        });
+
+        return view;
+    }
+
+    private void createJobRecycleView(View view) {
         RecyclerView rcvJob = view.findViewById(R.id.recycleViewJobs);
         jobAdapter = new JobAdapter(getContext(), jobArrayList);
-
-        RecyclerView rcvCategory = view.findViewById(R.id.recycleViewCategories);
-        categoryAdapter = new CategoryAdapter(getContext(), categoryArrayList);
-
+        jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getActivity(), jobArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
         rcvJob.setLayoutManager(layoutManagerJob);
         rcvJob.setItemAnimator(new DefaultItemAnimator());
         rcvJob.setAdapter(jobAdapter);
+    }
 
+    private void createCategoryRecycleView(View view) {
+        RecyclerView rcvCategory = view.findViewById(R.id.recycleViewCategories);
+        categoryAdapter = new CategoryAdapter(getContext(), categoryArrayList);
+        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getActivity(), categoryArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rcvCategory.setLayoutManager(layoutManagerCategory);
         rcvCategory.setItemAnimator(new DefaultItemAnimator());
         rcvCategory.setAdapter(categoryAdapter);
+    }
 
+    private void fetchData(Double lat, Double lng) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        double lat = 40.80549240112305;
-        double lng = -96.7181396484375;
         double radius = 10d;
 
-        jobsViewModel.initData(authorizationCode, lat, lng, radius);
+        jobsViewModel.fetchData(authorizationCode, lat, lng, radius);
 
         jobsViewModel.getStartScreenData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
@@ -94,8 +137,6 @@ public class JobsChildFragment extends Fragment {
             categoryArrayList.addAll(data.getCategoryList());
             categoryAdapter.notifyDataSetChanged();
         });
-
-        return view;
     }
 
     @Override

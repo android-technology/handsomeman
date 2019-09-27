@@ -1,26 +1,34 @@
 package com.tt.handsomeman.ui;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.ui.jobs.JobsFragment;
 import com.tt.handsomeman.ui.messages.MessagesFragment;
 import com.tt.handsomeman.ui.more.MoreFragment;
 import com.tt.handsomeman.ui.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.notifications.NotificationsFragment;
+import com.tt.handsomeman.util.Constants;
 
 public class HandyManMainScreen extends AppCompatActivity {
 
@@ -32,6 +40,14 @@ public class HandyManMainScreen extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
+    private LocationManager locationManager;
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final int PERMISSION_REQUEST_LOCATION = 0;
+    private static final long MIN_TIME_TO_REQUEST_LOCATION = 1000 * 30 * 1; //30s
+    private static final float MIN_DISTANCE_TO_REQUEST_LOCATION = 5; //5 meters
+
+    private Double lat, lng;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +58,29 @@ public class HandyManMainScreen extends AppCompatActivity {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupWithNavController(navView, navController);
 
+        getLastKnownLocation();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        startLocationService();
+
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentManipulate();
     }
+
+    private void getLastKnownLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Constants.Latitude.setValue(location.getLatitude());
+                            Constants.Longitude.setValue(location.getLongitude());
+                        }
+                    }
+                });
+    }
+
     private void FragmentManipulate() {
         fm.beginTransaction().add(R.id.nav_host_fragment, fragment5, "5").hide(fragment5).commit();
         fm.beginTransaction().add(R.id.nav_host_fragment, fragment4, "4").hide(fragment4).commit();
@@ -88,4 +124,91 @@ public class HandyManMainScreen extends AppCompatActivity {
         }
     };
 
+    private final LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            Constants.Latitude.setValue(location.getLatitude());
+            Constants.Longitude.setValue(location.getLongitude());
+            Toast.makeText(HandyManMainScreen.this, "Refreshed", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // BEGIN_INCLUDE(onRequestPermissionsResult)
+        if (requestCode == PERMISSION_REQUEST_LOCATION) {
+            // Request for camera permission.
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission has been granted. Start camera preview Activity.
+                startLocationService();
+            } else {
+                // Permission request was denied.
+                Snackbar.make(findViewById(R.id.container), "Permission is denied",
+                        Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        // END_INCLUDE(onRequestPermissionsResult)
+    }
+
+    private void startLocationService() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already available, start camera preview
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_TO_REQUEST_LOCATION, MIN_DISTANCE_TO_REQUEST_LOCATION, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_TO_REQUEST_LOCATION, MIN_DISTANCE_TO_REQUEST_LOCATION, locationListener);
+        } else {
+            // Permission is missing and must be requested.
+            requestLocationPermission();
+        }
+    }
+
+    private void requestLocationPermission() {
+        // Permission has not been granted and must be requested.
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with cda button to request the missing permission.
+            Snackbar.make(findViewById(R.id.container), "Permission is needed",
+                    Snackbar.LENGTH_INDEFINITE).setAction("GRANT IT", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(HandyManMainScreen.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            PERMISSION_REQUEST_LOCATION);
+                }
+            }).show();
+
+        } else {
+            Snackbar.make(findViewById(R.id.container), "Location is unavailable", Snackbar.LENGTH_SHORT).show();
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_LOCATION);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        locationManager.removeUpdates(locationListener);
+    }
 }
