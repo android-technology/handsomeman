@@ -22,19 +22,19 @@ public class JobsViewModel extends AndroidViewModel {
 
     private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
 
+    private StartScreenService startScreenService;
+
+    @Inject
+    JobsViewModel(@NonNull Application application, StartScreenService startScreenService) {
+        super(application);
+        this.startScreenService = startScreenService;
+    }
+
     public LiveData<StartScreenData> getStartScreenData() {
         return screenDataMutableLiveData;
     }
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-
-    private StartScreenService startScreenService;
-
-    @Inject
-    public JobsViewModel(@NonNull Application application, StartScreenService startScreenService) {
-        super(application);
-        this.startScreenService = startScreenService;
-    }
 
     public void fetchData(String authorization, Double lat, Double lng, Double radius) {
         compositeDisposable

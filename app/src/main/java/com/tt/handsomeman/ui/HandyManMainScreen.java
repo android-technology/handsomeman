@@ -43,10 +43,8 @@ public class HandyManMainScreen extends AppCompatActivity {
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationClient;
     private static final int PERMISSION_REQUEST_LOCATION = 0;
-    private static final long MIN_TIME_TO_REQUEST_LOCATION = 1000 * 30 * 1; //30s
+    private static final long MIN_TIME_TO_REQUEST_LOCATION = 0; //30s
     private static final float MIN_DISTANCE_TO_REQUEST_LOCATION = 5; //5 meters
-
-    private Double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +171,10 @@ public class HandyManMainScreen extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED) {
             // Permission is already available, start camera preview
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_TO_REQUEST_LOCATION, MIN_DISTANCE_TO_REQUEST_LOCATION, locationListener);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_TO_REQUEST_LOCATION, MIN_DISTANCE_TO_REQUEST_LOCATION, locationListener);
+
+            if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER)) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_TO_REQUEST_LOCATION, MIN_DISTANCE_TO_REQUEST_LOCATION, locationListener);
+            }
         } else {
             // Permission is missing and must be requested.
             requestLocationPermission();

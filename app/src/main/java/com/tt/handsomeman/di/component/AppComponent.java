@@ -7,6 +7,7 @@ import com.tt.handsomeman.di.module.NetworkModule;
 import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
 import com.tt.handsomeman.di.module.SignUpModule;
 import com.tt.handsomeman.di.module.StartScreenModule;
+import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
@@ -26,7 +27,8 @@ import dagger.Component;
         LoginModule.class,
         SignUpModule.class,
         SignUpAddPayoutModule.class,
-        NetworkModule.class})
+        NetworkModule.class,
+        ViewModelModule.class})
 public interface AppComponent {
 
     void inject(JobsChildFragment fragment);
