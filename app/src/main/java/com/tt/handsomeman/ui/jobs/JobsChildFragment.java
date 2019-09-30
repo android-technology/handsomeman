@@ -1,9 +1,11 @@
 package com.tt.handsomeman.ui.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.YourLocation;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -43,6 +46,7 @@ public class JobsChildFragment extends Fragment {
     private List<Job> jobArrayList = new ArrayList<>();
     private List<Category> categoryArrayList = new ArrayList<>();
     private JobsViewModel jobsViewModel;
+    private LinearLayout showMoreYourLocation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,10 +60,13 @@ public class JobsChildFragment extends Fragment {
 
         pgJob = view.findViewById(R.id.progressBarJobs);
         pgCategory = view.findViewById(R.id.progressBarCategory);
+        showMoreYourLocation = view.findViewById(R.id.showMoreYourLocation);
 
         createJobRecycleView(view);
 
         createCategoryRecycleView(view);
+
+        showMoreByYourLocation();
 
         fetchData(Constants.Latitude.getValue(), Constants.Longitude.getValue());
 
@@ -71,6 +78,15 @@ public class JobsChildFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void showMoreByYourLocation() {
+        showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), YourLocation.class));
+            }
+        });
     }
 
     private void createJobRecycleView(View view) {

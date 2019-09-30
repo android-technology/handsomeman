@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
+        <activity android:name=".ui.YourLocation"></activity>
         <activity android:name=".ui.HandyManMainScreen" />
         <activity android:name=".ui.SignUpAddPayout" />
         <activity android:name=".ui.ForgotPassword" />

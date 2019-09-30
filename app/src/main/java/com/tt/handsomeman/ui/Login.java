@@ -18,7 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.response.LoginResponse;
+import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.TokenState;
 import com.tt.handsomeman.service.LoginService;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -108,9 +109,9 @@ public class Login extends AppCompatActivity {
                 String mail = edtMail.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                loginService.doLogin(mail, password).enqueue(new Callback<LoginResponse>() {
+                loginService.doLogin(mail, password).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    public void onResponse(Call<DataBracketResponse<TokenState>> call, Response<DataBracketResponse<TokenState>> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
                             String token = response.body().getData().getToken();
                             Integer state = response.body().getData().getState();
@@ -136,7 +137,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    public void onFailure(Call<DataBracketResponse<TokenState>> call, Throwable t) {
                         pgLogin.setVisibility(View.GONE);
                         btLogin.setEnabled(true);
                         Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();

@@ -55,9 +55,6 @@ public class SignUpViewModel extends ViewModel {
     }
 
     private boolean isMatchPassword(String password, String rePassword) {
-        if (rePassword != null && !(rePassword.equals(password))) {
-            return false;
-        }
-        return true;
+        return rePassword == null || rePassword.equals(password);
     }
 }

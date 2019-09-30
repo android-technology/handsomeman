@@ -6,11 +6,11 @@ import com.google.gson.Gson;
 import com.tt.handsomeman.di.component.AppComponent;
 import com.tt.handsomeman.di.component.DaggerAppComponent;
 import com.tt.handsomeman.di.module.AppModule;
+import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.LoginModule;
 import com.tt.handsomeman.di.module.NetworkModule;
 import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
 import com.tt.handsomeman.di.module.SignUpModule;
-import com.tt.handsomeman.di.module.StartScreenModule;
 
 public class HandymanApp extends Application {
 
@@ -42,7 +42,7 @@ public class HandymanApp extends Application {
                 .builder()
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
-                .startScreenModule(new StartScreenModule())
+                .jobModule(new JobModule())
                 .loginModule(new LoginModule())
                 .signUpModule(new SignUpModule())
                 .signUpAddPayoutModule(new SignUpAddPayoutModule())
