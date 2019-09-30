@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.Job;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
@@ -30,10 +27,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         this.jobList = jobList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -63,10 +56,15 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         return jobList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
         ImageButton btnJobDetail;
+
         MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 

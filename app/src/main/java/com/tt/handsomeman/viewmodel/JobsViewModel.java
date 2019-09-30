@@ -20,8 +20,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class JobsViewModel extends AndroidViewModel {
 
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
-
     private StartScreenService startScreenService;
 
     @Inject
@@ -33,8 +33,6 @@ public class JobsViewModel extends AndroidViewModel {
     public LiveData<StartScreenData> getStartScreenData() {
         return screenDataMutableLiveData;
     }
-
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void fetchData(String authorization, Double lat, Double lng, Double radius) {
         compositeDisposable

@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 public class SignUpAddPayoutModule {
     @Provides
     @Singleton
-    SignUpAddPayoutService provideSignUpAddPayoutService(Retrofit retrofit){
+    SignUpAddPayoutService provideSignUpAddPayoutService(Retrofit retrofit) {
         return retrofit.create(SignUpAddPayoutService.class);
     }
 }

@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -47,14 +46,11 @@ public class SignUpAddPayout extends AppCompatActivity {
     EditText edtBirthday;
     ImageButton ibBirthDay, ibCheck;
     Calendar myCalendar = Calendar.getInstance();
-
-    private SignUpAddPayoutViewModel signUpAddPayoutViewModel;
-
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-
     @Inject
     SignUpAddPayoutService signUpAddPayoutService;
+    private SignUpAddPayoutViewModel signUpAddPayoutViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

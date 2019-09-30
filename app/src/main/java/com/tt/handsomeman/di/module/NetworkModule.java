@@ -18,8 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     @Provides
-    HttpLoggingInterceptor getHttpLoggingInterceptor(){
-        HttpLoggingInterceptor httpLoggingInterceptor = new  HttpLoggingInterceptor();
+    HttpLoggingInterceptor getHttpLoggingInterceptor() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
     }

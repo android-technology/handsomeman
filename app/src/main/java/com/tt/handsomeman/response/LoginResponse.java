@@ -1,6 +1,6 @@
 package com.tt.handsomeman.response;
 
-public class LoginResponse extends StandardResponse{
+public class LoginResponse extends StandardResponse {
     private TokenState data;
 
     public TokenState getData() {

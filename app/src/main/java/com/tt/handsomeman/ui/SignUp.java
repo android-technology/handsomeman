@@ -35,13 +35,11 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity {
 
-    private SignUpViewModel signUpViewModel;
-
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-
     @Inject
     SignUpService signUpService;
+    private SignUpViewModel signUpViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

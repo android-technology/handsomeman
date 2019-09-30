@@ -18,11 +18,10 @@ import javax.inject.Inject;
 
 public class Register extends AppCompatActivity {
 
-    @Inject
-    SharedPreferencesUtils sharedPreferencesUtils;
-
     @SuppressLint("StaticFieldLeak")
     public static Activity register;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

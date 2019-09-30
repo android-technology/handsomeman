@@ -121,8 +121,16 @@ public class Job {
         return createTime;
     }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     public Date getDeadline() {
         return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public String getDetail() {
@@ -149,9 +157,12 @@ public class Job {
         this.budgetMax = budgetMax;
     }
 
-
     public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Double getLat() {
@@ -216,17 +227,5 @@ public class Job {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 }

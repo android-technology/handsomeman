@@ -23,6 +23,10 @@ public class HandymanApp extends Application {
         return mSelf;
     }
 
+    public static AppComponent getComponent() {
+        return component;
+    }
+
     public Gson getGSon() {
         return mGSon;
     }
@@ -43,9 +47,5 @@ public class HandymanApp extends Application {
                 .signUpModule(new SignUpModule())
                 .signUpAddPayoutModule(new SignUpAddPayoutModule())
                 .build();
-    }
-
-    public static AppComponent getComponent() {
-        return component;
     }
 }

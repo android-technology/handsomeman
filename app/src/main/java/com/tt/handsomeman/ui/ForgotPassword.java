@@ -1,7 +1,5 @@
 package com.tt.handsomeman.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -10,6 +8,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.R;
 
@@ -43,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(TextUtils.isEmpty(edtForgotPassword.getText().toString()) || !(Patterns.EMAIL_ADDRESS.matcher(edtForgotPassword.getText().toString()).matches())){
+                if (TextUtils.isEmpty(edtForgotPassword.getText().toString()) || !(Patterns.EMAIL_ADDRESS.matcher(edtForgotPassword.getText().toString()).matches())) {
                     btnForgotPassword.setEnabled(false);
                     edtForgotPassword.setError(getResources().getString(R.string.not_valid_mail));
                 } else {

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
@@ -33,6 +32,7 @@ public class OnBoardingSlidePageFragment extends Fragment {
         image = getArguments().getInt("image", 0);
         description = getArguments().getInt("description");
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -29,10 +29,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
@@ -53,6 +49,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public int getItemCount() {
         return categoryList.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

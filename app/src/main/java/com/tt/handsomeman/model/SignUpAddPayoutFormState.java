@@ -31,7 +31,7 @@ public class SignUpAddPayoutFormState {
         this.accountNumberError = accountNumberError;
         this.accountRoutingError = accountRoutingError;
         this.birthdayError = birthdayError;
-        isDataValid =false;
+        isDataValid = false;
     }
 
     public SignUpAddPayoutFormState(boolean isDataValid) {
@@ -86,7 +86,7 @@ public class SignUpAddPayoutFormState {
         return birthdayError;
     }
 
-    public boolean isDataValid(){
+    public boolean isDataValid() {
         return isDataValid;
     }
 }

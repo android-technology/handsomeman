@@ -13,7 +13,7 @@ public class LoginModule {
 
     @Provides
     @Singleton
-    LoginService provideLoginService(Retrofit retrofit){
+    LoginService provideLoginService(Retrofit retrofit) {
         return retrofit.create(LoginService.class);
     }
 }
