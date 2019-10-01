@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface JobService {
     @FormUrlEncoded
@@ -20,4 +21,7 @@ public interface JobService {
     @FormUrlEncoded
     @POST(Constants.YOUR_LOCATION_SUFFIX)
     Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Double radius);
+
+    @POST(Constants.JOB_BY_CATEGORY_SUFFIX)
+    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Authorization") String token, @Path("id") Integer categoryId);
 }

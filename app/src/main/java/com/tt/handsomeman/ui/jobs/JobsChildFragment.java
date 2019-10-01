@@ -24,6 +24,7 @@ import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.GroupByCategory;
 import com.tt.handsomeman.ui.YourLocation;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -110,7 +111,12 @@ public class JobsChildFragment extends Fragment {
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getActivity(), categoryArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                String categoryName = categoryArrayList.get(position).getName();
+
+                Intent intent = new Intent(getActivity(), GroupByCategory.class);
+                intent.putExtra("categoryName", categoryName);
+                intent.putExtra("categoryId", position + 1);
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());

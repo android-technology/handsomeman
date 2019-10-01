@@ -8,6 +8,7 @@ import com.tt.handsomeman.di.module.NetworkModule;
 import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
 import com.tt.handsomeman.di.module.SignUpModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
+import com.tt.handsomeman.ui.GroupByCategory;
 import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
@@ -47,4 +48,6 @@ public interface AppComponent {
     void inject(SignUpAddPayout signUpAddPayout);
 
     void inject(YourLocation yourLocation);
+
+    void inject(GroupByCategory category);
 }

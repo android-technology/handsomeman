@@ -1,11 +1,9 @@
 package com.tt.handsomeman.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,12 +16,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class JobsViewModel extends AndroidViewModel {
+public class JobsViewModel extends BaseViewModel {
 
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
 
@@ -65,9 +61,14 @@ public class JobsViewModel extends AndroidViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void clearSubscriptions() {
-        super.onCleared();
-        compositeDisposable.clear();
-        Log.d("AAA", "Disposed");
+    public void fetchJobsByCategory(String authorization, Integer categoryId) {
+        compositeDisposable
+                .add(jobService.getJobByCategory(authorization, categoryId)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((jobResponse) -> {
+                                    jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
+                                },
+                                throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 }

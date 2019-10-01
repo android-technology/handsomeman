@@ -1,0 +1,24 @@
+package com.tt.handsomeman.viewmodel;
+
+import android.app.Application;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+
+import io.reactivex.disposables.CompositeDisposable;
+
+public abstract class BaseViewModel extends AndroidViewModel {
+    CompositeDisposable compositeDisposable;
+
+    BaseViewModel(@NonNull Application application) {
+        super(application);
+        compositeDisposable = new CompositeDisposable();
+    }
+
+    public void clearSubscriptions() {
+        super.onCleared();
+        compositeDisposable.clear();
+        Log.d("AAA", "Disposed");
+    }
+}
