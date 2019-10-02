@@ -57,9 +57,6 @@ public class SignUpAddPayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_add_payout);
 
-        type = getResources().getStringArray(R.array.type_array);
-        country = getResources().getStringArray(R.array.countries_array);
-
         final EditText edtFirstName = findViewById(R.id.editTextFirstNameSignUpPayout);
         final EditText edtLastName = findViewById(R.id.editTextLastNameSignUpPayout);
         final EditText edtAddress = findViewById(R.id.editTextAddressSignUpPayout);
@@ -70,8 +67,11 @@ public class SignUpAddPayout extends AppCompatActivity {
         edtBirthday = findViewById(R.id.editTextBirthdaySignUpPayout);
         FrameLayout progressBarHolder = findViewById(R.id.progressBarHolder);
 
+        type = getResources().getStringArray(R.array.type_array);
         Spinner spinnerType = findViewById(R.id.spinnerTypePayout);
+        country = getResources().getStringArray(R.array.countries_array);
         Spinner spinnerCountry = findViewById(R.id.spinnerCountryPayout);
+
         ibBirthDay = findViewById(R.id.imageButtonSignUpBirthday);
         ibCheck = findViewById(R.id.imageButtonCheckSignUpPayout);
         ibCheck.setEnabled(false);

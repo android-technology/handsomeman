@@ -9,20 +9,20 @@ import android.widget.TextView;
 
 import com.tt.handsomeman.R;
 
-public class SpinnerTypePayout extends BaseAdapter {
+public class SpinnerCreationTime extends BaseAdapter {
     private Context context;
-    private String[] type;
+    private String[] time;
     private LayoutInflater inflater;
 
-    public SpinnerTypePayout(Context context, String[] type) {
+    public SpinnerCreationTime(Context context, String[] time) {
         this.context = context;
-        this.type = type;
+        this.time = time;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return type.length;
+        return time.length;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SpinnerTypePayout extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.spinner_item_standard, null);
         TextView typeName = view.findViewById(R.id.textViewSpinnerPayout);
-        typeName.setText(type[i]);
+        typeName.setText(time[i]);
         return view;
     }
 }

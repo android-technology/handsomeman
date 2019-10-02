@@ -59,4 +59,8 @@
     <string name="messages">Tin nhắn</string>
     <string name="jobs">Công việc</string>
     <string name="wish_list">Danh sách mong muốn</string>
+    <string name="filter">Lọc</string>
+    <string name="date">Ngày</string>
+    <string name="distance">Khoảng cách</string>
+    <string name="price">Giá</string>
 </resources>

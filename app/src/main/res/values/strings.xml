@@ -290,6 +290,16 @@
         <item>Zambia</item>
         <item>Zimbabwe</item>
     </string-array>
+
+    <string-array name="create_time">
+        <item>Today</item>
+        <item>Yesterday</item>
+        <item>Last 1 week</item>
+        <item>Last 1 month</item>
+        <item>Last 3 month</item>
+        <item>All the time</item>
+    </string-array>
+
     <string name="not_valid_first_name">First name must be >2 characters</string>
     <string name="not_valid_last_name">Last name must be >2 characters</string>
     <string name="not_valid_address">Address must be >3 characters</string>
@@ -310,4 +320,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="wish_list">Wishlist</string>
+    <string name="filter">Filter</string>
+    <string name="distance">Distance</string>
+    <string name="date">Date</string>
+    <string name="price">Price</string>
 </resources>

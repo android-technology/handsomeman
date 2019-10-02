@@ -1,7 +1,9 @@
 package com.tt.handsomeman.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class YourLocation extends AppCompatActivity {
     private JobAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
+    private ImageButton btnFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,14 @@ public class YourLocation extends AppCompatActivity {
         pgJob = findViewById(R.id.progressBarJobYourLocation);
 
         backPreviousActivity();
+
+        btnFilter = findViewById(R.id.imageButtonFilter);
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(YourLocation.this, JobFilter.class));
+            }
+        });
 
         createJobRecycleView();
 

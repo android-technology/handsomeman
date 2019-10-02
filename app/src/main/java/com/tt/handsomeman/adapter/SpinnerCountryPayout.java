@@ -38,7 +38,7 @@ public class SpinnerCountryPayout extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.spinner_signup_payout, null);
+        view = inflater.inflate(R.layout.spinner_item_standard, null);
         TextView countryName = view.findViewById(R.id.textViewSpinnerPayout);
         countryName.setText(country[i]);
         return view;

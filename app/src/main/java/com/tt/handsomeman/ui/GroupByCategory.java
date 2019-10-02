@@ -1,7 +1,9 @@
 package com.tt.handsomeman.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class GroupByCategory extends AppCompatActivity {
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
     private TextView categoryName;
+    private ImageButton btnFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,14 @@ public class GroupByCategory extends AppCompatActivity {
         categoryName = findViewById(R.id.textViewCategoryName);
 
         backPreviousActivity();
+
+        btnFilter = findViewById(R.id.imageButtonFilter);
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GroupByCategory.this, JobFilter.class));
+            }
+        });
 
         createJobRecycleView();
 
