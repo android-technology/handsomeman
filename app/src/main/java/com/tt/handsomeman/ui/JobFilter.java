@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,39 +15,108 @@ import com.jaygoo.widget.RangeSeekBar;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SpinnerCreationTime;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class JobFilter extends AppCompatActivity {
 
+    Integer radius, priceMin, priceMax;
+    String dateCreated = null;
     private String[] createTime;
     private SeekBar skDistance;
     private TextView tvDistance;
     private RangeSeekBar rgPrice;
-    private ImageButton btnClose;
+    private ImageButton btnClose, btnCheck;
+    private Spinner spinnerCreateTime;
+    private Calendar myCalendar = Calendar.getInstance();
+    private SimpleDateFormat sdf;
+    private String myFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_filter);
 
-        createTime = getResources().getStringArray(R.array.create_time);
-        Spinner spinnerCreateTime = findViewById(R.id.spinnerCreateTime);
         skDistance = findViewById(R.id.seekBarDistance);
         tvDistance = findViewById(R.id.textViewDistance);
         rgPrice = findViewById(R.id.rangeSeekBarPrice);
         btnClose = findViewById(R.id.imageButtonCloseFilter);
+        btnCheck = findViewById(R.id.imageButtonCheckFilter);
 
+        createTime = getResources().getStringArray(R.array.create_time);
+        spinnerCreateTime = findViewById(R.id.spinnerCreateTime);
+
+        myFormat = "yyyy-MM-dd"; //In which you need put here
+        sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        backPreviousScreen();
+
+        seekBarDistance();
+
+        rangeSeekBarPrice();
+
+        generateTypeSpinner();
+
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radius = skDistance.getProgress();
+                priceMin = (int) rgPrice.getLeftSeekBar().getProgress();
+                priceMax = (int) rgPrice.getRightSeekBar().getProgress();
+                getCreatedDate();
+
+                Intent intent = new Intent(JobFilter.this, FilterResult.class);
+                intent.putExtra("radius", radius);
+                intent.putExtra("priceMin", priceMin);
+                intent.putExtra("priceMax", priceMax);
+                intent.putExtra("dateCreated", dateCreated);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void getCreatedDate(){
+        switch (spinnerCreateTime.getSelectedItemPosition()) {
+            case 0:
+                // Today
+                myCalendar.getTime();
+                break;
+            case 1:
+                // Yesterday
+                myCalendar.add(Calendar.DATE, -1);
+                break;
+            case 2:
+                // Last 1 week
+                myCalendar.add(Calendar.DATE, -7);
+                break;
+            case 3:
+                // Last 1 month
+                myCalendar.add(Calendar.MONTH, -1);
+                break;
+            case 4:
+                // Last 3 month
+                myCalendar.add(Calendar.MONTH, -3);
+                break;
+            case 5:
+                // All the time
+                myCalendar.set(Calendar.YEAR, 1990);
+                myCalendar.set(Calendar.MONTH, 0);
+                myCalendar.set(Calendar.DATE, 1);
+                break;
+        }
+        dateCreated = sdf.format(myCalendar.getTime());
+        // Reset myCalendar to current date (now)
+        myCalendar = Calendar.getInstance();
+    }
+
+    private void backPreviousScreen() {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-        rangeSeekBarPrice();
-
-        seekBarDistance();
-
-        generateTypeSpinner(spinnerCreateTime);
-
     }
 
     private void seekBarDistance() {
@@ -67,6 +137,8 @@ public class JobFilter extends AppCompatActivity {
                 if (seekBar.getProgress() == 0) {
                     seekBar.setProgress(1);
                 }
+
+                radius = seekBar.getProgress();
             }
         });
     }
@@ -89,11 +161,13 @@ public class JobFilter extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+                priceMin = (int) view.getLeftSeekBar().getProgress();
+                priceMax = (int) view.getRightSeekBar().getProgress();
             }
         });
     }
 
-    private void generateTypeSpinner(Spinner spinnerCreateTime) {
+    private void generateTypeSpinner() {
         SpinnerCreationTime spinnerCreationTime = new SpinnerCreationTime(JobFilter.this, createTime);
         spinnerCreateTime.setAdapter(spinnerCreationTime);
     }

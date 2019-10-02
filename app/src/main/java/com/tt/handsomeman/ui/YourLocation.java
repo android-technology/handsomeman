@@ -49,17 +49,12 @@ public class YourLocation extends AppCompatActivity {
 
         jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
+        btnFilter = findViewById(R.id.imageButtonFilter);
         pgJob = findViewById(R.id.progressBarJobYourLocation);
 
         backPreviousActivity();
 
-        btnFilter = findViewById(R.id.imageButtonFilter);
-        btnFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(YourLocation.this, JobFilter.class));
-            }
-        });
+        navigateToFilter();
 
         createJobRecycleView();
 
@@ -67,6 +62,15 @@ public class YourLocation extends AppCompatActivity {
             @Override
             public void onChanged(Double aDouble) {
                 fetchData(aDouble, Constants.Longitude.getValue());
+            }
+        });
+    }
+
+    private void navigateToFilter() {
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(YourLocation.this, JobFilter.class));
             }
         });
     }
@@ -81,7 +85,7 @@ public class YourLocation extends AppCompatActivity {
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.recycleViewJobs);
+        RecyclerView rcvJob = findViewById(R.id.recycleViewJobsYourLocation);
         jobAdapter = new JobAdapter(this, jobArrayList);
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override

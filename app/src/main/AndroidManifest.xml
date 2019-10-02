@@ -9,11 +9,13 @@
     <application
         android:name=".HandymanApp"
         android:allowBackup="true"
+        android:appCategory="productivity"
         android:icon="@mipmap/ic_launcher_1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
+        <activity android:name=".ui.FilterResult"></activity>
         <activity android:name=".ui.JobFilter" />
         <activity android:name=".ui.GroupByCategory" />
         <activity android:name=".ui.YourLocation" />

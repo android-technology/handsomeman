@@ -1,14 +1,12 @@
 package com.tt.handsomeman.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -19,6 +17,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -27,7 +26,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class GroupByCategory extends AppCompatActivity {
+public class FilterResult extends AppCompatActivity {
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -37,45 +37,37 @@ public class GroupByCategory extends AppCompatActivity {
     private JobAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
-    private TextView categoryName;
-    private ImageButton btnFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_by_category);
+        setContentView(R.layout.activity_filter_result);
 
         HandymanApp.getComponent().inject(this);
 
         jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
-        pgJob = findViewById(R.id.progressBarJobCategory);
-        categoryName = findViewById(R.id.textViewCategoryName);
-        btnFilter = findViewById(R.id.imageButtonFilter);
+        pgJob = findViewById(R.id.progressBarFilterResult);
 
         backPreviousActivity();
 
-        navigateToFilter();
-
         createJobRecycleView();
 
-        Integer categoryId = getIntent().getIntExtra("categoryId", 0);
-        String categoryNameIntent = getIntent().getStringExtra("categoryName");
-        categoryName.setText(categoryNameIntent);
-        fetchData(categoryId);
-    }
+        Integer radius = getIntent().getIntExtra("radius", 0);
+        Integer priceMin = getIntent().getIntExtra("priceMin", 0);
+        Integer priceMax = getIntent().getIntExtra("priceMax", 0);
+        String dateCreated = getIntent().getStringExtra("dateCreated");
 
-    private void navigateToFilter() {
-        btnFilter.setOnClickListener(new View.OnClickListener() {
+        Constants.Latitude.observe(this, new Observer<Double>() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(GroupByCategory.this, JobFilter.class));
+            public void onChanged(Double aDouble) {
+                fetchData(aDouble, Constants.Longitude.getValue(), radius, priceMin, priceMax, dateCreated);
             }
         });
     }
 
     private void backPreviousActivity() {
-        findViewById(R.id.categoryBackButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.filterResultBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -84,12 +76,12 @@ public class GroupByCategory extends AppCompatActivity {
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.recycleViewJobsByCategory);
+        RecyclerView rcvJob = findViewById(R.id.recycleViewFilterResult);
         jobAdapter = new JobAdapter(this, jobArrayList);
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(GroupByCategory.this, jobArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FilterResult.this, jobArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(this);
@@ -99,10 +91,10 @@ public class GroupByCategory extends AppCompatActivity {
     }
 
 
-    private void fetchData(Integer categoryId) {
+    private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        jobsViewModel.fetchJobsByCategory(authorizationCode, categoryId);
+        jobsViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
 
         jobsViewModel.geJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
@@ -113,7 +105,7 @@ public class GroupByCategory extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         jobsViewModel.clearSubscriptions();
     }

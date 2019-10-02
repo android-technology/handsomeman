@@ -71,4 +71,15 @@ public class JobsViewModel extends BaseViewModel {
                                 },
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
+
+    public void fetchJobsByFilter(String authorization, Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
+        compositeDisposable
+                .add(jobService.getJobByFilter(authorization, lat, lng, radius, priceMin, priceMax, createTime)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((jobResponse) -> {
+                                    jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
+                                },
+                                throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
 }

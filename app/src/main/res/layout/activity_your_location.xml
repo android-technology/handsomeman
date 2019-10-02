@@ -70,7 +70,7 @@
             android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewJobs"
+            android:id="@+id/recycleViewJobsYourLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"

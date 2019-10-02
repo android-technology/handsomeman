@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButtonCheckSignUpPayout"
+            android:id="@+id/imageButtonCheckFilter"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"

@@ -1,6 +1,7 @@
 package com.tt.handsomeman.di.component;
 
 
+import com.tt.handsomeman.ui.FilterResult;
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.LoginModule;
@@ -50,4 +51,6 @@ public interface AppComponent {
     void inject(YourLocation yourLocation);
 
     void inject(GroupByCategory category);
+
+    void inject(FilterResult filterResult);
 }
