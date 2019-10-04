@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.FilterResult"></activity>
+<!--        <activity android:name=".ui.JobDetail"></activity>-->
+        <activity android:name=".ui.FilterResult" />
         <activity android:name=".ui.JobFilter" />
         <activity android:name=".ui.GroupByCategory" />
         <activity android:name=".ui.YourLocation" />
@@ -27,7 +28,7 @@
         <activity android:name=".ui.SignUp" />
         <activity android:name=".ui.Start" />
         <activity
-            android:name=".ui.OnBoardingSlidePagerActivity"
+            android:name=".ui.JobDetail"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>

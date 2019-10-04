@@ -324,4 +324,16 @@
     <string name="distance">Distance</string>
     <string name="date">Date</string>
     <string name="price">Price</string>
+    <string name="place_a_bid">Place A Bid</string>
+    <string name="details">Details</string>
+    <string name="budget">Budget</string>
+    <string name="deadline">Deadline</string>
+    <string name="location">Location</string>
+    <string name="this_job">This Job</string>
+    <string name="bids">Bids</string>
+    <string name="interviewing">Interviewing</string>
+    <string name="hired">Hired</string>
+    <string name="payment_milestones">Payment milestones</string>
+    <string name="client">Client</string>
+    <string name="show_client_profile">Show client\'s profile</string>
 </resources>

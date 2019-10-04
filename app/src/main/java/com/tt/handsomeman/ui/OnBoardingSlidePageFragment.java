@@ -13,8 +13,8 @@ import com.tt.handsomeman.R;
 
 public class OnBoardingSlidePageFragment extends Fragment {
 
-    int image;
-    int description;
+    private int image;
+    private int description;
 
     public static OnBoardingSlidePageFragment newInstance(int image, int description) {
         OnBoardingSlidePageFragment screenSlidePageFragment = new OnBoardingSlidePageFragment();

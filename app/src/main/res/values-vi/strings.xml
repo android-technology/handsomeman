@@ -63,4 +63,16 @@
     <string name="date">Ngày</string>
     <string name="distance">Khoảng cách</string>
     <string name="price">Giá</string>
+    <string name="place_a_bid">Đặt cọc</string>
+    <string name="details">Chi tiết</string>
+    <string name="budget">Giá</string>
+    <string name="deadline">Hạn chót</string>
+    <string name="location">Địa điểm</string>
+    <string name="this_job">Công việc này</string>
+    <string name="bids">Đặt cọc</string>
+    <string name="interviewing">Phỏng vấn</string>
+    <string name="hired">Đã thuê</string>
+    <string name="payment_milestones">Mốc thanh toán</string>
+    <string name="client">Khách hàng</string>
+    <string name="show_client_profile">Hiển thị hồ sơ khách hàng</string>
 </resources>
