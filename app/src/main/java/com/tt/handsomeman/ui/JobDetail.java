@@ -1,9 +1,13 @@
 package com.tt.handsomeman.ui;
 
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +25,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.CustomerJobDetail;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -40,6 +45,7 @@ public class JobDetail extends AppCompatActivity {
             tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
             tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount;
     private JobsViewModel jobsViewModel;
+    private TableLayout tlMileStone;
     private GoogleMap mMap;
 
     @Override
@@ -63,6 +69,7 @@ public class JobDetail extends AppCompatActivity {
         tvClientName = findViewById(R.id.clientNameJobDetail);
         tvReviewCount = findViewById(R.id.reviewCountJobDetail);
 
+        tlMileStone = findViewById(R.id.paymentMileStoneTableLayout);
         clientAvatar = findViewById(R.id.clientAvatarJobDetail);
 
         HandymanApp.getComponent().inject(this);
@@ -104,8 +111,40 @@ public class JobDetail extends AppCompatActivity {
                     tvHired.setText("Yes");
                 }
 
-                List paymentMilestone = jobDetail.getListPaymentMilestone();
-                tvPaymentMilestoneCount.setText(String.valueOf(paymentMilestone.size()));
+                List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
+                tvPaymentMilestoneCount.setText(String.valueOf(listPaymentMilestone.size()));
+                for (int i = 0; i < listPaymentMilestone.size(); i++) {
+                    TableRow tr = new TableRow(JobDetail.this);
+                    tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+
+                    TextView b = new TextView(JobDetail.this);
+                    b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+                    b.setTextColor(getResources().getColor(R.color.textColor));
+                    b.setGravity(Gravity.START);
+
+                    if (((i + 1) % 10) == 1) {
+                        b.setText(i + 1 + "st milestone");
+                    } else if (((i + 1) % 10) == 2) {
+                        b.setText(i + 1 + "nd milestone");
+                    } else if (((i + 1) % 10) == 3) {
+                        b.setText(i + 1 + "rd milestone");
+                    } else {
+                        b.setText(i + 1 + "th milestone");
+                    }
+
+                    TextView b2 = new TextView(JobDetail.this);
+                    b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+                    b2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+                    b2.setTextColor(getResources().getColor(R.color.textColor));
+                    b2.setGravity(Gravity.END);
+                    b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
+
+                    tr.addView(b);
+                    tr.addView(b2);
+
+                    tlMileStone.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                }
 
                 CustomerJobDetail customerJobDetail = jobDetail.getCustomerJobDetail();
                 tvClientName.setText(customerJobDetail.getCustomerName());
@@ -130,7 +169,6 @@ public class JobDetail extends AppCompatActivity {
                     public void onMapReady(GoogleMap googleMap) {
                         mMap = googleMap;
 
-                        // Add a marker in Sydney, Australia, and move the camera.
                         LatLng jobLocation = new LatLng(lat, lng);
                         mMap.addMarker(new MarkerOptions().position(jobLocation).title(job.getLocation()));
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(jobLocation, 15));

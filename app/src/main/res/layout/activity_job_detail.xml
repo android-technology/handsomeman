@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                         android:id="@+id/jobCreateTimeJobDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:textAlignment="viewEnd"
                         android:textColor="#a2a2a2"
                         android:textSize="13sp"
@@ -382,6 +382,7 @@
                     android:background="#e8e8e8" />
 
                 <TableLayout
+                    android:id="@+id/paymentMileStoneTableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp">
@@ -389,7 +390,7 @@
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2">
+                        android:weightSum="1">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -411,52 +412,6 @@
 
                     </TableRow>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:textColor="#a2a2a2"
-                            android:textSize="13sp"
-                            tools:text="1st milestone" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:textColor="#a2a2a2"
-                            android:textSize="13sp"
-                            tools:text="50%" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:textColor="#a2a2a2"
-                            android:textSize="13sp"
-                            tools:text="2nd milestone" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:textColor="#a2a2a2"
-                            android:textSize="13sp"
-                            tools:text="50%" />
-                    </TableRow>
                 </TableLayout>
             </LinearLayout>
 
