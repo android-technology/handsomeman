@@ -82,19 +82,25 @@
                     android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/jobIdJobDetail"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:text="@string/project_id"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp"
-                        tools:text="Project ID: 123445345" />
+                        android:textSize="13sp" />
 
                     <TextView
-                        android:id="@+id/jobCreatTimeJobDetail"
+                        android:id="@+id/jobIdJobDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#a2a2a2"
+                        android:textSize="13sp"
+                        tools:text="123445345" />
+
+                    <TextView
+                        android:id="@+id/jobCreateTimeJobDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:textAlignment="viewEnd"
                         android:textColor="#a2a2a2"
                         android:textSize="13sp"
@@ -246,10 +252,17 @@
                         tools:text="Patrick st, Silk city, London" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/mapViewJobDetail"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp">
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
@@ -517,16 +530,37 @@
                             android:numStars="5"
                             android:stepSize="1" />
 
-                        <TextView
-                            android:id="@+id/reviewCountJobDetail"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="5dp"
-                            android:paddingTop="1dp"
-                            android:textColor="#000000"
-                            android:textSize="13sp"
-                            tools:text="(3 Reviews)" />
+                            android:orientation="horizontal"
+                            android:paddingTop="1dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="( "
+                                android:textColor="#000000"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/reviewCountJobDetail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:textSize="13sp"
+                                tools:text="3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" Reviews)"
+                                android:textColor="#000000"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
 
                         <View
                             android:layout_width="match_parent"

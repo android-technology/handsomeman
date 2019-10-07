@@ -89,7 +89,7 @@ public class JobsViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetJobDetail(String authorization, Integer jobId) {
+    public void fetchJobDetail(String authorization, Integer jobId) {
         compositeDisposable.add(jobService.getJobDetail(authorization, jobId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())

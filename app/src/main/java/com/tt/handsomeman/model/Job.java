@@ -54,9 +54,9 @@ public class Job {
     @SerializedName("handymanId")
     @Expose
     private Integer handymanId;
-    @SerializedName("accountId")
+    @SerializedName("customerId")
     @Expose
-    private Integer accountId;
+    private Integer customerId;
     @SerializedName("status")
     @Expose
     private String status;
@@ -77,7 +77,7 @@ public class Job {
     }
 
     public String setBudgetRange(Integer budgetMin, Integer budgetMax) {
-        return ("$ " + budgetMin + " -" + " $" + budgetMax);
+        return ("$" + budgetMin + " - " + "$" + budgetMax);
     }
 
     public String setLocationBinding(String location) {
@@ -90,7 +90,12 @@ public class Job {
     public String setDeadlineBinding(Date deadline) {
         String myFormat = "dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        String test = sdf.format(deadline) + " day(s) left";
         return sdf.format(deadline) + " day(s) left";
+    }
+
+    public String setBidRange(Integer bidMin, Integer bidMax) {
+        return (bidMin + " to " + bidMax);
     }
 
     public Integer getId() {
@@ -213,12 +218,12 @@ public class Job {
         this.handymanId = handymanId;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public String getStatus() {

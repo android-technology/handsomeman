@@ -11,13 +11,13 @@ public class JobDetail {
     private Job job;
     @SerializedName("listPaymentMilestone")
     @Expose
-    private List<ListPaymentMilestone> listPaymentMilestone;
+    private List<PaymentMilestone> listPaymentMilestone;
     @SerializedName("customer")
     @Expose
     private CustomerJobDetail customerJobDetail;
     @SerializedName("averageReviewPoint")
     @Expose
-    private Object averageReviewPoint;
+    private Float averageReviewPoint;
     @SerializedName("countReviewers")
     @Expose
     private Integer countReviewers;
@@ -30,12 +30,12 @@ public class JobDetail {
         this.job = job;
     }
 
-    public List<ListPaymentMilestone> getListPaymentMilestone() {
+    public List<PaymentMilestone> getListPaymentMilestone() {
         return listPaymentMilestone;
     }
 
-    public void setListPaymentMilestone(List<ListPaymentMilestone> listPaymentMilestone) {
-        this.listPaymentMilestone = listPaymentMilestone;
+    public void setListPaymentMilestone(List<PaymentMilestone> paymentMilestone) {
+        this.listPaymentMilestone = paymentMilestone;
     }
 
     public CustomerJobDetail getCustomerJobDetail() {
@@ -46,11 +46,11 @@ public class JobDetail {
         this.customerJobDetail = customerJobDetail;
     }
 
-    public Object getAverageReviewPoint() {
+    public Float getAverageReviewPoint() {
         return averageReviewPoint;
     }
 
-    public void setAverageReviewPoint(Object averageReviewPoint) {
+    public void setAverageReviewPoint(Float averageReviewPoint) {
         this.averageReviewPoint = averageReviewPoint;
     }
 

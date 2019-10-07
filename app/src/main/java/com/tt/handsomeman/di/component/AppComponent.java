@@ -10,6 +10,7 @@ import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
 import com.tt.handsomeman.di.module.SignUpModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.GroupByCategory;
+import com.tt.handsomeman.ui.JobDetail;
 import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
@@ -53,4 +54,6 @@ public interface AppComponent {
     void inject(GroupByCategory category);
 
     void inject(FilterResult filterResult);
+
+    void inject(JobDetail jobDetail);
 }

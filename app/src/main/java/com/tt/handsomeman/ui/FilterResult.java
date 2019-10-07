@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -81,7 +82,9 @@ public class FilterResult extends AppCompatActivity {
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(FilterResult.this, jobArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FilterResult.this, JobDetail.class);
+                intent.putExtra("jobId", jobArrayList.get(position).getId());
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(this);

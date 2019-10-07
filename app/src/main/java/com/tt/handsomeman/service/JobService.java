@@ -32,6 +32,6 @@ public interface JobService {
     @POST(Constants.JOB_FILTER_SUFFIX)
     Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Integer radius, @Field("budgetMin") Integer priceMin, @Field("budgetMax") Integer priceMax, @Field("createTime") String createTime);
 
-    @GET(Constants.JOB_FILTER_SUFFIX)
+    @GET(Constants.JOB_DETAIL_SUFFIX)
     Single<Response<DataBracketResponse<JobDetail>>> getJobDetail(@Header("Authorization") String token, @Path("id") Integer jobId);
 }

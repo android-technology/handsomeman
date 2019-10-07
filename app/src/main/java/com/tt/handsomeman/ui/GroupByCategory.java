@@ -89,7 +89,9 @@ public class GroupByCategory extends AppCompatActivity {
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(GroupByCategory.this, jobArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GroupByCategory.this, JobDetail.class);
+                intent.putExtra("jobId", jobArrayList.get(position).getId());
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(this);
