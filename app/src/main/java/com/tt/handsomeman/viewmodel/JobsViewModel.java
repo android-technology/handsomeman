@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.JobService;
 
@@ -22,6 +23,7 @@ public class JobsViewModel extends BaseViewModel {
 
     private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
 
     private JobService jobService;
 
@@ -37,6 +39,10 @@ public class JobsViewModel extends BaseViewModel {
 
     public LiveData<List<Job>> geJobLiveData() {
         return jobMutableLiveData;
+    }
+
+    public LiveData<JobDetail> getJobDetailLiveDate() {
+        return jobDetailMutableLiveData;
     }
 
     public void fetchData(String authorization, Double lat, Double lng, Double radius) {
@@ -81,5 +87,15 @@ public class JobsViewModel extends BaseViewModel {
                                     jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
                                 },
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetJobDetail(String authorization, Integer jobId) {
+        compositeDisposable.add(jobService.getJobDetail(authorization, jobId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((jobResponse) -> {
+                            jobDetailMutableLiveData.setValue(jobResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 }

@@ -70,10 +70,10 @@
                     android:id="@+id/jobTitleJobDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Need a handyman who can fix my toilet"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Need a handyman who can fix my toilet" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,19 +86,19 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Project ID: 123445345"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:text="Project ID: 123445345" />
 
                     <TextView
                         android:id="@+id/jobCreatTimeJobDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="2 hours ago"
                         android:textAlignment="viewEnd"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:text="2 hours ago" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -129,9 +129,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="My toilet is broken so I need a handyman that can come to my house to fix the toilet on 29/10/2017"
                     android:textColor="#000000"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="My toilet is broken so I need a handyman that can come to my house to fix the toilet on 29/10/2017" />
 
                 <View
                     android:layout_width="match_parent"
@@ -165,10 +165,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="$100 - $150"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="$100 - $150" />
                 </LinearLayout>
 
                 <View
@@ -203,10 +203,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="3 days left"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="3 days left" />
                 </LinearLayout>
 
                 <View
@@ -240,10 +240,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="Patrick st, Silk city, London"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="Patrick st, Silk city, London" />
                 </LinearLayout>
 
                 <ImageView
@@ -295,9 +295,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="5 to 10"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="5 to 10" />
 
                 </LinearLayout>
 
@@ -326,9 +326,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="2"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="2" />
 
                 </LinearLayout>
 
@@ -357,9 +357,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="No"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="No" />
 
                 </LinearLayout>
 
@@ -392,9 +392,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="2"
                             android:textColor="#000000"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="2" />
 
                     </TableRow>
 
@@ -407,18 +407,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="1st milestone"
                             android:textColor="#a2a2a2"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="1st milestone" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="50%"
                             android:textColor="#a2a2a2"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="50%" />
 
                     </TableRow>
 
@@ -431,18 +431,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="2nd milestone"
                             android:textColor="#a2a2a2"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="2nd milestone" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="50%"
                             android:textColor="#a2a2a2"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="50%" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -501,10 +501,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="30dp"
-                            android:text="Keira Knightley"
                             android:textColor="#000000"
                             android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Keira Knightley" />
 
                         <RatingBar
                             android:id="@+id/ratingBarJobDetail"
@@ -522,11 +522,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:paddingTop="1dp"
                             android:layout_marginBottom="5dp"
-                            android:text="(3 Reviews)"
+                            android:paddingTop="1dp"
                             android:textColor="#000000"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="(3 Reviews)" />
 
                         <View
                             android:layout_width="match_parent"
@@ -536,9 +536,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:gravity="center"
                             android:text="@string/show_client_profile"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>

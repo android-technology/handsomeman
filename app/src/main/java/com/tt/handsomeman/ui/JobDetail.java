@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.util.ImageHelper;
