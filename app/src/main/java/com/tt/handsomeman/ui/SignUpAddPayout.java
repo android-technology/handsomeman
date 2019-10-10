@@ -25,7 +25,7 @@ import com.tt.handsomeman.adapter.SpinnerTypePayout;
 import com.tt.handsomeman.model.SignUpAddPayoutFormState;
 import com.tt.handsomeman.model.UserActivatingAccount;
 import com.tt.handsomeman.response.StandardResponse;
-import com.tt.handsomeman.service.SignUpAddPayoutService;
+import com.tt.handsomeman.service.UserService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
@@ -49,7 +49,7 @@ public class SignUpAddPayout extends AppCompatActivity {
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     @Inject
-    SignUpAddPayoutService signUpAddPayoutService;
+    UserService userService;
     private SignUpAddPayoutViewModel signUpAddPayoutViewModel;
 
     @Override
@@ -150,7 +150,7 @@ public class SignUpAddPayout extends AppCompatActivity {
 
                 UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry, accountStatus, businessNumber);
 
-                signUpAddPayoutService.doSignUpAddPayout(token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
+                userService.doSignUpAddPayout(token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {

@@ -1,14 +1,13 @@
 package com.tt.handsomeman.di.component;
 
 
-import com.tt.handsomeman.ui.FilterResult;
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.JobModule;
-import com.tt.handsomeman.di.module.LoginModule;
+import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.NetworkModule;
-import com.tt.handsomeman.di.module.SignUpAddPayoutModule;
-import com.tt.handsomeman.di.module.SignUpModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
+import com.tt.handsomeman.ui.CustomerProfileJobDetail;
+import com.tt.handsomeman.ui.FilterResult;
 import com.tt.handsomeman.ui.GroupByCategory;
 import com.tt.handsomeman.ui.JobDetail;
 import com.tt.handsomeman.ui.Login;
@@ -28,9 +27,7 @@ import dagger.Component;
 @Component(modules = {
         AppModule.class,
         JobModule.class,
-        LoginModule.class,
-        SignUpModule.class,
-        SignUpAddPayoutModule.class,
+        UserModule.class,
         NetworkModule.class,
         ViewModelModule.class})
 public interface AppComponent {
@@ -56,4 +53,6 @@ public interface AppComponent {
     void inject(FilterResult filterResult);
 
     void inject(JobDetail jobDetail);
+
+    void inject(CustomerProfileJobDetail customerProfileJobDetail);
 }

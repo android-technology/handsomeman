@@ -12,6 +12,7 @@ public class Constants {
     public static final String JOB_BY_CATEGORY_SUFFIX = "api/jobs/byCategory/{id}";
     public static final String JOB_FILTER_SUFFIX = "api/jobs/filter";
     public static final String JOB_DETAIL_SUFFIX = "api/jobs/{id}";
+    public static final String JOB_DETAIL_PROFILE_SUFFIX = "api/jobs/jobDetailProfile/{id}";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

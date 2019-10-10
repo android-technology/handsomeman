@@ -55,12 +55,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         void onItemClick(int position);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvCategoryName;
         ImageButton btnCategoryDetail;
 
-        public MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             tvCategoryName = itemView.findViewById(R.id.textViewJobName);

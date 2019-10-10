@@ -337,4 +337,8 @@
     <string name="client">Client</string>
     <string name="show_client_profile">Show client\'s profile</string>
     <string name="project_id">Project ID:</string>
+    <string name="projects">Projects</string>
+    <string name="all">All</string>
+    <string name="successed">Successed</string>
+    <string name="reviews_from_other_handymen">Reviews from other handymen</string>
 </resources>

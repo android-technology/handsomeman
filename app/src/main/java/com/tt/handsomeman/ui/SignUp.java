@@ -21,7 +21,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.SignUpFormState;
 import com.tt.handsomeman.response.StandardResponse;
-import com.tt.handsomeman.service.SignUpService;
+import com.tt.handsomeman.service.UserService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
@@ -38,7 +38,7 @@ public class SignUp extends AppCompatActivity {
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     @Inject
-    SignUpService signUpService;
+    UserService userService;
     private SignUpViewModel signUpViewModel;
 
     @Override
@@ -88,7 +88,7 @@ public class SignUp extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 String rePassword = edtRePassword.getText().toString();
 
-                signUpService.doSignUp(type, name, mail, password, rePassword).enqueue(new Callback<StandardResponse>() {
+                userService.doSignUp(type, name, mail, password, rePassword).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.CREATED)) {

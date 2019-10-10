@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -43,7 +44,7 @@ public class JobDetail extends AppCompatActivity {
     private RatingBar rtReview;
     private TextView tvJobTitle, tvJobId, tvJobCreateTime, tvJobDetail,
             tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
-            tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount;
+            tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
     private JobsViewModel jobsViewModel;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
@@ -68,7 +69,7 @@ public class JobDetail extends AppCompatActivity {
         tvPaymentMilestoneCount = findViewById(R.id.paymentMileStoneCountJobDetail);
         tvClientName = findViewById(R.id.clientNameJobDetail);
         tvReviewCount = findViewById(R.id.reviewCountJobDetail);
-
+        tvShowClientProfile = findViewById(R.id.showClientProfileJobDetail);
         tlMileStone = findViewById(R.id.paymentMileStoneTableLayout);
         clientAvatar = findViewById(R.id.clientAvatarJobDetail);
 
@@ -85,18 +86,27 @@ public class JobDetail extends AppCompatActivity {
 
         Integer jobId = getIntent().getIntExtra("jobId", 0);
         fetchData(jobId);
+
+        tvShowClientProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
+                intent.putExtra("customerId", jobsViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void fetchData(Integer jobId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         jobsViewModel.fetchJobDetail(authorizationCode, jobId);
 
-        jobsViewModel.getJobDetailLiveDate().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
+        jobsViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
             @Override
             public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
                 Job job = jobDetail.getJob();
                 tvJobTitle.setText(job.getTitle());
-                tvJobId.setText(String.valueOf(job.getId()));
+                tvJobId.setText(" " + job.getId());
                 tvJobCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));
                 tvJobDetail.setText(job.getDetail());
                 tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
@@ -123,14 +133,19 @@ public class JobDetail extends AppCompatActivity {
                     b.setTextColor(getResources().getColor(R.color.textColor));
                     b.setGravity(Gravity.START);
 
-                    if (((i + 1) % 10) == 1) {
-                        b.setText(i + 1 + "st milestone");
-                    } else if (((i + 1) % 10) == 2) {
-                        b.setText(i + 1 + "nd milestone");
-                    } else if (((i + 1) % 10) == 3) {
-                        b.setText(i + 1 + "rd milestone");
-                    } else {
-                        b.setText(i + 1 + "th milestone");
+                    switch ((i + 1) % 10) {
+                        case 1:
+                            b.setText(i + 1 + "st milestone");
+                            break;
+                        case 2:
+                            b.setText(i + 1 + "nd milestone");
+                            break;
+                        case 3:
+                            b.setText(i + 1 + "rd milestone");
+                            break;
+                        default:
+                            b.setText(i + 1 + "th milestone");
+                            break;
                     }
 
                     TextView b2 = new TextView(JobDetail.this);

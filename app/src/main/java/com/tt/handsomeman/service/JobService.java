@@ -3,6 +3,7 @@ package com.tt.handsomeman.service;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.util.Constants;
@@ -34,4 +35,7 @@ public interface JobService {
 
     @GET(Constants.JOB_DETAIL_SUFFIX)
     Single<Response<DataBracketResponse<JobDetail>>> getJobDetail(@Header("Authorization") String token, @Path("id") Integer jobId);
+
+    @POST(Constants.JOB_DETAIL_PROFILE_SUFFIX)
+    Single<Response<DataBracketResponse<JobDetailProfile>>> getJobDetailProfile(@Header("Authorization") String token, @Path("id") Integer customerId);
 }

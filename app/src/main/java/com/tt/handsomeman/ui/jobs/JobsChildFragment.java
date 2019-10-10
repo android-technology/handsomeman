@@ -118,7 +118,7 @@ public class JobsChildFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), GroupByCategory.class);
                 intent.putExtra("categoryName", categoryName);
-                intent.putExtra("categoryId", position + 1);
+                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
                 startActivity(intent);
             }
         });

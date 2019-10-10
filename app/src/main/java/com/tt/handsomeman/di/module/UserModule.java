@@ -1,6 +1,6 @@
 package com.tt.handsomeman.di.module;
 
-import com.tt.handsomeman.service.SignUpService;
+import com.tt.handsomeman.service.UserService;
 
 import javax.inject.Singleton;
 
@@ -9,11 +9,11 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Module
-public class SignUpModule {
+public class UserModule {
 
     @Provides
     @Singleton
-    SignUpService provideSignUpService(Retrofit retrofit) {
-        return retrofit.create(SignUpService.class);
+    UserService provideUserService(Retrofit retrofit) {
+        return retrofit.create(UserService.class);
     }
 }

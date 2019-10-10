@@ -476,7 +476,7 @@
 
                         <RatingBar
                             android:id="@+id/ratingBarJobDetail"
-                            style="@style/CustomHeartsRatingBar"
+                            style="@style/CustomHeartsRatingBar_16dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -523,6 +523,7 @@
                             android:background="#FFFFFF" />
 
                         <TextView
+                            android:id="@+id/showClientProfileJobDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"

@@ -20,7 +20,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.TokenState;
-import com.tt.handsomeman.service.LoginService;
+import com.tt.handsomeman.service.UserService;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
     boolean passwordValidate = false;
 
     @Inject
-    LoginService loginService;
+    UserService userService;
 
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
                 String mail = edtMail.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                loginService.doLogin(mail, password).enqueue(new Callback<DataBracketResponse<TokenState>>() {
+                userService.doLogin(mail, password).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override
                     public void onResponse(Call<DataBracketResponse<TokenState>> call, Response<DataBracketResponse<TokenState>> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {

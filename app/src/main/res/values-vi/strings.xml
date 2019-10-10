@@ -76,4 +76,8 @@
     <string name="client">Khách hàng</string>
     <string name="show_client_profile">Hiển thị hồ sơ khách hàng</string>
     <string name="project_id">Mã Dự án</string>
+    <string name="projects">Dự án</string>
+    <string name="all">Tất cả</string>
+    <string name="successed">Đã thành công</string>
+    <string name="reviews_from_other_handymen">Đánh giá từ các handymen khác</string>
 </resources>

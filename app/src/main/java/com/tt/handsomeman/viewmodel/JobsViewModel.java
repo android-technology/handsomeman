@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.JobService;
 
@@ -24,6 +25,7 @@ public class JobsViewModel extends BaseViewModel {
     private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
 
     private JobService jobService;
 
@@ -41,8 +43,12 @@ public class JobsViewModel extends BaseViewModel {
         return jobMutableLiveData;
     }
 
-    public LiveData<JobDetail> getJobDetailLiveDate() {
+    public LiveData<JobDetail> getJobDetailLiveData() {
         return jobDetailMutableLiveData;
+    }
+
+    public LiveData<JobDetailProfile> getJobDetailProfileLiveData() {
+        return jobDetailProfileMutableLiveData;
     }
 
     public void fetchData(String authorization, Double lat, Double lng, Double radius) {
@@ -95,6 +101,16 @@ public class JobsViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((jobResponse) -> {
                             jobDetailMutableLiveData.setValue(jobResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchJobDetailProfile(String authorization, Integer customerId) {
+        compositeDisposable.add(jobService.getJobDetailProfile(authorization, customerId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((profileResponse) -> {
+                            jobDetailProfileMutableLiveData.setValue(profileResponse.body().getData());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
