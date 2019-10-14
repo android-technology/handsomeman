@@ -45,7 +45,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
@@ -98,16 +98,15 @@
                     app:buttonTint="@android:color/transparent" />
             </RadioGroup>
 
-            <fragment
-                android:id="@+id/fragment"
+            <FrameLayout
+                android:id="@+id/jobsFragmentParent"
                 android:name="com.tt.handsomeman.ui.jobs.JobsChildFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:label="@string/messages"
-                tools:layout="@layout/fragment_job_child" />
+                android:label="@string/messages"/>
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

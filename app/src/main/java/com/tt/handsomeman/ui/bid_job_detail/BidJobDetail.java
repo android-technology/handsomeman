@@ -1,9 +1,10 @@
-package com.tt.handsomeman.ui;
+package com.tt.handsomeman.ui.bid_job_detail;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -15,7 +16,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
@@ -23,11 +23,12 @@ import javax.inject.Inject;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class OnBoardingSlidePagerActivity extends FragmentActivity {
+public class BidJobDetail extends FragmentActivity {
+
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 2;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     /**
@@ -41,54 +42,49 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
     private PagerAdapter pagerAdapter;
 
     private ConstraintLayout skip;
+    private TextView tvViewPagerName;
+    private ImageButton ibCheckButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Launcher);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_boarding_slide_pager);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        setContentView(R.layout.activity_bid_job_detail);
 
         HandymanApp.getComponent().inject(this);
 
-        Integer state = sharedPreferencesUtils.get("state", Integer.class);
+        tvViewPagerName = findViewById(R.id.bidJobDetailViewPagerName);
+        ibCheckButton = findViewById(R.id.imageButtonCheckBidJobDetail);
 
-        skip = findViewById(R.id.skipOnBoarding);
+        mPager = findViewById(R.id.bidJobDetailPager);
 
-        skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-                    startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
-                    finish();
-                } else {
-                    startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
-                    finish();
-                }
-            }
-        });
-
-        if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-            startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
-            finish();
-        } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
-            startActivity(new Intent(OnBoardingSlidePagerActivity.this, HandyManMainScreen.class));
-            finish();
-        }
-
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = findViewById(R.id.boardingPager);
-
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new BidJobDetail.ScreenSlidePagerAdapter(getSupportFragmentManager());
 
         mPager.setAdapter(pagerAdapter);
 
-        CircleIndicator indicator = findViewById(R.id.boardingIndicator);
+        CircleIndicator indicator = findViewById(R.id.bidJobDetailIndicator);
         indicator.setViewPager(mPager);
 
-        mPager.disableScroll(false);
+        mPager.disableScroll(true);
+
+        findViewById(R.id.bidJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        ibCheckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPager.getCurrentItem() == NUM_PAGES - 1) {
+                    // If the user is currently looking at the first step, allow the system to handle the
+                    // Back button. This calls finish() on this activity and pops the back stack.
+                } else {
+                    // Otherwise, select the previous step.
+                    mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                }
+            }
+        });
 
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -98,10 +94,13 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == NUM_PAGES - 1) {
-                    skip.setVisibility(View.VISIBLE);
-                } else {
-                    skip.setVisibility(View.GONE);
+                switch (position) {
+                    case 0:
+                        tvViewPagerName.setText(getResources().getText(R.string.budget));
+                        break;
+                    case 1:
+                        tvViewPagerName.setText(getResources().getText(R.string.letter));
+                        break;
                 }
             }
 
@@ -124,10 +123,6 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * A simple pager adapter that represents 5 OnBoardingSlidePageFragment objects, in
-     * sequence.
-     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -137,11 +132,9 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return OnBoardingSlidePageFragment.newInstance(R.drawable.on_boarding_1, R.string.boarding_des_1);
-                case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return OnBoardingSlidePageFragment.newInstance(R.drawable.on_boarding_2, R.string.boarding_des_2);
-                case 2: // Fragment # 1 - This will show SecondFragment
-                    return OnBoardingSlidePageFragment.newInstance(R.drawable.on_boarding_3, R.string.boarding_des_3);
+                    return BidJobBudgetFragment.newInstance("1", "2", "3", "4", "5");
+                case 1: // Fragment # 0 - This will show FirstFragment
+                    return BidJobBudgetFragment.newInstance("1", "2", "3", "4", "5");
                 default:
                     return null;
             }

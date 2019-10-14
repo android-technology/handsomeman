@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TableLayout;
@@ -27,6 +28,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.CustomerJobDetail;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
+import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -45,6 +47,7 @@ public class JobDetail extends AppCompatActivity {
     private TextView tvJobTitle, tvJobId, tvJobCreateTime, tvJobDetail,
             tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
             tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
+    private Button btnPlaceABid;
     private JobsViewModel jobsViewModel;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
@@ -70,8 +73,9 @@ public class JobDetail extends AppCompatActivity {
         tvClientName = findViewById(R.id.clientNameJobDetail);
         tvReviewCount = findViewById(R.id.reviewCountJobDetail);
         tvShowClientProfile = findViewById(R.id.showClientProfileJobDetail);
-        tlMileStone = findViewById(R.id.paymentMileStoneTableLayout);
+        tlMileStone = findViewById(R.id.paymentMileStoneTableLayoutJobDetail);
         clientAvatar = findViewById(R.id.clientAvatarJobDetail);
+        btnPlaceABid = findViewById(R.id.buttonPlaceBidJobDetail);
 
         HandymanApp.getComponent().inject(this);
 
@@ -86,7 +90,18 @@ public class JobDetail extends AppCompatActivity {
 
         Integer jobId = getIntent().getIntExtra("jobId", 0);
         fetchData(jobId);
+        showClientProfile();
 
+        btnPlaceABid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void showClientProfile() {
         tvShowClientProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

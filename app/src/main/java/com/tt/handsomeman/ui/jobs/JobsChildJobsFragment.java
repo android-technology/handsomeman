@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +36,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildFragment extends Fragment {
+public class JobsChildJobsFragment extends Fragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -51,14 +51,14 @@ public class JobsChildFragment extends Fragment {
     private LinearLayout showMoreYourLocation;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_jobs_child_jobs, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-
         jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
-
-        View view = inflater.inflate(R.layout.fragment_job_child, container, false);
 
         pgJob = view.findViewById(R.id.progressBarJobs);
         pgCategory = view.findViewById(R.id.progressBarCategory);
@@ -78,8 +78,6 @@ public class JobsChildFragment extends Fragment {
                 fetchData(aDouble, Constants.Longitude.getValue());
             }
         });
-
-        return view;
     }
 
     private void showMoreByYourLocation() {

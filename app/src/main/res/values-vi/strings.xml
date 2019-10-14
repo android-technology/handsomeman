@@ -80,4 +80,18 @@
     <string name="all">Tất cả</string>
     <string name="successed">Đã thành công</string>
     <string name="reviews_from_other_handymen">Đánh giá từ các handymen khác</string>
+    <string name="i_will_receive">Tôi sẽ nhận</string>
+    <string name="this_is_what_client_see">Đây là cái mà khách hàng sẽ thấy</string>
+    <string name="per_project">/ mỗi dự án</string>
+    <string name="my_bid">Đặt cược của tôi</string>
+    <string name="handy_service_fee">Phí dịch vụ (10%)</string>
+    <string name="highest_bid_for_now_on_this_project">Đặt cược cao nhất đang có ở dự án này</string>
+    <string name="attach_files">Đính kèm tệp tin</string>
+    <string name="description">Miêu tả</string>
+    <string name="introduce_yourself">Giới thiệu bản thân với khách hàng</string>
+    <string name="letter">Thư</string>
+    <string name="submit">Gửi</string>
+    <string name="optional">(Không bắt buộc)</string>
+    <string name="my_budget">Ngân sách của tôi</string>
+    <string name="lowest_bid_for_now_on_this_project">Đặt cược thấp nhất đang có ở dự án này</string>
 </resources>

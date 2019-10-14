@@ -341,4 +341,18 @@
     <string name="all">All</string>
     <string name="successed">Successed</string>
     <string name="reviews_from_other_handymen">Reviews from other handymen</string>
+    <string name="my_bid">My Bid</string>
+    <string name="per_project">/ per project</string>
+    <string name="this_is_what_client_see">This is what the client sees</string>
+    <string name="i_will_receive">I will receive</string>
+    <string name="handy_service_fee">Handy service fee (10%)</string>
+    <string name="highest_bid_for_now_on_this_project">Highest bid for now on this project</string>
+    <string name="letter">Letter</string>
+    <string name="description">Description</string>
+    <string name="introduce_yourself">Introduce yourself to customer</string>
+    <string name="optional">(Optional)</string>
+    <string name="attach_files">Attach files</string>
+    <string name="my_budget">My budget</string>
+    <string name="submit">Submit</string>
+    <string name="lowest_bid_for_now_on_this_project">Lowest bid for now on this project</string>
 </resources>

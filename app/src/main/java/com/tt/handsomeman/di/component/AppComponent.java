@@ -17,7 +17,8 @@ import com.tt.handsomeman.ui.SignUp;
 import com.tt.handsomeman.ui.SignUpAddPayout;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.YourLocation;
-import com.tt.handsomeman.ui.jobs.JobsChildFragment;
+import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.ui.jobs.JobsChildJobsFragment;
 
 import javax.inject.Singleton;
 
@@ -32,7 +33,7 @@ import dagger.Component;
         ViewModelModule.class})
 public interface AppComponent {
 
-    void inject(JobsChildFragment fragment);
+    void inject(JobsChildJobsFragment fragment);
 
     void inject(Login login);
 
@@ -55,4 +56,6 @@ public interface AppComponent {
     void inject(JobDetail jobDetail);
 
     void inject(CustomerProfileJobDetail customerProfileJobDetail);
+
+    void inject(BidJobDetail bidJobDetail);
 }
