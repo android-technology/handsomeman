@@ -3,11 +3,12 @@ package com.tt.handsomeman.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Job {
+public class Job implements Serializable {
 
     @SerializedName("id")
     @Expose

@@ -33,13 +33,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-    CheckBox cbVisiblePassword;
-    EditText edtMail, edtPassword;
-    Button btLogin, btForgot;
-    ProgressBar pgLogin;
+    private CheckBox cbVisiblePassword;
+    private EditText edtMail, edtPassword;
+    private Button btLogin, btForgot;
+    private ProgressBar pgLogin;
 
-    boolean mailValidate = false;
-    boolean passwordValidate = false;
+    private boolean mailValidate = false;
+    private boolean passwordValidate = false;
 
     @Inject
     UserService userService;

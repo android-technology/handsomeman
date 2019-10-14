@@ -51,6 +51,7 @@ public class JobDetail extends AppCompatActivity {
     private JobsViewModel jobsViewModel;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
+    private Job job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,6 @@ public class JobDetail extends AppCompatActivity {
         setContentView(R.layout.activity_job_detail);
 
         rtReview = findViewById(R.id.ratingBarJobDetail);
-
         tvJobTitle = findViewById(R.id.jobTitleJobDetail);
         tvJobId = findViewById(R.id.jobIdJobDetail);
         tvJobCreateTime = findViewById(R.id.jobCreateTimeJobDetail);
@@ -96,6 +96,7 @@ public class JobDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
+                intent.putExtra("job", job);
                 startActivity(intent);
             }
         });
@@ -119,7 +120,7 @@ public class JobDetail extends AppCompatActivity {
         jobsViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
             @Override
             public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
-                Job job = jobDetail.getJob();
+                job = jobDetail.getJob();
                 tvJobTitle.setText(job.getTitle());
                 tvJobId.setText(" " + job.getId());
                 tvJobCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));

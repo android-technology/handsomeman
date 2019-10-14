@@ -12,16 +12,17 @@ import com.tt.handsomeman.R;
 
 public class BidJobBudgetFragment extends Fragment {
 
-    private String myBid, budgetReceive, serviceFee, highestBid, lowestBid;
+    private int myBid, highestBid, lowestBid;
+    private double budgetReceive, serviceFee;
 
-    public static BidJobBudgetFragment newInstance(String myBid, String budgetReceive, String serviceFee, String highestBid, String lowestBid) {
+    public static BidJobBudgetFragment newInstance(int myBid, int highestBid, int lowestBid, double budgetReceive, double serviceFee) {
         BidJobBudgetFragment bidJobBudgetFragment = new BidJobBudgetFragment();
         Bundle args = new Bundle();
-        args.putString("myBid", myBid);
-        args.putString("budgetReceive", budgetReceive);
-        args.putString("serviceFee", serviceFee);
-        args.putString("highestBid", highestBid);
-        args.putString("lowestBid", lowestBid);
+        args.putInt("myBid", myBid);
+        args.putDouble("budgetReceive", budgetReceive);
+        args.putDouble("serviceFee", serviceFee);
+        args.putInt("highestBid", highestBid);
+        args.putInt("lowestBid", lowestBid);
         bidJobBudgetFragment.setArguments(args);
         return bidJobBudgetFragment;
     }
@@ -30,11 +31,11 @@ public class BidJobBudgetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myBid = getArguments().getString("myBid");
-        budgetReceive = getArguments().getString("budgetReceive");
-        serviceFee = getArguments().getString("serviceFee");
-        highestBid = getArguments().getString("highestBid");
-        lowestBid = getArguments().getString("lowestBid");
+        myBid = getArguments().getInt("myBid");
+        budgetReceive = getArguments().getDouble("budgetReceive");
+        serviceFee = getArguments().getDouble("serviceFee");
+        highestBid = getArguments().getInt("highestBid");
+        lowestBid = getArguments().getInt("lowestBid");
     }
 
     @Override
@@ -49,11 +50,11 @@ public class BidJobBudgetFragment extends Fragment {
         TextView highestBid = rootView.findViewById(R.id.highestBidJobDetail);
         TextView lowestBid = rootView.findViewById(R.id.lowestBidJobDetail);
 
-        myBid.setText(this.myBid);
-        budgetReceive.setText(this.budgetReceive);
-        serviceFee.setText(this.serviceFee);
-        highestBid.setText(this.highestBid);
-        lowestBid.setText(this.lowestBid);
+        myBid.setText("$" + this.myBid + " ");
+        budgetReceive.setText("$" + String.format("%d", (long) this.budgetReceive) + " ");
+        serviceFee.setText("$" + String.format("%d", (long) this.serviceFee));
+        highestBid.setText(String.valueOf(this.highestBid));
+        lowestBid.setText(String.valueOf(this.lowestBid));
 
         return rootView;
     }

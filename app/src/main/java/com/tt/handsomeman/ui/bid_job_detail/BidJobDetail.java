@@ -1,23 +1,26 @@
 package com.tt.handsomeman.ui.bid_job_detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import javax.inject.Inject;
 
@@ -28,7 +31,9 @@ public class BidJobDetail extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     /**
@@ -41,9 +46,11 @@ public class BidJobDetail extends FragmentActivity {
      */
     private PagerAdapter pagerAdapter;
 
-    private ConstraintLayout skip;
     private TextView tvViewPagerName;
-    private ImageButton ibCheckButton;
+    private Button btnSubmit;
+    private JobsViewModel jobsViewModel;
+    private ImageButton ibCheckButtonBudget, ibCheckButtonLetter;
+    private Job job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +58,18 @@ public class BidJobDetail extends FragmentActivity {
         setContentView(R.layout.activity_bid_job_detail);
 
         HandymanApp.getComponent().inject(this);
+        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         tvViewPagerName = findViewById(R.id.bidJobDetailViewPagerName);
-        ibCheckButton = findViewById(R.id.imageButtonCheckBidJobDetail);
-
+        ibCheckButtonBudget = findViewById(R.id.imageButtonCheckBudgetBidJobDetail);
+        ibCheckButtonLetter = findViewById(R.id.imageButtonCheckLetterBidJobDetail);
+        btnSubmit = findViewById(R.id.submitBidJobDetail);
         mPager = findViewById(R.id.bidJobDetailPager);
 
-        pagerAdapter = new BidJobDetail.ScreenSlidePagerAdapter(getSupportFragmentManager());
+        job = (Job) getIntent().getSerializableExtra("job");
 
-        mPager.setAdapter(pagerAdapter);
-
-        CircleIndicator indicator = findViewById(R.id.bidJobDetailIndicator);
-        indicator.setViewPager(mPager);
-
-        mPager.disableScroll(true);
+        generateViewPager();
+        viewPagerUILogic();
 
         findViewById(R.id.bidJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,19 +78,26 @@ public class BidJobDetail extends FragmentActivity {
             }
         });
 
-        ibCheckButton.setOnClickListener(new View.OnClickListener() {
+        ibCheckButtonBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPager.getCurrentItem() == NUM_PAGES - 1) {
-                    // If the user is currently looking at the first step, allow the system to handle the
-                    // Back button. This calls finish() on this activity and pops the back stack.
-                } else {
-                    // Otherwise, select the previous step.
+                if (mPager.getCurrentItem() < NUM_PAGES - 1) {
                     mPager.setCurrentItem(mPager.getCurrentItem() + 1);
                 }
             }
         });
 
+        ibCheckButtonLetter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPager.getCurrentItem() < NUM_PAGES - 1) {
+                    mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                }
+            }
+        });
+    }
+
+    private void viewPagerUILogic() {
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -96,10 +108,21 @@ public class BidJobDetail extends FragmentActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
+                        ibCheckButtonBudget.setVisibility(View.VISIBLE);
+                        ibCheckButtonLetter.setVisibility(View.GONE);
+                        btnSubmit.setVisibility(View.GONE);
                         tvViewPagerName.setText(getResources().getText(R.string.budget));
                         break;
                     case 1:
+                        ibCheckButtonBudget.setVisibility(View.GONE);
+                        ibCheckButtonLetter.setVisibility(View.VISIBLE);
+                        btnSubmit.setVisibility(View.GONE);
                         tvViewPagerName.setText(getResources().getText(R.string.letter));
+                        break;
+                    case 2:
+                        ibCheckButtonBudget.setVisibility(View.GONE);
+                        ibCheckButtonLetter.setVisibility(View.GONE);
+                        btnSubmit.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -109,6 +132,17 @@ public class BidJobDetail extends FragmentActivity {
 
             }
         });
+    }
+
+    private void generateViewPager() {
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+        mPager.setAdapter(pagerAdapter);
+
+        CircleIndicator indicator = findViewById(R.id.bidJobDetailIndicator);
+        indicator.setViewPager(mPager);
+
+        mPager.disableScroll(true);
     }
 
     @Override
@@ -132,9 +166,15 @@ public class BidJobDetail extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return BidJobBudgetFragment.newInstance("1", "2", "3", "4", "5");
+                    return BidJobBudgetFragment.newInstance(job.getBudgetMin(),
+                            job.getBudgetMax(),
+                            job.getBudgetMin(),
+                            job.getBudgetMin() * 0.9,
+                            job.getBudgetMin() * 0.1);
                 case 1: // Fragment # 0 - This will show FirstFragment
-                    return BidJobBudgetFragment.newInstance("1", "2", "3", "4", "5");
+                    return new BidJobLetterFragment();
+                case 2:
+                    return new BidJobLetterReviewFragment();
                 default:
                     return null;
             }

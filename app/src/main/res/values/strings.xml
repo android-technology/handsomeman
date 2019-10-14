@@ -355,4 +355,5 @@
     <string name="my_budget">My budget</string>
     <string name="submit">Submit</string>
     <string name="lowest_bid_for_now_on_this_project">Lowest bid for now on this project</string>
+    <string name="introduce_error">Please introduce yourself to customer!!!</string>
 </resources>

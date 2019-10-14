@@ -52,14 +52,13 @@ public class JobsChildJobsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        HandymanApp.getComponent().inject(this);
+        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_jobs_child_jobs, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        HandymanApp.getComponent().inject(this);
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
-
         pgJob = view.findViewById(R.id.progressBarJobs);
         pgCategory = view.findViewById(R.id.progressBarCategory);
         showMoreYourLocation = view.findViewById(R.id.showMoreYourLocation);

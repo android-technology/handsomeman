@@ -30,8 +30,8 @@ public class JobsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rdJobs = view.findViewById(R.id.radioButtonWishList);
-        rdWishList = view.findViewById(R.id.radioButtonJobs);
+        rdJobs = view.findViewById(R.id.radioButtonJobs);
+        rdWishList = view.findViewById(R.id.radioButtonWishList);
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.jobsFragmentParent, jobsChildWishListFragment).hide(jobsChildWishListFragment).commit();
@@ -40,16 +40,20 @@ public class JobsFragment extends Fragment {
         rdJobs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fm.beginTransaction().hide(active).show(jobsChildJobsFragment).commit();
-                active = jobsChildJobsFragment;
+                if (isChecked) {
+                    fm.beginTransaction().hide(active).show(jobsChildJobsFragment).commit();
+                    active = jobsChildJobsFragment;
+                }
             }
         });
 
         rdWishList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fm.beginTransaction().hide(active).show(jobsChildWishListFragment).commit();
-                active = jobsChildWishListFragment;
+                if (isChecked) {
+                    fm.beginTransaction().hide(active).show(jobsChildWishListFragment).commit();
+                    active = jobsChildWishListFragment;
+                }
             }
         });
     }
