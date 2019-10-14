@@ -3,7 +3,9 @@ package com.tt.handsomeman.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PaymentMilestone {
+import java.io.Serializable;
+
+public class PaymentMilestone implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;

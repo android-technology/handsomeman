@@ -3,7 +3,9 @@ package com.tt.handsomeman.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CustomerJobDetail {
+import java.io.Serializable;
+
+public class CustomerJobDetail implements Serializable {
     @SerializedName("accountId")
     @Expose
     private Integer accountId;

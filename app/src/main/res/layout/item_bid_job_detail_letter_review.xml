@@ -15,12 +15,12 @@
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/jobNameBidJobDetail"
+            android:id="@+id/jobTitleBidJobDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             tools:text="Need a handyman who can fix my toilet " />
 
@@ -43,7 +43,7 @@
                 android:layout_marginStart="5dp"
                 android:text="@string/my_budget"
                 android:textColor="#a2a2a2"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -53,7 +53,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/myBidBidJobDetail"
+                    android:id="@+id/myBudgetBidJobDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -68,7 +68,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="@string/per_project"
                     android:textColor="#8c8c8c"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -82,7 +82,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
                     android:gravity="start"
                     android:text="@string/payment_milestones"
                     android:textColor="#a2a2a2"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,45 +106,45 @@
 
             </TableRow>
 
-            <TableRow>
+<!--            <TableRow>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:textColor="#a2a2a2"
-                    android:textSize="14sp"
-                    tools:text="1st milestone" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="start"-->
+<!--                    android:textColor="#a2a2a2"-->
+<!--                    android:textSize="14sp"-->
+<!--                    tools:text="1st milestone" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textColor="#8c8c8c"
-                    android:textSize="14sp"
-                    tools:text="50%" />
-            </TableRow>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="end"-->
+<!--                    android:textColor="#8c8c8c"-->
+<!--                    android:textSize="14sp"-->
+<!--                    tools:text="50%" />-->
+<!--            </TableRow>-->
 
-            <TableRow>
+            <!--            <TableRow>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:textColor="#a2a2a2"
-                    android:textSize="14sp"
-                    tools:text="2nd milestone" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="start"-->
+            <!--                    android:textColor="#a2a2a2"-->
+            <!--                    android:textSize="14sp"-->
+            <!--                    tools:text="2nd milestone" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textColor="#8c8c8c"
-                    android:textSize="14sp"
-                    tools:text="50%" />
-            </TableRow>
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:gravity="end"-->
+            <!--                    android:textColor="#8c8c8c"-->
+            <!--                    android:textSize="14sp"-->
+            <!--                    tools:text="50%" />-->
+            <!--            </TableRow>-->
 
         </TableLayout>
 
@@ -176,6 +177,7 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
+            android:textStyle="bold"
             tools:text="Hello, I am David. I have had experiences for more than 5 years. No one wants to wait hours for a plumber to fix that overflowing toilet or spewing faucet. I am a professional are available 24 hours a day to handle any bathroom plumbing emergency. I’ll get there fast and fix the problem right." />
 
     </LinearLayout>

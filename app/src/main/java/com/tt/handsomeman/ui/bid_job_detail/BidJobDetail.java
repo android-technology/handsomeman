@@ -1,9 +1,13 @@
 package com.tt.handsomeman.ui.bid_job_detail;
 
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -17,10 +21,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,7 +38,7 @@ public class BidJobDetail extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 3;
+    static final int NUM_PAGES = 3;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -40,7 +47,7 @@ public class BidJobDetail extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private CustomViewPager mPager;
+    static CustomViewPager mPager;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -50,7 +57,7 @@ public class BidJobDetail extends FragmentActivity {
     private Button btnSubmit;
     private JobsViewModel jobsViewModel;
     private ImageButton ibCheckButtonBudget, ibCheckButtonLetter;
-    private Job job;
+    static JobDetail jobDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,7 @@ public class BidJobDetail extends FragmentActivity {
         btnSubmit = findViewById(R.id.submitBidJobDetail);
         mPager = findViewById(R.id.bidJobDetailPager);
 
-        job = (Job) getIntent().getSerializableExtra("job");
+        jobDetail = (JobDetail) getIntent().getSerializableExtra("jobDetail");
 
         generateViewPager();
         viewPagerUILogic();
@@ -79,15 +86,6 @@ public class BidJobDetail extends FragmentActivity {
         });
 
         ibCheckButtonBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPager.getCurrentItem() < NUM_PAGES - 1) {
-                    mPager.setCurrentItem(mPager.getCurrentItem() + 1);
-                }
-            }
-        });
-
-        ibCheckButtonLetter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mPager.getCurrentItem() < NUM_PAGES - 1) {
@@ -166,15 +164,15 @@ public class BidJobDetail extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return BidJobBudgetFragment.newInstance(job.getBudgetMin(),
-                            job.getBudgetMax(),
-                            job.getBudgetMin(),
-                            job.getBudgetMin() * 0.9,
-                            job.getBudgetMin() * 0.1);
+                    return BidJobBudgetFragment.newInstance(jobDetail.getJob().getBudgetMin(),
+                            jobDetail.getJob().getBudgetMax(),
+                            jobDetail.getJob().getBudgetMin(),
+                            jobDetail.getJob().getBudgetMin() * 0.9,
+                            jobDetail.getJob().getBudgetMin() * 0.1);
                 case 1: // Fragment # 0 - This will show FirstFragment
                     return new BidJobLetterFragment();
                 case 2:
-                    return new BidJobLetterReviewFragment();
+                    return BidJobLetterReviewFragment.newInstance(jobDetail.getJob().getTitle(), jobDetail.getJob().getBudgetMin(), jobDetail.getListPaymentMilestone().size());
                 default:
                     return null;
             }

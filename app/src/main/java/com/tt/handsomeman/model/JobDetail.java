@@ -3,9 +3,10 @@ package com.tt.handsomeman.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class JobDetail {
+public class JobDetail implements Serializable {
     @SerializedName("job")
     @Expose
     private Job job;

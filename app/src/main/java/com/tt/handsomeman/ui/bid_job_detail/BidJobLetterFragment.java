@@ -19,6 +19,7 @@ import com.tt.handsomeman.R;
 public class BidJobLetterFragment extends Fragment {
     private EditText edtIntroduce;
     private ImageButton ibCheckButtonLetter;
+    private String edtValue;
 
     @Nullable
     @Override
@@ -45,12 +46,22 @@ public class BidJobLetterFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String textIntroduce = edtIntroduce.getText().toString().trim();
-                if (TextUtils.isEmpty(textIntroduce) || textIntroduce.length() < 10) {
+                edtValue = edtIntroduce.getText().toString().trim();
+                if (TextUtils.isEmpty(edtValue) || edtValue.length() < 10) {
                     ibCheckButtonLetter.setEnabled(false);
                     edtIntroduce.setError(getResources().getString(R.string.introduce_error));
                 } else {
                     ibCheckButtonLetter.setEnabled(true);
+                }
+            }
+        });
+
+        ibCheckButtonLetter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BidJobLetterReviewFragment.getEditTextValue(edtValue);
+                if (BidJobDetail.mPager.getCurrentItem() < BidJobDetail.NUM_PAGES - 1) {
+                    BidJobDetail.mPager.setCurrentItem(BidJobDetail.mPager.getCurrentItem() + 1);
                 }
             }
         });

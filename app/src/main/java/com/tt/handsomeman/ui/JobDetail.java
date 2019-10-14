@@ -38,6 +38,7 @@ import javax.inject.Inject;
 
 public class JobDetail extends AppCompatActivity {
 
+    private static com.tt.handsomeman.model.JobDetail jobDetail;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -96,7 +97,7 @@ public class JobDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
-                intent.putExtra("job", job);
+                intent.putExtra("jobDetail", jobDetail);
                 startActivity(intent);
             }
         });
@@ -120,6 +121,7 @@ public class JobDetail extends AppCompatActivity {
         jobsViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
             @Override
             public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
+                JobDetail.jobDetail = jobDetail;
                 job = jobDetail.getJob();
                 tvJobTitle.setText(job.getTitle());
                 tvJobId.setText(" " + job.getId());
