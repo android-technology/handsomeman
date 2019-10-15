@@ -52,9 +52,6 @@ public class Job implements Serializable {
     @SerializedName("interviewing")
     @Expose
     private Integer interviewing;
-    @SerializedName("handymanId")
-    @Expose
-    private Integer handymanId;
     @SerializedName("customerId")
     @Expose
     private Integer customerId;
@@ -209,14 +206,6 @@ public class Job implements Serializable {
 
     public void setInterviewing(Integer interviewing) {
         this.interviewing = interviewing;
-    }
-
-    public Integer getHandymanId() {
-        return handymanId;
-    }
-
-    public void setHandymanId(Integer handymanId) {
-        this.handymanId = handymanId;
     }
 
     public Integer getCustomerId() {

@@ -38,4 +38,7 @@ public interface JobService {
 
     @POST(Constants.JOB_DETAIL_PROFILE_SUFFIX)
     Single<Response<DataBracketResponse<JobDetailProfile>>> getJobDetailProfile(@Header("Authorization") String token, @Path("id") Integer customerId);
+
+    @GET(Constants.JOB_WISH_LIST)
+    Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Authorization") String token);
 }

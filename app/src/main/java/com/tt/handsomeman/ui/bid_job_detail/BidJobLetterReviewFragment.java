@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.bid_job_detail;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import java.util.List;
 public class BidJobLetterReviewFragment extends Fragment {
 
     private static String edtIntroduceValue;
+    @SuppressLint("StaticFieldLeak")
     private static TextView tvLetter;
     private String jobTitle;
     private int myBudget, paymentMileStoneCount;

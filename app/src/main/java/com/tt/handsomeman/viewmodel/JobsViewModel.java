@@ -39,7 +39,7 @@ public class JobsViewModel extends BaseViewModel {
         return screenDataMutableLiveData;
     }
 
-    public LiveData<List<Job>> geJobLiveData() {
+    public LiveData<List<Job>> getJobLiveData() {
         return jobMutableLiveData;
     }
 
@@ -61,6 +61,19 @@ public class JobsViewModel extends BaseViewModel {
                                 },
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
+
+    public void fetchJobsWishList(String authorization) {
+        compositeDisposable
+                .add(jobService.getJobWishList(authorization)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((jobWishList) -> {
+                                    jobMutableLiveData.setValue(jobWishList.body().getData().getJobs());
+                                },
+                                throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+
 
     public void fetchYourLocationData(String authorization, Double lat, Double lng, Double radius) {
         compositeDisposable

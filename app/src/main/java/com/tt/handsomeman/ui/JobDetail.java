@@ -43,7 +43,7 @@ public class JobDetail extends AppCompatActivity {
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private ImageView clientAvatar;
+    private ImageView imClientAvatar, imIsWish;
     private RatingBar rtReview;
     private TextView tvJobTitle, tvJobId, tvJobCreateTime, tvJobDetail,
             tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
@@ -75,7 +75,8 @@ public class JobDetail extends AppCompatActivity {
         tvReviewCount = findViewById(R.id.reviewCountJobDetail);
         tvShowClientProfile = findViewById(R.id.showClientProfileJobDetail);
         tlMileStone = findViewById(R.id.paymentMileStoneTableLayoutJobDetail);
-        clientAvatar = findViewById(R.id.clientAvatarJobDetail);
+        imClientAvatar = findViewById(R.id.clientAvatarJobDetail);
+        imIsWish = findViewById(R.id.isWishListImage);
         btnPlaceABid = findViewById(R.id.buttonPlaceBidJobDetail);
 
         HandymanApp.getComponent().inject(this);
@@ -122,6 +123,9 @@ public class JobDetail extends AppCompatActivity {
             @Override
             public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
                 JobDetail.jobDetail = jobDetail;
+                if (jobDetail.getIsBid()) {
+                    imIsWish.setImageResource(R.drawable.ic_hearted);
+                }
                 job = jobDetail.getJob();
                 tvJobTitle.setText(job.getTitle());
                 tvJobId.setText(" " + job.getId());

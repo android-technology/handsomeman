@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -109,7 +108,7 @@ public class YourLocation extends AppCompatActivity {
 
         jobsViewModel.fetchYourLocationData(authorizationCode, lat, lng, radius);
 
-        jobsViewModel.geJobLiveData().observe(this, data -> {
+        jobsViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);

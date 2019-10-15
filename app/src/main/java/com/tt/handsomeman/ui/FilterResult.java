@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -99,7 +98,7 @@ public class FilterResult extends AppCompatActivity {
 
         jobsViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
 
-        jobsViewModel.geJobLiveData().observe(this, data -> {
+        jobsViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);

@@ -10,6 +10,9 @@ public class JobDetail implements Serializable {
     @SerializedName("job")
     @Expose
     private Job job;
+    @SerializedName("isBid")
+    @Expose
+    private boolean isBid;
     @SerializedName("listPaymentMilestone")
     @Expose
     private List<PaymentMilestone> listPaymentMilestone;
@@ -29,6 +32,14 @@ public class JobDetail implements Serializable {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public boolean getIsBid() {
+        return isBid;
+    }
+
+    public void setIsBid(boolean isBid) {
+        this.isBid = isBid;
     }
 
     public List<PaymentMilestone> getListPaymentMilestone() {

@@ -19,6 +19,7 @@ import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.YourLocation;
 import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.ui.jobs.JobsChildJobsFragment;
+import com.tt.handsomeman.ui.jobs.JobsChildWishListFragment;
 
 import javax.inject.Singleton;
 
@@ -34,6 +35,8 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(JobsChildJobsFragment fragment);
+
+    void inject(JobsChildWishListFragment fragment);
 
     void inject(Login login);
 

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -106,7 +105,7 @@ public class GroupByCategory extends AppCompatActivity {
 
         jobsViewModel.fetchJobsByCategory(authorizationCode, categoryId);
 
-        jobsViewModel.geJobLiveData().observe(this, data -> {
+        jobsViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);
