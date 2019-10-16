@@ -524,10 +524,10 @@
                             android:id="@+id/showClientProfileJobDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
                             android:gravity="center"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
                             android:text="@string/show_client_profile"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
@@ -547,9 +547,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/custom_ripple_primary_color_bg"
         android:gravity="center"
+        android:paddingBottom="1dp"
         android:text="@string/place_a_bid"
         android:textAllCaps="false"
-        android:paddingBottom="1dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

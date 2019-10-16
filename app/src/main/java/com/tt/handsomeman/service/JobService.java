@@ -1,6 +1,5 @@
 package com.tt.handsomeman.service;
 
-import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.JobDetailProfile;

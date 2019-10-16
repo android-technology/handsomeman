@@ -33,19 +33,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
+    @Inject
+    UserService userService;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
     private CheckBox cbVisiblePassword;
     private EditText edtMail, edtPassword;
     private Button btLogin, btForgot;
     private ProgressBar pgLogin;
-
     private boolean mailValidate = false;
     private boolean passwordValidate = false;
-
-    @Inject
-    UserService userService;
-
-    @Inject
-    SharedPreferencesUtils sharedPreferencesUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,8 +3,8 @@ package com.tt.handsomeman.di.component;
 
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.JobModule;
-import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.NetworkModule;
+import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.CustomerProfileJobDetail;
 import com.tt.handsomeman.ui.FilterResult;

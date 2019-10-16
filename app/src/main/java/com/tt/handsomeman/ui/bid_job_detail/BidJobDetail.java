@@ -1,13 +1,9 @@
 package com.tt.handsomeman.ui.bid_job_detail;
 
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -22,12 +18,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.JobDetail;
-import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,25 +32,24 @@ public class BidJobDetail extends FragmentActivity {
      * The number of pages (wizard steps) to show in this demo.
      */
     static final int NUM_PAGES = 3;
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-    @Inject
-    SharedPreferencesUtils sharedPreferencesUtils;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
     static CustomViewPager mPager;
+    static JobDetail jobDetail;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter pagerAdapter;
-
     private TextView tvViewPagerName;
     private Button btnSubmit;
     private JobsViewModel jobsViewModel;
     private ImageButton ibCheckButtonBudget, ibCheckButtonLetter;
-    static JobDetail jobDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

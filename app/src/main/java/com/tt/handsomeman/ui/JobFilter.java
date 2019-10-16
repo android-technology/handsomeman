@@ -76,7 +76,7 @@ public class JobFilter extends AppCompatActivity {
         });
     }
 
-    private void getCreatedDate(){
+    private void getCreatedDate() {
         switch (spinnerCreateTime.getSelectedItemPosition()) {
             case 0:
                 // Today

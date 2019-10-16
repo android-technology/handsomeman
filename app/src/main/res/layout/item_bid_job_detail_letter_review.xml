@@ -106,25 +106,25 @@
 
             </TableRow>
 
-<!--            <TableRow>-->
+            <!--            <TableRow>-->
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="start"-->
-<!--                    android:textColor="#a2a2a2"-->
-<!--                    android:textSize="14sp"-->
-<!--                    tools:text="1st milestone" />-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="start"-->
+            <!--                    android:textColor="#a2a2a2"-->
+            <!--                    android:textSize="14sp"-->
+            <!--                    tools:text="1st milestone" />-->
 
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="end"-->
-<!--                    android:textColor="#8c8c8c"-->
-<!--                    android:textSize="14sp"-->
-<!--                    tools:text="50%" />-->
-<!--            </TableRow>-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:gravity="end"-->
+            <!--                    android:textColor="#8c8c8c"-->
+            <!--                    android:textSize="14sp"-->
+            <!--                    tools:text="50%" />-->
+            <!--            </TableRow>-->
 
             <!--            <TableRow>-->
 

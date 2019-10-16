@@ -74,7 +74,6 @@ public class JobsViewModel extends BaseViewModel {
     }
 
 
-
     public void fetchYourLocationData(String authorization, Double lat, Double lng, Double radius) {
         compositeDisposable
                 .add(jobService.getJobNearBy(authorization, lat, lng, radius)
