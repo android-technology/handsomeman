@@ -12,36 +12,45 @@
         android:id="@+id/skipOnBoarding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:visibility="gone"
+        android:background="@drawable/custom_ripple_transparent_color_bg"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:paddingBottom="1dp"
             android:text="@string/skip"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/imageButtonSkipOnBoarding"
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="20dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
             android:rotation="180"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/view"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

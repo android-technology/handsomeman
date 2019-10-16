@@ -21,7 +21,7 @@
             android:id="@+id/jobDetailBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
@@ -64,22 +64,21 @@
                 android:paddingStart="15dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:id="@+id/jobTitleJobDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="Need a handyman who can fix my toilet" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -150,11 +149,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_tag" />
 
                     <TextView
@@ -162,6 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
+                        android:paddingBottom="1dp"
                         android:text="@string/budget"
                         android:textColor="#a2a2a2" />
 
@@ -187,11 +188,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_time" />
 
@@ -200,6 +201,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
+                        android:paddingBottom="1dp"
                         android:text="@string/deadline"
                         android:textColor="#a2a2a2" />
 
@@ -209,9 +211,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
+                        android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="15sp"
                         tools:text="3 days left" />
                 </LinearLayout>
 
@@ -225,11 +227,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_location" />
 
                     <TextView
@@ -237,6 +240,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
+                        android:paddingBottom="1dp"
                         android:text="@string/location"
                         android:textColor="#a2a2a2" />
 
@@ -246,9 +250,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
+                        android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="15sp"
                         tools:text="Patrick st, Silk city, London" />
                 </LinearLayout>
 
@@ -309,7 +313,6 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="15sp"
                         tools:text="5 to 10" />
 
                 </LinearLayout>
@@ -340,7 +343,6 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="15sp"
                         tools:text="2" />
 
                 </LinearLayout>
@@ -371,7 +373,6 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="15sp"
                         tools:text="No" />
 
                 </LinearLayout>
@@ -396,8 +397,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:text="@string/payment_milestones"
-                            android:textColor="#a2a2a2"
-                            android:textSize="15sp" />
+                            android:textColor="#a2a2a2" />
 
                         <TextView
                             android:id="@+id/paymentMileStoneCountJobDetail"
@@ -406,7 +406,6 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="#000000"
-                            android:textSize="15sp"
                             tools:text="2" />
 
                     </TableRow>
@@ -528,6 +527,7 @@
                             android:gravity="center"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
                             android:text="@string/show_client_profile"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
@@ -545,10 +545,11 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/custom_ripple_primary_color_bg"
         android:gravity="center"
         android:text="@string/place_a_bid"
         android:textAllCaps="false"
+        android:paddingBottom="1dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

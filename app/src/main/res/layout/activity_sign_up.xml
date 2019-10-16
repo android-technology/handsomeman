@@ -17,7 +17,7 @@
             android:id="@+id/signUpBackButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
@@ -97,6 +97,7 @@
                 android:hint="@string/your_name"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -145,6 +146,7 @@
                 android:hint="@string/your_mail"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -192,6 +194,7 @@
                 android:background="#FFFFFF"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <CheckBox
@@ -247,6 +250,7 @@
                 android:background="#FFFFFF"
                 android:hint="@string/re_password"
                 android:inputType="textPassword"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <CheckBox
@@ -286,6 +290,7 @@
             android:background="@drawable/custom_button_state"
             android:enabled="false"
             android:gravity="center"
+            android:paddingBottom="1dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"

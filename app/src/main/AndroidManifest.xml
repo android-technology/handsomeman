@@ -15,14 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.bid_job_detail.BidJobDetail"></activity>
+        <activity android:name=".ui.bid_job_detail.BidJobDetail" />
         <activity android:name=".ui.CustomerProfileJobDetail" />
         <activity android:name=".ui.JobDetail" />
         <activity android:name=".ui.FilterResult" />
         <activity android:name=".ui.JobFilter" />
         <activity android:name=".ui.GroupByCategory" />
         <activity android:name=".ui.YourLocation" />
-        <activity android:name=".ui.HandyManMainScreen" />
+        <activity
+            android:name=".ui.HandyManMainScreen"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.SignUpAddPayout" />
         <activity android:name=".ui.ForgotPassword" />
         <activity android:name=".ui.Register" />

@@ -20,7 +20,7 @@
             android:id="@+id/filterResultBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"

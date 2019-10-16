@@ -89,27 +89,6 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         indicator.setViewPager(mPager);
 
         mPager.disableScroll(false);
-
-        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == NUM_PAGES - 1) {
-                    skip.setVisibility(View.VISIBLE);
-                } else {
-                    skip.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override

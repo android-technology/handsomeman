@@ -80,7 +80,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical|end"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:src="@drawable/plus" />
     </LinearLayout>
 

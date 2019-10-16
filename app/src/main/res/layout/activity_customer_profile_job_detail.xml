@@ -20,7 +20,7 @@
             android:id="@+id/customerProfileJobDetailBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
@@ -32,11 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:paddingBottom="1dp"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            tools:text="CustomerTest"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="CustomerTest" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

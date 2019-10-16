@@ -41,7 +41,7 @@
             android:id="@+id/signUpPayoutBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:paddingBottom="1dp"
             android:text="@string/add_payout"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
@@ -64,7 +65,7 @@
             android:id="@+id/imageButtonCheckSignUpPayout"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="0dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -131,6 +132,7 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -163,6 +165,7 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <TextView
@@ -189,6 +192,7 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -222,6 +226,7 @@
                 android:maxLength="6"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -262,6 +267,7 @@
                     android:inputType="none"
                     android:paddingStart="10dp"
                     android:paddingEnd="5dp"
+                    android:paddingBottom="1dp"
                     android:textSize="15sp" />
 
                 <ImageButton
@@ -270,7 +276,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="2dp"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/custom_ripple_transparent_color_bg"
                     android:padding="7dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_calendar" />
@@ -307,6 +313,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:spinnerMode="dropdown"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -357,6 +366,7 @@
                 android:inputType="textEmailAddress"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -390,6 +400,7 @@
                 android:maxLength="14"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -423,6 +434,7 @@
                 android:maxLength="9"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
                 android:textSize="15sp" />
 
             <View
@@ -455,6 +467,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:spinnerMode="dropdown"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
