@@ -10,16 +10,17 @@
         android:id="@+id/showMoreYourLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/custom_ripple_transparent_color_bg"
         android:orientation="horizontal"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="11dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start|center"
+            android:layout_gravity="center"
             android:text="@string/your_location"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
@@ -31,7 +32,6 @@
             android:layout_gravity="center"
             android:layout_marginEnd="0dp"
             android:gravity="end"
-            android:paddingBottom="1dp"
             android:text="@string/show_more"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp" />
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="11dp"
         android:gravity="start|center"
         android:text="@string/categories"
         android:textColor="@color/colorPrimary"
