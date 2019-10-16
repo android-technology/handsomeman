@@ -47,7 +47,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         holder.tvJobTitle.setText(job.getTitle());
         holder.tvCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));
         holder.tvBudget.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
-        holder.tvLocationName.setText(job.setLocationBinding(job.getLocation()));
+        holder.tvLocationName.setText(job.getLocation());
         holder.tvDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
     }
 

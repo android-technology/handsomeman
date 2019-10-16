@@ -132,16 +132,17 @@
         android:paddingBottom="11dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:text="@string/handy_service_fee"
             android:textColor="#a2a2a2"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/serviceFeeBidJobDetail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="end"
@@ -166,16 +167,17 @@
         android:paddingBottom="11dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:text="@string/highest_bid_for_now_on_this_project"
             android:textColor="#a2a2a2"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/highestBidJobDetail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="end"
@@ -202,16 +204,17 @@
         android:paddingBottom="11dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:text="@string/lowest_bid_for_now_on_this_project"
             android:textColor="#a2a2a2"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/lowestBidJobDetail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="end"

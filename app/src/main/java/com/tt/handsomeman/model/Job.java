@@ -78,13 +78,6 @@ public class Job implements Serializable {
         return ("$" + budgetMin + " - " + "$" + budgetMax);
     }
 
-    public String setLocationBinding(String location) {
-        if (location.length() > 10) {
-            location = location.substring(0, 11) + "...";
-        }
-        return location;
-    }
-
     public String setDeadlineBinding(Date deadline) {
         String myFormat = "dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
