@@ -12,6 +12,7 @@ import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.JobService;
+import com.tt.handsomeman.util.StatusConstant;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 
 public class JobsViewModel extends BaseViewModel {
 
@@ -26,7 +28,7 @@ public class JobsViewModel extends BaseViewModel {
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
-
+    private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private JobService jobService;
 
     @Inject
@@ -49,6 +51,10 @@ public class JobsViewModel extends BaseViewModel {
 
     public LiveData<JobDetailProfile> getJobDetailProfileLiveData() {
         return jobDetailProfileMutableLiveData;
+    }
+
+    public LiveData<String> getMessageResponse() {
+        return messageResponse;
     }
 
     public void fetchData(String authorization, Double lat, Double lng, Double radius) {
@@ -125,5 +131,27 @@ public class JobsViewModel extends BaseViewModel {
                             jobDetailProfileMutableLiveData.setValue(profileResponse.body().getData());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void addJobBid(String authorization, double bid, String description, MultipartBody.Part file, int jobId, double serviceFee) {
+        compositeDisposable.add(jobService.addJobBid(authorization, bid, description, file, jobId, serviceFee)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((response) -> {
+                    if (response.body().getStatus().equals(StatusConstant.OK))
+                        messageResponse.setValue(response.body().getMessage());
+                    else messageResponse.setValue(response.body().getMessage());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void addJobBidWithMultiFile(String authorization, double bid, String description, MultipartBody.Part[] files, int jobId, double serviceFee) {
+        compositeDisposable.add(jobService.addJobBidWithMultiFile(authorization, bid, description, files, jobId, serviceFee)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((response) -> {
+                    if (response.body().getStatus().equals(StatusConstant.OK))
+                        messageResponse.setValue(response.body().getMessage());
+                    else messageResponse.setValue(response.body().getMessage());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

@@ -24,7 +24,6 @@
         <activity android:name=".ui.YourLocation" />
         <activity
             android:name=".ui.HandyManMainScreen"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.SignUpAddPayout" />
         <activity android:name=".ui.ForgotPassword" />
@@ -34,7 +33,6 @@
         <activity android:name=".ui.Start" />
         <activity
             android:name=".ui.OnBoardingSlidePagerActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

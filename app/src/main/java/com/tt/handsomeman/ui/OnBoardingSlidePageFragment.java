@@ -16,7 +16,7 @@ public class OnBoardingSlidePageFragment extends Fragment {
     private int image;
     private int description;
 
-    public static OnBoardingSlidePageFragment newInstance(int image, int description) {
+    static OnBoardingSlidePageFragment newInstance(int image, int description) {
         OnBoardingSlidePageFragment screenSlidePageFragment = new OnBoardingSlidePageFragment();
         Bundle args = new Bundle();
         args.putInt("image", image);

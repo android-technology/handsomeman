@@ -31,7 +31,6 @@ public class JobFilter extends AppCompatActivity {
     private Spinner spinnerCreateTime;
     private Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
-    private String myFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class JobFilter extends AppCompatActivity {
         createTime = getResources().getStringArray(R.array.create_time);
         spinnerCreateTime = findViewById(R.id.spinnerCreateTime);
 
-        myFormat = "yyyy-MM-dd"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         backPreviousScreen();

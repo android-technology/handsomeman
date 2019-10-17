@@ -14,6 +14,8 @@ public class Constants {
     public static final String JOB_DETAIL_SUFFIX = "api/jobs/{id}";
     public static final String JOB_DETAIL_PROFILE_SUFFIX = "api/jobs/jobDetailProfile/{id}";
     public static final String JOB_WISH_LIST = "api/jobs/jobWishList";
+    public static final String ADD_JOB_BID = "api/jobs/addJobBid";
+    public static final String ADD_JOB_BID_WITH_MULTI_FILE = "api/jobs/addJobBidWithMultiFiles";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

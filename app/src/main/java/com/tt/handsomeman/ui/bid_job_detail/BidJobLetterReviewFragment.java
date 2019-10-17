@@ -12,17 +12,26 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.HandyManMainScreen;
+import com.tt.handsomeman.util.MessageConstant;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class BidJobLetterReviewFragment extends Fragment {
 
@@ -30,12 +39,15 @@ public class BidJobLetterReviewFragment extends Fragment {
     private static double serviceFeeValue;
     @SuppressLint("StaticFieldLeak")
     private static TextView tvLetter, tvMyBudget;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    private JobsViewModel jobsViewModel;
     private String jobTitle;
     private int jobId, paymentMileStoneCount;
-    private TableLayout tblPaymentMileStoneBidJobDetail;
-    private Button btnSubmit;
 
-    public static BidJobLetterReviewFragment newInstance(Integer jobId, String jobTitle, int paymentMileStoneCount) {
+    static BidJobLetterReviewFragment newInstance(Integer jobId, String jobTitle, int paymentMileStoneCount) {
         BidJobLetterReviewFragment bidJobLetterReviewFragment = new BidJobLetterReviewFragment();
         Bundle args = new Bundle();
         args.putInt("jobId", jobId);
@@ -45,11 +57,12 @@ public class BidJobLetterReviewFragment extends Fragment {
         return bidJobLetterReviewFragment;
     }
 
-    public static void setTextViewIntroduceValue(String edtValue) {
+    static void setTextViewIntroduceValue(String edtValue) {
         introduceValue = edtValue;
+        tvLetter.setText(introduceValue);
     }
 
-    public static void setTextViewMyBidValue(String edtMyBidValue, double tvServiceFeeValue) {
+    static void setTextViewMyBidValue(String edtMyBidValue, double tvServiceFeeValue) {
         myBidValue = edtMyBidValue;
         serviceFeeValue = tvServiceFeeValue;
     }
@@ -65,18 +78,23 @@ public class BidJobLetterReviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.item_bid_job_detail_letter_review, container, false);
+        HandymanApp.getComponent().inject(this);
+        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        return inflater.inflate(R.layout.item_bid_job_detail_letter_review, container, false);
+    }
 
-        TextView tvJobTitle = rootView.findViewById(R.id.jobTitleBidJobDetail);
-        tvMyBudget = rootView.findViewById(R.id.myBudgetBidJobDetail);
-        TextView tvPaymentMileStoneCount = rootView.findViewById(R.id.paymentMileStoneCountBidJobDetail);
-        tvLetter = rootView.findViewById(R.id.introduceYourSelfTextView);
-        tblPaymentMileStoneBidJobDetail = rootView.findViewById(R.id.paymentMileStoneTableLayoutBidJobDetail);
-        btnSubmit = getActivity().findViewById(R.id.submitBidJobDetail);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView tvJobTitle = view.findViewById(R.id.jobTitleBidJobDetail);
+        tvMyBudget = view.findViewById(R.id.myBudgetBidJobDetail);
+        TextView tvPaymentMileStoneCount = view.findViewById(R.id.paymentMileStoneCountBidJobDetail);
+        tvLetter = view.findViewById(R.id.introduceYourSelfTextView);
+        TableLayout tblPaymentMileStoneBidJobDetail = view.findViewById(R.id.paymentMileStoneTableLayoutBidJobDetail);
+        Button btnSubmit = getActivity().findViewById(R.id.submitBidJobDetail);
 
         tvJobTitle.setText(jobTitle);
         tvMyBudget.setText("$" + myBidValue);
-        tvLetter.setText(introduceValue);
         tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
         List<PaymentMilestone> listPaymentMilestone = BidJobDetail.jobDetail.getListPaymentMilestone();
@@ -121,11 +139,29 @@ public class BidJobLetterReviewFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), HandyManMainScreen.class));
-                getActivity().finish();
+                String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+                jobsViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue);
+
+                jobsViewModel.getMessageResponse().observe(BidJobLetterReviewFragment.this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                        if (s.equals(MessageConstant.JOB_IS_BIDDEN_SUCCESSFULLY)) {
+                            Intent intent = new Intent(getActivity(), HandyManMainScreen.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("radioButtonChoice", 1);
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
         });
+    }
 
-        return rootView;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        tvLetter = null;
+        tvMyBudget = null;
     }
 }

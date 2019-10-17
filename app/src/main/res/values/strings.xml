@@ -359,4 +359,5 @@
     <string name="lower_price_waring">Please bid lower price</string>
     <string name="higher_price_warning">Please bid higher price</string>
     <string name="please_enter">Please enter something</string>
+    <string name="contacts">Contacts</string>
 </resources>

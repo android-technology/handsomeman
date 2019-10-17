@@ -18,6 +18,7 @@ import com.tt.handsomeman.ui.SignUpAddPayout;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.YourLocation;
 import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.ui.bid_job_detail.BidJobLetterReviewFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildJobsFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildWishListFragment;
 
@@ -60,4 +61,5 @@ public interface AppComponent {
 
     void inject(CustomerProfileJobDetail customerProfileJobDetail);
 
+    void inject(BidJobLetterReviewFragment reviewFragment);
 }

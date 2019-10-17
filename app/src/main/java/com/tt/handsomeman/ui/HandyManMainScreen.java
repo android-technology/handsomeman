@@ -69,7 +69,6 @@ public class HandyManMainScreen extends AppCompatActivity {
 
     Fragment active = fragment1;
     private LocationManager locationManager;
-    private FusedLocationProviderClient fusedLocationClient;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -125,7 +124,7 @@ public class HandyManMainScreen extends AppCompatActivity {
     }
 
     private void getLastKnownLocation() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override

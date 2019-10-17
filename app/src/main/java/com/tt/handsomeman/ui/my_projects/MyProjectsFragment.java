@@ -13,7 +13,6 @@ import com.tt.handsomeman.R;
 public class MyProjectsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_projects, container, false);
-        return root;
+        return inflater.inflate(R.layout.fragment_my_projects, container, false);
     }
 }

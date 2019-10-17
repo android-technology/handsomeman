@@ -100,8 +100,7 @@
                 android:id="@+id/jobsFragmentParent"
                 android:name="com.tt.handsomeman.ui.jobs.JobsChildFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:label="@string/messages" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

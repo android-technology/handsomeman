@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,6 @@ import com.tt.handsomeman.R;
 
 public class JobsFragment extends Fragment {
 
-    private RadioButton rdJobs, rdWishList;
-
     private Fragment jobsChildJobsFragment = new JobsChildJobsFragment();
     private Fragment jobsChildWishListFragment = new JobsChildWishListFragment();
     private Fragment active = jobsChildJobsFragment;
@@ -30,12 +29,20 @@ public class JobsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rdJobs = view.findViewById(R.id.radioButtonJobs);
-        rdWishList = view.findViewById(R.id.radioButtonWishList);
+        RadioButton rdJobs = view.findViewById(R.id.radioButtonJobs);
+        RadioButton rdWishList = view.findViewById(R.id.radioButtonWishList);
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.jobsFragmentParent, jobsChildWishListFragment).hide(jobsChildWishListFragment).commit();
         fm.beginTransaction().add(R.id.jobsFragmentParent, jobsChildJobsFragment).commit();
+
+        int choice = getActivity().getIntent().getIntExtra("radioButtonChoice", 0);
+
+        if(choice == 1){
+            rdWishList.setChecked(true);
+            fm.beginTransaction().hide(active).show(jobsChildWishListFragment).commit();
+            active = jobsChildWishListFragment;
+        }
 
         rdJobs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
