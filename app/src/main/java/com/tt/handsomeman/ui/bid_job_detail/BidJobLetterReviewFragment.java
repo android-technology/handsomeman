@@ -1,12 +1,14 @@
 package com.tt.handsomeman.ui.bid_job_detail;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,39 +18,47 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.model.PaymentMilestone;
+import com.tt.handsomeman.ui.HandyManMainScreen;
 
 import java.util.List;
 
 public class BidJobLetterReviewFragment extends Fragment {
 
-    private static String edtIntroduceValue;
+    private static String introduceValue, myBidValue;
+    private static double serviceFeeValue;
     @SuppressLint("StaticFieldLeak")
-    private static TextView tvLetter;
+    private static TextView tvLetter, tvMyBudget;
     private String jobTitle;
-    private int myBudget, paymentMileStoneCount;
+    private int jobId, paymentMileStoneCount;
     private TableLayout tblPaymentMileStoneBidJobDetail;
+    private Button btnSubmit;
 
-    public static BidJobLetterReviewFragment newInstance(String jobTitle, int myBudget, int paymentMileStoneCount) {
+    public static BidJobLetterReviewFragment newInstance(Integer jobId, String jobTitle, int paymentMileStoneCount) {
         BidJobLetterReviewFragment bidJobLetterReviewFragment = new BidJobLetterReviewFragment();
         Bundle args = new Bundle();
+        args.putInt("jobId", jobId);
         args.putString("jobTitle", jobTitle);
-        args.putInt("myBudget", myBudget);
         args.putInt("paymentMileStoneCount", paymentMileStoneCount);
         bidJobLetterReviewFragment.setArguments(args);
         return bidJobLetterReviewFragment;
     }
 
-    public static void getEditTextValue(String edtValue) {
-        edtIntroduceValue = edtValue;
-        tvLetter.setText(edtIntroduceValue);
+    public static void setTextViewIntroduceValue(String edtValue) {
+        introduceValue = edtValue;
+    }
+
+    public static void setTextViewMyBidValue(String edtMyBidValue, double tvServiceFeeValue) {
+        myBidValue = edtMyBidValue;
+        serviceFeeValue = tvServiceFeeValue;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jobId = getArguments().getInt("jobId");
         jobTitle = getArguments().getString("jobTitle");
-        myBudget = getArguments().getInt("myBudget");
         paymentMileStoneCount = getArguments().getInt("paymentMileStoneCount");
     }
 
@@ -57,15 +67,17 @@ public class BidJobLetterReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.item_bid_job_detail_letter_review, container, false);
 
-        TextView jobTitle = rootView.findViewById(R.id.jobTitleBidJobDetail);
-        TextView myBudget = rootView.findViewById(R.id.myBudgetBidJobDetail);
-        TextView paymentMileStoneCount = rootView.findViewById(R.id.paymentMileStoneCountBidJobDetail);
+        TextView tvJobTitle = rootView.findViewById(R.id.jobTitleBidJobDetail);
+        tvMyBudget = rootView.findViewById(R.id.myBudgetBidJobDetail);
+        TextView tvPaymentMileStoneCount = rootView.findViewById(R.id.paymentMileStoneCountBidJobDetail);
         tvLetter = rootView.findViewById(R.id.introduceYourSelfTextView);
         tblPaymentMileStoneBidJobDetail = rootView.findViewById(R.id.paymentMileStoneTableLayoutBidJobDetail);
+        btnSubmit = getActivity().findViewById(R.id.submitBidJobDetail);
 
-        jobTitle.setText(this.jobTitle);
-        myBudget.setText("$" + this.myBudget + " ");
-        paymentMileStoneCount.setText(String.valueOf(this.paymentMileStoneCount));
+        tvJobTitle.setText(jobTitle);
+        tvMyBudget.setText("$" + myBidValue);
+        tvLetter.setText(introduceValue);
+        tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
         List<PaymentMilestone> listPaymentMilestone = BidJobDetail.jobDetail.getListPaymentMilestone();
         for (int i = 0; i < listPaymentMilestone.size(); i++) {
@@ -105,6 +117,14 @@ public class BidJobLetterReviewFragment extends Fragment {
 
             tblPaymentMileStoneBidJobDetail.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), HandyManMainScreen.class));
+                getActivity().finish();
+            }
+        });
 
         return rootView;
     }

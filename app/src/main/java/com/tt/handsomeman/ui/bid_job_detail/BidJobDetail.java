@@ -38,26 +38,19 @@ public class BidJobDetail extends FragmentActivity {
      */
     static CustomViewPager mPager;
     static JobDetail jobDetail;
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-    @Inject
-    SharedPreferencesUtils sharedPreferencesUtils;
+
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter pagerAdapter;
     private TextView tvViewPagerName;
     private Button btnSubmit;
-    private JobsViewModel jobsViewModel;
     private ImageButton ibCheckButtonBudget, ibCheckButtonLetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bid_job_detail);
-
-        HandymanApp.getComponent().inject(this);
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         tvViewPagerName = findViewById(R.id.bidJobDetailViewPagerName);
         ibCheckButtonBudget = findViewById(R.id.imageButtonCheckBudgetBidJobDetail);
@@ -74,15 +67,6 @@ public class BidJobDetail extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-            }
-        });
-
-        ibCheckButtonBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPager.getCurrentItem() < NUM_PAGES - 1) {
-                    mPager.setCurrentItem(mPager.getCurrentItem() + 1);
-                }
             }
         });
     }
@@ -164,7 +148,7 @@ public class BidJobDetail extends FragmentActivity {
                 case 1: // Fragment # 0 - This will show FirstFragment
                     return new BidJobLetterFragment();
                 case 2:
-                    return BidJobLetterReviewFragment.newInstance(jobDetail.getJob().getTitle(), jobDetail.getJob().getBudgetMin(), jobDetail.getListPaymentMilestone().size());
+                    return BidJobLetterReviewFragment.newInstance(jobDetail.getJob().getId(), jobDetail.getJob().getTitle(), jobDetail.getListPaymentMilestone().size());
                 default:
                     return null;
             }

@@ -59,7 +59,7 @@ public class BidJobLetterFragment extends Fragment {
         ibCheckButtonLetter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BidJobLetterReviewFragment.getEditTextValue(edtValue);
+                BidJobLetterReviewFragment.setTextViewIntroduceValue(edtValue);
                 if (BidJobDetail.mPager.getCurrentItem() < BidJobDetail.NUM_PAGES - 1) {
                     BidJobDetail.mPager.setCurrentItem(BidJobDetail.mPager.getCurrentItem() + 1);
                 }
