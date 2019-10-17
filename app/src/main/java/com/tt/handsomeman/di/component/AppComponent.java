@@ -60,5 +60,4 @@ public interface AppComponent {
 
     void inject(CustomerProfileJobDetail customerProfileJobDetail);
 
-    void inject(BidJobDetail bidJobDetail);
 }

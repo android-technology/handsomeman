@@ -356,4 +356,7 @@
     <string name="submit">Submit</string>
     <string name="lowest_bid_for_now_on_this_project">Lowest bid for now on this project</string>
     <string name="introduce_error">Please introduce yourself to customer!!!</string>
+    <string name="lower_price_waring">Please bid lower price</string>
+    <string name="higher_price_warning">Please bid higher price</string>
+    <string name="please_enter">Please enter something</string>
 </resources>

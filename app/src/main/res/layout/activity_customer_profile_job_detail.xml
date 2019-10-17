@@ -166,16 +166,12 @@
                         android:text="@string/reviews_from_other_handymen"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/reviewCountCustomerProfileJobDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:maxLines="1"
@@ -191,10 +187,7 @@
                         android:layout_gravity="center"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:stepSize="1"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:stepSize="1" />
 
                 </LinearLayout>
 

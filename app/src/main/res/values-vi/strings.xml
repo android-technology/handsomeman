@@ -95,4 +95,7 @@
     <string name="my_budget">Ngân sách của tôi</string>
     <string name="lowest_bid_for_now_on_this_project">Đặt cược thấp nhất đang có ở dự án này</string>
     <string name="introduce_error">Hãy giới thiệu bản thân với khách hàng</string>
+    <string name="lower_price_waring">Hãy đặt cọc giá cao hơn</string>
+    <string name="higher_price_warning">Hãy đặt cọc giá thấp hơn</string>
+    <string name="please_enter">Hãy nhập một cái gì đó</string>
 </resources>
