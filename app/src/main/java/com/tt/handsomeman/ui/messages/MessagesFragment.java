@@ -1,33 +1,46 @@
 package com.tt.handsomeman.ui.messages;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.viewmodel.MessagesViewModel;
 
 public class MessagesFragment extends Fragment {
 
-    private MessagesViewModel messagesViewModel;
+    private EditText edtSearchByWord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        messagesViewModel =
-                ViewModelProviders.of(this).get(MessagesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_messages, container, false);
-        messagesViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-            }
-        });
-        return root;
+        return inflater.inflate(R.layout.fragment_messages, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        edtSearchByWord = view.findViewById(R.id.editTextSearchByWordMessageFragment);
+
+        setEditTextHintTextAndIcon();
+    }
+
+    private void setEditTextHintTextAndIcon() {
+        Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),
+                R.drawable.ic_search);
+        ImageSpan imageHint = new ImageSpan(getContext(), Bitmap.createScaledBitmap(icon, 35, 35, false));
+        SpannableString spannableString = new SpannableString("    " + getResources().getString(R.string.search_by_word));
+        spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        edtSearchByWord.setHint(spannableString);
     }
 }
