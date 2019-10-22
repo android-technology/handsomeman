@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobAdapter;
+import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.ui.JobDetail;
+import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -34,7 +36,7 @@ public class JobsChildWishListFragment extends Fragment {
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobAdapter jobAdapter;
+    private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private JobsViewModel jobsViewModel;
 
@@ -66,8 +68,8 @@ public class JobsChildWishListFragment extends Fragment {
 
     private void createJobRecycleView(@NonNull View view) {
         RecyclerView rcvJob = view.findViewById(R.id.recycleViewJobsWishList);
-        jobAdapter = new JobAdapter(getContext(), jobArrayList);
-        jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+        jobAdapter = new JobFilterAdapter(getContext(), jobArrayList);
+        jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(getActivity(), JobDetail.class);
@@ -78,6 +80,7 @@ public class JobsChildWishListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
         rcvJob.setLayoutManager(layoutManagerJob);
         rcvJob.setItemAnimator(new DefaultItemAnimator());
+        rcvJob.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvJob.setAdapter(jobAdapter);
     }
 }

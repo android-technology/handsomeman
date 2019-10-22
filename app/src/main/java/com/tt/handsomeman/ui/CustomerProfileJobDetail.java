@@ -19,6 +19,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
 import com.tt.handsomeman.response.JobDetailCustomerReview;
 import com.tt.handsomeman.response.JobDetailProfile;
+import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -90,12 +91,13 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
     }
 
     private void createCustomerReviewRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.reviewCustomerRecycleView);
+        RecyclerView rcvReview = findViewById(R.id.reviewCustomerRecycleView);
         customerReviewAdapter = new CustomerReviewAdapter(this, jobDetailCustomerReviews);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rcvJob.setLayoutManager(layoutManager);
-        rcvJob.setItemAnimator(new DefaultItemAnimator());
-        rcvJob.setAdapter(customerReviewAdapter);
+        rcvReview.setLayoutManager(layoutManager);
+        rcvReview.setItemAnimator(new DefaultItemAnimator());
+        rcvReview.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+        rcvReview.setAdapter(customerReviewAdapter);
     }
 
     @Override

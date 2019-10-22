@@ -1,7 +1,5 @@
 package com.tt.handsomeman.ui.messages;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -36,9 +34,7 @@ public class MessagesFragment extends Fragment {
     }
 
     private void setEditTextHintTextAndIcon() {
-        Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),
-                R.drawable.ic_search);
-        ImageSpan imageHint = new ImageSpan(getContext(), Bitmap.createScaledBitmap(icon, 35, 35, false));
+        ImageSpan imageHint = new ImageSpan(getContext(), R.drawable.ic_search_18dp);
         SpannableString spannableString = new SpannableString("    " + getResources().getString(R.string.search_by_word));
         spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         edtSearchByWord.setHint(spannableString);

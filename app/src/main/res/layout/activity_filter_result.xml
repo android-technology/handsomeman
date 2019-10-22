@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:overScrollMode="never"
-            tools:listitem="@layout/item_job" />
+            tools:listitem="@layout/item_job_filter" />
     </LinearLayout>
 
 

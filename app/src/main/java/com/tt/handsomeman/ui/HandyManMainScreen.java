@@ -42,13 +42,15 @@ public class HandyManMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new MoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragment1;
+    private LocationManager locationManager;
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
             Constants.Latitude.setValue(location.getLatitude());
             Constants.Longitude.setValue(location.getLongitude());
-            Toast.makeText(HandyManMainScreen.this, "Refreshed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HandyManMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -66,9 +68,6 @@ public class HandyManMainScreen extends AppCompatActivity {
 
         }
     };
-
-    Fragment active = fragment1;
-    private LocationManager locationManager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

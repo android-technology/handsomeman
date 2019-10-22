@@ -28,6 +28,7 @@ import com.tt.handsomeman.ui.GroupByCategory;
 import com.tt.handsomeman.ui.JobDetail;
 import com.tt.handsomeman.ui.YourLocation;
 import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -69,7 +70,7 @@ public class JobsChildJobsFragment extends Fragment {
 
         showMoreByYourLocation();
 
-        fetchData(Constants.Latitude.getValue(), Constants.Longitude.getValue());
+//        fetchData(Constants.Latitude.getValue(), Constants.Longitude.getValue());
 
         Constants.Latitude.observe(this, new Observer<Double>() {
             @Override
@@ -102,6 +103,7 @@ public class JobsChildJobsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
         rcvJob.setLayoutManager(layoutManagerJob);
         rcvJob.setItemAnimator(new DefaultItemAnimator());
+        rcvJob.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvJob.setAdapter(jobAdapter);
     }
 
@@ -122,6 +124,7 @@ public class JobsChildJobsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rcvCategory.setLayoutManager(layoutManagerCategory);
         rcvCategory.setItemAnimator(new DefaultItemAnimator());
+        rcvCategory.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvCategory.setAdapter(categoryAdapter);
     }
 
