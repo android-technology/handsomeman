@@ -1,4 +1,4 @@
-package com.tt.handsomeman;
+package com.tt.handsomeman.util;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;

@@ -42,9 +42,6 @@ public class HandyManMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new MoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
-    Fragment active = fragment1;
-    private LocationManager locationManager;
-
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
@@ -68,7 +65,8 @@ public class HandyManMainScreen extends AppCompatActivity {
 
         }
     };
-
+    Fragment active = fragment1;
+    private LocationManager locationManager;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

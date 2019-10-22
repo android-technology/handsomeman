@@ -80,7 +80,7 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
                 customerName.setText(jobDetailProfile.getCustomerName());
                 customerAllProjectCount.setText(String.valueOf(jobDetailProfile.getAllProject()));
                 customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getAllProject()));
-                countReviewers.setText("("+jobDetailProfile.getCountReviewers()+ " Reviewers)");
+                countReviewers.setText("(" + jobDetailProfile.getCountReviewers() + " Reviewers)");
                 countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
 
                 jobDetailCustomerReviews.clear();

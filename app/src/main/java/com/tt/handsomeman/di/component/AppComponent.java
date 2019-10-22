@@ -3,6 +3,7 @@ package com.tt.handsomeman.di.component;
 
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.JobModule;
+import com.tt.handsomeman.di.module.MessageModule;
 import com.tt.handsomeman.di.module.NetworkModule;
 import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
@@ -17,7 +18,6 @@ import com.tt.handsomeman.ui.SignUp;
 import com.tt.handsomeman.ui.SignUpAddPayout;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.YourLocation;
-import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.ui.bid_job_detail.BidJobLetterReviewFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildJobsFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildWishListFragment;
@@ -32,6 +32,7 @@ import dagger.Component;
         JobModule.class,
         UserModule.class,
         NetworkModule.class,
+        MessageModule.class,
         ViewModelModule.class})
 public interface AppComponent {
 

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.util.Constants;

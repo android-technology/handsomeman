@@ -16,11 +16,21 @@ public class MessageConstant {
     public static final String JOB_DELETED_SUCCESSFULLY = "Job deleted successfully";
     public static final String JOB_UPDATED_SUCCESSFULLY = "Job updated successfully";
     public static final String JOB_ADDED_SUCCESSFULLY = "Job added successfully";
+    public static final String JOB_ADD_WISH_LIST_SUCCESSFULLY = "Job added to handymen wish list successfully";
     public static final String USER_CREATED = "New user have just been created successfully";
     public static final String BID_MAX_SMALLER_THAN_BID_MIN = "Bid max is small than bid min";
     public static final String UNAUTHORIZED = "Unauthorized";
     public static final String ACCESS_DENIED = "Access denied";
     public static final String USER_NOT_FOUND = "Cannot found user with username and password";
+    public static final String NO_CONVERSATION = "You don't have any conversations";
+    public static final String NO_MESSAGE_IN_CONVERSATION = "No message";
+    public static final String NO_CONVERSATION_WITH_ACCOUNT = "You haven't chat with this person";
+    public static final String NOT_ELIGIBLE_ACCOUNT_TWO_CONVERSATION = "You can't find conversation between you and ... you!!!";
+    public static final String MESSAGE_SENT = "Your message is sent";
+    public static final String NO_CONTACT = "You don't have any contact";
+    public static final String DELETE_CONVERSATION_SUCCESSFULLY = "This conversation is deleted success fully";
+    public static final String NO_CONVERSATION_DELETE = "There no conversations to delete";
+    public static final String ACCOUNT_NOT_FOUND_MESSAGE = "You are send message to no ONE";
 
     public static final String EMAIL_NOT_VALID = "Email is not valid";
     public static final String USER_CVR = "CVR";
