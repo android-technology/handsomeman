@@ -7,16 +7,22 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
 
 public class MessagesFragment extends Fragment {
 
+    private Fragment childMessagesFragment = new MessagesChildMessagesFragment();
+    private Fragment childContactsFragment = new MessagesChildContactsFragment();
+    private Fragment active = childMessagesFragment;
     private EditText edtSearchByWord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -27,10 +33,35 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        RadioButton rdMessage = view.findViewById(R.id.radioButtonMessages);
+        RadioButton rdContact = view.findViewById(R.id.radioButtonContacts);
         edtSearchByWord = view.findViewById(R.id.editTextSearchByWordMessageFragment);
 
+        final FragmentManager fm = getChildFragmentManager();
+        fm.beginTransaction().add(R.id.messageFragmentParent, childContactsFragment).hide(childContactsFragment).commit();
+        fm.beginTransaction().add(R.id.messageFragmentParent, childMessagesFragment).commit();
+
         setEditTextHintTextAndIcon();
+
+        rdMessage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    fm.beginTransaction().hide(active).show(childMessagesFragment).commit();
+                    active = childMessagesFragment;
+                }
+            }
+        });
+
+        rdContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    fm.beginTransaction().hide(active).show(childContactsFragment).commit();
+                    active = childContactsFragment;
+                }
+            }
+        });
     }
 
     private void setEditTextHintTextAndIcon() {

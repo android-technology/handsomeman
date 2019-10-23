@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:paddingTop="10dp"
     android:paddingBottom="5dp">
 
@@ -16,32 +15,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/handymenReviewCustomerName"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/handymenReviewCustomerAvatar"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Katherin Manson" />
-
-    <RatingBar
-        android:id="@+id/handymenRatingBarReviewCustomer"
-        style="@style/CustomHeartsRatingBar_13dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="2dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="1"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/handymenReviewCustomerAvatar"
-        app:layout_constraintStart_toEndOf="@+id/handymenReviewCustomerAvatar" />
+        app:layout_constraintStart_toEndOf="@+id/handymenReviewCustomerAvatar"
+        app:layout_constraintTop_toTopOf="@+id/handymenReviewCustomerAvatar">
+
+        <TextView
+            android:id="@+id/handymenReviewCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Katherin Manson" />
+
+        <View
+            android:id="@+id/viewBlank"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <RatingBar
+            android:id="@+id/handymenRatingBarReviewCustomer"
+            style="@style/CustomHeartsRatingBar_13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="1" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/handymenReviewCustomerComment"

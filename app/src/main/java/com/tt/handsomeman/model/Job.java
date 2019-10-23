@@ -81,7 +81,6 @@ public class Job implements Serializable {
     public String setDeadlineBinding(Date deadline) {
         String myFormat = "dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        String test = sdf.format(deadline) + " day(s) left";
         return sdf.format(deadline) + " day(s) left";
     }
 

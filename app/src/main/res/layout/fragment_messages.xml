@@ -57,7 +57,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButtonJobs"
+                    android:id="@+id/radioButtonMessages"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -73,7 +73,7 @@
                     app:buttonTint="@android:color/transparent" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonWishList"
+                    android:id="@+id/radioButtonContacts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -88,15 +88,14 @@
                     app:buttonTint="@android:color/transparent" />
             </RadioGroup>
 
-            <!--                android:name="com.tt.handsomeman.ui.jobs.JobsChildFragment"-->
             <FrameLayout
                 android:id="@+id/messageFragmentParent"
+                android:name="com.tt.handsomeman.ui.messages.MessagesChildMessagesFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:label="@string/messages" />
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 </LinearLayout>

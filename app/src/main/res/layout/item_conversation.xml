@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeLayoutMessage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:id="@+id/linearLayoutDeleteConversation"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:background="#fc3d3d"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <!--What you want to show-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal|center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/del" />
+    </LinearLayout>
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:id="@+id/linearLayoutConversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_ripple_transparent_color_bg"
+        android:padding="15dp"
+        android:paddingStart="17dp"
+        android:paddingEnd="17dp">
+        <!--What you want to show in SurfaceView-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/accountAvatarConversation"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/review_demo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/accountAvatarConversation"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/accountNameConversation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:text="Mary Katharine" />
+
+                <View
+                    android:id="@+id/viewBlank"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:id="@+id/latestMessageConversation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="13sp"
+                    tools:text="What time are you planning to coming?" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/latestMessageSendTimeConversation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#8d8787"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Today" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout><!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>
