@@ -1,6 +1,7 @@
 package com.tt.handsomeman.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.ui.messages.Conversation;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,17 +28,27 @@ public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHo
     private LayoutInflater layoutInflater;
     private Context context;
 
+    private OnItemClickListener mListener;
+
     public MessageAdapter(List<ConversationResponse> conversationResponsesList, Context context) {
         this.conversationResponsesList = conversationResponsesList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 
+    public void setOnItemClickListener(MessageAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     @NonNull
     @Override
     public MessageAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_conversation, parent, false);
-        return new MessageAdapter.MyViewHolder(item);
+        return new MessageAdapter.MyViewHolder(item, mListener);
     }
 
     @Override
@@ -45,11 +57,12 @@ public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHo
 
         String myFormat = "dd.MM.yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-//        String sendTime = sdf.format(conversationResponse.getSendTime());
+        String sendTime = sdf.format(conversationResponse.getSendTime());
 
         holder.tvAccountName.setText(conversationResponse.getAccountName());
         holder.tvLatestMessage.setText(conversationResponse.getLatestMessage());
-        holder.tvLatestMessageSendTime.setText("Today");
+        holder.tvLatestMessageSendTime.setText(sendTime);
+        holder.conversationId = conversationResponse.getConversationId();
 
         mItemManger.bindView(holder.itemView, position);
     }
@@ -73,8 +86,9 @@ public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHo
         TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
         SwipeLayout swipeLayout;
         LinearLayout layoutConversation, layoutDelete;
+        int conversationId;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, final MessageAdapter.OnItemClickListener listener) {
             super(itemView);
             tvAccountName = itemView.findViewById(R.id.accountNameConversation);
             tvLatestMessage = itemView.findViewById(R.id.latestMessageConversation);
@@ -87,8 +101,13 @@ public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHo
             layoutConversation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Click: " + tvAccountName.getText().toString(), Toast.LENGTH_SHORT).show();
                     closeSwipeLayout();
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
                 }
             });
 

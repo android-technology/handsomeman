@@ -112,5 +112,6 @@ public class FilterResult extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         jobsViewModel.clearSubscriptions();
+        Constants.Latitude.removeObservers(this);
     }
 }

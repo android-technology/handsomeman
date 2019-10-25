@@ -22,11 +22,6 @@ public class ConversationResponse {
     @Expose
     private Date sendTime;
 
-    public ConversationResponse(String accountName, String latestMessage) {
-        this.accountName = accountName;
-        this.latestMessage = latestMessage;
-    }
-
     public int getConversationId() {
         return conversationId;
     }

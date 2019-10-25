@@ -70,8 +70,6 @@ public class JobsChildJobsFragment extends Fragment {
 
         showMoreByYourLocation();
 
-//        fetchData(Constants.Latitude.getValue(), Constants.Longitude.getValue());
-
         Constants.Latitude.observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
@@ -152,5 +150,6 @@ public class JobsChildJobsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         jobsViewModel.clearSubscriptions();
+        Constants.Latitude.removeObservers(this);
     }
 }

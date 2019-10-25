@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "514030874969",
+    "firebase_url": "https://test-52781.firebaseio.com",
+    "project_id": "test-52781",
+    "storage_bucket": "test-52781.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514030874969:android:9664c31af7a3cf96c31c48",
+        "android_client_info": {
+          "package_name": "com.tt.firebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514030874969-78vltvq5ar1rpdi99hi7523epe8bst9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAnye6GZIzLYN1fBkQVXu6FZCTKoB-6mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514030874969-78vltvq5ar1rpdi99hi7523epe8bst9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514030874969:android:9fb0eea4156bce35c31c48",
+        "android_client_info": {
+          "package_name": "com.tt.handsomeman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514030874969-78vltvq5ar1rpdi99hi7523epe8bst9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAnye6GZIzLYN1fBkQVXu6FZCTKoB-6mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514030874969-78vltvq5ar1rpdi99hi7523epe8bst9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

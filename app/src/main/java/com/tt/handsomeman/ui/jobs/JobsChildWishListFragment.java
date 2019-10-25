@@ -82,4 +82,10 @@ public class JobsChildWishListFragment extends Fragment {
         rcvJob.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvJob.setAdapter(jobAdapter);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        jobsViewModel.clearSubscriptions();
+    }
 }

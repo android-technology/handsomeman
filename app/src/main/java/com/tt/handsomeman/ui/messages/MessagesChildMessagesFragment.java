@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.messages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +11,33 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.MessageAdapter;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.util.DividerItemDecoration;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 public class MessagesChildMessagesFragment extends Fragment {
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    private MessageViewModel messageViewModel;
+
     private MessageAdapter messageAdapter;
     private List<ConversationResponse> conversationResponseList = new ArrayList<>();
     private MutableLiveData<Boolean> isScroll = new MutableLiveData<>();
@@ -47,6 +61,8 @@ public class MessagesChildMessagesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        HandymanApp.getComponent().inject(this);
+        messageViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
         return inflater.inflate(R.layout.fragment_messages_child_messages, container, false);
     }
 
@@ -54,12 +70,8 @@ public class MessagesChildMessagesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        for (int i = 0; i < 7; i++) {
-            ConversationResponse conversationResponse = new ConversationResponse("Test " + (i + 1), "This is the first message");
-            conversationResponseList.add(conversationResponse);
-        }
-
         createMessageRecycleView(view);
+        fetchData();
 
         isScroll.observe(this, new Observer<Boolean>() {
             @Override
@@ -74,11 +86,44 @@ public class MessagesChildMessagesFragment extends Fragment {
     private void createMessageRecycleView(View view) {
         RecyclerView rcvMessage = view.findViewById(R.id.recycleViewMessages);
         messageAdapter = new MessageAdapter(conversationResponseList, getContext());
+        messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                ConversationResponse conversationResponse = conversationResponseList.get(position);
+                Intent intent = new Intent(getContext(), Conversation.class);
+                intent.putExtra("addressName", conversationResponse.getAccountName());
+                intent.putExtra("conversationId", conversationResponse.getConversationId());
+                startActivity(intent);
+
+            }
+        });
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());
         rcvMessage.setLayoutManager(layoutManagerMessage);
         rcvMessage.setItemAnimator(new FadeInLeftAnimator());
         rcvMessage.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvMessage.setAdapter(messageAdapter);
         rcvMessage.addOnScrollListener(onScrollListener);
+    }
+
+    private void fetchData() {
+
+        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+
+        messageViewModel.fetchAllConversationByAccountId(authorizationCode);
+        messageViewModel.getConversationResponseMutableLiveData().observe(this, new Observer<List<ConversationResponse>>() {
+            @Override
+            public void onChanged(List<ConversationResponse> conversationResponses) {
+                conversationResponseList.clear();
+                conversationResponseList.addAll(conversationResponses);
+                messageAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isScroll.removeObservers(this);
+        messageViewModel.clearSubscriptions();
     }
 }

@@ -209,5 +209,7 @@ public class HandyManMainScreen extends AppCompatActivity {
         super.onDestroy();
         Log.d("Location", "Destroy");
         locationManager.removeUpdates(locationListener);
+        Constants.Latitude.removeObservers(this);
+        Constants.Longitude.removeObservers(this);
     }
 }

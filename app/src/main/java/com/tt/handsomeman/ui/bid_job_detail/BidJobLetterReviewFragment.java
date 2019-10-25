@@ -163,5 +163,6 @@ public class BidJobLetterReviewFragment extends Fragment {
         super.onDetach();
         tvLetter = null;
         tvMyBudget = null;
+        jobsViewModel.clearSubscriptions();
     }
 }

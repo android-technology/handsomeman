@@ -336,7 +336,6 @@
     <string name="payment_milestones">Payment milestones</string>
     <string name="client">Client</string>
     <string name="show_client_profile">Show client\'s profile</string>
-    <string name="project_id">Project ID:</string>
     <string name="projects">Projects</string>
     <string name="all">All</string>
     <string name="successed">Successed</string>
@@ -363,4 +362,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="type_something">Type something…</string>
+    <string name="project_id_colon">Project ID:</string>
 </resources>
