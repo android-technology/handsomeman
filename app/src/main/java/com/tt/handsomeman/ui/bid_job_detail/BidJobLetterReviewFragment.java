@@ -80,7 +80,7 @@ public class BidJobLetterReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
-        return inflater.inflate(R.layout.item_bid_job_detail_letter_review, container, false);
+        return inflater.inflate(R.layout.fragment_bid_job_detail_letter_review, container, false);
     }
 
     @Override

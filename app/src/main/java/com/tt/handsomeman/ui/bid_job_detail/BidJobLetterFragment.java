@@ -24,7 +24,7 @@ public class BidJobLetterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.item_bid_job_detail_letter_writing, container, false);
+        return inflater.inflate(R.layout.fragment_bid_job_detail_letter_writing, container, false);
     }
 
     @Override
