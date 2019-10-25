@@ -18,6 +18,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.ui.messages.Conversation;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -55,13 +56,13 @@ public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MessageAdapter.MyViewHolder holder, int position) {
         ConversationResponse conversationResponse = conversationResponsesList.get(position);
 
-        String myFormat = "dd.MM.yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        String sendTime = sdf.format(conversationResponse.getSendTime());
-
         holder.tvAccountName.setText(conversationResponse.getAccountName());
         holder.tvLatestMessage.setText(conversationResponse.getLatestMessage());
-        holder.tvLatestMessageSendTime.setText(sendTime);
+        try {
+            holder.tvLatestMessageSendTime.setText(conversationResponse.setSendTimeManipulate(conversationResponse.getSendTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.conversationId = conversationResponse.getConversationId();
 
         mItemManger.bindView(holder.itemView, position);

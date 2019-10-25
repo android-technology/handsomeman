@@ -99,8 +99,8 @@
 
         <ImageButton
             android:id="@+id/imageAttachFileConversation"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:background="@drawable/custom_ripple_transparent_color_bg"

@@ -1,9 +1,18 @@
 package com.tt.handsomeman.response;
 
+import android.content.res.Resources;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
+import com.tt.handsomeman.ui.HandyManMainScreen;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ConversationResponse {
     @SerializedName("conversationId")
@@ -21,6 +30,28 @@ public class ConversationResponse {
     @SerializedName("sendTime")
     @Expose
     private Date sendTime;
+
+    public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+        String result;
+        Calendar now = Calendar.getInstance();
+        Date today, yesterday;
+
+        sendTimeInput = formatter.parse(formatter.format(sendTimeInput));
+        today = formatter.parse(formatter.format(now.getTime()));
+        now.add(Calendar.DATE, -1);
+        yesterday = formatter.parse(formatter.format(now.getTime()));
+
+        if (sendTimeInput.compareTo(today) == 0) {
+            result = HandymanApp.getInstance().getString(R.string.today);
+        } else if (sendTimeInput.compareTo(yesterday) == 0) {
+            result = HandymanApp.getInstance().getString(R.string.yesterday);
+        } else {
+            result = formatter.format(sendTimeInput);
+        }
+
+        return result;
+    }
 
     public int getConversationId() {
         return conversationId;

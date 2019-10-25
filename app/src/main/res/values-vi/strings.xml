@@ -100,4 +100,6 @@
     <string name="please_enter">Hãy nhập một cái gì đó</string>
     <string name="contacts">Liên hệ</string>
     <string name="type_something">Hãy viết gì đó...</string>
+    <string name="yesterday">Hôm qua</string>
+    <string name="today">Hôm nay</string>
 </resources>
