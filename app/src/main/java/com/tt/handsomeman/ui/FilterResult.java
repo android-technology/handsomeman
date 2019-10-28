@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,6 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.util.Constants;
-import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -90,7 +90,11 @@ public class FilterResult extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(this);
         rcvJob.setLayoutManager(layoutManagerJob);
         rcvJob.setItemAnimator(new DefaultItemAnimator());
-        rcvJob.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvJob.getContext(), ((LinearLayoutManager) layoutManagerJob).getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvJob.addItemDecoration(dividerItemDecoration);
+
         rcvJob.setAdapter(jobAdapter);
     }
 

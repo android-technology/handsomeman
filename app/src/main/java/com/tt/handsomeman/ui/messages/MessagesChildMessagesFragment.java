@@ -13,14 +13,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.MessageAdapter;
+import com.tt.handsomeman.adapter.ConversationAdapter;
 import com.tt.handsomeman.response.ConversationResponse;
-import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
@@ -38,7 +38,7 @@ public class MessagesChildMessagesFragment extends Fragment {
     SharedPreferencesUtils sharedPreferencesUtils;
     private MessageViewModel messageViewModel;
 
-    private MessageAdapter messageAdapter;
+    private ConversationAdapter conversationAdapter;
     private List<ConversationResponse> conversationResponseList = new ArrayList<>();
     private MutableLiveData<Boolean> isScroll = new MutableLiveData<>();
 
@@ -77,7 +77,7 @@ public class MessagesChildMessagesFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
-                    messageAdapter.closeSwipeLayout();
+                    conversationAdapter.closeSwipeLayout();
                 }
             }
         });
@@ -85,8 +85,8 @@ public class MessagesChildMessagesFragment extends Fragment {
 
     private void createMessageRecycleView(View view) {
         RecyclerView rcvMessage = view.findViewById(R.id.recycleViewMessages);
-        messageAdapter = new MessageAdapter(conversationResponseList, getContext());
-        messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
+        conversationAdapter = new ConversationAdapter(conversationResponseList, getContext());
+        conversationAdapter.setOnItemClickListener(new ConversationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 ConversationResponse conversationResponse = conversationResponseList.get(position);
@@ -100,8 +100,12 @@ public class MessagesChildMessagesFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());
         rcvMessage.setLayoutManager(layoutManagerMessage);
         rcvMessage.setItemAnimator(new FadeInLeftAnimator());
-        rcvMessage.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
-        rcvMessage.setAdapter(messageAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvMessage.getContext(), ((LinearLayoutManager) layoutManagerMessage).getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvMessage.addItemDecoration(dividerItemDecoration);
+
+        rcvMessage.setAdapter(conversationAdapter);
         rcvMessage.addOnScrollListener(onScrollListener);
     }
 
@@ -115,7 +119,7 @@ public class MessagesChildMessagesFragment extends Fragment {
             public void onChanged(List<ConversationResponse> conversationResponses) {
                 conversationResponseList.clear();
                 conversationResponseList.addAll(conversationResponses);
-                messageAdapter.notifyDataSetChanged();
+                conversationAdapter.notifyDataSetChanged();
             }
         });
     }

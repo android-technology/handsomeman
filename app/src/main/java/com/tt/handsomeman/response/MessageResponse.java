@@ -11,28 +11,33 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class ConversationResponse {
-    @SerializedName("conversationId")
+public class MessageResponse {
+    @SerializedName("messageId")
     @Expose
-    private int conversationId;
+    private int messageId;
     @SerializedName("avatar")
     @Expose
     private String avatar;
-    @SerializedName("accountName")
+    @SerializedName("accountId")
     @Expose
-    private String accountName;
-    @SerializedName("latestMessage")
+    private int accountId;
+    @SerializedName("body")
     @Expose
-    private String latestMessage;
+    private String body;
     @SerializedName("sendTime")
     @Expose
     private Date sendTime;
+    @SerializedName("type")
+    @Expose
+    // type = 1 mean this is sender; type = 2 mean this is receiver
+    private byte type;
 
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
         String result;
         Calendar now = Calendar.getInstance();
-        Date today, yesterday;
+        Date today, yesterday, todayTime;
+        todayTime = sendTimeInput;
 
         sendTimeInput = formatter.parse(formatter.format(sendTimeInput));
         today = formatter.parse(formatter.format(now.getTime()));
@@ -40,7 +45,8 @@ public class ConversationResponse {
         yesterday = formatter.parse(formatter.format(now.getTime()));
 
         if (sendTimeInput.compareTo(today) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.today);
+            SimpleDateFormat todayFormat = new SimpleDateFormat("HH:mm", Locale.US);
+            result = todayFormat.format(todayTime);
         } else if (sendTimeInput.compareTo(yesterday) == 0) {
             result = HandymanApp.getInstance().getString(R.string.yesterday);
         } else {
@@ -50,12 +56,12 @@ public class ConversationResponse {
         return result;
     }
 
-    public int getConversationId() {
-        return conversationId;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setConversationId(int conversationId) {
-        this.conversationId = conversationId;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
     public String getAvatar() {
@@ -66,20 +72,20 @@ public class ConversationResponse {
         this.avatar = avatar;
     }
 
-    public String getAccountName() {
-        return accountName;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public String getLatestMessage() {
-        return latestMessage;
+    public String getBody() {
+        return body;
     }
 
-    public void setLatestMessage(String latestMessage) {
-        this.latestMessage = latestMessage;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Date getSendTime() {
@@ -88,5 +94,13 @@ public class ConversationResponse {
 
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public byte getType() {
+        return type;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,6 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
 import com.tt.handsomeman.response.JobDetailCustomerReview;
 import com.tt.handsomeman.response.JobDetailProfile;
-import com.tt.handsomeman.util.DividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -96,7 +96,11 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());
-        rcvReview.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvReview.getContext(), ((LinearLayoutManager) layoutManager).getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvReview.addItemDecoration(dividerItemDecoration);
+
         rcvReview.setAdapter(customerReviewAdapter);
     }
 

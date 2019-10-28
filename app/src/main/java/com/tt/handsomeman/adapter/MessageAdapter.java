@@ -1,127 +1,110 @@
 package com.tt.handsomeman.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.response.ConversationResponse;
-import com.tt.handsomeman.ui.messages.Conversation;
+import com.tt.handsomeman.response.MessageResponse;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
-public class MessageAdapter extends RecyclerSwipeAdapter<MessageAdapter.MyViewHolder> {
+public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ConversationResponse> conversationResponsesList;
+    private List<MessageResponse> messageResponseList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    private OnItemClickListener mListener;
-
-    public MessageAdapter(List<ConversationResponse> conversationResponsesList, Context context) {
-        this.conversationResponsesList = conversationResponsesList;
+    public MessageAdapter(List<MessageResponse> messageResponseList, Context context) {
+        this.messageResponseList = messageResponseList;
         this.context = context;
-        layoutInflater = LayoutInflater.from(context);
-    }
-
-    public void setOnItemClickListener(MessageAdapter.OnItemClickListener listener) {
-        mListener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public MessageAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_conversation, parent, false);
-        return new MessageAdapter.MyViewHolder(item, mListener);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        switch (viewType) {
+            case 1:
+                view = layoutInflater.inflate(R.layout.item_message_sender, parent, false);
+                return new SenderViewHolder(view);
+            case 2:
+                view = layoutInflater.inflate(R.layout.item_message_receiver, parent, false);
+                return new ReceiverViewHolder(view);
+            default:
+                throw new IllegalStateException("unsupported item type");
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageAdapter.MyViewHolder holder, int position) {
-        ConversationResponse conversationResponse = conversationResponsesList.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        MessageResponse messageResponse = messageResponseList.get(position);
 
-        holder.tvAccountName.setText(conversationResponse.getAccountName());
-        holder.tvLatestMessage.setText(conversationResponse.getLatestMessage());
-        try {
-            holder.tvLatestMessageSendTime.setText(conversationResponse.setSendTimeManipulate(conversationResponse.getSendTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        switch (holder.getItemViewType()) {
+            case 1:
+                SenderViewHolder senderViewHolder = (SenderViewHolder) holder;
+                try {
+                    senderViewHolder.tvSendTime.setText(messageResponse.setSendTimeManipulate(messageResponse.getSendTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                senderViewHolder.tvMessageBody.setText(messageResponse.getBody());
+                break;
+            case 2:
+                ReceiverViewHolder receiverViewHolder = (ReceiverViewHolder) holder;
+                try {
+                    receiverViewHolder.tvSendTime.setText(messageResponse.setSendTimeManipulate(messageResponse.getSendTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                receiverViewHolder.tvMessageBody.setText(messageResponse.getBody());
+                break;
         }
-        holder.conversationId = conversationResponse.getConversationId();
-
-        mItemManger.bindView(holder.itemView, position);
     }
 
     @Override
     public int getItemCount() {
-        return conversationResponsesList.size();
+        return messageResponseList.size();
     }
 
     @Override
-    public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipeLayoutMessage;
+    public int getItemViewType(int position) {
+        return messageResponseList.get(position).getType();
     }
 
-    public void closeSwipeLayout() {
-        mItemManger.closeAllItems();
-    }
+    public class SenderViewHolder extends RecyclerView.ViewHolder {
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgAvatar;
+        TextView tvSendTime;
+        TextView tvMessageBody;
 
-        TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
-        SwipeLayout swipeLayout;
-        LinearLayout layoutConversation, layoutDelete;
-        int conversationId;
-
-        public MyViewHolder(@NonNull View itemView, final MessageAdapter.OnItemClickListener listener) {
+        public SenderViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvAccountName = itemView.findViewById(R.id.accountNameConversation);
-            tvLatestMessage = itemView.findViewById(R.id.latestMessageConversation);
-            tvLatestMessageSendTime = itemView.findViewById(R.id.latestMessageSendTimeConversation);
-            layoutConversation = itemView.findViewById(R.id.linearLayoutConversation);
-            layoutDelete = itemView.findViewById(R.id.linearLayoutDeleteConversation);
-            swipeLayout = itemView.findViewById(R.id.swipeLayoutMessage);
-            swipeLayout.setClickToClose(true);
 
-            layoutConversation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    closeSwipeLayout();
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
-                        }
-                    }
-                }
-            });
+            tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
+            tvMessageBody = itemView.findViewById(R.id.messageBody);
+        }
+    }
 
-            layoutDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mItemManger.removeShownLayouts(swipeLayout);
-                    conversationResponsesList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(), getItemCount());
-                    mItemManger.closeAllItems();
-                }
-            });
+    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imgAvatar;
+        TextView tvSendTime;
+        TextView tvMessageBody;
+
+        public ReceiverViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
+            tvMessageBody = itemView.findViewById(R.id.messageBody);
         }
     }
 }
