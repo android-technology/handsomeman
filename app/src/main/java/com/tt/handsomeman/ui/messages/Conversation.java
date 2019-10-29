@@ -29,7 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class Conversation extends AppCompatActivity {
 
@@ -45,6 +45,7 @@ public class Conversation extends AppCompatActivity {
     private TextView tvAddressName;
     private BroadcastReceiver receiver;
     private int conversationId;
+    private RecyclerView rcvMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +67,7 @@ public class Conversation extends AppCompatActivity {
         String addressName = getIntent().getStringExtra("addressName");
         tvAddressName.setText(addressName);
 
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        int conversationId = getIntent().getIntExtra("conversationId", 0);
-        messageViewModel.fetchAllMessageInConversation(authorizationCode, conversationId);
-        messageViewModel.getMessageResponseListMutableLiveData().observe(this, new Observer<List<MessageResponse>>() {
-            @Override
-            public void onChanged(List<MessageResponse> messageResponses) {
-                messageResponseList.clear();
-                messageResponseList.addAll(messageResponses);
-                messageAdapter.notifyDataSetChanged();
-            }
-        });
+        fetchData();
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -86,12 +77,27 @@ public class Conversation extends AppCompatActivity {
         };
     }
 
+    private void fetchData() {
+        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        int conversationId = getIntent().getIntExtra("conversationId", 0);
+        messageViewModel.fetchAllMessageInConversation(authorizationCode, conversationId);
+        messageViewModel.getMessageResponseListMutableLiveData().observe(this, new Observer<List<MessageResponse>>() {
+            @Override
+            public void onChanged(List<MessageResponse> messageResponses) {
+                messageResponseList.clear();
+                messageResponseList.addAll(messageResponses);
+                messageAdapter.notifyItemRangeInserted(1, messageResponseList.size());
+                rcvMessage.scrollToPosition(messageResponseList.size() - 1);
+            }
+        });
+    }
+
     private void createRecyclerViewMessage() {
-        RecyclerView rcvMessage = findViewById(R.id.messageRecyclerView);
+        rcvMessage = findViewById(R.id.messageRecyclerView);
         messageAdapter = new MessageAdapter(messageResponseList, this);
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(this);
         rcvMessage.setLayoutManager(layoutManagerMessage);
-        rcvMessage.setItemAnimator(new FadeInLeftAnimator());
+        rcvMessage.setItemAnimator(new FadeInUpAnimator());
 
         rcvMessage.setAdapter(messageAdapter);
     }

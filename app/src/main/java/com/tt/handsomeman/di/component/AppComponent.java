@@ -69,4 +69,5 @@ public interface AppComponent {
     void inject(MessagesChildMessagesFragment messagesFragment);
 
     void inject(Conversation conversation);
+
 }

@@ -20,6 +20,7 @@ public class Constants {
 
     public static final String GET_ALL_CONVERSATION_OF_ACCOUNT = "api/message/getAllConversationByAccountId";
     public static final String GET_ALL_MESSAGES_IN_CONVERSATION = "api/message/getAllMessageInConversation/{conversationId}";
+    public static final String DELETE_CONVERSATION_ID = "api/message/deleteConversation/{conversationId}";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

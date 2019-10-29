@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.messages.Conversation"></activity>
+        <activity android:name=".ui.messages.Conversation" />
         <activity android:name=".ui.bid_job_detail.BidJobDetail" />
         <activity android:name=".ui.CustomerProfileJobDetail" />
         <activity android:name=".ui.JobDetail" />

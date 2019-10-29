@@ -23,6 +23,7 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
     private List<ConversationResponse> conversationResponsesList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private SwipeLayout deleteSwipeLayout;
 
     private OnItemClickListener mListener;
 
@@ -38,6 +39,8 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+
+        void onItemDelete(int position);
     }
 
     @NonNull
@@ -77,6 +80,14 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         mItemManger.closeAllItems();
     }
 
+    public void deleteConversation(int position){
+        mItemManger.removeShownLayouts(deleteSwipeLayout);
+        conversationResponsesList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+        mItemManger.closeAllItems();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
@@ -110,11 +121,14 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
             layoutDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemManger.removeShownLayouts(swipeLayout);
-                    conversationResponsesList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(), getItemCount());
-                    mItemManger.closeAllItems();
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemDelete(position);
+                            deleteSwipeLayout = swipeLayout;
+                        }
+                    }
+
                 }
             });
         }

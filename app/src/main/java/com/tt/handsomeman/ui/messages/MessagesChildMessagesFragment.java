@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +38,6 @@ public class MessagesChildMessagesFragment extends Fragment {
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     private MessageViewModel messageViewModel;
-
     private ConversationAdapter conversationAdapter;
     private List<ConversationResponse> conversationResponseList = new ArrayList<>();
     private MutableLiveData<Boolean> isScroll = new MutableLiveData<>();
@@ -53,7 +53,6 @@ public class MessagesChildMessagesFragment extends Fragment {
                 case RecyclerView.SCROLL_STATE_SETTLING:
                     isScroll.setValue(false);
                     break;
-
             }
         }
     };
@@ -94,7 +93,20 @@ public class MessagesChildMessagesFragment extends Fragment {
                 intent.putExtra("addressName", conversationResponse.getAccountName());
                 intent.putExtra("conversationId", conversationResponse.getConversationId());
                 startActivity(intent);
+            }
 
+            @Override
+            public void onItemDelete(int position) {
+                String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+                ConversationResponse conversationResponse = conversationResponseList.get(position);
+                new DeleteConversationDialog(getActivity(), R.style.AppTheme_Launcher, new DeleteConversationDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClickYes() {
+                        messageViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());
+                        messageViewModel.getMessageResponse().observe(getViewLifecycleOwner(), s -> Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show());
+                        conversationAdapter.deleteConversation(position);
+                    }
+                }).show();
             }
         });
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());

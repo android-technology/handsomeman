@@ -102,4 +102,8 @@
     <string name="type_something">Hãy viết gì đó...</string>
     <string name="yesterday">Hôm qua</string>
     <string name="today">Hôm nay</string>
+    <string name="sure_to_delete_message">Bạn có chắc muốn xóa cuộc hội thoại này không?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="delete_conversation">Xóa cuộc hội thoại</string>
 </resources>

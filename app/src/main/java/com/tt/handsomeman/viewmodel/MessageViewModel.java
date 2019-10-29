@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.service.MessageService;
+import com.tt.handsomeman.util.StatusConstant;
 
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class MessageViewModel extends BaseViewModel {
         return messageResponse;
     }
 
-
     public void fetchAllConversationByAccountId(String authorization) {
         compositeDisposable.add(messageService.getAllConversationByAccountId(authorization)
                 .subscribeOn(Schedulers.io())
@@ -69,6 +69,20 @@ public class MessageViewModel extends BaseViewModel {
                                 messageResponseListMutableLiveData.setValue(messageResponseList);
                             } else {
                                 messageResponseListMutableLiveData.setValue(messageResponseList);
+                            }
+                        }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                ));
+    }
+
+    public void deleteConversationById(String authorization, Integer conversationId) {
+        compositeDisposable.add(messageService.deleteConversationById(authorization, conversationId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            if (response.body().getStatus().equals(StatusConstant.OK)) {
+                                messageResponse.setValue(response.body().getMessage());
+                            } else {
+                                messageResponse.setValue(response.body().getMessage());
                             }
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
