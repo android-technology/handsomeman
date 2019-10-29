@@ -99,7 +99,7 @@ public class MessagesChildMessagesFragment extends Fragment {
             public void onItemDelete(int position) {
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
                 ConversationResponse conversationResponse = conversationResponseList.get(position);
-                new DeleteConversationDialog(getActivity(), R.style.AppTheme_Launcher, new DeleteConversationDialog.OnItemClickListener() {
+                new DeleteConversationDialog(getActivity(), R.style.PauseDialog, new DeleteConversationDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
                         messageViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());
