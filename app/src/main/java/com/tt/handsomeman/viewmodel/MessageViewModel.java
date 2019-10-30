@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.tt.handsomeman.response.Contact;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.service.MessageService;
@@ -21,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MessageViewModel extends BaseViewModel {
     private MutableLiveData<List<ConversationResponse>> conversationResponseListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<MessageResponse>> messageResponseListMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MessageService messageService;
 
@@ -36,6 +38,10 @@ public class MessageViewModel extends BaseViewModel {
 
     public MutableLiveData<List<MessageResponse>> getMessageResponseListMutableLiveData() {
         return messageResponseListMutableLiveData;
+    }
+
+    public MutableLiveData<List<Contact>> getContactListMutableLiveData(){
+        return contactListMutableLiveData;
     }
 
     public MutableLiveData<String> getMessageResponse() {
@@ -83,6 +89,22 @@ public class MessageViewModel extends BaseViewModel {
                                 messageResponse.setValue(response.body().getMessage());
                             } else {
                                 messageResponse.setValue(response.body().getMessage());
+                            }
+                        }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                ));
+    }
+
+    public void fetchAllContactOfAccount(String authorization) {
+        compositeDisposable.add(messageService.getContactOfAccount(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            List<Contact> contactList = response.body().getData().getContactList();
+                            if (contactList.isEmpty()) {
+                                messageResponse.setValue(response.body().getMessage());
+                                contactListMutableLiveData.setValue(contactList);
+                            } else {
+                                contactListMutableLiveData.setValue(contactList);
                             }
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));

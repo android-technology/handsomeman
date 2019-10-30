@@ -1,6 +1,7 @@
 package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.ListContact;
 import com.tt.handsomeman.response.ListConversation;
 import com.tt.handsomeman.response.ListMessage;
 import com.tt.handsomeman.response.StandardResponse;
@@ -24,4 +25,7 @@ public interface MessageService {
 
     @DELETE(Constants.DELETE_CONVERSATION_ID)
     Single<Response<StandardResponse>> deleteConversationById(@Header("Authorization") String token, @Path("conversationId") Integer conversationId);
+
+    @GET(Constants.GET_CONTACT_OF_ACCOUNT)
+    Observable<Response<DataBracketResponse<ListContact>>> getContactOfAccount(@Header("Authorization") String token);
 }

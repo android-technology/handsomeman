@@ -131,7 +131,7 @@ public class MessagesChildMessagesFragment extends Fragment {
             public void onChanged(List<ConversationResponse> conversationResponses) {
                 conversationResponseList.clear();
                 conversationResponseList.addAll(conversationResponses);
-                conversationAdapter.notifyDataSetChanged();
+                conversationAdapter.notifyItemRangeInserted(1, conversationResponseList.size());
             }
         });
     }

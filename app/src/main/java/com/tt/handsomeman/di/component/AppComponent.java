@@ -22,6 +22,7 @@ import com.tt.handsomeman.ui.bid_job_detail.BidJobLetterReviewFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildJobsFragment;
 import com.tt.handsomeman.ui.jobs.JobsChildWishListFragment;
 import com.tt.handsomeman.ui.messages.Conversation;
+import com.tt.handsomeman.ui.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.messages.MessagesChildMessagesFragment;
 
 import javax.inject.Singleton;
@@ -67,6 +68,8 @@ public interface AppComponent {
     void inject(BidJobLetterReviewFragment reviewFragment);
 
     void inject(MessagesChildMessagesFragment messagesFragment);
+
+    void inject(MessagesChildContactsFragment contactsFragment);
 
     void inject(Conversation conversation);
 
