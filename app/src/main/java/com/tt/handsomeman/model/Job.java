@@ -2,9 +2,12 @@ package com.tt.handsomeman.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tt.handsomeman.util.DayCount;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -70,7 +73,7 @@ public class Job implements Serializable {
 
     public String setCreateTimeBinding(Date createTime) {
         String myFormat = "h"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         return sdf.format(createTime) + " hour(s) ago";
     }
 
@@ -78,10 +81,13 @@ public class Job implements Serializable {
         return ("$" + budgetMin + " - " + "$" + budgetMax);
     }
 
-    public String setDeadlineBinding(Date deadline) {
-        String myFormat = "dd"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        return sdf.format(deadline) + " day(s) left";
+    public String setDeadlineBinding(Date deadline) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Calendar now = Calendar.getInstance();
+        Date today = formatter.parse(formatter.format(now.getTime()));
+        deadline = formatter.parse(formatter.format(deadline));
+
+        return DayCount.getCountOfDays(today, deadline) + " day(s) left";
     }
 
     public String setBidRange(Integer bidMin, Integer bidMax) {

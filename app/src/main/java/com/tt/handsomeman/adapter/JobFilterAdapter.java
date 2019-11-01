@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.Job;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.MyViewHolder> {
@@ -48,7 +49,11 @@ public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.MyVi
         holder.tvCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));
         holder.tvBudget.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
         holder.tvLocationName.setText(job.getLocation());
-        holder.tvDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
+        try {
+            holder.tvDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

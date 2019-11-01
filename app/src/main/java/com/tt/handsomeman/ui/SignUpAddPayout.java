@@ -130,7 +130,7 @@ public class SignUpAddPayout extends AppCompatActivity {
                 String token = sharedPreferencesUtils.get("token", String.class);
 
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 edtBirthday.setText(sdf.format(myCalendar.getTime()));
 
                 String firstName = edtFirstName.getText().toString();
@@ -299,7 +299,7 @@ public class SignUpAddPayout extends AppCompatActivity {
 
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
         edtBirthday.setText(sdf.format(myCalendar.getTime()));
         edtBirthday.setError(null);

@@ -33,7 +33,7 @@ public class MessageResponse {
     private byte type;
 
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String result;
         Calendar now = Calendar.getInstance();
         Date today, yesterday, todayTime;
@@ -45,7 +45,7 @@ public class MessageResponse {
         yesterday = formatter.parse(formatter.format(now.getTime()));
 
         if (sendTimeInput.compareTo(today) == 0) {
-            SimpleDateFormat todayFormat = new SimpleDateFormat("HH:mm", Locale.US);
+            SimpleDateFormat todayFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
             result = todayFormat.format(todayTime);
         } else if (sendTimeInput.compareTo(yesterday) == 0) {
             result = HandymanApp.getInstance().getString(R.string.yesterday);

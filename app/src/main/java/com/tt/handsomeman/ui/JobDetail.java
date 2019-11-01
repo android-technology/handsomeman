@@ -32,6 +32,7 @@ import com.tt.handsomeman.ui.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -132,7 +133,11 @@ public class JobDetail extends AppCompatActivity {
                 tvJobCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));
                 tvJobDetail.setText(job.getDetail());
                 tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
-                tvJobDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
+                try {
+                    tvJobDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 tvJobLocation.setText(job.getLocation());
                 tvBidRange.setText(job.setBidRange(job.getBidMin(), job.getBidMax()));
                 tvInterviewing.setText(String.valueOf(job.getInterviewing()));

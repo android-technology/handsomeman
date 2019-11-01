@@ -17,6 +17,9 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int HEADER = 0;
+    public static final int ITEM = 1;
+
     private List<Contact> contactList;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -32,10 +35,10 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
-            case 0:
+            case HEADER:
                 view = layoutInflater.inflate(R.layout.item_contact_header, parent, false);
                 return new ContactAdapter.HeaderViewHolder(view);
-            case 1:
+            case ITEM:
                 view = layoutInflater.inflate(R.layout.item_contact, parent, false);
                 return new ContactAdapter.ContactViewHolder(view);
             default:
@@ -48,12 +51,12 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Contact contact = contactList.get(position);
 
         switch (holder.getItemViewType()) {
-            case 0:
+            case HEADER:
                 ContactAdapter.HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
                 headerViewHolder.tvHeaderCharacter.setText(contact.getFirstCharacter(contact.getName()));
                 headerViewHolder.tvContactNameHeader.setText(contact.getName());
                 break;
-            case 1:
+            case ITEM:
                 ContactAdapter.ContactViewHolder contactViewHolder1 = (ContactViewHolder) holder;
                 contactViewHolder1.tvContactName.setText(contact.getName());
                 break;
@@ -68,9 +71,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         if (contactList.get(position).getIsHeader()) {
-            return 0;
+            return HEADER;
         } else {
-            return 1;
+            return ITEM;
         }
     }
 

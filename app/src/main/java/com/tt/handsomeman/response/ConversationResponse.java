@@ -29,7 +29,7 @@ public class ConversationResponse {
     private Date sendTime;
 
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String result;
         Calendar now = Calendar.getInstance();
         Date today, yesterday;

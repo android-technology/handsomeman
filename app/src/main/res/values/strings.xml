@@ -370,4 +370,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_conversation">Delete conversation</string>
+    <string name="in_progress">In Progress</string>
+    <string name="in_past">In Past</string>
 </resources>

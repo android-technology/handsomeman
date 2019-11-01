@@ -1,11 +1,9 @@
 package com.tt.handsomeman.ui.messages;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ContactAdapter;
-import com.tt.handsomeman.adapter.ConversationAdapter;
 import com.tt.handsomeman.response.Contact;
-import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.util.ContactDivider;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
@@ -77,9 +73,8 @@ public class MessagesChildContactsFragment extends Fragment {
         rcvContact.setLayoutManager(layoutManagerMessage);
         rcvContact.setItemAnimator(new FadeInLeftAnimator());
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvContact.getContext(), ((LinearLayoutManager) layoutManagerMessage).getOrientation());
-//        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
-//        rcvContact.addItemDecoration(dividerItemDecoration);
+        ContactDivider contactDivider = new ContactDivider(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvContact.addItemDecoration(contactDivider);
 
         rcvContact.setAdapter(contactAdapter);
     }

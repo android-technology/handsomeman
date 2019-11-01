@@ -106,4 +106,6 @@
     <string name="yes">Có</string>
     <string name="no">Không</string>
     <string name="delete_conversation">Xóa cuộc hội thoại</string>
+    <string name="in_progress">Đang làm</string>
+    <string name="in_past">Đã làm</string>
 </resources>

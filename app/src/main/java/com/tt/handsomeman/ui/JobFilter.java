@@ -47,7 +47,7 @@ public class JobFilter extends AppCompatActivity {
         spinnerCreateTime = findViewById(R.id.spinnerCreateTime);
 
         String myFormat = "yyyy-MM-dd"; //In which you need put here
-        sdf = new SimpleDateFormat(myFormat, Locale.US);
+        sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
         backPreviousScreen();
 
