@@ -13,8 +13,8 @@ public class DeleteConversationDialog extends Dialog implements android.view.Vie
 
     private OnItemClickListener mListener;
 
-    DeleteConversationDialog(Activity a, int theme, DeleteConversationDialog.OnItemClickListener listener) {
-        super(a, theme);
+    DeleteConversationDialog(Activity activity, int theme, DeleteConversationDialog.OnItemClickListener listener) {
+        super(activity, theme);
         mListener = listener;
     }
 

@@ -10,7 +10,7 @@
         android:id="@+id/linearLayoutDeleteConversation"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:background="#fc3d3d"
+        android:background="@color/red"
         android:orientation="horizontal"
         android:weightSum="1">
         <!--What you want to show-->

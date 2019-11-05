@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#293551</color>
     <color name="colorAccent">#2ca4bf</color>
     <color name="textColor">#a2a2a2</color>
-    <color name="deleteRed">#fc3d3d</color>
+    <color name="red">#fc3d3d</color>
 </resources>

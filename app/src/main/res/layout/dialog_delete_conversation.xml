@@ -53,6 +53,6 @@
         android:gravity="center"
         android:text="@string/no"
         android:textAllCaps="false"
-        android:textColor="#fc3d3d"
+        android:textColor="@color/red"
         android:textSize="18sp" />
 </LinearLayout>

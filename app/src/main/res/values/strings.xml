@@ -318,7 +318,6 @@
     <string name="notifications">Notifications</string>
     <string name="more">More</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="wish_list">Wishlist</string>
     <string name="filter">Filter</string>
     <string name="distance">Distance</string>
@@ -360,8 +359,6 @@
     <string name="please_enter">Please enter something</string>
     <string name="contacts">Contacts</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type_something">Type something…</string>
     <string name="project_id_colon">Project ID:</string>
     <string name="today">Today</string>
@@ -372,4 +369,24 @@
     <string name="delete_conversation">Delete conversation</string>
     <string name="in_progress">In Progress</string>
     <string name="in_past">In Past</string>
+    <string name="view_my_profile">View my profile</string>
+    <string name="my_balance">My balance</string>
+    <string name="view_transfer_history">View transfer history</string>
+    <string name="transfer_to_bank_account">Make the transfer to your bank account</string>
+    <string name="help_support">Help &amp; support</string>
+    <string name="term_condition">Terms &amp; Condition</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="change_password">Change password</string>
+    <string name="log_out">Log out</string>
+    <string name="other">Other</string>
+    <string name="payout">Payout</string>
+    <string name="account_ends_with">"Account ends with "</string>
+    <string name="my_profile">My profile</string>
+    <string name="reviews">Reviews</string>
+    <string name="about">About</string>
+    <string name="education">Education</string>
+    <string name="my_skills">My skills</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

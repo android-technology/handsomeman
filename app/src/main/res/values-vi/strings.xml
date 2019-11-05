@@ -108,4 +108,21 @@
     <string name="delete_conversation">Xóa cuộc hội thoại</string>
     <string name="in_progress">Đang làm</string>
     <string name="in_past">Đã làm</string>
+    <string name="view_my_profile">Xem hồ sơ của tôi</string>
+    <string name="my_balance">Số dư của tôi</string>
+    <string name="view_transfer_history">Xem lịch sử giao dịch</string>
+    <string name="transfer_to_bank_account">Chuyển vào tài khoản ngân hàng của tôi</string>
+    <string name="change_password">Thay đổi mật khẩu</string>
+    <string name="help_support">Giúp đỡ &amp; hỗ trợ</string>
+    <string name="term_condition">Giới hạn &amp; điều kiện</string>
+    <string name="log_out">Đặng xuất</string>
+    <string name="privacy_policy">Chính sách riêng tư</string>
+    <string name="other">Khác</string>
+    <string name="payout">Thanh toán</string>
+    <string name="account_ends_with">"Tài khoản với số "</string>
+    <string name="reviews">Đánh giá</string>
+    <string name="my_skills">Kỹ năng của tôi</string>
+    <string name="my_profile">Hồ sơ của tôi</string>
+    <string name="education">Học vấn</string>
+    <string name="about">Về tôi</string>
 </resources>

@@ -78,10 +78,10 @@
             android:id="@+id/attachFileButton"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|end"
             android:layout_weight="1"
             android:background="@drawable/custom_ripple_transparent_color_bg"
+            android:scaleType="fitCenter"
             android:src="@drawable/plus" />
     </LinearLayout>
 

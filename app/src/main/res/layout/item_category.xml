@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:paddingStart="0dp"
-    android:paddingEnd="0dp"
-    android:background="@drawable/custom_ripple_transparent_color_bg">
+    android:background="@drawable/custom_ripple_transparent_color_bg"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/textViewJobName"

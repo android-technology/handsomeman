@@ -37,12 +37,6 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         mListener = listener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-
-        void onItemDelete(int position);
-    }
-
     @NonNull
     @Override
     public ConversationAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -80,12 +74,18 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         mItemManger.closeAllItems();
     }
 
-    public void deleteConversation(int position){
+    public void deleteConversation(int position) {
         mItemManger.removeShownLayouts(deleteSwipeLayout);
         conversationResponsesList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
         mItemManger.closeAllItems();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onItemDelete(int position);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

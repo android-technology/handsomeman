@@ -40,7 +40,7 @@ public class MessageViewModel extends BaseViewModel {
         return messageResponseListMutableLiveData;
     }
 
-    public MutableLiveData<List<Contact>> getContactListMutableLiveData(){
+    public MutableLiveData<List<Contact>> getContactListMutableLiveData() {
         return contactListMutableLiveData;
     }
 

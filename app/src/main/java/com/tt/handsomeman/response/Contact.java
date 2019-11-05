@@ -17,7 +17,7 @@ public class Contact {
     @Expose
     private boolean isHeader;
 
-    public String getFirstCharacter(String name){
+    public String getFirstCharacter(String name) {
         return String.valueOf(name.toUpperCase().charAt(0));
     }
 
