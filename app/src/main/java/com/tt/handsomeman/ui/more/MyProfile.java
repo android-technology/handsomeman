@@ -3,6 +3,7 @@ package com.tt.handsomeman.ui.more;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public class MyProfile extends AppCompatActivity {
     private Fragment reviewsFragment = new MyProfileReviewsFragment();
     private Fragment active = aboutFragment;
 
+    private ImageButton ibEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class MyProfile extends AppCompatActivity {
 
         RadioButton rdAbout = findViewById(R.id.radioButtonAbout);
         RadioButton rdReviews = findViewById(R.id.radioButtonReviews);
+        ibEdit = findViewById(R.id.imageButtonCheckFilter);
 
         findViewById(R.id.myProfileBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +44,7 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    ibEdit.setVisibility(View.VISIBLE);
                     fm.beginTransaction().hide(active).show(aboutFragment).commit();
                     active = aboutFragment;
                 }
@@ -50,6 +55,7 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    ibEdit.setVisibility(View.GONE);
                     fm.beginTransaction().hide(active).show(reviewsFragment).commit();
                     active = reviewsFragment;
                 }

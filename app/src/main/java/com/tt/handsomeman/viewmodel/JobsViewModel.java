@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.JobService;
@@ -28,6 +29,7 @@ public class JobsViewModel extends BaseViewModel {
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<HandymanReviewProfile> handymanReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private JobService jobService;
 
@@ -47,6 +49,10 @@ public class JobsViewModel extends BaseViewModel {
 
     public LiveData<JobDetail> getJobDetailLiveData() {
         return jobDetailMutableLiveData;
+    }
+
+    public LiveData<HandymanReviewProfile> getHandymanReviewProfileLiveData() {
+        return handymanReviewProfileMutableLiveData;
     }
 
     public LiveData<JobDetailProfile> getJobDetailProfileLiveData() {
@@ -152,6 +158,17 @@ public class JobsViewModel extends BaseViewModel {
                     if (response.body().getStatus().equals(StatusConstant.OK))
                         messageResponse.setValue(response.body().getMessage());
                     else messageResponse.setValue(response.body().getMessage());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void fetchHandymanReview(String authorization) {
+        compositeDisposable.add(jobService.getHandymanReview(authorization)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((response) -> {
+                    if (response.body().getStatus().equals(StatusConstant.OK)) {
+                        handymanReviewProfileMutableLiveData.setValue(response.body().getData());
+                    } else messageResponse.setValue(response.body().getMessage());
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

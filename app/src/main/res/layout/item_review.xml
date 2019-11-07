@@ -8,7 +8,7 @@
     android:paddingBottom="5dp">
 
     <ImageView
-        android:id="@+id/handymenReviewCustomerAvatar"
+        android:id="@+id/reviewAvatar"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/review_demo"
@@ -20,12 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/handymenReviewCustomerAvatar"
-        app:layout_constraintStart_toEndOf="@+id/handymenReviewCustomerAvatar"
-        app:layout_constraintTop_toTopOf="@+id/handymenReviewCustomerAvatar">
+        app:layout_constraintBottom_toBottomOf="@+id/reviewAvatar"
+        app:layout_constraintStart_toEndOf="@+id/reviewAvatar"
+        app:layout_constraintTop_toTopOf="@+id/reviewAvatar">
 
         <TextView
-            android:id="@+id/handymenReviewCustomerName"
+            android:id="@+id/reviewNameItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -39,7 +39,7 @@
             android:layout_height="1dp" />
 
         <RatingBar
-            android:id="@+id/handymenRatingBarReviewCustomer"
+            android:id="@+id/ratingBarReviewItem"
             style="@style/CustomHeartsRatingBar_13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,12 +49,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/handymenReviewCustomerComment"
+        android:id="@+id/reviewCommentItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/handymenReviewCustomerAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/reviewAvatar"
         tools:text="Super nice woman. She gave me a wonderfull job. And she has introduced me to some other customers. Really nice of her." />
 </androidx.constraintlayout.widget.ConstraintLayout>

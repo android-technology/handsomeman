@@ -52,4 +52,8 @@ public class SharedPreferencesUtils {
             return HandymanApp.getInstance().getGSon().fromJson(sharedPreferences.getString(key, ""), anonymousClass);
         }
     }
+
+    public void clear() {
+        sharedPreferences.edit().clear().apply();
+    }
 }

@@ -26,6 +26,7 @@ import com.tt.handsomeman.model.SignUpAddPayoutFormState;
 import com.tt.handsomeman.model.UserActivatingAccount;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.UserService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
@@ -155,6 +156,7 @@ public class SignUpAddPayout extends AppCompatActivity {
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
                             Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            sharedPreferencesUtils.put("state", Constants.STATE_REGISTER_ADDED_PAYOUT);
                             startActivity(new Intent(SignUpAddPayout.this, HandyManMainScreen.class));
                             finish();
                         } else {

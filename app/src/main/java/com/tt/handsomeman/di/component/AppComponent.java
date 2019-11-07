@@ -24,6 +24,8 @@ import com.tt.handsomeman.ui.jobs.JobsChildWishListFragment;
 import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.ui.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.messages.MessagesChildMessagesFragment;
+import com.tt.handsomeman.ui.more.MoreFragment;
+import com.tt.handsomeman.ui.more.MyProfileReviewsFragment;
 
 import javax.inject.Singleton;
 
@@ -73,4 +75,7 @@ public interface AppComponent {
 
     void inject(Conversation conversation);
 
+    void inject(MoreFragment moreFragment);
+
+    void inject(MyProfileReviewsFragment profileReviewsFragment);
 }

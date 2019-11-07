@@ -348,6 +348,7 @@
                 android:background="#e8e8e8" />
 
             <TextView
+                android:id="@+id/logoutMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_ripple_transparent_color_bg"

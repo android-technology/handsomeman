@@ -2,6 +2,7 @@ package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.StandardResponse;
@@ -50,4 +51,7 @@ public interface JobService {
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID_WITH_MULTI_FILE)
     Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
+
+    @POST(Constants.GET_HANDYMAN_REVIEW)
+    Single<Response<DataBracketResponse<HandymanReviewProfile>>> getHandymanReview(@Header("Authorization") String token);
 }

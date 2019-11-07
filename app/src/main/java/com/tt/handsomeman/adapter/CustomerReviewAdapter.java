@@ -31,7 +31,7 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_customer_review, parent, false);
+        View item = layoutInflater.inflate(R.layout.item_review, parent, false);
         return new MyViewHolder(item);
     }
 
@@ -59,10 +59,10 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            handymenAvatar = itemView.findViewById(R.id.handymenReviewCustomerAvatar);
-            handymenName = itemView.findViewById(R.id.handymenReviewCustomerName);
-            handymenRating = itemView.findViewById(R.id.handymenRatingBarReviewCustomer);
-            handymenComment = itemView.findViewById(R.id.handymenReviewCustomerComment);
+            handymenAvatar = itemView.findViewById(R.id.reviewAvatar);
+            handymenName = itemView.findViewById(R.id.reviewNameItem);
+            handymenRating = itemView.findViewById(R.id.ratingBarReviewItem);
+            handymenComment = itemView.findViewById(R.id.reviewCommentItem);
         }
     }
 }

@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_customer_review" />
+                    tools:listitem="@layout/item_review" />
 
             </LinearLayout>
 
