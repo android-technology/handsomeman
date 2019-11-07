@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
-    tools:context=".ui.Register">
+    tools:context=".ui.handyman.Register">
 
     <ImageButton
         android:id="@+id/registerBackButton"

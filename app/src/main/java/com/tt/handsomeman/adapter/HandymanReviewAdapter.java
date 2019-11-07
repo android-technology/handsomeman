@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.model.HandymanReview;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 
 import java.util.List;

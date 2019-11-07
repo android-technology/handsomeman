@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.SignUpAddPayout">
+    tools:context=".ui.handyman.SignUpAddPayout">
 
     <FrameLayout
         android:id="@+id/progressBarHolder"

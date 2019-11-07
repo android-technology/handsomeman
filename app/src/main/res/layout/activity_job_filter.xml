@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.JobFilter">
+    tools:context=".ui.handyman.JobFilter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
-    tools:context=".ui.OnBoardingSlidePagerActivity">
+    tools:context=".ui.handyman.OnBoardingSlidePagerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/skipOnBoarding"

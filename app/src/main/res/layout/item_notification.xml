@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
     android:paddingStart="17dp"
-    android:paddingEnd="17dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingEnd="17dp">
 
     <ImageView
         android:id="@+id/accountAvatarNotification"
@@ -30,22 +30,22 @@
 
         <TextView
             android:id="@+id/bodyNotification"
-            tools:text="What time are you planning to coming?Hi, Mary. I am good, thanks. How are you? Yes, i have seen that you accepted my bid there"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            tools:text="What time are you planning to coming?Hi, Mary. I am good, thanks. How are you? Yes, i have seen that you accepted my bid there" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/pushTimeNotification"
-        tools:text="Today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#8d8787"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Today" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,163 @@
+package com.tt.handsomeman.ui.handyman.jobs;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
+import com.tt.handsomeman.adapter.CategoryAdapter;
+import com.tt.handsomeman.adapter.JobAdapter;
+import com.tt.handsomeman.model.Category;
+import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.handyman.GroupByCategory;
+import com.tt.handsomeman.ui.handyman.JobDetail;
+import com.tt.handsomeman.ui.handyman.YourLocation;
+import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.JobsViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+public class JobsChildJobsFragment extends Fragment {
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    private ProgressBar pgJob, pgCategory;
+    private JobAdapter jobAdapter;
+    private CategoryAdapter categoryAdapter;
+    private List<Job> jobArrayList = new ArrayList<>();
+    private List<Category> categoryArrayList = new ArrayList<>();
+    private JobsViewModel jobsViewModel;
+    private LinearLayout showMoreYourLocation;
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        HandymanApp.getComponent().inject(this);
+        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        return inflater.inflate(R.layout.fragment_jobs_child_jobs, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        pgJob = view.findViewById(R.id.progressBarJobs);
+        pgCategory = view.findViewById(R.id.progressBarCategory);
+        showMoreYourLocation = view.findViewById(R.id.showMoreYourLocation);
+
+        createJobRecycleView(view);
+
+        createCategoryRecycleView(view);
+
+        showMoreByYourLocation();
+
+        Constants.Latitude.observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double aDouble) {
+                fetchData(aDouble, Constants.Longitude.getValue());
+            }
+        });
+    }
+
+    private void showMoreByYourLocation() {
+        showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), YourLocation.class));
+            }
+        });
+    }
+
+    private void createJobRecycleView(View view) {
+        RecyclerView rcvJob = view.findViewById(R.id.recycleViewJobs);
+        jobAdapter = new JobAdapter(getContext(), jobArrayList);
+        jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getActivity(), JobDetail.class);
+                intent.putExtra("jobId", jobArrayList.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
+        rcvJob.setLayoutManager(layoutManagerJob);
+        rcvJob.setItemAnimator(new DefaultItemAnimator());
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvJob.getContext(), ((LinearLayoutManager) layoutManagerJob).getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvJob.addItemDecoration(dividerItemDecoration);
+
+        rcvJob.setAdapter(jobAdapter);
+    }
+
+    private void createCategoryRecycleView(View view) {
+        RecyclerView rcvCategory = view.findViewById(R.id.recycleViewCategories);
+        categoryAdapter = new CategoryAdapter(getContext(), categoryArrayList);
+        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String categoryName = categoryArrayList.get(position).getName();
+
+                Intent intent = new Intent(getActivity(), GroupByCategory.class);
+                intent.putExtra("categoryName", categoryName);
+                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
+        rcvCategory.setLayoutManager(layoutManagerCategory);
+        rcvCategory.setItemAnimator(new DefaultItemAnimator());
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvCategory.getContext(), ((LinearLayoutManager) layoutManagerCategory).getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rcvCategory.addItemDecoration(dividerItemDecoration);
+
+        rcvCategory.setAdapter(categoryAdapter);
+    }
+
+    private void fetchData(Double lat, Double lng) {
+        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+
+        double radius = 10d;
+
+        jobsViewModel.fetchData(authorizationCode, lat, lng, radius);
+
+        jobsViewModel.getStartScreenData().observe(this, data -> {
+            pgJob.setVisibility(View.GONE);
+            jobArrayList.clear();
+            jobArrayList.addAll(data.getJobList());
+            jobAdapter.notifyDataSetChanged();
+
+            pgCategory.setVisibility(View.GONE);
+            categoryArrayList.clear();
+            categoryArrayList.addAll(data.getCategoryList());
+            categoryAdapter.notifyDataSetChanged();
+        });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        jobsViewModel.clearSubscriptions();
+        Constants.Latitude.removeObservers(this);
+    }
+}

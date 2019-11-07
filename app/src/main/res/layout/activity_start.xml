@@ -6,7 +6,7 @@
     android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.Start">
+    tools:context=".ui.handyman.Start">
 
     <TextView
         android:layout_width="match_parent"
