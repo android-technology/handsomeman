@@ -95,8 +95,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgContactAvatar;
-        TextView tvContactName;
+        final ImageView imgContactAvatar;
+        final TextView tvContactName;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);

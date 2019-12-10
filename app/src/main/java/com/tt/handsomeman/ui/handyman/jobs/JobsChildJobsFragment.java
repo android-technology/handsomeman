@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +28,7 @@ import com.tt.handsomeman.ui.handyman.GroupByCategory;
 import com.tt.handsomeman.ui.handyman.JobDetail;
 import com.tt.handsomeman.ui.handyman.YourLocation;
 import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -101,11 +101,7 @@ public class JobsChildJobsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
         rcvJob.setLayoutManager(layoutManagerJob);
         rcvJob.setItemAnimator(new DefaultItemAnimator());
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvJob.getContext(), ((LinearLayoutManager) layoutManagerJob).getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
-        rcvJob.addItemDecoration(dividerItemDecoration);
-
+        rcvJob.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvJob.setAdapter(jobAdapter);
     }
 
@@ -126,11 +122,7 @@ public class JobsChildJobsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rcvCategory.setLayoutManager(layoutManagerCategory);
         rcvCategory.setItemAnimator(new DefaultItemAnimator());
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvCategory.getContext(), ((LinearLayoutManager) layoutManagerCategory).getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
-        rcvCategory.addItemDecoration(dividerItemDecoration);
-
+        rcvCategory.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvCategory.setAdapter(categoryAdapter);
     }
 

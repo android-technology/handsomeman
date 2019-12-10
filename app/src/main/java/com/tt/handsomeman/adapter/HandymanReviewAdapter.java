@@ -16,7 +16,7 @@ import com.tt.handsomeman.response.HandymanReviewResponse;
 
 import java.util.List;
 
-public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAdapter.MyViewHolder> {
+public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAdapter.HandymanReviewViewHolder> {
 
     private List<HandymanReviewResponse> handymanReviewResponseList;
     private LayoutInflater layoutInflater;
@@ -30,13 +30,13 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HandymanReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_review, parent, false);
-        return new HandymanReviewAdapter.MyViewHolder(item);
+        return new HandymanReviewViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HandymanReviewViewHolder holder, int position) {
         HandymanReviewResponse handymanReviewResponse = handymanReviewResponseList.get(position);
 
         holder.customerName.setText(handymanReviewResponse.getCustomerName());
@@ -49,13 +49,13 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
         return handymanReviewResponseList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class HandymanReviewViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView customerAvatar;
-        TextView customerName, customerComment;
-        RatingBar customerRating;
+        final ImageView customerAvatar;
+        final TextView customerName, customerComment;
+        final RatingBar customerRating;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public HandymanReviewViewHolder(@NonNull View itemView) {
             super(itemView);
 
             customerAvatar = itemView.findViewById(R.id.reviewAvatar);

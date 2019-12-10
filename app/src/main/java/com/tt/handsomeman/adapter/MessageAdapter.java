@@ -82,13 +82,14 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class SenderViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgAvatar;
-        TextView tvSendTime;
-        TextView tvMessageBody;
+        final ImageView imgAvatar;
+        final TextView tvSendTime;
+        final TextView tvMessageBody;
 
         public SenderViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            imgAvatar = itemView.findViewById(R.id.avatarMessage);
             tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
             tvMessageBody = itemView.findViewById(R.id.messageBody);
         }
@@ -96,13 +97,14 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgAvatar;
-        TextView tvSendTime;
-        TextView tvMessageBody;
+        final ImageView imgAvatar;
+        final TextView tvSendTime;
+        final TextView tvMessageBody;
 
         public ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            imgAvatar = itemView.findViewById(R.id.avatarMessage);
             tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
             tvMessageBody = itemView.findViewById(R.id.messageBody);
         }

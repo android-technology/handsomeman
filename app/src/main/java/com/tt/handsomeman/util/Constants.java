@@ -25,6 +25,8 @@ public class Constants {
     public static final String DELETE_CONVERSATION_ID = "api/message/deleteConversation/{conversationId}";
     public static final String GET_CONTACT_OF_ACCOUNT = "api/message/showContactOfAccount";
 
+    public static final String GET_HANDYMAN_INFO = "api/handyman/info";
+
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;
 

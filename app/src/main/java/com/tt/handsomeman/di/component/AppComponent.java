@@ -1,7 +1,7 @@
 package com.tt.handsomeman.di.component;
 
-
 import com.tt.handsomeman.di.module.AppModule;
+import com.tt.handsomeman.di.module.HandymanModule;
 import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.MessageModule;
 import com.tt.handsomeman.di.module.NetworkModule;
@@ -38,6 +38,7 @@ import dagger.Component;
         UserModule.class,
         NetworkModule.class,
         MessageModule.class,
+        HandymanModule.class,
         ViewModelModule.class})
 public interface AppComponent {
 

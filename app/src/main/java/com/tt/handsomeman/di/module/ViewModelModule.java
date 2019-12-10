@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tt.handsomeman.di.annotation.ViewModelKey;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
+import com.tt.handsomeman.viewmodel.MoreViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -26,6 +27,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessageViewModel.class)
     abstract ViewModel bindMessageViewModel(MessageViewModel messageViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MoreViewModel.class)
+    abstract ViewModel bindMoreViewModel(MoreViewModel moreViewModel);
 
     //bind new ViewModel here
 }

@@ -16,7 +16,7 @@ import com.tt.handsomeman.model.Job;
 import java.text.ParseException;
 import java.util.List;
 
-public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
+public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     private List<Job> jobList;
     private LayoutInflater layoutInflater;
@@ -36,13 +36,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public JobViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_job, parent, false);
-        return new MyViewHolder(item, mListener);
+        return new JobViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         Job job = jobList.get(position);
 
         holder.tvJobTitle.setText(job.getTitle());
@@ -65,12 +65,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         void onItemClick(int position);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class JobViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
-        ImageButton btnJobDetail;
+        final TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
+        final ImageButton btnJobDetail;
 
-        MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        JobViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             tvJobTitle = itemView.findViewById(R.id.textViewJobName);

@@ -8,7 +8,6 @@
     android:paddingTop="10dp"
     android:paddingBottom="5dp">
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -37,15 +36,18 @@
 
     <TextView
         android:id="@+id/messageBody"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bubble_sender"
         android:gravity="center_vertical"
         android:textColor="#000000"
         android:textSize="15sp"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Hi, Mary. I am good, thanks. How are you? Yes, i have seen that you accepted my bid there" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Hi, Madassss" />
 </androidx.constraintlayout.widget.ConstraintLayout>

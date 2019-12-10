@@ -22,6 +22,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ConversationAdapter;
 import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
@@ -112,11 +113,7 @@ public class MessagesChildMessagesFragment extends Fragment {
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());
         rcvMessage.setLayoutManager(layoutManagerMessage);
         rcvMessage.setItemAnimator(new FadeInLeftAnimator());
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvMessage.getContext(), ((LinearLayoutManager) layoutManagerMessage).getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
-        rcvMessage.addItemDecoration(dividerItemDecoration);
-
+        rcvMessage.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvMessage.setAdapter(conversationAdapter);
         rcvMessage.addOnScrollListener(onScrollListener);
     }

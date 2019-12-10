@@ -16,7 +16,7 @@ import com.tt.handsomeman.response.JobDetailCustomerReview;
 
 import java.util.List;
 
-public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAdapter.MyViewHolder> {
+public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAdapter.CustomerReviewViewHolder> {
 
     private List<JobDetailCustomerReview> jobDetailCustomerReviews;
     private LayoutInflater layoutInflater;
@@ -30,13 +30,13 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomerReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_review, parent, false);
-        return new MyViewHolder(item);
+        return new CustomerReviewViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerReviewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomerReviewViewHolder holder, int position) {
         JobDetailCustomerReview jobDetailCustomerReview = jobDetailCustomerReviews.get(position);
 
 //        holder.handymenAvatar.setImageResource();
@@ -50,13 +50,13 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
         return jobDetailCustomerReviews.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class CustomerReviewViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView handymenAvatar;
-        TextView handymenName, handymenComment;
-        RatingBar handymenRating;
+        final ImageView handymenAvatar;
+        final TextView handymenName, handymenComment;
+        final RatingBar handymenRating;
 
-        MyViewHolder(@NonNull View itemView) {
+        CustomerReviewViewHolder(@NonNull View itemView) {
             super(itemView);
 
             handymenAvatar = itemView.findViewById(R.id.reviewAvatar);

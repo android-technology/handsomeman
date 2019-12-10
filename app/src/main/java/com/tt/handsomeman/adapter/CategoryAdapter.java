@@ -15,7 +15,7 @@ import com.tt.handsomeman.model.Category;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private List<Category> categoryList;
     private LayoutInflater layoutInflater;
@@ -35,13 +35,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_category, parent, false);
-        return new MyViewHolder(item, mListener);
+        return new CategoryViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categoryList.get(position);
         holder.tvCategoryName.setText(category.getName());
     }
@@ -55,12 +55,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         void onItemClick(int position);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvCategoryName;
-        ImageButton btnCategoryDetail;
+        final TextView tvCategoryName;
+        final ImageButton btnCategoryDetail;
 
-        MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        CategoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             tvCategoryName = itemView.findViewById(R.id.textViewJobName);

@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/messageBody"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bubble_receiver"
         android:gravity="center_vertical"
@@ -45,8 +45,11 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="65432" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="654321" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

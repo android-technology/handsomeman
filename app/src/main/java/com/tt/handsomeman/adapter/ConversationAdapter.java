@@ -18,7 +18,7 @@ import com.tt.handsomeman.response.ConversationResponse;
 import java.text.ParseException;
 import java.util.List;
 
-public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapter.MyViewHolder> {
+public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapter.ConversationViewHolder> {
 
     private List<ConversationResponse> conversationResponsesList;
     private LayoutInflater layoutInflater;
@@ -39,13 +39,13 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
 
     @NonNull
     @Override
-    public ConversationAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_conversation, parent, false);
-        return new ConversationAdapter.MyViewHolder(item, mListener);
+        return new ConversationViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ConversationAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         ConversationResponse conversationResponse = conversationResponsesList.get(position);
 
         holder.tvAccountName.setText(conversationResponse.getAccountName());
@@ -88,14 +88,14 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         void onItemDelete(int position);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ConversationViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
-        SwipeLayout swipeLayout;
-        LinearLayout layoutConversation, layoutDelete;
+        final TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
+        final SwipeLayout swipeLayout;
+        final LinearLayout layoutConversation, layoutDelete;
         int conversationId;
 
-        public MyViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {
+        public ConversationViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {
             super(itemView);
             tvAccountName = itemView.findViewById(R.id.accountNameConversation);
             tvLatestMessage = itemView.findViewById(R.id.latestMessageConversation);
