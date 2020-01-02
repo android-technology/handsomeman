@@ -39,7 +39,7 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
     private CustomerReviewAdapter customerReviewAdapter;
     private List<JobDetailCustomerReview> jobDetailCustomerReviews = new ArrayList<>();
     private ImageView customerAvatar;
-    private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviewers;
+    private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
 
     @Override
@@ -50,7 +50,7 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
         customerName = findViewById(R.id.customerNameCustomerProfileJobDetail);
         customerAllProjectCount = findViewById(R.id.allProjectsCustomerJobDetail);
         customerSuccessedProject = findViewById(R.id.successedProjectsCustomerJobDetail);
-        countReviewers = findViewById(R.id.reviewCountCustomerProfileJobDetail);
+        countReviews = findViewById(R.id.reviewCountCustomerProfileJobDetail);
         countPoint = findViewById(R.id.ratingBarCustomerJobDetail);
 
         HandymanApp.getComponent().inject(this);
@@ -80,8 +80,10 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
                 customerName.setText(jobDetailProfile.getCustomerName());
                 customerAllProjectCount.setText(String.valueOf(jobDetailProfile.getAllProject()));
                 customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getAllProject()));
-                countReviewers.setText("(" + jobDetailProfile.getCountReviewers() + " Reviewers)");
-                countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
+                countReviews.setText(getResources().getQuantityString(R.plurals.numberOfReview, jobDetailProfile.getCountReviewers(), jobDetailProfile.getCountReviewers()));
+                if (jobDetailProfile.getAverageReviewPoint() != null) {
+                    countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
+                }
 
                 jobDetailCustomerReviews.clear();
                 jobDetailCustomerReviews.addAll(jobDetailProfile.getJobDetailCustomerReviews());

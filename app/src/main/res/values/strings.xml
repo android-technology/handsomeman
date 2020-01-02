@@ -360,7 +360,7 @@
     <string name="contacts">Contacts</string>
 
     <string name="type_something">Type something…</string>
-    <string name="project_id_colon">Project ID:</string>
+    <string name="project_id_colon">Project ID:\u0020</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="sure_to_delete_message">Are you sure that you want to delete this message?</string>
@@ -390,4 +390,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="review_from_customers">Reviews from customers</string>
+
+    <plurals name="numberOfReview">
+        <item quantity="one">(%d Review)</item>
+        <item quantity="other">(%d Reviews)</item>
+    </plurals>
+    <plurals name="numberOfHour">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="numberOfDay">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
 </resources>

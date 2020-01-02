@@ -492,26 +492,13 @@
                             android:paddingTop="1dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="( "
-                                android:textColor="#000000"
-                                android:textSize="13sp" />
-
-                            <TextView
                                 android:id="@+id/reviewCountJobDetail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="#000000"
                                 android:textSize="13sp"
-                                tools:text="3" />
+                                tools:text="(3 Reviews)" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" Reviews)"
-                                android:textColor="#000000"
-                                android:textSize="13sp" />
                         </LinearLayout>
 
 

@@ -71,23 +71,23 @@ public class Job implements Serializable {
         this.location = location;
     }
 
-    public String setCreateTimeBinding(Date createTime) {
+    public Integer setCreateTimeBinding(Date createTime) {
         String myFormat = "h"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        return sdf.format(createTime) + " hour(s) ago";
+        return Integer.valueOf(sdf.format(createTime));
     }
 
     public String setBudgetRange(Integer budgetMin, Integer budgetMax) {
         return ("$" + budgetMin + " - " + "$" + budgetMax);
     }
 
-    public String setDeadlineBinding(Date deadline) throws ParseException {
+    public Integer setDeadlineBinding(Date deadline) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Calendar now = Calendar.getInstance();
         Date today = formatter.parse(formatter.format(now.getTime()));
         deadline = formatter.parse(formatter.format(deadline));
 
-        return DayCount.getCountOfDays(today, deadline) + " day(s) left";
+        return DayCount.getCountOfDays(today, deadline) ;
     }
 
     public String setBidRange(Integer bidMin, Integer bidMax) {

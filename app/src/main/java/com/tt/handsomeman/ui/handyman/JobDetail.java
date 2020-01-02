@@ -129,12 +129,13 @@ public class JobDetail extends AppCompatActivity {
                 }
                 job = jobDetail.getJob();
                 tvJobTitle.setText(job.getTitle());
-                tvJobId.setText(" " + job.getId());
-                tvJobCreateTime.setText(job.setCreateTimeBinding(job.getCreateTime()));
+                tvJobId.setText(String.valueOf(job.getId()));
+
+                tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(job.getCreateTime()), job.setCreateTimeBinding(job.getCreateTime())));
                 tvJobDetail.setText(job.getDetail());
                 tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
                 try {
-                    tvJobDeadline.setText(job.setDeadlineBinding(job.getDeadline()));
+                    tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setDeadlineBinding(job.getDeadline()), job.setDeadlineBinding(job.getDeadline())));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -192,7 +193,7 @@ public class JobDetail extends AppCompatActivity {
                 tvClientName.setText(customerJobDetail.getCustomerName());
 
                 Integer countReview = jobDetail.getCountReviewers();
-                tvReviewCount.setText(String.valueOf(countReview));
+                tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
 
                 Float averageReviewPoint = jobDetail.getAverageReviewPoint();
                 if (averageReviewPoint == null) {

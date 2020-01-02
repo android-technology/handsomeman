@@ -119,11 +119,15 @@ public class Login extends AppCompatActivity {
 
                             if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
                                 startActivity(new Intent(Login.this, SignUpAddPayout.class));
-                                Register.register.finish();
+                                if (Register.register != null) {
+                                    Register.register.finish();
+                                }
                                 finish();
                             } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
                                 startActivity(new Intent(Login.this, HandyManMainScreen.class));
-                                Register.register.finish();
+                                if (Register.register != null) {
+                                    Register.register.finish();
+                                }
                                 finish();
                             }
                         } else {
