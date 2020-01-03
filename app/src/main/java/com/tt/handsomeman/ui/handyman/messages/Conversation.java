@@ -21,7 +21,9 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.MessageAdapter;
 import com.tt.handsomeman.response.MessageResponse;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.BaseViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
@@ -31,13 +33,12 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
-public class Conversation extends AppCompatActivity {
+public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private MessageViewModel messageViewModel;
 
     private MessageAdapter messageAdapter;
     private List<MessageResponse> messageResponseList = new ArrayList<>();
@@ -52,7 +53,7 @@ public class Conversation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         HandymanApp.getComponent().inject(this);
-        messageViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
 
         tvAddressName = findViewById(R.id.textViewConversationAccountName);
 
@@ -80,8 +81,8 @@ public class Conversation extends AppCompatActivity {
     private void fetchData() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         int conversationId = getIntent().getIntExtra("conversationId", 0);
-        messageViewModel.fetchAllMessageInConversation(authorizationCode, conversationId);
-        messageViewModel.getMessageResponseListMutableLiveData().observe(this, new Observer<List<MessageResponse>>() {
+        baseViewModel.fetchAllMessageInConversation(authorizationCode, conversationId);
+        baseViewModel.getMessageResponseListMutableLiveData().observe(this, new Observer<List<MessageResponse>>() {
             @Override
             public void onChanged(List<MessageResponse> messageResponses) {
                 messageResponseList.clear();

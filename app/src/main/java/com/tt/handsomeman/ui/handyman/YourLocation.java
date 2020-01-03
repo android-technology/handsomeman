@@ -19,6 +19,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -28,12 +29,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class YourLocation extends AppCompatActivity {
+public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobsViewModel jobsViewModel;
 
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class YourLocation extends AppCompatActivity {
 
         HandymanApp.getComponent().inject(this);
 
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         btnFilter = findViewById(R.id.imageButtonFilter);
         pgJob = findViewById(R.id.progressBarJobYourLocation);
@@ -112,9 +112,9 @@ public class YourLocation extends AppCompatActivity {
 
         double radius = 10d;
 
-        jobsViewModel.fetchYourLocationData(authorizationCode, lat, lng, radius);
+        baseViewModel.fetchYourLocationData(authorizationCode, lat, lng, radius);
 
-        jobsViewModel.getJobLiveData().observe(this, data -> {
+        baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);
@@ -124,7 +124,6 @@ public class YourLocation extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        jobsViewModel.clearSubscriptions();
         Constants.Latitude.removeObservers(this);
         super.onStop();
     }

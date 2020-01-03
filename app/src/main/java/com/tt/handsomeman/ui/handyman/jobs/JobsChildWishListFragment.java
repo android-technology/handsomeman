@@ -19,6 +19,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.JobDetail;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildWishListFragment extends Fragment {
+public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -37,13 +38,12 @@ public class JobsChildWishListFragment extends Fragment {
     SharedPreferencesUtils sharedPreferencesUtils;
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
-    private JobsViewModel jobsViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_jobs_child_wish_list, container, false);
     }
 
@@ -56,9 +56,9 @@ public class JobsChildWishListFragment extends Fragment {
 
     private void fetchData() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        jobsViewModel.fetchJobsWishList(authorizationCode);
+        baseViewModel.fetchJobsWishList(authorizationCode);
 
-        jobsViewModel.getJobLiveData().observe(this, data -> {
+        baseViewModel.getJobLiveData().observe(this, data -> {
             jobArrayList.clear();
             jobArrayList.addAll(data);
             jobAdapter.notifyDataSetChanged();
@@ -81,11 +81,5 @@ public class JobsChildWishListFragment extends Fragment {
         rcvJob.setItemAnimator(new DefaultItemAnimator());
         rcvJob.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvJob.setAdapter(jobAdapter);
-    }
-
-    @Override
-    public void onStop() {
-        jobsViewModel.clearSubscriptions();
-        super.onStop();
     }
 }

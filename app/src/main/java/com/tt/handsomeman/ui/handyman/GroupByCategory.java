@@ -7,7 +7,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -18,6 +17,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -27,12 +27,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class GroupByCategory extends AppCompatActivity {
+public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobsViewModel jobsViewModel;
 
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
@@ -47,7 +46,7 @@ public class GroupByCategory extends AppCompatActivity {
 
         HandymanApp.getComponent().inject(this);
 
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         pgJob = findViewById(R.id.progressBarJobCategory);
         categoryName = findViewById(R.id.textViewCategoryName);
@@ -105,19 +104,13 @@ public class GroupByCategory extends AppCompatActivity {
     private void fetchData(Integer categoryId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        jobsViewModel.fetchJobsByCategory(authorizationCode, categoryId);
+        baseViewModel.fetchJobsByCategory(authorizationCode, categoryId);
 
-        jobsViewModel.getJobLiveData().observe(this, data -> {
+        baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);
             jobAdapter.notifyDataSetChanged();
         });
-    }
-
-    @Override
-    protected void onStop() {
-        jobsViewModel.clearSubscriptions();
-        super.onStop();
     }
 }

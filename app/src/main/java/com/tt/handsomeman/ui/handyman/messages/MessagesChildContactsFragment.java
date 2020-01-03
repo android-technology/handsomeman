@@ -18,8 +18,11 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ContactAdapter;
 import com.tt.handsomeman.response.Contact;
+import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.ContactDivider;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.BaseViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
@@ -29,13 +32,12 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
-public class MessagesChildContactsFragment extends Fragment {
+public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private MessageViewModel messageViewModel;
     private ContactAdapter contactAdapter;
     private List<Contact> contactList = new ArrayList<>();
 
@@ -43,7 +45,7 @@ public class MessagesChildContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        messageViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
         return inflater.inflate(R.layout.fragment_messages_child_contacts, container, false);
     }
 
@@ -54,8 +56,8 @@ public class MessagesChildContactsFragment extends Fragment {
         createContactRecyclerView(view);
 
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        messageViewModel.fetchAllContactOfAccount(authorizationCode);
-        messageViewModel.getContactListMutableLiveData().observe(this, new Observer<List<Contact>>() {
+        baseViewModel.fetchAllContactOfAccount(authorizationCode);
+        baseViewModel.getContactListMutableLiveData().observe(this, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 contactList.clear();

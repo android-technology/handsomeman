@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,6 +17,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -27,13 +27,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobFilterResult extends AppCompatActivity {
+public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobsViewModel jobsViewModel;
 
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
@@ -46,7 +45,7 @@ public class JobFilterResult extends AppCompatActivity {
 
         HandymanApp.getComponent().inject(this);
 
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         pgJob = findViewById(R.id.progressBarFilterResult);
 
@@ -102,20 +101,13 @@ public class JobFilterResult extends AppCompatActivity {
     private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        jobsViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
+        baseViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
 
-        jobsViewModel.getJobLiveData().observe(this, data -> {
+        baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data);
             jobAdapter.notifyDataSetChanged();
         });
-    }
-
-    @Override
-    public void onStop() {
-        jobsViewModel.clearSubscriptions();
-        Constants.Latitude.removeObservers(this);
-        super.onStop();
     }
 }

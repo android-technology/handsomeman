@@ -23,6 +23,8 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.HandymanReviewAdapter;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.HandymanReviewResponse;
+import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -32,13 +34,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyProfileReviewsFragment extends Fragment {
+public class MyProfileReviewsFragment extends BaseFragment<JobsViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobsViewModel jobsViewModel;
     private TextView countReviewers;
     private RatingBar countPoint;
     private HandymanReviewAdapter handymanReviewAdapter;
@@ -48,7 +49,7 @@ public class MyProfileReviewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_my_profile_reviews, container, false);
     }
 
@@ -75,8 +76,8 @@ public class MyProfileReviewsFragment extends Fragment {
     private void fetchData() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        jobsViewModel.fetchHandymanReview(authorizationCode);
-        jobsViewModel.getHandymanReviewProfileLiveData().observe(this, new Observer<HandymanReviewProfile>() {
+        baseViewModel.fetchHandymanReview(authorizationCode);
+        baseViewModel.getHandymanReviewProfileLiveData().observe(this, new Observer<HandymanReviewProfile>() {
             @Override
             public void onChanged(HandymanReviewProfile handymanReviewProfile) {
                 countReviewers.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanReviewProfile.getCountReviewers(), handymanReviewProfile.getCountReviewers()));

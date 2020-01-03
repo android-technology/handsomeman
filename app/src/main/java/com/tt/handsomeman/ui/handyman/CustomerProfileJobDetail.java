@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +19,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
 import com.tt.handsomeman.response.JobDetailCustomerReview;
 import com.tt.handsomeman.response.JobDetailProfile;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -28,13 +28,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CustomerProfileJobDetail extends AppCompatActivity {
+public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private JobsViewModel jobsViewModel;
 
     private CustomerReviewAdapter customerReviewAdapter;
     private List<JobDetailCustomerReview> jobDetailCustomerReviews = new ArrayList<>();
@@ -55,7 +54,7 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
 
         HandymanApp.getComponent().inject(this);
 
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         findViewById(R.id.customerProfileJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +72,8 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
     private void fetchData(Integer customerId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        jobsViewModel.fetchJobDetailProfile(authorizationCode, customerId);
-        jobsViewModel.getJobDetailProfileLiveData().observe(this, new Observer<JobDetailProfile>() {
+        baseViewModel.fetchJobDetailProfile(authorizationCode, customerId);
+        baseViewModel.getJobDetailProfileLiveData().observe(this, new Observer<JobDetailProfile>() {
             @Override
             public void onChanged(JobDetailProfile jobDetailProfile) {
                 customerName.setText(jobDetailProfile.getCustomerName());
@@ -104,11 +103,5 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
         rcvReview.addItemDecoration(dividerItemDecoration);
 
         rcvReview.setAdapter(customerReviewAdapter);
-    }
-
-    @Override
-    protected void onStop() {
-        jobsViewModel.clearSubscriptions();
-        super.onStop();
     }
 }

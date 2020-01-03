@@ -22,6 +22,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ConversationAdapter;
 import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
@@ -33,12 +34,11 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
-public class MessagesChildMessagesFragment extends Fragment {
+public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private MessageViewModel messageViewModel;
     private ConversationAdapter conversationAdapter;
     private List<ConversationResponse> conversationResponseList = new ArrayList<>();
     private MutableLiveData<Boolean> isScroll = new MutableLiveData<>();
@@ -62,7 +62,7 @@ public class MessagesChildMessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        messageViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
         return inflater.inflate(R.layout.fragment_messages_child_messages, container, false);
     }
 
@@ -103,8 +103,8 @@ public class MessagesChildMessagesFragment extends Fragment {
                 new DeleteConversationDialog(getActivity(), R.style.PauseDialog, new DeleteConversationDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
-                        messageViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());
-                        messageViewModel.getMessageResponse().observe(getViewLifecycleOwner(), s -> Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show());
+                        baseViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());
+                        baseViewModel.getMessageResponse().observe(getViewLifecycleOwner(), s -> Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show());
                         conversationAdapter.deleteConversation(position);
                     }
                 }).show();
@@ -122,8 +122,8 @@ public class MessagesChildMessagesFragment extends Fragment {
 
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        messageViewModel.fetchAllConversationByAccountId(authorizationCode);
-        messageViewModel.getConversationResponseMutableLiveData().observe(this, new Observer<List<ConversationResponse>>() {
+        baseViewModel.fetchAllConversationByAccountId(authorizationCode);
+        baseViewModel.getConversationResponseMutableLiveData().observe(this, new Observer<List<ConversationResponse>>() {
             @Override
             public void onChanged(List<ConversationResponse> conversationResponses) {
                 conversationResponseList.clear();
@@ -134,9 +134,8 @@ public class MessagesChildMessagesFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         isScroll.removeObservers(this);
-        messageViewModel.clearSubscriptions();
-        super.onDestroy();
+        super.onStop();
     }
 }

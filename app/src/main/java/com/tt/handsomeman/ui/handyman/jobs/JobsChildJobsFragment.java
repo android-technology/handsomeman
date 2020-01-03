@@ -24,6 +24,7 @@ import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.GroupByCategory;
 import com.tt.handsomeman.ui.handyman.JobDetail;
 import com.tt.handsomeman.ui.handyman.YourLocation;
@@ -37,7 +38,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildJobsFragment extends Fragment {
+public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -48,13 +49,12 @@ public class JobsChildJobsFragment extends Fragment {
     private CategoryAdapter categoryAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private List<Category> categoryArrayList = new ArrayList<>();
-    private JobsViewModel jobsViewModel;
     private LinearLayout showMoreYourLocation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_jobs_child_jobs, container, false);
     }
 
@@ -131,9 +131,9 @@ public class JobsChildJobsFragment extends Fragment {
 
         double radius = 10d;
 
-        jobsViewModel.fetchData(authorizationCode, lat, lng, radius);
+        baseViewModel.fetchData(authorizationCode, lat, lng, radius);
 
-        jobsViewModel.getStartScreenData().observe(this, data -> {
+        baseViewModel.getStartScreenData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
             jobArrayList.clear();
             jobArrayList.addAll(data.getJobList());
@@ -148,7 +148,6 @@ public class JobsChildJobsFragment extends Fragment {
 
     @Override
     public void onStop() {
-        jobsViewModel.clearSubscriptions();
         Constants.Latitude.removeObservers(this);
         super.onStop();
     }

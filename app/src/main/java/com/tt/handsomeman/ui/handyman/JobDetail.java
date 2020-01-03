@@ -12,7 +12,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -28,6 +27,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.CustomerJobDetail;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
+import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -37,7 +37,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobDetail extends AppCompatActivity {
+public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
     private static com.tt.handsomeman.model.JobDetail jobDetail;
     @Inject
@@ -50,7 +50,6 @@ public class JobDetail extends AppCompatActivity {
             tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
             tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
     private Button btnPlaceABid;
-    private JobsViewModel jobsViewModel;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
     private Job job;
@@ -82,7 +81,7 @@ public class JobDetail extends AppCompatActivity {
 
         HandymanApp.getComponent().inject(this);
 
-        jobsViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
 
         findViewById(R.id.jobDetailBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +109,7 @@ public class JobDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
-                intent.putExtra("customerId", jobsViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
+                intent.putExtra("customerId", baseViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
                 startActivity(intent);
             }
         });
@@ -118,9 +117,9 @@ public class JobDetail extends AppCompatActivity {
 
     private void fetchData(Integer jobId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        jobsViewModel.fetchJobDetail(authorizationCode, jobId);
+        baseViewModel.fetchJobDetail(authorizationCode, jobId);
 
-        jobsViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
+        baseViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
             @Override
             public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
                 JobDetail.jobDetail = jobDetail;
@@ -220,11 +219,5 @@ public class JobDetail extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    @Override
-    protected void onStop() {
-        jobsViewModel.clearSubscriptions();
-        super.onStop();
     }
 }
