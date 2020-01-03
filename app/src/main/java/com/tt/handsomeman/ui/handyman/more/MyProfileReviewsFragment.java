@@ -23,6 +23,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.HandymanReviewAdapter;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.HandymanReviewResponse;
+import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -67,11 +68,7 @@ public class MyProfileReviewsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvReview.getContext(), ((LinearLayoutManager) layoutManager).getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
-        rcvReview.addItemDecoration(dividerItemDecoration);
-
+        rcvReview.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvReview.setAdapter(handymanReviewAdapter);
     }
 
@@ -82,7 +79,7 @@ public class MyProfileReviewsFragment extends Fragment {
         jobsViewModel.getHandymanReviewProfileLiveData().observe(this, new Observer<HandymanReviewProfile>() {
             @Override
             public void onChanged(HandymanReviewProfile handymanReviewProfile) {
-                countReviewers.setText("(" + handymanReviewProfile.getCountReviewers() + " Reviewers)");
+                countReviewers.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanReviewProfile.getCountReviewers(), handymanReviewProfile.getCountReviewers()));
                 countPoint.setRating(handymanReviewProfile.getAverageReviewPoint());
 
                 handymanReviewResponseList.clear();

@@ -309,7 +309,7 @@ public class SignUpAddPayout extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Register.register = null;
+        super.onDestroy();
     }
 }

@@ -124,8 +124,8 @@ public class YourLocation extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        super.onStop();
         jobsViewModel.clearSubscriptions();
         Constants.Latitude.removeObservers(this);
+        super.onStop();
     }
 }

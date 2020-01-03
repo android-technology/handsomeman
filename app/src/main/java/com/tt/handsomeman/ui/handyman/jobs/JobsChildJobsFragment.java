@@ -148,8 +148,8 @@ public class JobsChildJobsFragment extends Fragment {
 
     @Override
     public void onStop() {
-        super.onStop();
         jobsViewModel.clearSubscriptions();
         Constants.Latitude.removeObservers(this);
+        super.onStop();
     }
 }

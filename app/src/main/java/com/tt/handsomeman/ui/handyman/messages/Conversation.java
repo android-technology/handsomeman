@@ -114,8 +114,8 @@ public class Conversation extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         FirebaseMessaging.getInstance().unsubscribeFromTopic(String.valueOf(conversationId));
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onDestroy();
     }
 }

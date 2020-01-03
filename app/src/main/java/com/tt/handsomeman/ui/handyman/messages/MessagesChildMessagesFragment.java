@@ -135,8 +135,8 @@ public class MessagesChildMessagesFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         isScroll.removeObservers(this);
         messageViewModel.clearSubscriptions();
+        super.onDestroy();
     }
 }

@@ -85,7 +85,7 @@ public class JobsChildWishListFragment extends Fragment {
 
     @Override
     public void onStop() {
-        super.onStop();
         jobsViewModel.clearSubscriptions();
+        super.onStop();
     }
 }

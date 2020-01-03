@@ -65,7 +65,7 @@ public class JobFilter extends AppCompatActivity {
                 priceMax = (int) rgPrice.getRightSeekBar().getProgress();
                 getCreatedDate();
 
-                Intent intent = new Intent(JobFilter.this, FilterResult.class);
+                Intent intent = new Intent(JobFilter.this, JobFilterResult.class);
                 intent.putExtra("radius", radius);
                 intent.putExtra("priceMin", priceMin);
                 intent.putExtra("priceMax", priceMax);

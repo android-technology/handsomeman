@@ -108,7 +108,7 @@ public class CustomerProfileJobDetail extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         jobsViewModel.clearSubscriptions();
+        super.onStop();
     }
 }

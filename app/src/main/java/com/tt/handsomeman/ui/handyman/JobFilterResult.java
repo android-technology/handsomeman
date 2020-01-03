@@ -27,7 +27,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class FilterResult extends AppCompatActivity {
+public class JobFilterResult extends AppCompatActivity {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -82,7 +82,7 @@ public class FilterResult extends AppCompatActivity {
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(FilterResult.this, JobDetail.class);
+                Intent intent = new Intent(JobFilterResult.this, JobDetail.class);
                 intent.putExtra("jobId", jobArrayList.get(position).getId());
                 startActivity(intent);
             }
@@ -114,8 +114,8 @@ public class FilterResult extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        super.onStop();
         jobsViewModel.clearSubscriptions();
         Constants.Latitude.removeObservers(this);
+        super.onStop();
     }
 }

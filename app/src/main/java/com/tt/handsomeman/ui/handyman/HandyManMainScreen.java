@@ -42,11 +42,12 @@ public class HandyManMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new MoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
+
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            Constants.Latitude.setValue(location.getLatitude());
-            Constants.Longitude.setValue(location.getLongitude());
+            Constants.Latitude.postValue(location.getLatitude());
+            Constants.Longitude.postValue(location.getLongitude());
             Toast.makeText(HandyManMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
         }
 
@@ -65,8 +66,10 @@ public class HandyManMainScreen extends AppCompatActivity {
 
         }
     };
-    Fragment active = fragment1;
+
+    private Fragment active = fragment1;
     private LocationManager locationManager;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -128,8 +131,8 @@ public class HandyManMainScreen extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            Constants.Latitude.setValue(location.getLatitude());
-                            Constants.Longitude.setValue(location.getLongitude());
+                            Constants.Latitude.postValue(location.getLatitude());
+                            Constants.Longitude.postValue(location.getLongitude());
                         }
                     }
                 });
@@ -206,10 +209,10 @@ public class HandyManMainScreen extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Log.d("Location", "Destroy");
         locationManager.removeUpdates(locationListener);
         Constants.Latitude.removeObservers(this);
         Constants.Longitude.removeObservers(this);
+        super.onDestroy();
     }
 }

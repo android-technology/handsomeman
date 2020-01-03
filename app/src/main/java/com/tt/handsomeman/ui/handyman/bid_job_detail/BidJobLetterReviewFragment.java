@@ -160,9 +160,9 @@ public class BidJobLetterReviewFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
         tvLetter = null;
         tvMyBudget = null;
         jobsViewModel.clearSubscriptions();
+        super.onDetach();
     }
 }

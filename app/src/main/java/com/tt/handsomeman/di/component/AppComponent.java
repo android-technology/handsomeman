@@ -8,7 +8,7 @@ import com.tt.handsomeman.di.module.NetworkModule;
 import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.handyman.CustomerProfileJobDetail;
-import com.tt.handsomeman.ui.handyman.FilterResult;
+import com.tt.handsomeman.ui.handyman.JobFilterResult;
 import com.tt.handsomeman.ui.handyman.GroupByCategory;
 import com.tt.handsomeman.ui.handyman.JobDetail;
 import com.tt.handsomeman.ui.handyman.Login;
@@ -62,7 +62,7 @@ public interface AppComponent {
 
     void inject(GroupByCategory category);
 
-    void inject(FilterResult filterResult);
+    void inject(JobFilterResult jobFilterResult);
 
     void inject(JobDetail jobDetail);
 

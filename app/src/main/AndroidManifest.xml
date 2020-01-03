@@ -20,7 +20,7 @@
         <activity android:name=".ui.handyman.bid_job_detail.BidJobDetail" />
         <activity android:name=".ui.handyman.CustomerProfileJobDetail" />
         <activity android:name=".ui.handyman.JobDetail" />
-        <activity android:name=".ui.handyman.FilterResult" />
+        <activity android:name=".ui.handyman.JobFilterResult" />
         <activity android:name=".ui.handyman.JobFilter" />
         <activity android:name=".ui.handyman.GroupByCategory" />
         <activity android:name=".ui.handyman.YourLocation" />
