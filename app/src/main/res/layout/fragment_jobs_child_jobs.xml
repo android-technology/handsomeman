@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:text="@string/your_location"
             android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:gravity="end"
             android:text="@string/show_more"
             android:textColor="@color/colorPrimary"
-            android:textSize="13sp" />
+            android:textSize="@dimen/design_3_7sp" />
     </LinearLayout>
 
     <ProgressBar
@@ -71,7 +71,7 @@
         android:gravity="start|center"
         android:text="@string/categories"
         android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
+        android:textSize="@dimen/design_4_7sp"
         android:textStyle="bold" />
 
     <ProgressBar

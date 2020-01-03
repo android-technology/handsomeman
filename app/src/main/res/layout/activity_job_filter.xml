@@ -35,7 +35,7 @@
             android:paddingBottom="1dp"
             android:text="@string/filter"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_5_3sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -68,7 +68,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/distance"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
         <SeekBar
@@ -90,7 +90,7 @@
             android:layout_gravity="center"
             android:text="10 km"
             android:textColor="#a2a2a2"
-            android:textSize="15sp" />
+            android:textSize="@dimen/design_4sp" />
 
         <View
             android:layout_width="match_parent"
@@ -106,7 +106,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/price"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
         <com.jaygoo.widget.RangeSeekBar
@@ -121,7 +121,7 @@
             app:rsb_indicator_margin="5dp"
             app:rsb_indicator_show_mode="alwaysShow"
             app:rsb_indicator_text_color="#a2a2a2"
-            app:rsb_indicator_text_size="15sp"
+            app:rsb_indicator_text_size="@dimen/design_4sp"
             app:rsb_max="1100"
             app:rsb_min="0"
             app:rsb_min_interval="100"
@@ -152,7 +152,7 @@
             android:layout_marginBottom="10dp"
             android:text="@string/date"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

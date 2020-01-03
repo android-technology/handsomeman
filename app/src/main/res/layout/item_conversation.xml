@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     tools:text="Mary Katharine" />
 
                 <View
@@ -77,7 +77,7 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="#000000"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/design_4sp"
                     tools:text="What time are you planning to coming?Hi, Mary. I am good, thanks. How are you? Yes, i have seen that you accepted my bid there" />
             </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#8d8787"
-                android:textSize="12sp"
+                android:textSize="@dimen/design_3_3sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Today" />

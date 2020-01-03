@@ -34,7 +34,7 @@
             android:gravity="center"
             android:paddingBottom="1dp"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="@dimen/design_6sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="CustomerTest" />
@@ -77,7 +77,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/projects"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -93,7 +93,7 @@
                         android:layout_gravity="center"
                         android:text="@string/all"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/allProjectsCustomerJobDetail"
@@ -102,7 +102,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="10" />
 
                 </LinearLayout>
@@ -125,7 +125,7 @@
                         android:layout_gravity="center"
                         android:text="@string/successed"
                         android:textColor="#a2a2a2"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/successedProjectsCustomerJobDetail"
@@ -134,7 +134,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="10" />
 
                 </LinearLayout>
@@ -165,7 +165,7 @@
                         android:layout_weight="1"
                         android:text="@string/reviews_from_other_handymen"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/design_4_7sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -176,7 +176,7 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:textColor="#000000"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/design_3sp"
                         tools:text="(3 Reviews)" />
 
                     <RatingBar

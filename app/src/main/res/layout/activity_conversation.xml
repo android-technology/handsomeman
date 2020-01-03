@@ -34,7 +34,7 @@
             android:gravity="center"
             android:paddingBottom="1dp"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -88,7 +88,8 @@
             android:minHeight="50sp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:paddingBottom="1dp" />
+            android:paddingBottom="1dp"
+            android:textSize="@dimen/design_4_7sp" />
 
         <ImageButton
             android:id="@+id/imageEmojiConversation"

@@ -35,7 +35,7 @@
             android:paddingBottom="1dp"
             android:text="@string/budget"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

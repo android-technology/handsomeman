@@ -34,7 +34,7 @@
             android:paddingBottom="1dp"
             android:text="@string/my_profile"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -90,7 +90,7 @@
                     android:paddingBottom="1dp"
                     android:text="@string/about"
                     android:textColor="@drawable/radio_text"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     app:buttonTint="@android:color/transparent" />
 
                 <RadioButton
@@ -105,14 +105,13 @@
                     android:paddingBottom="1dp"
                     android:text="@string/reviews"
                     android:textColor="@drawable/radio_text"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     app:buttonTint="@android:color/transparent" />
             </RadioGroup>
 
             <FrameLayout
                 android:id="@+id/myProfileFragmentParent"
                 android:layout_width="match_parent"
-
                 android:layout_height="match_parent" />
 
         </LinearLayout>

@@ -75,7 +75,7 @@
     <string name="payment_milestones">Mốc thanh toán</string>
     <string name="client">Khách hàng</string>
     <string name="show_client_profile">Hiển thị hồ sơ khách hàng</string>
-    <string name="project_id_colon">Mã Dự án:\u0020</string>
+    <string name="project_id_colon">"Mã Dự án: "</string>
     <string name="projects">Dự án</string>
     <string name="all">Tất cả</string>
     <string name="successed">Đã thành công</string>

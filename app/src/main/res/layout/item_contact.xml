@@ -24,7 +24,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="10dp"
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="@dimen/design_4_7sp"
         tools:text="Alex Manson" />
 
 </LinearLayout>

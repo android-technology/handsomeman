@@ -32,7 +32,7 @@
             android:layout_marginTop="35dp"
             android:text="@string/log_in"
             android:textColor="#FFFFFF"
-            android:textSize="22sp"
+            android:textSize="@dimen/design_8sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
             android:layout_marginEnd="8dp"
             android:text="@string/welcome_back"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_7sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -60,7 +60,7 @@
             android:layout_marginTop="145dp"
             android:text="@string/your_mail"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_3sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -98,7 +98,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="1dp"
-                android:textSize="15sp" />
+                android:textSize="@dimen/design_4_7sp" />
         </LinearLayout>
 
         <TextView
@@ -109,7 +109,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/password"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="@dimen/design_4_3sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourMail" />
@@ -146,7 +146,7 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingBottom="1dp"
-                android:textSize="15sp" />
+                android:textSize="@dimen/design_4_7sp" />
 
             <CheckBox
                 android:id="@+id/checkboxLoginVisiblePassword"
@@ -190,7 +190,7 @@
             android:text="@string/log_in"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/buttonForgotPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -207,7 +207,7 @@
             android:text="@string/forgot_password_q"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

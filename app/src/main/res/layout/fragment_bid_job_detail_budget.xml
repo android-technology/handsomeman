@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:text="@string/my_bid"
             android:textColor="#000000"
-            android:textSize="17sp" />
+            android:textSize="@dimen/design_4_7sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:background="@android:color/transparent"
                 android:text="$"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
+                android:textSize="@dimen/design_8sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -48,7 +48,7 @@
                 android:inputType="number"
                 android:maxLength="4"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
+                android:textSize="@dimen/design_8sp"
                 android:textStyle="bold"
                 tools:text="1000" />
 
@@ -59,7 +59,7 @@
                 android:background="@android:color/transparent"
                 android:text=" "
                 android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
+                android:textSize="@dimen/design_8sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/per_project"
                 android:textColor="#8c8c8c"
-                android:textSize="14sp" />
+                android:textSize="@dimen/design_3_7sp" />
 
         </LinearLayout>
 
@@ -86,7 +86,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/this_is_what_client_see"
             android:textColor="#a2a2a2"
-            android:textSize="13sp" />
+            android:textSize="@dimen/design_3sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/i_will_receive"
                 android:textColor="#000000"
-                android:textSize="15sp" />
+                android:textSize="@dimen/design_4_3sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/design_4_7sp"
                         android:textStyle="bold"
                         tools:text="$90 " />
 
@@ -127,7 +127,7 @@
                         android:layout_gravity="center"
                         android:text="@string/per_project"
                         android:textColor="#8c8c8c"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_3sp" />
                 </LinearLayout>
 
                 <View
@@ -161,7 +161,7 @@
             android:layout_weight="1"
             android:text="@string/handy_service_fee"
             android:textColor="#a2a2a2"
-            android:textSize="14sp" />
+            android:textSize="@dimen/design_4_3sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -170,7 +170,7 @@
             android:gravity="end"
             android:text="$"
             android:textColor="#a2a2a2"
-            android:textSize="14sp" />
+            android:textSize="@dimen/design_4_3sp" />
 
         <TextView
             android:id="@+id/serviceFeeBidJobDetail"
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#a2a2a2"
-            android:textSize="14sp"
+            android:textSize="@dimen/design_4_3sp"
             tools:text="10" />
 
     </LinearLayout>
@@ -204,7 +204,7 @@
             android:layout_weight="1"
             android:text="@string/highest_bid_for_now_on_this_project"
             android:textColor="#a2a2a2"
-            android:textSize="14sp" />
+            android:textSize="@dimen/design_4_3sp" />
 
         <TextView
             android:id="@+id/highestBidJobDetail"
@@ -212,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#a2a2a2"
-            android:textSize="14sp"
+            android:textSize="@dimen/design_4_3sp"
             tools:text="150" />
 
     </LinearLayout>
@@ -240,7 +240,7 @@
             android:layout_weight="1"
             android:text="@string/lowest_bid_for_now_on_this_project"
             android:textColor="#a2a2a2"
-            android:textSize="14sp" />
+            android:textSize="@dimen/design_4_3sp" />
 
         <TextView
             android:id="@+id/lowestBidJobDetail"
@@ -248,7 +248,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#a2a2a2"
-            android:textSize="14sp"
+            android:textSize="@dimen/design_4_3sp"
             tools:text="100" />
 
     </LinearLayout>

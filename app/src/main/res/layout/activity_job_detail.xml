@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/design_6sp"
                     android:textStyle="bold"
                     tools:text="Need a handyman who can fix my toilet" />
 
@@ -85,14 +85,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/project_id_colon"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_4sp" />
 
                     <TextView
                         android:id="@+id/jobIdJobDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/design_4sp"
                         tools:text="123445345" />
 
                     <TextView
@@ -102,7 +102,7 @@
                         android:layout_weight="1"
                         android:textAlignment="viewEnd"
                         android:textColor="#a2a2a2"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/design_4sp"
                         tools:text="2 hours ago" />
                 </LinearLayout>
             </LinearLayout>
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/details"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textColor="#000000"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/design_4sp"
                     tools:text="My toilet is broken so I need a handyman that can come to my house to fix the toilet on 29/10/2017" />
 
                 <View
@@ -164,7 +164,8 @@
                         android:layout_marginStart="5dp"
                         android:paddingBottom="1dp"
                         android:text="@string/budget"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/budgetRangeJobDetail"
@@ -174,7 +175,7 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/design_6sp"
                         tools:text="$100 - $150" />
                 </LinearLayout>
 
@@ -203,7 +204,8 @@
                         android:layout_marginStart="5dp"
                         android:paddingBottom="1dp"
                         android:text="@string/deadline"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/deadlineJobDetail"
@@ -214,6 +216,7 @@
                         android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="3 days left" />
                 </LinearLayout>
 
@@ -242,7 +245,8 @@
                         android:layout_marginStart="5dp"
                         android:paddingBottom="1dp"
                         android:text="@string/location"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/locationJobDetail"
@@ -253,6 +257,7 @@
                         android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
                         android:textColor="#000000"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="Patrick st, Silk city, London" />
                 </LinearLayout>
 
@@ -289,7 +294,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/this_job"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -304,7 +309,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/bids"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/bidRangeJobDetail"
@@ -313,6 +319,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="5 to 10" />
 
                 </LinearLayout>
@@ -334,7 +341,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/interviewing"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/interviewingJobDetail"
@@ -343,6 +351,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="2" />
 
                 </LinearLayout>
@@ -364,7 +373,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/hired"
-                        android:textColor="#a2a2a2" />
+                        android:textColor="#a2a2a2"
+                        android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
                         android:id="@+id/hiredJobDetail"
@@ -373,6 +383,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textColor="#000000"
+                        android:textSize="@dimen/design_4_3sp"
                         tools:text="No" />
 
                 </LinearLayout>
@@ -397,7 +408,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:text="@string/payment_milestones"
-                            android:textColor="#a2a2a2" />
+                            android:textColor="#a2a2a2"
+                            android:textSize="@dimen/design_4_3sp" />
 
                         <TextView
                             android:id="@+id/paymentMileStoneCountJobDetail"
@@ -406,6 +418,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="#000000"
+                            android:textSize="@dimen/design_4_3sp"
                             tools:text="2" />
 
                     </TableRow>
@@ -432,7 +445,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/client"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -468,7 +481,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="30dp"
                             android:textColor="#000000"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/design_3sp"
                             android:textStyle="bold"
                             tools:text="Keira Knightley" />
 
@@ -496,7 +509,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="#000000"
-                                android:textSize="13sp"
+                                android:textSize="@dimen/design_3sp"
                                 tools:text="(3 Reviews)" />
 
                         </LinearLayout>
@@ -516,7 +529,8 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:text="@string/show_client_profile"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/design_4sp" />
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -538,7 +552,7 @@
         android:text="@string/place_a_bid"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="@dimen/design_6sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

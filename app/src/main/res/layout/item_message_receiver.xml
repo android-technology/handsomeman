@@ -30,10 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="#a2a2a2"
-            android:textSize="13sp"
+            android:textSize="@dimen/design_3_3sp"
             tools:text="12:30" />
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/messageBody"
@@ -42,10 +41,10 @@
         android:background="@drawable/bubble_receiver"
         android:gravity="center_vertical"
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="@dimen/design_4_7sp"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"

@@ -26,6 +26,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
+import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.MessageConstant;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -104,8 +105,8 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b = new TextView(getContext());
             b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-            b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             b.setTextColor(getResources().getColor(R.color.textColor));
+            b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b.setGravity(Gravity.START);
 
             switch ((i + 1) % 10) {
@@ -125,8 +126,8 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b2 = new TextView(getContext());
             b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-            b2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             b2.setTextColor(getResources().getColor(R.color.textColor));
+            b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b2.setGravity(Gravity.END);
             b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
 

@@ -29,6 +29,7 @@ import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
@@ -156,10 +157,9 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
                     TextView b = new TextView(JobDetail.this);
                     b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                    b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
                     b.setTextColor(getResources().getColor(R.color.textColor));
+                    b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
                     b.setGravity(Gravity.START);
-
                     switch ((i + 1) % 10) {
                         case 1:
                             b.setText(i + 1 + "st milestone");
@@ -177,11 +177,10 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
                     TextView b2 = new TextView(JobDetail.this);
                     b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-                    b2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
                     b2.setTextColor(getResources().getColor(R.color.textColor));
+                    b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
                     b2.setGravity(Gravity.END);
                     b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
-
                     tr.addView(b);
                     tr.addView(b2);
 

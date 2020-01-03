@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/more"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/design_6sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/design_6sp"
                         tools:text="Mary Katharine" />
 
                     <View
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/view_my_profile"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_4sp" />
                 </LinearLayout>
 
                 <ImageButton
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/my_balance"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -129,7 +129,7 @@
                         android:layout_gravity="center"
                         android:padding="15dp"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/design_8sp"
                         android:textStyle="bold" />
 
                     <View
@@ -146,13 +146,12 @@
                         android:paddingBottom="5dp"
                         android:text="@string/transfer_to_bank_account"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_4sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#FFFFFF" />
-
 
                     <TextView
                         android:layout_width="match_parent"
@@ -163,7 +162,7 @@
                         android:paddingBottom="5dp"
                         android:text="@string/view_transfer_history"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/design_4sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -194,9 +193,8 @@
                         android:layout_weight="1"
                         android:text="@string/payout"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/design_4_7sp"
                         android:textStyle="bold" />
-
 
                     <ImageButton
                         android:layout_width="20dp"
@@ -236,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/other"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -253,7 +251,7 @@
                         android:layout_weight="1"
                         android:text="@string/help_support"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
                         android:layout_width="20dp"
@@ -283,7 +281,7 @@
                         android:layout_weight="1"
                         android:text="@string/term_condition"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
                         android:layout_width="20dp"
@@ -313,7 +311,7 @@
                         android:layout_weight="1"
                         android:text="@string/privacy_policy"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
                         android:layout_width="20dp"
@@ -339,7 +337,7 @@
                 android:padding="15dp"
                 android:text="@string/change_password"
                 android:textColor="@color/red"
-                android:textSize="15sp"
+                android:textSize="@dimen/design_4_7sp"
                 android:textStyle="bold" />
 
             <View
@@ -356,7 +354,7 @@
                 android:padding="15dp"
                 android:text="@string/log_out"
                 android:textColor="@color/red"
-                android:textSize="15sp"
+                android:textSize="@dimen/design_4_7sp"
                 android:textStyle="bold" />
 
         </LinearLayout>

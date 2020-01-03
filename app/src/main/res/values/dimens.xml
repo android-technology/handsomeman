@@ -5,4 +5,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">11sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">11sp</dimen>
+
+    <dimen name="design_3sp">10sp</dimen><!--done-->
+    <dimen name="design_3_3sp">11sp</dimen><!--done-->
+    <dimen name="design_3_7sp">12sp</dimen><!--done-->
+    <dimen name="design_4sp">13sp</dimen><!--done-->
+    <dimen name="design_4_3sp">14sp</dimen><!--done-->
+    <dimen name="design_4_7sp">15sp</dimen><!--done-->
+    <dimen name="design_5_3sp">18sp</dimen><!--done-->
+    <dimen name="design_6sp">20sp</dimen><!--done-->
+    <dimen name="design_8sp">22sp</dimen><!--done-->
 </resources>
