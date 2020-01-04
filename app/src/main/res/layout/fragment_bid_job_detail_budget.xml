@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/per_project"
-                android:textColor="@color/text_bg_bid_job"
+                android:textColor="@color/text_white_bg"
                 android:textSize="@dimen/design_3_7sp" />
 
         </LinearLayout>
@@ -85,7 +85,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="2dp"
             android:text="@string/this_is_what_client_see"
-            android:textColor="@color/text_bg_bid_job"
+            android:textColor="@color/text_white_bg"
             android:textSize="@dimen/design_3sp" />
 
         <LinearLayout
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/per_project"
-                        android:textColor="@color/text_bg_bid_job"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_3sp" />
                 </LinearLayout>
 

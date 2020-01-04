@@ -103,7 +103,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b = new TextView(getContext());
             b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-            b.setTextColor(getResources().getColor(R.color.text_bg_bid_job));
+            b.setTextColor(getResources().getColor(R.color.text_white_bg));
             b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b.setGravity(Gravity.START);
 
@@ -124,7 +124,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b2 = new TextView(getContext());
             b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-            b2.setTextColor(getResources().getColor(R.color.text_bg_bid_job));
+            b2.setTextColor(getResources().getColor(R.color.text_white_bg));
             b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b2.setGravity(Gravity.END);
             b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
