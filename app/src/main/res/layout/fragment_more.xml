@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.handyman.more.MoreFragment">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/more"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
                         android:id="@+id/accountNameMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_6sp"
                         tools:text="Mary Katharine" />
 
@@ -99,7 +99,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#FFFFFF" />
+                        android:background="@color/white" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#FFFFFF" />
+                        android:background="@color/white" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -170,7 +170,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -218,7 +218,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/help_support"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
@@ -265,7 +265,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -280,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/term_condition"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
@@ -295,7 +295,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -310,7 +310,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/privacy_policy"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_7sp" />
 
                     <ImageButton
@@ -327,7 +327,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -336,14 +336,14 @@
                 android:orientation="vertical"
                 android:padding="15dp"
                 android:text="@string/change_password"
-                android:textColor="@color/red"
+                android:textColor="@color/orange_red"
                 android:textSize="@dimen/design_4_7sp"
                 android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:id="@+id/logoutMore"
@@ -353,7 +353,7 @@
                 android:orientation="vertical"
                 android:padding="15dp"
                 android:text="@string/log_out"
-                android:textColor="@color/red"
+                android:textColor="@color/orange_red"
                 android:textSize="@dimen/design_4_7sp"
                 android:textStyle="bold" />
 

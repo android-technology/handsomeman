@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:alpha="0.4"
         android:animateLayoutChanges="true"
-        android:background="#000000"
+        android:background="@color/black"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,9 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingBottom="1dp"
             android:text="@string/add_payout"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:fillViewport="true"
         android:overScrollMode="never">
 
@@ -105,7 +104,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="center"
                 android:text="@string/add_payout_description"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <TextView
@@ -132,14 +131,14 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,14 +164,14 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -198,14 +197,14 @@
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -232,14 +231,14 @@
                 android:maxLength="6"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -273,7 +272,7 @@
                     android:inputType="none"
                     android:paddingStart="10dp"
                     android:paddingEnd="5dp"
-                    android:paddingBottom="1dp"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/design_4_7sp" />
 
                 <ImageButton
@@ -292,7 +291,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -345,7 +344,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -371,14 +370,14 @@
                 android:inputType="textEmailAddress"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -405,14 +404,14 @@
                 android:maxLength="14"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -439,14 +438,14 @@
                 android:maxLength="9"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <TextView
                 android:layout_width="wrap_content"

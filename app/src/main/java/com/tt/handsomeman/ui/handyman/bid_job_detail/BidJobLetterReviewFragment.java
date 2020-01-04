@@ -3,7 +3,6 @@ package com.tt.handsomeman.ui.handyman.bid_job_detail;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -105,7 +103,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b = new TextView(getContext());
             b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-            b.setTextColor(getResources().getColor(R.color.textColor));
+            b.setTextColor(getResources().getColor(R.color.text_bg_bid_job));
             b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b.setGravity(Gravity.START);
 
@@ -126,7 +124,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
 
             TextView b2 = new TextView(getContext());
             b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-            b2.setTextColor(getResources().getColor(R.color.textColor));
+            b2.setTextColor(getResources().getColor(R.color.text_bg_bid_job));
             b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b2.setGravity(Gravity.END);
             b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");

@@ -17,14 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_ends_with"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="@dimen/design_4_7sp" />
 
         <TextView
             android:id="@+id/payoutLastNumbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="@dimen/design_4_7sp"
             tools:text="1234" />
     </LinearLayout>

@@ -32,8 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingBottom="1dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +43,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:fillViewport="true"
         android:overScrollMode="never">
 
@@ -85,14 +84,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/all"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -101,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="10" />
 
@@ -117,14 +116,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/successed"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -133,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="10" />
 
@@ -175,7 +174,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_3sp"
                         tools:text="(3 Reviews)" />
 

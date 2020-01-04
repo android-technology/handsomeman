@@ -44,7 +44,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/buttonPlaceBidJobDetail"
@@ -64,7 +64,7 @@
                 android:paddingStart="15dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="6dp">
+                android:paddingBottom="5dp">
 
                 <TextView
                     android:id="@+id/jobTitleJobDetail"
@@ -84,14 +84,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/project_id_colon"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4sp" />
 
                     <TextView
                         android:id="@+id/jobIdJobDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4sp"
                         tools:text="123445345" />
 
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="viewEnd"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4sp"
                         tools:text="2 hours ago" />
                 </LinearLayout>
@@ -110,7 +110,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/design_4sp"
                     tools:text="My toilet is broken so I need a handyman that can come to my house to fix the toilet on 29/10/2017" />
 
@@ -142,13 +142,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingBottom="5dp">
 
                     <ImageView
@@ -162,9 +162,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:paddingBottom="1dp"
                         android:text="@string/budget"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -174,7 +173,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:textAlignment="viewEnd"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_6sp"
                         tools:text="$100 - $150" />
                 </LinearLayout>
@@ -182,7 +181,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -202,9 +201,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:paddingBottom="1dp"
                         android:text="@string/deadline"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -213,9 +211,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="3 days left" />
                 </LinearLayout>
@@ -223,7 +220,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -243,9 +240,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:paddingBottom="1dp"
                         android:text="@string/location"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -254,9 +250,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:paddingBottom="1dp"
                         android:textAlignment="viewEnd"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="Patrick st, Silk city, London" />
                 </LinearLayout>
@@ -278,7 +273,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -302,14 +297,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/bids"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -318,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="5 to 10" />
 
@@ -327,21 +322,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/interviewing"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -350,7 +345,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="2" />
 
@@ -359,21 +354,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/hired"
-                        android:textColor="#a2a2a2"
+                        android:textColor="@color/text_white_bg"
                         android:textSize="@dimen/design_4_3sp" />
 
                     <TextView
@@ -382,7 +377,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/design_4_3sp"
                         tools:text="No" />
 
@@ -391,7 +386,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e8e8e8" />
+                    android:background="@color/divider_bg" />
 
                 <TableLayout
                     android:id="@+id/paymentMileStoneTableLayoutJobDetail"
@@ -408,7 +403,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:text="@string/payment_milestones"
-                            android:textColor="#a2a2a2"
+                            android:textColor="@color/text_white_bg"
                             android:textSize="@dimen/design_4_3sp" />
 
                         <TextView
@@ -417,7 +412,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:textColor="#000000"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/design_4_3sp"
                             tools:text="2" />
 
@@ -429,7 +424,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e8e8e8" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -480,7 +475,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="30dp"
-                            android:textColor="#000000"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/design_3sp"
                             android:textStyle="bold"
                             tools:text="Keira Knightley" />
@@ -508,7 +503,7 @@
                                 android:id="@+id/reviewCountJobDetail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="#000000"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/design_3sp"
                                 tools:text="(3 Reviews)" />
 
@@ -518,7 +513,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="#FFFFFF" />
+                            android:background="@color/white" />
 
                         <TextView
                             android:id="@+id/showClientProfileJobDetail"
@@ -548,10 +543,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/custom_ripple_primary_color_bg"
         android:gravity="center"
-        android:paddingBottom="1dp"
         android:text="@string/place_a_bid"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_6sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

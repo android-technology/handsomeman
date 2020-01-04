@@ -42,7 +42,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:text="@string/my_budget"
-                android:textColor="#a2a2a2"
+                android:textColor="@color/text_bg_bid_job"
                 android:textSize="@dimen/design_4_3sp"
                 android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/per_project"
-                    android:textColor="#8c8c8c"
+                    android:textColor="@color/text_bg_bid_job"
                     android:textSize="@dimen/design_3_7sp" />
 
             </LinearLayout>
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="@string/payment_milestones"
-                    android:textColor="#a2a2a2"
+                    android:textColor="@color/text_bg_bid_job"
                     android:textSize="@dimen/design_4_3sp"
                     android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:textColor="#8c8c8c"
+                    android:textColor="@color/text_bg_bid_job"
                     android:textSize="@dimen/design_4_3sp"
                     tools:text="2" />
 
@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="#e8e8e8" />
+        android:background="@color/divider_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="@dimen/design_4_3sp"
             android:textStyle="bold"
             tools:text="Hello, I am David. I have had experiences for more than 5 years. No one wants to wait hours for a plumber to fix that overflowing toilet or spewing faucet. I am a professional are available 24 hours a day to handle any bathroom plumbing emergency. I’ll get there fast and fix the problem right." />

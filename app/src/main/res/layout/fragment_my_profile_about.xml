@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp"
                 tools:text="Daniel Wellington" />
 
@@ -43,7 +43,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e8e8e8" />
+            android:background="@color/divider_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp"
                 tools:text="High school" />
 
@@ -71,7 +71,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e8e8e8" />
+            android:background="@color/divider_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="@dimen/design_4_7sp"
                 tools:text="I have been a handyman for 10 years. All my customers are always happy in the end. I am really good at fixing stuff ( window, car, bathroom...)" />
 
@@ -99,7 +99,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e8e8e8" />
+            android:background="@color/divider_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e8e8e8" />
+            android:background="@color/divider_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,14 +150,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
-                android:paddingBottom="6dp">
+                android:paddingBottom="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/all"
-                    android:textColor="#a2a2a2"
+                    android:textColor="@color/text_white_bg"
                     android:textSize="@dimen/design_4_3sp" />
 
                 <TextView
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="end"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/design_4_3sp"
                     tools:text="10" />
 
@@ -175,21 +175,21 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f3f3f3" />
+                android:background="@color/divider_bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
-                android:paddingBottom="6dp">
+                android:paddingBottom="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/successed"
-                    android:textColor="#a2a2a2"
+                    android:textColor="@color/text_white_bg"
                     android:textSize="@dimen/design_4_7sp" />
 
                 <TextView
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="end"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     tools:text="10" />
 

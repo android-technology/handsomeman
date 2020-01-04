@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#a2a2a2"
+            android:textColor="@color/text_white_bg"
             android:textSize="@dimen/design_3_3sp"
             tools:text="12:30" />
     </LinearLayout>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bubble_receiver"
         android:gravity="center_vertical"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="@dimen/design_4_7sp"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"

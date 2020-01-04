@@ -14,7 +14,7 @@
         android:layout_marginTop="68dp"
         android:gravity="center"
         android:text="@string/start"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_8sp"
         android:textStyle="bold" />
 
@@ -24,7 +24,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:text="@string/start_welcome"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_4_7sp" />
 
     <ImageView
@@ -42,10 +42,9 @@
         android:layout_marginTop="35dp"
         android:layout_marginRight="45dp"
         android:background="@drawable/custom_ripple_primary_radius_bg"
-        android:paddingBottom="1dp"
         android:text="@string/continue_handyman"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_6sp"
         android:textStyle="bold" />
 
@@ -58,10 +57,9 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="45dp"
         android:background="@drawable/custom_ripple_primary_radius_bg"
-        android:paddingBottom="1dp"
         android:text="@string/continue_customer"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_6sp"
         android:textStyle="bold" />
 </LinearLayout>

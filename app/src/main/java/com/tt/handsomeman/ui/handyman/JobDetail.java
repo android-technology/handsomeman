@@ -2,7 +2,6 @@ package com.tt.handsomeman.ui.handyman;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -157,7 +156,7 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
                     TextView b = new TextView(JobDetail.this);
                     b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                    b.setTextColor(getResources().getColor(R.color.textColor));
+                    b.setTextColor(getResources().getColor(R.color.text_white_bg));
                     b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
                     b.setGravity(Gravity.START);
                     switch ((i + 1) % 10) {
@@ -177,7 +176,7 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
                     TextView b2 = new TextView(JobDetail.this);
                     b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-                    b2.setTextColor(getResources().getColor(R.color.textColor));
+                    b2.setTextColor(getResources().getColor(R.color.text_white_bg));
                     b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
                     b2.setGravity(Gravity.END);
                     b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");

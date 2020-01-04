@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="@dimen/design_4sp"
             tools:text="What time are you planning to coming?Hi, Mary. I am good, thanks. How are you? Yes, i have seen that you accepted my bid there" />
     </LinearLayout>
@@ -43,7 +43,7 @@
         android:id="@+id/pushTimeNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#8d8787"
+        android:textColor="@color/text_white_bg"
         android:textSize="@dimen/design_3_3sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

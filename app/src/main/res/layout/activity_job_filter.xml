@@ -32,9 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingBottom="1dp"
             android:text="@string/filter"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/design_5_3sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -89,14 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="10 km"
-            android:textColor="#a2a2a2"
+            android:textColor="@color/text_white_bg"
             android:textSize="@dimen/design_4sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
-            android:background="#f3f3f3" />
+            android:background="@color/divider_bg" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,14 +119,14 @@
             app:rsb_indicator_height="15dp"
             app:rsb_indicator_margin="5dp"
             app:rsb_indicator_show_mode="alwaysShow"
-            app:rsb_indicator_text_color="#a2a2a2"
+            app:rsb_indicator_text_color="@color/text_white_bg"
             app:rsb_indicator_text_size="@dimen/design_4sp"
             app:rsb_max="1100"
             app:rsb_min="0"
             app:rsb_min_interval="100"
             app:rsb_mode="range"
             app:rsb_progress_color="@color/colorPrimary"
-            app:rsb_progress_default_color="#d5d5d5"
+            app:rsb_progress_default_color="@color/white_three"
             app:rsb_progress_height="8dp"
             app:rsb_progress_radius="2dp"
             app:rsb_step_color="@android:color/transparent"
@@ -142,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="#f3f3f3" />
+            android:background="@color/divider_bg" />
 
         <TextView
             android:layout_width="wrap_content"

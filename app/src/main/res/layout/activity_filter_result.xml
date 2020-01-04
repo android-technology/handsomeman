@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/filter"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <ProgressBar
@@ -53,7 +53,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:indeterminateDrawable="@drawable/custom_progressbar"
             android:visibility="visible" />
 
@@ -61,7 +61,7 @@
             android:id="@+id/recycleViewFilterResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:overScrollMode="never"
             tools:listitem="@layout/item_job_filter" />
     </LinearLayout>

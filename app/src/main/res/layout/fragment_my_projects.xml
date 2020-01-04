@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,10 +23,10 @@
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="@dimen/design_4_3sp"
-            app:backgroundTint="#FFFFFF"
+            app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,6 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="35dp"
-                    android:paddingBottom="1dp"
                     android:text="@string/in_progress"
                     android:textColor="@drawable/radio_text"
                     android:textSize="@dimen/design_4_7sp"
@@ -82,7 +81,6 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="35dp"
-                    android:paddingBottom="1dp"
                     android:text="@string/in_past"
                     android:textColor="@drawable/radio_text"
                     android:textSize="@dimen/design_4_7sp"

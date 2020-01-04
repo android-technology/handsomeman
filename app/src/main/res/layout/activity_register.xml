@@ -51,9 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
-            android:paddingBottom="1dp"
             android:text="@string/facebook_login"
-            android:textColor="#3b5998"
+            android:textColor="@color/facebook_text_bg"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -67,7 +66,7 @@
         android:layout_marginBottom="65dp"
         android:gravity="center"
         android:text="@string/register_description"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="@dimen/design_4_3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +75,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -88,7 +87,6 @@
             android:layout_weight="1"
             android:background="@drawable/custom_ripple_transparent_color_bg"
             android:gravity="center"
-            android:paddingBottom="1dp"
             android:text="@string/log_in"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
@@ -109,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/custom_ripple_transparent_color_bg"
-            android:paddingBottom="1dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"

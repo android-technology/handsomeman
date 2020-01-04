@@ -32,8 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingBottom="1dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +44,7 @@
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:overScrollMode="never"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -68,7 +67,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="10dp"
         android:paddingStart="15dp"
@@ -88,7 +87,6 @@
             android:minHeight="50sp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:paddingBottom="1dp"
             android:textSize="@dimen/design_4_7sp" />
 
         <ImageButton
