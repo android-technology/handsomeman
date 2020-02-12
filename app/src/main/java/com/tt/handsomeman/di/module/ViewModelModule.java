@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.di.annotation.ViewModelKey;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
-import com.tt.handsomeman.viewmodel.MoreViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -30,8 +30,8 @@ public abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MoreViewModel.class)
-    abstract ViewModel bindMoreViewModel(MoreViewModel moreViewModel);
+    @ViewModelKey(HandymanViewModel.class)
+    abstract ViewModel bindMoreViewModel(HandymanViewModel handymanViewModel);
 
     //bind new ViewModel here
 }

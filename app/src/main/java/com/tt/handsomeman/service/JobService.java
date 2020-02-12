@@ -51,7 +51,4 @@ public interface JobService {
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID_WITH_MULTI_FILE)
     Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
-
-    @POST(Constants.GET_HANDYMAN_REVIEW)
-    Single<Response<DataBracketResponse<HandymanReviewProfile>>> getHandymanReview(@Header("Authorization") String token);
 }

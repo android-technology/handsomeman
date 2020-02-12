@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,10 +22,12 @@ import com.tt.handsomeman.adapter.MessageAdapter;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.BaseViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,6 +48,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     private BroadcastReceiver receiver;
     private int conversationId;
     private RecyclerView rcvMessage;
+    private boolean isAtBottom = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +65,62 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 onBackPressed();
             }
         });
+        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+
         createRecyclerViewMessage();
 
         String addressName = getIntent().getStringExtra("addressName");
         tvAddressName.setText(addressName);
 
-        fetchData();
+        fetchData(authorizationCode);
+
+        addRecyclerViewBottomListener();
 
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Bundle bundle = intent.getExtras();
 
+                Date sendTime = null;
+                try {
+                    sendTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bundle.getString("sendTime"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                byte type;
+                if (bundle.getString("accountId").equals(sharedPreferencesUtils.get("userId", String.class))) {
+                    type = 1;
+                } else {
+                    type = 2;
+                }
+                MessageResponse messageResponse = new MessageResponse(bundle.getString("avatar"), Integer.parseInt(bundle.getString("accountId"))
+                        , bundle.getString("Body"), sendTime, type);
+
+                messageResponseList.add(messageResponse);
+                messageAdapter.notifyItemInserted(messageResponseList.size() - 1);
+                if (isAtBottom) {
+                    rcvMessage.scrollToPosition(messageResponseList.size() - 1);
+                }
             }
         };
     }
 
-    private void fetchData() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+    private void addRecyclerViewBottomListener() {
+        rcvMessage.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    isAtBottom = true;
+                } else {
+                    isAtBottom = false;
+                }
+            }
+        });
+    }
+
+    private void fetchData(String authorizationCode) {
         int conversationId = getIntent().getIntExtra("conversationId", 0);
         baseViewModel.fetchAllMessageInConversation(authorizationCode, conversationId);
         baseViewModel.getMessageResponseListMutableLiveData().observe(this, new Observer<List<MessageResponse>>() {

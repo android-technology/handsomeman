@@ -112,10 +112,13 @@ public class Login extends AppCompatActivity {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
                             String token = response.body().getData().getToken();
                             Integer state = response.body().getData().getState();
+                            String userId = response.body().getData().getUserId();
+
                             pgLogin.setVisibility(View.GONE);
 
                             sharedPreferencesUtils.put("token", token);
                             sharedPreferencesUtils.put("state", state);
+                            sharedPreferencesUtils.put("userId", userId);
 
                             if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
                                 startActivity(new Intent(Login.this, SignUpAddPayout.class));

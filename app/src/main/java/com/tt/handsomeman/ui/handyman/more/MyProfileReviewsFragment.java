@@ -27,6 +27,7 @@ import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyProfileReviewsFragment extends BaseFragment<JobsViewModel> {
+public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -49,7 +50,7 @@ public class MyProfileReviewsFragment extends BaseFragment<JobsViewModel> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(HandymanViewModel.class);
         return inflater.inflate(R.layout.fragment_my_profile_reviews, container, false);
     }
 

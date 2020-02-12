@@ -32,6 +32,17 @@ public class MessageResponse {
     // type = 1 mean this is sender; type = 2 mean this is receiver
     private byte type;
 
+    public MessageResponse() {
+    }
+
+    public MessageResponse(String avatar, int accountId, String body, Date sendTime, byte type) {
+        this.avatar = avatar;
+        this.accountId = accountId;
+        this.body = body;
+        this.sendTime = sendTime;
+        this.type = type;
+    }
+
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String result;

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:overScrollMode="never"
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,6 +34,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/aboutYourName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -60,6 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/aboutEducation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -88,6 +92,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -119,6 +124,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/aboutMySkillRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="1"
@@ -161,7 +167,7 @@
                     android:textSize="@dimen/design_4_3sp" />
 
                 <TextView
-                    android:id="@+id/allProjectsCustomerJobDetail"
+                    android:id="@+id/aboutAllProjects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -193,7 +199,7 @@
                     android:textSize="@dimen/design_4_7sp" />
 
                 <TextView
-                    android:id="@+id/successedProjectsCustomerJobDetail"
+                    android:id="@+id/aboutSuccessedProjects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

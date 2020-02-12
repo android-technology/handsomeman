@@ -10,10 +10,18 @@
 
     <TextView
         android:id="@+id/textViewItemSkillName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/design_4_7sp"
         tools:text="Fixing windows" />
 
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/custom_ripple_transparent_color_bg"
+        android:scaleType="fitCenter"
+        android:src="@drawable/del_red" />
 </LinearLayout>

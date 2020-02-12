@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.handyman.more.MyProfile"></activity>
+        <activity android:name=".ui.handyman.more.MyProfileEdit"></activity>
+        <activity android:name=".ui.handyman.more.MyProfile" />
         <activity android:name=".ui.handyman.messages.Conversation" />
         <activity android:name=".ui.handyman.bid_job_detail.BidJobDetail" />
         <activity android:name=".ui.handyman.CustomerProfileJobDetail" />

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ public class ConversationResponse {
     private Date sendTime;
 
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String result;
         Calendar now = Calendar.getInstance();
         Date today, yesterday;

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,14 +26,14 @@ import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.Login;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.MoreViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoreFragment extends BaseFragment<MoreViewModel> {
+public class MoreFragment extends BaseFragment<HandymanViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -48,7 +47,7 @@ public class MoreFragment extends BaseFragment<MoreViewModel> {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MoreViewModel.class);
+        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(HandymanViewModel.class);
         return inflater.inflate(R.layout.fragment_more, container, false);
     }
 
@@ -76,16 +75,13 @@ public class MoreFragment extends BaseFragment<MoreViewModel> {
             }
         });
 
-        RecyclerView rcvPayout = view.findViewById(R.id.recyclerViewPayoutMore);
-        payoutAdapter = new PayoutAdapter(payoutList, getContext());
-        RecyclerView.LayoutManager layoutManagerPayout = new LinearLayoutManager(getContext());
-        rcvPayout.setLayoutManager(layoutManagerPayout);
-        rcvPayout.setItemAnimator(new DefaultItemAnimator());
-        rcvPayout.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
-        rcvPayout.setAdapter(payoutAdapter);
+        createPayoutRecyclerView(view);
+        fetchHandymanInfo();
+    }
 
+    private void fetchHandymanInfo() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        baseViewModel.getHandymanInfo(authorizationCode);
+        baseViewModel.fetchHandymanInfo(authorizationCode);
         baseViewModel.getHandymanMutableLiveData().observe(this, new Observer<Handyman>() {
             @Override
             public void onChanged(Handyman handyman) {
@@ -97,5 +93,15 @@ public class MoreFragment extends BaseFragment<MoreViewModel> {
                 payoutAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void createPayoutRecyclerView(@NonNull View view) {
+        RecyclerView rcvPayout = view.findViewById(R.id.recyclerViewPayoutMore);
+        payoutAdapter = new PayoutAdapter(payoutList, getContext());
+        RecyclerView.LayoutManager layoutManagerPayout = new LinearLayoutManager(getContext());
+        rcvPayout.setLayoutManager(layoutManagerPayout);
+        rcvPayout.setItemAnimator(new DefaultItemAnimator());
+        rcvPayout.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+        rcvPayout.setAdapter(payoutAdapter);
     }
 }

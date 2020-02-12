@@ -15,4 +15,6 @@
     <dimen name="design_5_3sp">16.5sp</dimen><!--done-->
     <dimen name="design_6sp">18sp</dimen><!--done-->
     <dimen name="design_8sp">20sp</dimen><!--done-->
+
+    <dimen name="margin_top_edit_text_from_text">5dp</dimen>
 </resources>

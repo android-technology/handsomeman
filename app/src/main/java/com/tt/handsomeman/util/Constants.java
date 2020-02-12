@@ -18,7 +18,6 @@ public class Constants {
     public static final String JOB_WISH_LIST = "api/jobs/jobWishList";
     public static final String ADD_JOB_BID = "api/jobs/addJobBid";
     public static final String ADD_JOB_BID_WITH_MULTI_FILE = "api/jobs/addJobBidWithMultiFiles";
-    public static final String GET_HANDYMAN_REVIEW = "api/jobs/handymanReview";
 
     public static final String GET_ALL_CONVERSATION_OF_ACCOUNT = "api/message/getAllConversationByAccountId";
     public static final String GET_ALL_MESSAGES_IN_CONVERSATION = "api/message/getAllMessageInConversation/{conversationId}";
@@ -26,6 +25,9 @@ public class Constants {
     public static final String GET_CONTACT_OF_ACCOUNT = "api/message/showContactOfAccount";
 
     public static final String GET_HANDYMAN_INFO = "api/handyman/info";
+    public static final String GET_HANDYMAN_REVIEW = "api/handyman/handymanReview";
+    public static final String GET_HANDYMAN_PROFILE = "api/handyman/profile";
+    public static final String GET_HANDYMAN_PROFILE_EDIT = "api/handyman/profile/edit";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;
