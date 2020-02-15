@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
@@ -78,7 +78,7 @@ public class SignUpAddPayout extends AppCompatActivity {
         ibCheck.setEnabled(false);
 
         HandymanApp.getComponent().inject(this);
-        signUpAddPayoutViewModel = ViewModelProviders.of(this).get(SignUpAddPayoutViewModel.class);
+        signUpAddPayoutViewModel = new ViewModelProvider(this).get(SignUpAddPayoutViewModel.class);
 
         findViewById(R.id.signUpPayoutBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +132,6 @@ public class SignUpAddPayout extends AppCompatActivity {
 
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-                edtBirthday.setText(sdf.format(myCalendar.getTime()));
 
                 String firstName = edtFirstName.getText().toString();
                 String lastName = edtLastName.getText().toString();

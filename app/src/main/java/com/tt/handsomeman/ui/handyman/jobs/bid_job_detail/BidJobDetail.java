@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.bid_job_detail;
+package com.tt.handsomeman.ui.handyman.jobs.bid_job_detail;
 
 import android.os.Bundle;
 import android.view.View;
@@ -127,7 +127,7 @@ public class BidJobDetail extends FragmentActivity {
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @NonNull

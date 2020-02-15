@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.bid_job_detail;
+package com.tt.handsomeman.ui.handyman.jobs.bid_job_detail;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
@@ -78,7 +77,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_bid_job_detail_letter_review, container, false);
     }
 
@@ -140,8 +139,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
             public void onClick(View v) {
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
                 baseViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue);
-
-                baseViewModel.getMessageResponse().observe(BidJobLetterReviewFragment.this, new Observer<String>() {
+                baseViewModel.getMessageResponse().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();

@@ -86,7 +86,9 @@
             android:maxLines="5"
             android:minHeight="50sp"
             android:paddingStart="15dp"
+            android:paddingTop="5dp"
             android:paddingEnd="15dp"
+            android:paddingBottom="5dp"
             android:textSize="@dimen/design_4_7sp" />
 
         <ImageButton
@@ -100,7 +102,7 @@
             android:src="@drawable/smile" />
 
         <ImageButton
-            android:id="@+id/imageAttachFileConversation"
+            android:id="@+id/imageButtonSendMessage"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"

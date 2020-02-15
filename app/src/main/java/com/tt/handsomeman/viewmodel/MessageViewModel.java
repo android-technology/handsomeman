@@ -9,9 +9,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.tt.handsomeman.response.Contact;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.response.MessageResponse;
+import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.MessageService;
 import com.tt.handsomeman.util.StatusConstant;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +26,7 @@ public class MessageViewModel extends BaseViewModel {
     private MutableLiveData<List<MessageResponse>> messageResponseListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
+    private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
     private MessageService messageService;
 
     @Inject
@@ -42,6 +45,14 @@ public class MessageViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Contact>> getContactListMutableLiveData() {
         return contactListMutableLiveData;
+    }
+
+    public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
+        return standardResponseMutableLiveData;
+    }
+
+    public void clearStandardResponseLiveDate(){
+        standardResponseMutableLiveData.setValue(null);
     }
 
     public MutableLiveData<String> getMessageResponse() {
@@ -106,6 +117,16 @@ public class MessageViewModel extends BaseViewModel {
                             } else {
                                 contactListMutableLiveData.setValue(contactList);
                             }
+                        }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                ));
+    }
+
+    public void sendMessageToConversation(String authorization, Integer conversationId, String body, String sendTime) {
+        compositeDisposable.add(messageService.sendMessageToConversation(authorization, conversationId, body, sendTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            standardResponseMutableLiveData.setValue(response.body());
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
     }

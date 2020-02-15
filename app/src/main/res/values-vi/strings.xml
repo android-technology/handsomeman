@@ -127,4 +127,10 @@
     <string name="about">Về tôi</string>
     <string name="review_from_customers">Đánh giá từ các khách hàng</string>
     <string name="edit">Sửa</string>
+    <string name="add_new_skill">Thêm kỹ năng mới</string>
+    <string name="type_your_skill_here">Gõ tên kỹ năng ở đây</string>
+    <string name="new_skill_name">Tên kỹ năng mới</string>
+    <string name="choose_category">Chọn mục kỹ năng</string>
+    <string name="please_choose_category">Làm ơn hãy chọn một mục</string>
+    <string name="sure_to_delete_skill">Bạn có chắc muốn xóa kỹ năng này không?</string>
 </resources>

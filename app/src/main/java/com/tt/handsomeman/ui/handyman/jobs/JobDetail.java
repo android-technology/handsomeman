@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui.handyman.jobs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +26,7 @@ import com.tt.handsomeman.model.CustomerJobDetail;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
-import com.tt.handsomeman.ui.handyman.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -81,7 +80,7 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
         HandymanApp.getComponent().inject(this);
 
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
         findViewById(R.id.jobDetailBackButton).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
@@ -46,7 +46,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        signUpViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         final CheckBox cbPassword = findViewById(R.id.checkboxVisibleSignUpPassword);
         final CheckBox cbRePassword = findViewById(R.id.checkboxVisibleSignUpRePassword);

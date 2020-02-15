@@ -15,16 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.handyman.more.MyProfileEdit"></activity>
+        <activity android:name=".ui.handyman.more.AddNewSkill"></activity>
+        <activity android:name=".ui.handyman.more.MyProfileEdit" />
         <activity android:name=".ui.handyman.more.MyProfile" />
         <activity android:name=".ui.handyman.messages.Conversation" />
-        <activity android:name=".ui.handyman.bid_job_detail.BidJobDetail" />
-        <activity android:name=".ui.handyman.CustomerProfileJobDetail" />
-        <activity android:name=".ui.handyman.JobDetail" />
-        <activity android:name=".ui.handyman.JobFilterResult" />
-        <activity android:name=".ui.handyman.JobFilter" />
-        <activity android:name=".ui.handyman.GroupByCategory" />
-        <activity android:name=".ui.handyman.YourLocation" />
+        <activity android:name=".ui.handyman.jobs.bid_job_detail.BidJobDetail" />
+        <activity android:name=".ui.handyman.jobs.CustomerProfileJobDetail" />
+        <activity android:name=".ui.handyman.jobs.JobDetail" />
+        <activity android:name=".ui.handyman.jobs.JobFilterResult" />
+        <activity android:name=".ui.handyman.jobs.JobFilter" />
+        <activity android:name=".ui.handyman.jobs.GroupByCategory" />
+        <activity android:name=".ui.handyman.jobs.YourLocation" />
         <activity
             android:name=".ui.handyman.HandyManMainScreen"
             android:screenOrientation="portrait" />

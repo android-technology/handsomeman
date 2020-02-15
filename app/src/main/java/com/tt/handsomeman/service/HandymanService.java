@@ -5,13 +5,13 @@ import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
+import com.tt.handsomeman.response.ListCategory;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.util.Constants;
 
 import io.reactivex.Single;
 import retrofit2.Response;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -29,4 +29,7 @@ public interface HandymanService {
 
     @POST(Constants.GET_HANDYMAN_PROFILE_EDIT)
     Single<Response<StandardResponse>> editHandymanProfile(@Header("Authorization") String header, @Body HandymanEditRequest handymanEditRequest);
+
+    @GET(Constants.GET_LIST_CATEGORY)
+    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Authorization") String header);
 }

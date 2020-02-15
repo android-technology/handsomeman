@@ -9,12 +9,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +21,7 @@ import com.tt.handsomeman.adapter.ConversationAdapter;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
+import com.tt.handsomeman.util.DeleteItemDialog;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
@@ -62,7 +60,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
         return inflater.inflate(R.layout.fragment_messages_child_messages, container, false);
     }
 
@@ -73,7 +71,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
         createMessageRecycleView(view);
         fetchData();
 
-        isScroll.observe(this, new Observer<Boolean>() {
+        isScroll.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
@@ -100,7 +98,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
             public void onItemDelete(int position) {
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
                 ConversationResponse conversationResponse = conversationResponseList.get(position);
-                new DeleteConversationDialog(getActivity(), R.style.PauseDialog, new DeleteConversationDialog.OnItemClickListener() {
+                new DeleteItemDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.sure_to_delete_message), new DeleteItemDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
                         baseViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());
@@ -123,7 +121,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
         baseViewModel.fetchAllConversationByAccountId(authorizationCode);
-        baseViewModel.getConversationResponseMutableLiveData().observe(this, new Observer<List<ConversationResponse>>() {
+        baseViewModel.getConversationResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
             @Override
             public void onChanged(List<ConversationResponse> conversationResponses) {
                 conversationResponseList.clear();

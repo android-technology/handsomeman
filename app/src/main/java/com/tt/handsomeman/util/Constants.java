@@ -23,11 +23,13 @@ public class Constants {
     public static final String GET_ALL_MESSAGES_IN_CONVERSATION = "api/message/getAllMessageInConversation/{conversationId}";
     public static final String DELETE_CONVERSATION_ID = "api/message/deleteConversation/{conversationId}";
     public static final String GET_CONTACT_OF_ACCOUNT = "api/message/showContactOfAccount";
+    public static final String SEND_MESSAGE_TO_CONVERSATION = "api/message/sendMessageToConversation";
 
     public static final String GET_HANDYMAN_INFO = "api/handyman/info";
     public static final String GET_HANDYMAN_REVIEW = "api/handyman/handymanReview";
     public static final String GET_HANDYMAN_PROFILE = "api/handyman/profile";
     public static final String GET_HANDYMAN_PROFILE_EDIT = "api/handyman/profile/edit";
+    public static final String GET_LIST_CATEGORY = "api/handyman/categories";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

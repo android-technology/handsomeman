@@ -41,7 +41,7 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <ImageButton
-            android:id="@+id/imageButtonEdit"
+            android:id="@+id/imageButtonCheckEdit"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_bg"

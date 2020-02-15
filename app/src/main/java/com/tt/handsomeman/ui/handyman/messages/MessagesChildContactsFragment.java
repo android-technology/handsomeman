@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +17,8 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ContactAdapter;
 import com.tt.handsomeman.response.Contact;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.ContactDivider;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.BaseViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
@@ -45,7 +41,7 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(MessageViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
         return inflater.inflate(R.layout.fragment_messages_child_contacts, container, false);
     }
 

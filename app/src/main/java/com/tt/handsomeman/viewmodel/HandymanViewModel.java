@@ -10,6 +10,7 @@ import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
+import com.tt.handsomeman.response.ListCategory;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.HandymanService;
 
@@ -22,6 +23,7 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<Handyman> handymanMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanReviewProfile> handymanReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanProfileResponse> handymanProfileResponseMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ListCategory> listCategoryMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
     private HandymanService handymanService;
 
@@ -41,6 +43,10 @@ public class HandymanViewModel extends BaseViewModel {
 
     public MutableLiveData<HandymanProfileResponse> getHandymanProfileResponseMutableLiveData() {
         return handymanProfileResponseMutableLiveData;
+    }
+
+    public MutableLiveData<ListCategory> getListCategoryMutableLiveData() {
+        return listCategoryMutableLiveData;
     }
 
     public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
@@ -83,5 +89,15 @@ public class HandymanViewModel extends BaseViewModel {
                 .subscribe(dataBracketResponseResponse -> {
                     standardResponseMutableLiveData.setValue(dataBracketResponseResponse.body());
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchListCategory(String authorization) {
+        compositeDisposable.add(handymanService.getListCategory(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((dataBracketResponseResponse) -> {
+                            listCategoryMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 }

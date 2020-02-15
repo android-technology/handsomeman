@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui.handyman.jobs;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,7 +53,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
 
         HandymanApp.getComponent().inject(this);
 
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
         findViewById(R.id.customerProfileJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
             @Override

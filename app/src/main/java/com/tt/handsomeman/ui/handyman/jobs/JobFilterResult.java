@@ -1,15 +1,12 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui.handyman.jobs;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +26,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
+public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -38,45 +36,37 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
-    private ImageButton btnFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_location);
+        setContentView(R.layout.activity_filter_result);
 
         HandymanApp.getComponent().inject(this);
 
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        btnFilter = findViewById(R.id.imageButtonFilter);
-        pgJob = findViewById(R.id.progressBarJobYourLocation);
+        pgJob = findViewById(R.id.progressBarFilterResult);
 
         backPreviousActivity();
 
-        navigateToFilter();
-
         createJobRecycleView();
+
+        Integer radius = getIntent().getIntExtra("radius", 0);
+        Integer priceMin = getIntent().getIntExtra("priceMin", 0);
+        Integer priceMax = getIntent().getIntExtra("priceMax", 0);
+        String dateCreated = getIntent().getStringExtra("dateCreated");
 
         Constants.Latitude.observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                fetchData(aDouble, Constants.Longitude.getValue());
-            }
-        });
-    }
-
-    private void navigateToFilter() {
-        btnFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(YourLocation.this, JobFilter.class));
+                fetchData(aDouble, Constants.Longitude.getValue(), radius, priceMin, priceMax, dateCreated);
             }
         });
     }
 
     private void backPreviousActivity() {
-        findViewById(R.id.yourLocationBackButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.filterResultBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -85,12 +75,12 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.recycleViewJobsYourLocation);
+        RecyclerView rcvJob = findViewById(R.id.recycleViewFilterResult);
         jobAdapter = new JobFilterAdapter(this, jobArrayList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(YourLocation.this, JobDetail.class);
+                Intent intent = new Intent(JobFilterResult.this, JobDetail.class);
                 intent.putExtra("jobId", jobArrayList.get(position).getId());
                 startActivity(intent);
             }
@@ -107,12 +97,10 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     }
 
 
-    private void fetchData(Double lat, Double lng) {
+    private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        double radius = 10d;
-
-        baseViewModel.fetchYourLocationData(authorizationCode, lat, lng, radius);
+        baseViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
 
         baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);
@@ -120,11 +108,5 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
             jobArrayList.addAll(data);
             jobAdapter.notifyDataSetChanged();
         });
-    }
-
-    @Override
-    public void onStop() {
-        Constants.Latitude.removeObservers(this);
-        super.onStop();
     }
 }

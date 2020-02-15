@@ -2,7 +2,6 @@ package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.response.DataBracketResponse;
-import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.StandardResponse;

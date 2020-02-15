@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +18,6 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.ui.handyman.JobDetail;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -43,7 +40,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
         return inflater.inflate(R.layout.fragment_jobs_child_wish_list, container, false);
     }
 
@@ -58,7 +55,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchJobsWishList(authorizationCode);
 
-        baseViewModel.getJobLiveData().observe(this, data -> {
+        baseViewModel.getJobLiveData().observe(getViewLifecycleOwner(), data -> {
             jobArrayList.clear();
             jobArrayList.addAll(data);
             jobAdapter.notifyDataSetChanged();

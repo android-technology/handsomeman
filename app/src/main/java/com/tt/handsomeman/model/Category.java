@@ -12,7 +12,8 @@ public class Category {
     @Expose
     private String name;
 
-    public Category(String name) {
+    public Category(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 

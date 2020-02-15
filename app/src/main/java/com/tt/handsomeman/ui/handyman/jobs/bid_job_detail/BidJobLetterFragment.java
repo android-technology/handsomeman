@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.bid_job_detail;
+package com.tt.handsomeman.ui.handyman.jobs.bid_job_detail;
 
 import android.os.Bundle;
 import android.text.Editable;
