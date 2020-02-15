@@ -1,10 +1,18 @@
 package com.tt.handsomeman.model;
 
-public class Skill {
+import java.io.Serializable;
+
+public class Skill implements Serializable {
+
     private Integer id;
     private Integer handyman_id;
     private Integer category_id;
     private String name;
+
+    public Skill(Integer category_id, String name) {
+        this.category_id = category_id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

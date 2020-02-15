@@ -12,15 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.SkillEditAdapter;
 
 public class MyProfile extends AppCompatActivity {
+    private static final Integer REQUEST_MY_PROFILE_RESULT_CODE = 77;
 
     private Fragment aboutFragment = new MyProfileAboutFragment();
     private Fragment reviewsFragment = new MyProfileReviewsFragment();
     private Fragment active = aboutFragment;
-
     private ImageButton ibEdit;
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MyProfile extends AppCompatActivity {
         ibEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyProfile.this, MyProfileEdit.class));
+                aboutFragment.startActivityForResult(new Intent(MyProfile.this, MyProfileEdit.class), REQUEST_MY_PROFILE_RESULT_CODE);
             }
         });
 
@@ -70,5 +70,17 @@ public class MyProfile extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void setEditResult(boolean isEdit) {
+        this.isEdit = isEdit;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("isMoreFragmentEdit", isEdit);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

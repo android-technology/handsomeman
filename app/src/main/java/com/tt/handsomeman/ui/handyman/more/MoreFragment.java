@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.handyman.more;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MoreFragment extends BaseFragment<HandymanViewModel> {
-
+    private static final Integer REQUEST_MORE_FRAGMENT_RESULT_CODE = 7;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -47,7 +47,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(HandymanViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         return inflater.inflate(R.layout.fragment_more, container, false);
     }
 
@@ -62,7 +62,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
         viewMyProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MyProfile.class));
+                startActivityForResult(new Intent(getActivity(), MyProfile.class), REQUEST_MORE_FRAGMENT_RESULT_CODE);
             }
         });
 
@@ -82,7 +82,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
     private void fetchHandymanInfo() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchHandymanInfo(authorizationCode);
-        baseViewModel.getHandymanMutableLiveData().observe(this, new Observer<Handyman>() {
+        baseViewModel.getHandymanMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Handyman>() {
             @Override
             public void onChanged(Handyman handyman) {
                 tvAccountName.setText(handyman.getName());
@@ -103,5 +103,17 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
         rcvPayout.setItemAnimator(new DefaultItemAnimator());
         rcvPayout.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvPayout.setAdapter(payoutAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_MORE_FRAGMENT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getBooleanExtra("isMoreFragmentEdit", false)) {
+                fetchHandymanInfo();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

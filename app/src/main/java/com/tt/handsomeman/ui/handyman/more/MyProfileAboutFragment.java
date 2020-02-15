@@ -1,5 +1,7 @@
 package com.tt.handsomeman.ui.handyman.more;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.PayoutAdapter;
 import com.tt.handsomeman.adapter.SkillAdapter;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.response.HandymanProfileResponse;
-import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -34,6 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
+    private static final Integer REQUEST_MY_PROFILE_RESULT_CODE = 77;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -43,12 +43,13 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
     private SkillAdapter skillAdapter;
     private RecyclerView rcvSkill;
     private List<Skill> skillList = new ArrayList<>();
+    private boolean isMyProfileEdit = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(HandymanViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         return inflater.inflate(R.layout.fragment_my_profile_about, container, false);
     }
 
@@ -78,7 +79,7 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
     private void fetchHandymanProfile() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchHandymanProfile(authorizationCode);
-        baseViewModel.getHandymanProfileResponseMutableLiveData().observe(this, new Observer<HandymanProfileResponse>() {
+        baseViewModel.getHandymanProfileResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<HandymanProfileResponse>() {
             @Override
             public void onChanged(HandymanProfileResponse handymanProfileResponse) {
                 Handyman handyman = handymanProfileResponse.getHandyman();
@@ -94,5 +95,20 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
                 skillAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_MY_PROFILE_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            if (data.getBooleanExtra("isMyProfileEdit", false)) {
+                fetchHandymanProfile();
+                isMyProfileEdit = true;
+                MyProfile myProfile = (MyProfile) getActivity();
+                myProfile.setEditResult(isMyProfileEdit);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

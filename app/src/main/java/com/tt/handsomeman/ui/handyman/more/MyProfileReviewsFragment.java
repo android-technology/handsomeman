@@ -9,12 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,11 +21,9 @@ import com.tt.handsomeman.adapter.HandymanReviewAdapter;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +37,7 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     private TextView countReviewers;
-    private RatingBar countPoint;
+    private RatingBar rtCountPoint;
     private HandymanReviewAdapter handymanReviewAdapter;
     private List<HandymanReviewResponse> handymanReviewResponseList = new ArrayList<>();
 
@@ -50,7 +45,7 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = ViewModelProviders.of(this, viewModelFactory).get(HandymanViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         return inflater.inflate(R.layout.fragment_my_profile_reviews, container, false);
     }
 
@@ -58,7 +53,7 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         countReviewers = view.findViewById(R.id.reviewCountHandymanProfile);
-        countPoint = view.findViewById(R.id.ratingBarHandymanProfile);
+        rtCountPoint = view.findViewById(R.id.ratingBarHandymanProfile);
 
         createReviewRecyclerView(view);
         fetchData();
@@ -78,11 +73,16 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
         baseViewModel.fetchHandymanReview(authorizationCode);
-        baseViewModel.getHandymanReviewProfileLiveData().observe(this, new Observer<HandymanReviewProfile>() {
+        baseViewModel.getHandymanReviewProfileLiveData().observe(getViewLifecycleOwner(), new Observer<HandymanReviewProfile>() {
             @Override
             public void onChanged(HandymanReviewProfile handymanReviewProfile) {
                 countReviewers.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanReviewProfile.getCountReviewers(), handymanReviewProfile.getCountReviewers()));
-                countPoint.setRating(handymanReviewProfile.getAverageReviewPoint());
+                Float averageReviewPoint = handymanReviewProfile.getAverageReviewPoint();
+                if (averageReviewPoint == null) {
+                    rtCountPoint.setRating(0);
+                } else {
+                    rtCountPoint.setRating(averageReviewPoint);
+                }
 
                 handymanReviewResponseList.clear();
                 handymanReviewResponseList.addAll(handymanReviewProfile.getHandymanReviewResponseList());
