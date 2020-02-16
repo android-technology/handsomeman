@@ -28,6 +28,8 @@ import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,7 +90,9 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         addRecyclerViewBottomListener();
 
         ibSendMessage.setOnClickListener(view -> {
-            sendMessage(authorizationCode, conversationId);
+            if (edtMessageBody.getText().toString().matches("")) {
+                Toast.makeText(this, HandymanApp.getInstance().getString(R.string.please_write_something), Toast.LENGTH_SHORT).show();
+            } else sendMessage(authorizationCode, conversationId);
         });
 
         receiver = new BroadcastReceiver() {
@@ -108,8 +112,13 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 } else {
                     type = 2;
                 }
-                MessageResponse messageResponse = new MessageResponse(bundle.getString("avatar"), Integer.parseInt(bundle.getString("accountId"))
-                        , bundle.getString("Body"), sendTime, type);
+                MessageResponse messageResponse = null;
+                try {
+                    messageResponse = new MessageResponse(bundle.getString("avatar"), Integer.parseInt(bundle.getString("accountId"))
+                            , URLDecoder.decode(bundle.getString("Body"), "UTF-8"), sendTime, type);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
                 messageResponseList.add(messageResponse);
                 messageAdapter.notifyItemInserted(messageResponseList.size() - 1);
