@@ -1,31 +1,31 @@
 package com.tt.handsomeman.request;
 
 public class NearbyJobRequest {
-    private double lat;
+    private Double lat;
 
-    private double lng;
+    private Double lng;
 
     private double radius;
 
-    public NearbyJobRequest(double lat, double lng, double radius) {
+    public NearbyJobRequest(Double lat, Double lng, double radius) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public double getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(double lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 
