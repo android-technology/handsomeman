@@ -105,7 +105,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
                 Date sendTime = null;
                 try {
-                    sendTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(bundle.getString("sendTime"));
+                    sendTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault()).parse(bundle.getString("sendTime"));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -134,7 +134,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
     private void sendMessage(String authorizationCode, int conversationId, String bodyMessage) {
         Calendar now = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
         String sendTime = formatter.format(now.getTime());
 
         baseViewModel.sendMessageToConversation(authorizationCode, new SendMessageRequest(conversationId, bodyMessage, sendTime));
