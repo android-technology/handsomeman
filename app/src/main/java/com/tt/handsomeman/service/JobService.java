@@ -1,6 +1,8 @@
 package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.request.JobFilterRequest;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
@@ -11,6 +13,7 @@ import com.tt.handsomeman.util.Constants;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -19,20 +22,17 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface JobService {
-    @FormUrlEncoded
     @POST(Constants.START_SCREEN_SUFFIX)
-    Single<Response<DataBracketResponse<StartScreenData>>> getStartScreen(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Double radius);
+    Single<Response<DataBracketResponse<StartScreenData>>> getStartScreen(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
-    @FormUrlEncoded
     @POST(Constants.YOUR_LOCATION_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Double radius);
+    Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.JOB_BY_CATEGORY_SUFFIX)
     Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Authorization") String token, @Path("id") Integer categoryId);
 
-    @FormUrlEncoded
     @POST(Constants.JOB_FILTER_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Authorization") String token, @Field("lat") Double lat, @Field("lng") Double lng, @Field("radius") Integer radius, @Field("budgetMin") Integer priceMin, @Field("budgetMax") Integer priceMax, @Field("createTime") String createTime);
+    Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Authorization") String token, @Body JobFilterRequest jobFilterRequest);
 
     @GET(Constants.JOB_DETAIL_SUFFIX)
     Single<Response<DataBracketResponse<JobDetail>>> getJobDetail(@Header("Authorization") String token, @Path("id") Integer jobId);

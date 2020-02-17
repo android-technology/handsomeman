@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.model.SignUpFormState;
+import com.tt.handsomeman.request.UserRegistration;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.UserService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -88,7 +89,7 @@ public class SignUp extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 String rePassword = edtRePassword.getText().toString();
 
-                userService.doSignUp(type, name, mail, password, rePassword).enqueue(new Callback<StandardResponse>() {
+                userService.doSignUp(type, new UserRegistration(name, mail, password, rePassword)).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.CREATED)) {

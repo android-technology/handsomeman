@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.request.UserLogin;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.TokenState;
 import com.tt.handsomeman.service.UserService;
@@ -106,7 +107,7 @@ public class Login extends AppCompatActivity {
                 String mail = edtMail.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                userService.doLogin(mail, password).enqueue(new Callback<DataBracketResponse<TokenState>>() {
+                userService.doLogin(new UserLogin(mail, password)).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override
                     public void onResponse(Call<DataBracketResponse<TokenState>> call, Response<DataBracketResponse<TokenState>> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {

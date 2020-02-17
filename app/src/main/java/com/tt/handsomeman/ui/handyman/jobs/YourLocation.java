@@ -17,6 +17,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -110,7 +111,7 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
 
         double radius = 10d;
 
-        baseViewModel.fetchYourLocationData(authorizationCode, lat, lng, radius);
+        baseViewModel.fetchYourLocationData(authorizationCode, new NearbyJobRequest(lat, lng, radius));
 
         baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);

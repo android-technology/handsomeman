@@ -22,6 +22,7 @@ import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
@@ -126,7 +127,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
 
         double radius = 10d;
 
-        baseViewModel.fetchData(authorizationCode, lat, lng, radius);
+        baseViewModel.fetchData(authorizationCode, new NearbyJobRequest(lat, lng, radius));
 
         baseViewModel.getStartScreenData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);

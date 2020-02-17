@@ -1,5 +1,6 @@
 package com.tt.handsomeman.service;
 
+import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.ListContact;
 import com.tt.handsomeman.response.ListConversation;
@@ -10,9 +11,8 @@ import com.tt.handsomeman.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PUT;
@@ -31,7 +31,6 @@ public interface MessageService {
     @GET(Constants.GET_CONTACT_OF_ACCOUNT)
     Observable<Response<DataBracketResponse<ListContact>>> getContactOfAccount(@Header("Authorization") String token);
 
-    @FormUrlEncoded
     @PUT(Constants.SEND_MESSAGE_TO_CONVERSATION)
-    Single<Response<StandardResponse>> sendMessageToConversation(@Header("Authorization") String token, @Field("conversationId") Integer conversationId, @Field("body") String body, @Field("sendTime") String sendTime);
+    Single<Response<StandardResponse>> sendMessageToConversation(@Header("Authorization") String token, @Body SendMessageRequest message);
 }

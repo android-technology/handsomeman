@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.request.JobFilterRequest;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.StartScreenData;
 import com.tt.handsomeman.service.JobService;
@@ -57,9 +59,9 @@ public class JobsViewModel extends BaseViewModel {
         return messageResponse;
     }
 
-    public void fetchData(String authorization, Double lat, Double lng, Double radius) {
+    public void fetchData(String authorization, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
-                .add(jobService.getStartScreen(authorization, lat, lng, radius)
+                .add(jobService.getStartScreen(authorization, nearbyJobRequest)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((startScreenResponseResponse) -> {
@@ -80,9 +82,9 @@ public class JobsViewModel extends BaseViewModel {
     }
 
 
-    public void fetchYourLocationData(String authorization, Double lat, Double lng, Double radius) {
+    public void fetchYourLocationData(String authorization, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
-                .add(jobService.getJobNearBy(authorization, lat, lng, radius)
+                .add(jobService.getJobNearBy(authorization, nearbyJobRequest)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobResponse) -> {
@@ -102,9 +104,9 @@ public class JobsViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchJobsByFilter(String authorization, Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
+    public void fetchJobsByFilter(String authorization, JobFilterRequest jobFilterRequest) {
         compositeDisposable
-                .add(jobService.getJobByFilter(authorization, lat, lng, radius, priceMin, priceMax, createTime)
+                .add(jobService.getJobByFilter(authorization, jobFilterRequest)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobResponse) -> {

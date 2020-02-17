@@ -16,6 +16,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -100,7 +101,7 @@ public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
     private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        baseViewModel.fetchJobsByFilter(authorizationCode, lat, lng, radius, priceMin, priceMax, createTime);
+        baseViewModel.fetchJobsByFilter(authorizationCode, new JobFilterRequest(lat, lng, radius, priceMin, priceMax, createTime));
 
         baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);

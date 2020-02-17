@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.Contact;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.response.MessageResponse;
@@ -121,8 +122,8 @@ public class MessageViewModel extends BaseViewModel {
                 ));
     }
 
-    public void sendMessageToConversation(String authorization, Integer conversationId, String body, String sendTime) {
-        compositeDisposable.add(messageService.sendMessageToConversation(authorization, conversationId, body, sendTime)
+    public void sendMessageToConversation(String authorization, SendMessageRequest sendMessageRequest) {
+        compositeDisposable.add(messageService.sendMessageToConversation(authorization, sendMessageRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
