@@ -87,7 +87,7 @@ public class Job implements Serializable {
         Date today = formatter.parse(formatter.format(now.getTime()));
         deadline = formatter.parse(formatter.format(deadline));
 
-        return DayCount.getCountOfDays(today, deadline) ;
+        return DayCount.getCountOfDays(today, deadline);
     }
 
     public String setBidRange(Integer bidMin, Integer bidMax) {

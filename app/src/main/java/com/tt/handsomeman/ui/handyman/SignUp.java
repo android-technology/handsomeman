@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivitySignUpBinding;
 import com.tt.handsomeman.model.SignUpFormState;
 import com.tt.handsomeman.request.UserRegistration;
 import com.tt.handsomeman.response.StandardResponse;
@@ -41,26 +41,28 @@ public class SignUp extends AppCompatActivity {
     @Inject
     UserService userService;
     private SignUpViewModel signUpViewModel;
+    private ActivitySignUpBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
 
-        final CheckBox cbPassword = findViewById(R.id.checkboxVisibleSignUpPassword);
-        final CheckBox cbRePassword = findViewById(R.id.checkboxVisibleSignUpRePassword);
-        final EditText edtPassword = findViewById(R.id.editTextSignUpPassword);
-        final EditText edtRePassword = findViewById(R.id.editTextSignUpRePassword);
-        final EditText edtName = findViewById(R.id.editTextSignUpYourName);
-        final EditText edtMail = findViewById(R.id.editTextSignUpYourMail);
-        final Button btnSignUp = findViewById(R.id.buttonSignUp);
-        final ProgressBar pgSignUp = findViewById(R.id.progressBarSignUp);
+        final CheckBox cbPassword = binding.checkboxVisibleSignUpPassword;
+        final CheckBox cbRePassword = binding.checkboxVisibleSignUpRePassword;
+        final EditText edtPassword = binding.editTextSignUpPassword;
+        final EditText edtRePassword = binding.editTextSignUpRePassword;
+        final EditText edtName = binding.editTextSignUpYourName;
+        final EditText edtMail = binding.editTextSignUpYourMail;
+        final Button btnSignUp = binding.buttonSignUp;
+        final ProgressBar pgSignUp = binding.progressBarSignUp;
 
         HandymanApp.getComponent().inject(this);
 
-        findViewById(R.id.signUpBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.signUpBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

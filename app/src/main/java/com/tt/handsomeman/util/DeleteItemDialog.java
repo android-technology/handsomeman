@@ -15,7 +15,7 @@ public class DeleteItemDialog extends Dialog implements android.view.View.OnClic
     private String dialogDescription;
     private OnItemClickListener mListener;
 
-    public DeleteItemDialog(Activity activity, int theme, String dialogDescription, DeleteItemDialog.OnItemClickListener listener) {
+    public DeleteItemDialog(Activity activity, int theme, String dialogDescription, OnItemClickListener listener) {
         super(activity, theme);
         this.dialogDescription = dialogDescription;
         mListener = listener;

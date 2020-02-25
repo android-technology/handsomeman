@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SkillAdapter;
+import com.tt.handsomeman.databinding.FragmentMyProfileAboutBinding;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.response.HandymanProfileResponse;
@@ -32,7 +33,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
+public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, FragmentMyProfileAboutBinding> {
     private static final Integer REQUEST_MY_PROFILE_RESULT_CODE = 77;
 
     @Inject
@@ -50,18 +51,19 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel> {
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
-        return inflater.inflate(R.layout.fragment_my_profile_about, container, false);
+        viewBinding = FragmentMyProfileAboutBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        yourName = view.findViewById(R.id.aboutYourName);
-        education = view.findViewById(R.id.aboutEducation);
-        about = view.findViewById(R.id.about);
-        allProjects = view.findViewById(R.id.aboutAllProjects);
-        successedProject = view.findViewById(R.id.aboutSuccessedProjects);
-        rcvSkill = view.findViewById(R.id.aboutMySkillRecyclerView);
+        yourName = viewBinding.aboutYourName;
+        education = viewBinding.aboutEducation;
+        about = viewBinding.about;
+        allProjects = viewBinding.aboutAllProjects;
+        successedProject = viewBinding.aboutSuccessedProjects;
+        rcvSkill = viewBinding.aboutMySkillRecyclerView;
 
         createSkillRecyclerView();
         fetchHandymanProfile();

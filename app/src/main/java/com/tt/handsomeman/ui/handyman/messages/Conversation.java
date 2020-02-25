@@ -21,6 +21,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.MessageAdapter;
+import com.tt.handsomeman.databinding.ActivityConversationBinding;
 import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.response.StandardResponse;
@@ -61,19 +62,22 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     private int conversationId;
     private RecyclerView rcvMessage;
     private boolean isAtBottom = true;
+    private ActivityConversationBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversation);
+        binding = ActivityConversationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
 
-        tvAddressName = findViewById(R.id.textViewConversationAccountName);
-        ibSendMessage = findViewById(R.id.imageButtonSendMessage);
-        edtMessageBody = findViewById(R.id.editTextMessageConversation);
+        tvAddressName = binding.textViewConversationAccountName;
+        ibSendMessage = binding.imageButtonSendMessage;
+        edtMessageBody = binding.editTextMessageConversation;
 
-        findViewById(R.id.conversationBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.conversationBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -95,7 +99,10 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
             if (bodyMessage.matches("")) {
                 Toast.makeText(this, HandymanApp.getInstance().getString(R.string.please_write_something), Toast.LENGTH_SHORT).show();
-            } else sendMessage(authorizationCode, conversationId, bodyMessage);
+            } else {
+                sendMessage(authorizationCode, conversationId, bodyMessage);
+                edtMessageBody.setText(null);
+            }
         });
 
         receiver = new BroadcastReceiver() {
@@ -144,7 +151,6 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 if (standardResponse != null && standardResponse.getStatus().equals(StatusConstant.OK)) {
                     Toast.makeText(Conversation.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     baseViewModel.clearStandardResponseLiveDate();
-                    edtMessageBody.setText(null);
                 }
             }
         });
@@ -175,7 +181,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     }
 
     private void createRecyclerViewMessage() {
-        rcvMessage = findViewById(R.id.messageRecyclerView);
+        rcvMessage = binding.messageRecyclerView;
         messageAdapter = new MessageAdapter(messageResponseList, this);
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(this);
         rcvMessage.setLayoutManager(layoutManagerMessage);

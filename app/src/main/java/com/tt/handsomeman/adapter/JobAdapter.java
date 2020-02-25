@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemJobBinding;
 import com.tt.handsomeman.model.Job;
 
 import java.text.ParseException;
@@ -21,6 +22,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     private List<Job> jobList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemJobBinding binding;
 
     private OnItemClickListener mListener;
 
@@ -37,7 +39,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     @NonNull
     @Override
     public JobViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_job, parent, false);
+        binding = ItemJobBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new JobViewHolder(item, mListener);
     }
 
@@ -73,11 +76,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         JobViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
-            tvJobTitle = itemView.findViewById(R.id.textViewJobName);
-            tvCreateTime = itemView.findViewById(R.id.textViewCreateTime);
-            tvBudget = itemView.findViewById(R.id.textViewBudgetRange);
-            tvLocationName = itemView.findViewById(R.id.textViewLocationName);
-            tvDeadline = itemView.findViewById(R.id.textViewDeadLine);
+            tvJobTitle = binding.textViewJobName;
+            tvCreateTime = binding.textViewCreateTime;
+            tvBudget = binding.textViewBudgetRange;
+            tvLocationName = binding.textViewLocationName;
+            tvDeadline = binding.textViewDeadLine;
 
             btnJobDetail = itemView.findViewById(R.id.imageButtonJobDetail);
 

@@ -14,7 +14,6 @@ import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.MessageService;
 import com.tt.handsomeman.util.StatusConstant;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,7 +51,7 @@ public class MessageViewModel extends BaseViewModel {
         return standardResponseMutableLiveData;
     }
 
-    public void clearStandardResponseLiveDate(){
+    public void clearStandardResponseLiveDate() {
         standardResponseMutableLiveData.setValue(null);
     }
 

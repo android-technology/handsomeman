@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityOnBoardingSlidePagerBinding;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -41,12 +42,14 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
     private PagerAdapter pagerAdapter;
 
     private ConstraintLayout skip;
+    private ActivityOnBoardingSlidePagerBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_Launcher);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_boarding_slide_pager);
+        binding = ActivityOnBoardingSlidePagerBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -55,7 +58,7 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
 
         Integer state = sharedPreferencesUtils.get("state", Integer.class);
 
-        skip = findViewById(R.id.skipOnBoarding);
+        skip = binding.skipOnBoarding;
 
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,13 +82,13 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         }
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = findViewById(R.id.boardingPager);
+        mPager = binding.boardingPager;
 
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
 
         mPager.setAdapter(pagerAdapter);
 
-        CircleIndicator indicator = findViewById(R.id.boardingIndicator);
+        CircleIndicator indicator = binding.boardingIndicator;
         indicator.setViewPager(mPager);
 
         mPager.disableScroll(false);

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
+import com.tt.handsomeman.databinding.FragmentJobsChildWishListBinding;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
@@ -27,7 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
+public class JobsChildWishListFragment extends BaseFragment<JobsViewModel, FragmentJobsChildWishListBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -41,7 +42,8 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        return inflater.inflate(R.layout.fragment_jobs_child_wish_list, container, false);
+        viewBinding = FragmentJobsChildWishListBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel> {
     }
 
     private void createJobRecycleView(@NonNull View view) {
-        RecyclerView rcvJob = view.findViewById(R.id.recycleViewJobsWishList);
+        RecyclerView rcvJob = viewBinding.recycleViewJobsWishList;
         jobAdapter = new JobFilterAdapter(getContext(), jobArrayList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override

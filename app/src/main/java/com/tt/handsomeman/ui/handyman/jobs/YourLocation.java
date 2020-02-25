@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
+import com.tt.handsomeman.databinding.ActivityYourLocationBinding;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
@@ -38,18 +39,20 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
     private ImageButton btnFilter;
+    private ActivityYourLocationBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_location);
+        binding = ActivityYourLocationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
 
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        btnFilter = findViewById(R.id.imageButtonFilter);
-        pgJob = findViewById(R.id.progressBarJobYourLocation);
+        btnFilter = binding.imageButtonFilter;
+        pgJob = binding.progressBarJobYourLocation;
 
         backPreviousActivity();
 
@@ -75,7 +78,7 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     }
 
     private void backPreviousActivity() {
-        findViewById(R.id.yourLocationBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.yourLocationBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -84,7 +87,7 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.recycleViewJobsYourLocation);
+        RecyclerView rcvJob = binding.recycleViewJobsYourLocation;
         jobAdapter = new JobFilterAdapter(this, jobArrayList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override

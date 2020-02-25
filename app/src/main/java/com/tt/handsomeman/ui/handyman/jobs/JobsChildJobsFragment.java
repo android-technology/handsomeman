@@ -20,6 +20,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CategoryAdapter;
 import com.tt.handsomeman.adapter.JobAdapter;
+import com.tt.handsomeman.databinding.FragmentJobsChildJobsBinding;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.request.NearbyJobRequest;
@@ -34,7 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
+public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJobsChildJobsBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -51,14 +52,15 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        return inflater.inflate(R.layout.fragment_jobs_child_jobs, container, false);
+        viewBinding = FragmentJobsChildJobsBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        pgJob = view.findViewById(R.id.progressBarJobs);
-        pgCategory = view.findViewById(R.id.progressBarCategory);
-        showMoreYourLocation = view.findViewById(R.id.showMoreYourLocation);
+        pgJob = viewBinding.progressBarJobs;
+        pgCategory = viewBinding.progressBarCategory;
+        showMoreYourLocation = viewBinding.showMoreYourLocation;
 
         createJobRecycleView(view);
 
@@ -84,7 +86,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
     }
 
     private void createJobRecycleView(View view) {
-        RecyclerView rcvJob = view.findViewById(R.id.recycleViewJobs);
+        RecyclerView rcvJob = viewBinding.recycleViewJobs;
         jobAdapter = new JobAdapter(getContext(), jobArrayList);
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
@@ -102,7 +104,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel> {
     }
 
     private void createCategoryRecycleView(View view) {
-        RecyclerView rcvCategory = view.findViewById(R.id.recycleViewCategories);
+        RecyclerView rcvCategory = viewBinding.recycleViewCategories;
         categoryAdapter = new CategoryAdapter(getContext(), categoryArrayList);
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override

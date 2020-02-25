@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemContactBinding;
+import com.tt.handsomeman.databinding.ItemContactHeaderBinding;
 import com.tt.handsomeman.response.Contact;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<Contact> contactList;
     private Context context;
     private LayoutInflater layoutInflater;
+    private ItemContactBinding contactBinding;
+    private ItemContactHeaderBinding headerBinding;
 
     public ContactAdapter(List<Contact> contactList, Context context) {
         this.contactList = contactList;
@@ -36,10 +39,12 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         View view;
         switch (viewType) {
             case HEADER:
-                view = layoutInflater.inflate(R.layout.item_contact_header, parent, false);
+                headerBinding = ItemContactHeaderBinding.inflate(layoutInflater, parent, false);
+                view = headerBinding.getRoot();
                 return new ContactAdapter.HeaderViewHolder(view);
             case ITEM:
-                view = layoutInflater.inflate(R.layout.item_contact, parent, false);
+                contactBinding = ItemContactBinding.inflate(layoutInflater, parent, false);
+                view = contactBinding.getRoot();
                 return new ContactAdapter.ContactViewHolder(view);
             default:
                 throw new IllegalStateException("unsupported item type");
@@ -77,19 +82,18 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvHeaderCharacter;
         ImageView imgContactAvatarHeader;
         TextView tvContactNameHeader;
 
-        public HeaderViewHolder(@NonNull View itemView) {
+        HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvHeaderCharacter = itemView.findViewById(R.id.textViewHeaderCharacter);
-            imgContactAvatarHeader = itemView.findViewById(R.id.imageViewContactAvatarHeader);
-            tvContactNameHeader = itemView.findViewById(R.id.textViewContactNameHeader);
+            tvHeaderCharacter = headerBinding.textViewHeaderCharacter;
+            imgContactAvatarHeader = headerBinding.imageViewContactAvatarHeader;
+            tvContactNameHeader = headerBinding.textViewContactNameHeader;
         }
     }
 
@@ -98,11 +102,11 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final ImageView imgContactAvatar;
         final TextView tvContactName;
 
-        public ContactViewHolder(@NonNull View itemView) {
+        ContactViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgContactAvatar = itemView.findViewById(R.id.imageViewContactAvatar);
-            tvContactName = itemView.findViewById(R.id.textViewContactName);
+            imgContactAvatar = contactBinding.imageViewContactAvatar;
+            tvContactName = contactBinding.textViewContactName;
         }
     }
 }

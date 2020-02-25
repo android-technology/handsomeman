@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ContactAdapter;
+import com.tt.handsomeman.databinding.FragmentMessagesChildContactsBinding;
 import com.tt.handsomeman.response.Contact;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.ContactDivider;
@@ -28,7 +29,7 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
-public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel> {
+public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel, FragmentMessagesChildContactsBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -42,7 +43,8 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
-        return inflater.inflate(R.layout.fragment_messages_child_contacts, container, false);
+        viewBinding = FragmentMessagesChildContactsBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
@@ -64,7 +66,7 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
     }
 
     private void createContactRecyclerView(@NonNull View view) {
-        RecyclerView rcvContact = view.findViewById(R.id.recycleViewContacts);
+        RecyclerView rcvContact = viewBinding.recycleViewContacts;
         contactAdapter = new ContactAdapter(contactList, getContext());
 
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());

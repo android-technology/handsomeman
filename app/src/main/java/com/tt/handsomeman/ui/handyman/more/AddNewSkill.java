@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.AddSkillCategoryAdapter;
+import com.tt.handsomeman.databinding.ActivityAddNewSkillBinding;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.response.ListCategory;
@@ -39,19 +40,21 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
     private RecyclerView rcvSkillCategoriesName;
     private AddSkillCategoryAdapter addNewSkillAdapter;
     private List<Category> categoryList = new ArrayList<>();
+    private ActivityAddNewSkillBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_skill);
+        binding = ActivityAddNewSkillBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
-        edtNewSkillName = findViewById(R.id.editTextNewSkillName);
-        rcvSkillCategoriesName = findViewById(R.id.recyclerViewSkillNameCategories);
-        imCheckAddSkill = findViewById(R.id.imageButtonCheckAddNewSkill);
+        edtNewSkillName = binding.editTextNewSkillName;
+        rcvSkillCategoriesName = binding.recyclerViewSkillNameCategories;
+        imCheckAddSkill = binding.imageButtonCheckAddNewSkill;
 
-        findViewById(R.id.addNewSkillBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.addNewSkillBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

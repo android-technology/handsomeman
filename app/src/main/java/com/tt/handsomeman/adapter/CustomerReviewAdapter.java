@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemReviewBinding;
 import com.tt.handsomeman.response.JobDetailCustomerReview;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
     private List<JobDetailCustomerReview> jobDetailCustomerReviews;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemReviewBinding binding;
 
     public CustomerReviewAdapter(Context context, List<JobDetailCustomerReview> jobDetailCustomerReviews) {
         this.jobDetailCustomerReviews = jobDetailCustomerReviews;
@@ -31,7 +32,8 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
     @NonNull
     @Override
     public CustomerReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_review, parent, false);
+        binding = ItemReviewBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new CustomerReviewViewHolder(item);
     }
 
@@ -59,10 +61,10 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
         CustomerReviewViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            handymenAvatar = itemView.findViewById(R.id.reviewAvatar);
-            handymenName = itemView.findViewById(R.id.reviewNameItem);
-            handymenRating = itemView.findViewById(R.id.ratingBarReviewItem);
-            handymenComment = itemView.findViewById(R.id.reviewCommentItem);
+            handymenAvatar = binding.reviewAvatar;
+            handymenName = binding.reviewNameItem;
+            handymenRating = binding.ratingBarReviewItem;
+            handymenComment = binding.reviewCommentItem;
         }
     }
 }

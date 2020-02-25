@@ -1,4 +1,4 @@
-package com.tt.handsomeman.model;
+package com.tt.handsomeman.request;
 
 public class UserActivatingAccount {
 

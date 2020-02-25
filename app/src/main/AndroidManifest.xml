@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.handyman.more.AddNewSkill"></activity>
+        <activity android:name=".ui.handyman.more.AddNewPayout"></activity>
+        <activity android:name=".ui.handyman.more.AddNewSkill" />
         <activity android:name=".ui.handyman.more.MyProfileEdit" />
         <activity android:name=".ui.handyman.more.MyProfile" />
         <activity android:name=".ui.handyman.messages.Conversation" />

@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityHandyManMainScreenBinding;
 import com.tt.handsomeman.ui.handyman.jobs.JobsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
@@ -42,7 +43,6 @@ public class HandyManMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new MoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
-
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
@@ -66,7 +66,7 @@ public class HandyManMainScreen extends AppCompatActivity {
 
         }
     };
-
+    private ActivityHandyManMainScreenBinding binding;
     private Fragment active = fragment1;
     private LocationManager locationManager;
 
@@ -108,9 +108,10 @@ public class HandyManMainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_handy_man_main_screen);
+        binding = ActivityHandyManMainScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        BottomNavigationView navView = binding.navView;
 
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupWithNavController(navView, navController);
@@ -157,7 +158,7 @@ public class HandyManMainScreen extends AppCompatActivity {
                 startLocationService();
             } else {
                 // Permission request was denied.
-                Snackbar.make(findViewById(R.id.container), "Permission is denied",
+                Snackbar.make(binding.container, "Permission is denied",
                         Snackbar.LENGTH_SHORT)
                         .show();
             }
@@ -188,7 +189,7 @@ public class HandyManMainScreen extends AppCompatActivity {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with cda button to request the missing permission.
-            Snackbar.make(findViewById(R.id.container), "Permission is needed",
+            Snackbar.make(binding.container, "Permission is needed",
                     Snackbar.LENGTH_INDEFINITE).setAction("GRANT IT", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -200,7 +201,7 @@ public class HandyManMainScreen extends AppCompatActivity {
             }).show();
 
         } else {
-            Snackbar.make(findViewById(R.id.container), "Location is unavailable", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.container, "Location is unavailable", Snackbar.LENGTH_SHORT).show();
             // Request the permission. The result will be received in onRequestPermissionResult().
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_LOCATION);

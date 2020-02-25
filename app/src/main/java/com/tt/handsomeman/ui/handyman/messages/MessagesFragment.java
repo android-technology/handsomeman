@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentMessagesBinding;
 
 public class MessagesFragment extends Fragment {
 
@@ -24,18 +25,20 @@ public class MessagesFragment extends Fragment {
     private Fragment childContactsFragment = new MessagesChildContactsFragment();
     private Fragment active = childMessagesFragment;
     private EditText edtSearchByWord;
+    private FragmentMessagesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_messages, container, false);
+        binding = FragmentMessagesBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RadioButton rdMessage = view.findViewById(R.id.radioButtonMessages);
-        RadioButton rdContact = view.findViewById(R.id.radioButtonContacts);
-        edtSearchByWord = view.findViewById(R.id.editTextSearchByWordMessageFragment);
+        RadioButton rdMessage = binding.radioButtonMessages;
+        RadioButton rdContact = binding.radioButtonContacts;
+        edtSearchByWord = binding.editTextSearchByWordMessageFragment;
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.messageFragmentParent, childContactsFragment).hide(childContactsFragment).commit();

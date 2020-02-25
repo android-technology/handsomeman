@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemConversationBinding;
 import com.tt.handsomeman.response.ConversationResponse;
 
 import java.text.ParseException;
@@ -24,6 +25,7 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
     private LayoutInflater layoutInflater;
     private Context context;
     private SwipeLayout deleteSwipeLayout;
+    private ItemConversationBinding binding;
 
     private OnItemClickListener mListener;
 
@@ -40,7 +42,8 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
     @NonNull
     @Override
     public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_conversation, parent, false);
+        binding = ItemConversationBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new ConversationViewHolder(item, mListener);
     }
 
@@ -88,21 +91,21 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         void onItemDelete(int position);
     }
 
-    public class ConversationViewHolder extends RecyclerView.ViewHolder {
+    class ConversationViewHolder extends RecyclerView.ViewHolder {
 
         final TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
         final SwipeLayout swipeLayout;
         final LinearLayout layoutConversation, layoutDelete;
         int conversationId;
 
-        public ConversationViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {
+        ConversationViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {
             super(itemView);
-            tvAccountName = itemView.findViewById(R.id.accountNameConversation);
-            tvLatestMessage = itemView.findViewById(R.id.latestMessageConversation);
-            tvLatestMessageSendTime = itemView.findViewById(R.id.latestMessageSendTimeConversation);
-            layoutConversation = itemView.findViewById(R.id.linearLayoutConversation);
-            layoutDelete = itemView.findViewById(R.id.linearLayoutDeleteConversation);
-            swipeLayout = itemView.findViewById(R.id.swipeLayoutMessage);
+            tvAccountName = binding.accountNameConversation;
+            tvLatestMessage = binding.latestMessageConversation;
+            tvLatestMessageSendTime = binding.latestMessageSendTimeConversation;
+            layoutConversation = binding.linearLayoutConversation;
+            layoutDelete = binding.linearLayoutDeleteConversation;
+            swipeLayout = binding.swipeLayoutMessage;
             swipeLayout.setClickToClose(true);
 
             layoutConversation.setOnClickListener(new View.OnClickListener() {

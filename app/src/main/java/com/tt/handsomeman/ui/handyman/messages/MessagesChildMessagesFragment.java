@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ConversationAdapter;
+import com.tt.handsomeman.databinding.FragmentMessagesChildMessagesBinding;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
-public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel> {
+public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel, FragmentMessagesChildMessagesBinding> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -61,7 +62,8 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
-        return inflater.inflate(R.layout.fragment_messages_child_messages, container, false);
+        viewBinding = FragmentMessagesChildMessagesBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
@@ -82,7 +84,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     }
 
     private void createMessageRecycleView(View view) {
-        RecyclerView rcvMessage = view.findViewById(R.id.recycleViewMessages);
+        RecyclerView rcvMessage = viewBinding.recycleViewMessages;
         conversationAdapter = new ConversationAdapter(conversationResponseList, getContext());
         conversationAdapter.setOnItemClickListener(new ConversationAdapter.OnItemClickListener() {
             @Override

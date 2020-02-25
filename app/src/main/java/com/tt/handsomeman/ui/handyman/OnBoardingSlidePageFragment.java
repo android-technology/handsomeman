@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.OnBoardingFragmentSlidePageBinding;
 
 public class OnBoardingSlidePageFragment extends Fragment {
 
     private int image;
     private int description;
+    private OnBoardingFragmentSlidePageBinding binding;
 
     static OnBoardingSlidePageFragment newInstance(int image, int description) {
         OnBoardingSlidePageFragment screenSlidePageFragment = new OnBoardingSlidePageFragment();
@@ -36,14 +37,13 @@ public class OnBoardingSlidePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.on_boarding_fragment_slide_page, container, false);
+        binding = OnBoardingFragmentSlidePageBinding.inflate(inflater, container, false);
 
-        ImageView imgOnBoarding = rootView.findViewById(R.id.imageViewOnBoarding);
-        TextView txtOnBoarding = rootView.findViewById(R.id.textViewOnBoarding);
+        ImageView imgOnBoarding = binding.imageViewOnBoarding;
+        TextView txtOnBoarding = binding.textViewOnBoarding;
         imgOnBoarding.setImageResource(image);
         txtOnBoarding.setText(description);
 
-        return rootView;
+        return binding.getRoot();
     }
 }

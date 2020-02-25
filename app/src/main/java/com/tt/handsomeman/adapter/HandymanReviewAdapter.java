@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemReviewBinding;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
     private List<HandymanReviewResponse> handymanReviewResponseList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemReviewBinding binding;
 
     public HandymanReviewAdapter(List<HandymanReviewResponse> handymanReviewResponseList, Context context) {
         this.handymanReviewResponseList = handymanReviewResponseList;
@@ -31,7 +32,8 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
     @NonNull
     @Override
     public HandymanReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_review, parent, false);
+        binding = ItemReviewBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new HandymanReviewViewHolder(item);
     }
 
@@ -49,19 +51,19 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
         return handymanReviewResponseList.size();
     }
 
-    public class HandymanReviewViewHolder extends RecyclerView.ViewHolder {
+    class HandymanReviewViewHolder extends RecyclerView.ViewHolder {
 
         final ImageView customerAvatar;
         final TextView customerName, customerComment;
         final RatingBar customerRating;
 
-        public HandymanReviewViewHolder(@NonNull View itemView) {
+        HandymanReviewViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            customerAvatar = itemView.findViewById(R.id.reviewAvatar);
-            customerName = itemView.findViewById(R.id.reviewNameItem);
-            customerRating = itemView.findViewById(R.id.ratingBarReviewItem);
-            customerComment = itemView.findViewById(R.id.reviewCommentItem);
+            customerAvatar = binding.reviewAvatar;
+            customerName = binding.reviewNameItem;
+            customerRating = binding.ratingBarReviewItem;
+            customerComment = binding.reviewCommentItem;
         }
     }
 }

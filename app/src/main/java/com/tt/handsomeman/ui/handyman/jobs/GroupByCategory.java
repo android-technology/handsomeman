@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
+import com.tt.handsomeman.databinding.ActivityGroupByCategoryBinding;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
@@ -37,19 +38,21 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
     private ProgressBar pgJob;
     private TextView categoryName;
     private ImageButton btnFilter;
+    private ActivityGroupByCategoryBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_by_category);
+        binding = ActivityGroupByCategoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
 
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        pgJob = findViewById(R.id.progressBarJobCategory);
-        categoryName = findViewById(R.id.textViewCategoryName);
-        btnFilter = findViewById(R.id.imageButtonFilter);
+        pgJob = binding.progressBarJobCategory;
+        categoryName = binding.textViewCategoryName;
+        btnFilter = binding.imageButtonFilter;
 
         backPreviousActivity();
 
@@ -73,7 +76,7 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
     }
 
     private void backPreviousActivity() {
-        findViewById(R.id.categoryBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.categoryBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -82,7 +85,7 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = findViewById(R.id.recycleViewJobsByCategory);
+        RecyclerView rcvJob = binding.recycleViewJobsByCategory;
         jobAdapter = new JobFilterAdapter(this, jobArrayList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override

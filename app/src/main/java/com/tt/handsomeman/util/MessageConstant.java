@@ -4,6 +4,7 @@ public class MessageConstant {
     public static final String JOB_NOT_FOUND = "Job not found";
     public static final String EMAIL_IS_USED = "Email is used";
     public static final String NOT_FOUND_CUSTOMER_REVIEW = "Not found customer review";
+    public static final String NOT_FOUND_HANDYMAN_REVIEW = "Not found handyman review";
     public static final String NO_JOBS_IN_THIS_CATEGORY = "No job in this category";
     public static final String FACEBOOK_TOKEN_IS_EXPIRED = "Facebook token is expired";
     public static final String FB_NOT_LOGIN = "Can not login Facebook";
@@ -31,6 +32,16 @@ public class MessageConstant {
     public static final String DELETE_CONVERSATION_SUCCESSFULLY = "This conversation is deleted success fully";
     public static final String NO_CONVERSATION_DELETE = "There no conversations to delete";
     public static final String ACCOUNT_NOT_FOUND_MESSAGE = "You are send message to no ONE";
+    public static final String NOT_FOUND_THIS_HANDYMAN = "No handyman is found with this ID";
+    public static final String UPDATE_HANDYMAN_PROFILE_SUCCESSFULLY = "Your profile is updated successfully";
+    public static final String UPDATE_HANDYMAN_PROFILE_FAIL = "Your profile is not updated";
+    public static final String FCM_PUSH_ERROR = "Push Notification ERROR!";
+    public static final String NO_CATEGORY_FOUND = "No category is found!";
+    public static final String REMOVE_REMOVE_PAYOUT_SUCCESSFUL = "Remove Payout Successful!!";
+    public static final String DONT_OWN_PAYOUT = "You not own this payout";
+    public static final String NOT_FOUND_PAYOUT = "Not found this payout";
+    public static final String ACCOUNT_NUMBER_IS_TAKEN = "The Account number has been taken!!";
+
 
     public static final String EMAIL_NOT_VALID = "Email is not valid";
     public static final String USER_CVR = "CVR";

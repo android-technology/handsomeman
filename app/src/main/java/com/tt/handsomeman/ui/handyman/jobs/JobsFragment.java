@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentJobsBinding;
 
 public class JobsFragment extends Fragment {
 
@@ -25,18 +26,20 @@ public class JobsFragment extends Fragment {
     private Fragment jobsChildWishListFragment = new JobsChildWishListFragment();
     private Fragment active = jobsChildJobsFragment;
     private EditText edtSearchByWord;
+    private FragmentJobsBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_jobs, container, false);
+        binding = FragmentJobsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        RadioButton rdJobs = view.findViewById(R.id.radioButtonJobs);
-        RadioButton rdWishList = view.findViewById(R.id.radioButtonWishList);
-        edtSearchByWord = view.findViewById(R.id.editTextSearchByWordJobFragment);
+        RadioButton rdJobs = binding.radioButtonJobs;
+        RadioButton rdWishList = binding.radioButtonWishList;
+        edtSearchByWord = binding.editTextSearchByWordJobFragment;
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.jobsFragmentParent, jobsChildWishListFragment).hide(jobsChildWishListFragment).commit();

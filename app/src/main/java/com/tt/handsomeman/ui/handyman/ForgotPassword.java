@@ -12,18 +12,22 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityForgotPasswordBinding;
 
 public class ForgotPassword extends AppCompatActivity {
+
+    private ActivityForgotPasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final EditText edtForgotPassword = findViewById(R.id.editTextForgotPasswordYourMail);
-        final Button btnForgotPassword = findViewById(R.id.buttonSendForgotPassword);
+        final EditText edtForgotPassword = binding.editTextForgotPasswordYourMail;
+        final Button btnForgotPassword = binding.buttonSendForgotPassword;
 
-        findViewById(R.id.forgotPasswordBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.forgotPasswordBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

@@ -5,9 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 public class Constants {
     public static final String BASE_URL = "https://handsomeman.herokuapp.com/";
 
-    public static final String LOGIN_SUFFIX = "api/login";
-    public static final String SIGN_UP_SUFFIX = "api/registration";
-    public static final String SIGN_UP_ADD_PAYOUT_SUFFIX = "api/active-account";
+    public static final String LOGIN_SUFFIX = "api/user/login";
+    public static final String SIGN_UP_SUFFIX = "api/user/registration";
+    public static final String SIGN_UP_ADD_PAYOUT_SUFFIX = "api/user/active-account";
+
+    // Both handyman and customer can have payout
+    public static final String USER_ADD_PAYOUT = "api/user/payout/add";
+    public static final String USER_EDIT_PAYOUT = "api/user/payout/edit/{payoutId}";
+    public static final String USER_REMOVE_PAYOUT = "api/user/payout/remove/{payoutId}";
 
     public static final String START_SCREEN_SUFFIX = "api/jobs/startScreen";
     public static final String YOUR_LOCATION_SUFFIX = "api/jobs/yourLocation";

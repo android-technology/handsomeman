@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityJobDetailBinding;
 import com.tt.handsomeman.model.CustomerJobDetail;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
@@ -52,37 +53,39 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
     private TableLayout tlMileStone;
     private GoogleMap mMap;
     private Job job;
+    private ActivityJobDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_detail);
+        binding = ActivityJobDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        rtReview = findViewById(R.id.ratingBarJobDetail);
-        tvJobTitle = findViewById(R.id.jobTitleJobDetail);
-        tvJobId = findViewById(R.id.jobIdJobDetail);
-        tvJobCreateTime = findViewById(R.id.jobCreateTimeJobDetail);
-        tvJobDetail = findViewById(R.id.jobDetailJobDetail);
-        tvBudgetRange = findViewById(R.id.budgetRangeJobDetail);
-        tvJobDeadline = findViewById(R.id.deadlineJobDetail);
-        tvJobLocation = findViewById(R.id.locationJobDetail);
-        tvBidRange = findViewById(R.id.bidRangeJobDetail);
-        tvInterviewing = findViewById(R.id.interviewingJobDetail);
-        tvHired = findViewById(R.id.hiredJobDetail);
-        tvPaymentMilestoneCount = findViewById(R.id.paymentMileStoneCountJobDetail);
-        tvClientName = findViewById(R.id.clientNameJobDetail);
-        tvReviewCount = findViewById(R.id.reviewCountJobDetail);
-        tvShowClientProfile = findViewById(R.id.showClientProfileJobDetail);
-        tlMileStone = findViewById(R.id.paymentMileStoneTableLayoutJobDetail);
-        imClientAvatar = findViewById(R.id.clientAvatarJobDetail);
-        imIsWish = findViewById(R.id.isWishListImage);
-        btnPlaceABid = findViewById(R.id.buttonPlaceBidJobDetail);
+        rtReview = binding.ratingBarJobDetail;
+        tvJobTitle = binding.jobTitleJobDetail;
+        tvJobId = binding.jobIdJobDetail;
+        tvJobCreateTime = binding.jobCreateTimeJobDetail;
+        tvJobDetail = binding.jobDetailJobDetail;
+        tvBudgetRange = binding.budgetRangeJobDetail;
+        tvJobDeadline = binding.deadlineJobDetail;
+        tvJobLocation = binding.locationJobDetail;
+        tvBidRange = binding.bidRangeJobDetail;
+        tvInterviewing = binding.interviewingJobDetail;
+        tvHired = binding.hiredJobDetail;
+        tvPaymentMilestoneCount = binding.paymentMileStoneCountJobDetail;
+        tvClientName = binding.clientNameJobDetail;
+        tvReviewCount = binding.reviewCountJobDetail;
+        tvShowClientProfile = binding.showClientProfileJobDetail;
+        tlMileStone = binding.paymentMileStoneTableLayoutJobDetail;
+        imClientAvatar = binding.clientAvatarJobDetail;
+        imIsWish = binding.isWishListImage;
+        btnPlaceABid = binding.buttonPlaceBidJobDetail;
 
         HandymanApp.getComponent().inject(this);
 
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        findViewById(R.id.jobDetailBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.jobDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

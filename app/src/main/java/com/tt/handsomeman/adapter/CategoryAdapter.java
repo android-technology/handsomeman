@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemCategoryBinding;
 import com.tt.handsomeman.model.Category;
 
 import java.util.List;
@@ -20,6 +20,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private List<Category> categoryList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemCategoryBinding binding;
 
     private OnItemClickListener mListener;
 
@@ -36,7 +37,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_category, parent, false);
+        binding = ItemCategoryBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new CategoryViewHolder(item, mListener);
     }
 
@@ -63,8 +65,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         CategoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
-            tvCategoryName = itemView.findViewById(R.id.textViewJobName);
-            btnCategoryDetail = itemView.findViewById(R.id.imageButtonCategoryDetail);
+            tvCategoryName = binding.textViewJobName;
+            btnCategoryDetail = binding.imageButtonCategoryDetail;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

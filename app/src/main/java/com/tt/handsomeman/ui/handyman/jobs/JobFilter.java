@@ -14,6 +14,7 @@ import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SpinnerCreationTime;
+import com.tt.handsomeman.databinding.ActivityJobFilterBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,20 +32,22 @@ public class JobFilter extends AppCompatActivity {
     private Spinner spinnerCreateTime;
     private Calendar myCalendar = Calendar.getInstance();
     private SimpleDateFormat sdf;
+    private ActivityJobFilterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_filter);
+        binding = ActivityJobFilterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        skDistance = findViewById(R.id.seekBarDistance);
-        tvDistance = findViewById(R.id.textViewDistance);
-        rgPrice = findViewById(R.id.rangeSeekBarPrice);
-        btnClose = findViewById(R.id.imageButtonCloseFilter);
-        btnCheck = findViewById(R.id.imageButtonCheckFilter);
+        skDistance = binding.seekBarDistance;
+        tvDistance = binding.textViewDistance;
+        rgPrice = binding.rangeSeekBarPrice;
+        btnClose = binding.imageButtonCloseFilter;
+        btnCheck = binding.imageButtonCheckFilter;
 
         createTime = getResources().getStringArray(R.array.create_time);
-        spinnerCreateTime = findViewById(R.id.spinnerCreateTime);
+        spinnerCreateTime = binding.spinnerCreateTime;
 
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         sdf = new SimpleDateFormat(myFormat, Locale.getDefault());

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityMyProfileBinding;
 
 public class MyProfile extends AppCompatActivity {
     private static final Integer REQUEST_MY_PROFILE_RESULT_CODE = 77;
@@ -21,17 +22,19 @@ public class MyProfile extends AppCompatActivity {
     private Fragment active = aboutFragment;
     private ImageButton ibEdit;
     private boolean isEdit = false;
+    private ActivityMyProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        binding = ActivityMyProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        RadioButton rdAbout = findViewById(R.id.radioButtonAbout);
-        RadioButton rdReviews = findViewById(R.id.radioButtonReviews);
-        ibEdit = findViewById(R.id.imageButtonMyProfileEdit);
+        RadioButton rdAbout = binding.radioButtonAbout;
+        RadioButton rdReviews = binding.radioButtonReviews;
+        ibEdit = binding.imageButtonMyProfileEdit;
 
-        findViewById(R.id.myProfileBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.myProfileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

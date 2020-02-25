@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemSkillCategoryNameBinding;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ public abstract class RadioAdapter<T> extends RecyclerView.Adapter<RadioAdapter.
     int mSelectedItem = -1;
     Context mContext;
     private LayoutInflater inflater;
+    private ItemSkillCategoryNameBinding binding;
 
     RadioAdapter(Context context, List<T> items) {
         mContext = context;
@@ -39,7 +40,8 @@ public abstract class RadioAdapter<T> extends RecyclerView.Adapter<RadioAdapter.
     @NonNull
     @Override
     public RadioViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        final View view = inflater.inflate(R.layout.item_skill_category_name, viewGroup, false);
+        binding = ItemSkillCategoryNameBinding.inflate(inflater, viewGroup, false);
+        final View view = binding.getRoot();
         return new RadioViewHolder(view);
     }
 
@@ -50,12 +52,14 @@ public abstract class RadioAdapter<T> extends RecyclerView.Adapter<RadioAdapter.
 
         RadioViewHolder(final View inflate) {
             super(inflate);
-            mText = inflate.findViewById(R.id.textViewAddSkillCategoryName);
-            mRadio = inflate.findViewById(R.id.radioButtonSkillChosen);
-            View.OnClickListener clickListener = (view)->{
+            mText = binding.textViewAddSkillCategoryName;
+            mRadio = binding.radioButtonSkillChosen;
+
+            View.OnClickListener clickListener = (view) -> {
                 mSelectedItem = getAdapterPosition();
                 notifyItemRangeChanged(0, mItems.size());
             };
+
             itemView.setOnClickListener(clickListener);
             mRadio.setOnClickListener(clickListener);
         }

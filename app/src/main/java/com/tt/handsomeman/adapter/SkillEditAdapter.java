@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemSkillEditBinding;
 import com.tt.handsomeman.model.Skill;
 
 import java.util.List;
@@ -20,16 +20,9 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
     private List<Skill> skillList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemSkillEditBinding binding;
 
     private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void deleteSkill(int position);
-    }
 
     public SkillEditAdapter(List<Skill> skillList, Context context) {
         this.skillList = skillList;
@@ -37,10 +30,15 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
         layoutInflater = LayoutInflater.from(context);
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public SkillEditAdapter.SkillEditViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = layoutInflater.inflate(R.layout.item_skill_edit, parent, false);
+        binding = ItemSkillEditBinding.inflate(layoutInflater, parent, false);
+        View item = binding.getRoot();
         return new SkillEditViewHolder(item, onItemClickListener);
     }
 
@@ -55,16 +53,20 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
         return skillList.size();
     }
 
-    public class SkillEditViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListener {
+        void deleteSkill(int position);
+    }
+
+    class SkillEditViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvSkillName;
         private ImageButton ibDeleteSkill;
 
-        public SkillEditViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+        SkillEditViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 
-            tvSkillName = itemView.findViewById(R.id.textViewItemSkillNameEdit);
-            ibDeleteSkill = itemView.findViewById(R.id.imageButtonDeleteSkillEdit);
+            tvSkillName = binding.textViewItemSkillNameEdit;
+            ibDeleteSkill = binding.imageButtonDeleteSkillEdit;
 
             ibDeleteSkill.setOnClickListener(new View.OnClickListener() {
                 @Override

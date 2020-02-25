@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.HandymanReviewAdapter;
+import com.tt.handsomeman.databinding.FragmentMyProfileReviewsBinding;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 import com.tt.handsomeman.ui.BaseFragment;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
+public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, FragmentMyProfileReviewsBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -46,21 +47,22 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel> {
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
-        return inflater.inflate(R.layout.fragment_my_profile_reviews, container, false);
+        viewBinding = FragmentMyProfileReviewsBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        countReviewers = view.findViewById(R.id.reviewCountHandymanProfile);
-        rtCountPoint = view.findViewById(R.id.ratingBarHandymanProfile);
+        countReviewers = viewBinding.reviewCountHandymanProfile;
+        rtCountPoint = viewBinding.ratingBarHandymanProfile;
 
         createReviewRecyclerView(view);
         fetchData();
     }
 
     private void createReviewRecyclerView(@NonNull View view) {
-        RecyclerView rcvReview = view.findViewById(R.id.reviewHandymanProfile);
+        RecyclerView rcvReview = viewBinding.reviewHandymanProfile;
         handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponseList, getContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvReview.setLayoutManager(layoutManager);

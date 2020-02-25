@@ -15,22 +15,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentBidJobDetailLetterWritingBinding;
 
 public class BidJobLetterFragment extends Fragment {
     private EditText edtIntroduce;
     private ImageButton ibCheckButtonLetter;
     private String edtValue;
+    private FragmentBidJobDetailLetterWritingBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bid_job_detail_letter_writing, container, false);
+        binding = FragmentBidJobDetailLetterWritingBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ibCheckButtonLetter = getActivity().findViewById(R.id.imageButtonCheckLetterBidJobDetail);
-        edtIntroduce = view.findViewById(R.id.introduceYourSelfEditText);
+        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
+        ibCheckButtonLetter = bidJobDetail.activityBidJobDetailBinding.imageButtonCheckLetterBidJobDetail;
+        edtIntroduce = binding.introduceYourSelfEditText;
         ibCheckButtonLetter.setEnabled(false);
 
         edtIntroduce.addTextChangedListener(new TextWatcher() {

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityStartBinding;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
@@ -19,10 +20,13 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
 
+    private ActivityStartBinding binding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        binding = ActivityStartBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
 
@@ -33,9 +37,8 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
             finish();
         }
 
-        findViewById(R.id.continue_handyman).setOnClickListener(this);
-        findViewById(R.id.continue_customer).setOnClickListener(this);
-
+        binding.continueHandyman.setOnClickListener(this);
+        binding.continueCustomer.setOnClickListener(this);
     }
 
     @Override

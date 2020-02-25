@@ -7,17 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.SpinnerItemStandardBinding;
 
 public class SpinnerTypePayout extends BaseAdapter {
     private Context context;
     private String[] type;
-    private LayoutInflater inflater;
+    private LayoutInflater layoutInflater;
+    private SpinnerItemStandardBinding binding;
 
     public SpinnerTypePayout(Context context, String[] type) {
         this.context = context;
         this.type = type;
-        inflater = LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -37,8 +38,9 @@ public class SpinnerTypePayout extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.spinner_item_standard, null);
-        TextView typeName = view.findViewById(R.id.textViewSpinnerPayout);
+        binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
+        view = binding.getRoot();
+        TextView typeName = binding.textViewSpinnerPayout;
         typeName.setText(type[i]);
         return view;
     }

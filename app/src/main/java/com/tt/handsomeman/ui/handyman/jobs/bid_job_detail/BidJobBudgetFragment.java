@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentBidJobDetailBudgetBinding;
 
 import java.text.DecimalFormat;
 
@@ -23,6 +24,7 @@ public class BidJobBudgetFragment extends Fragment {
     private int myBid, highestBid, lowestBid, myBidValue;
     private double budgetReceive, serviceFee;
     private ImageButton ibCheckButtonBudget;
+    private FragmentBidJobDetailBudgetBinding binding;
 
     static BidJobBudgetFragment newInstance(int myBid, int highestBid, int lowestBid, double budgetReceive, double serviceFee) {
         BidJobBudgetFragment bidJobBudgetFragment = new BidJobBudgetFragment();
@@ -50,18 +52,21 @@ public class BidJobBudgetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bid_job_detail_budget, container, false);
+        binding = FragmentBidJobDetailBudgetBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        EditText edtMyBid = view.findViewById(R.id.myBidBidJobDetail);
-        TextView tvBudgetReceive = view.findViewById(R.id.budgetReceiveBidJobDetail);
-        TextView tvServiceFee = view.findViewById(R.id.serviceFeeBidJobDetail);
-        TextView tvHighestBid = view.findViewById(R.id.highestBidJobDetail);
-        TextView tvLowestBid = view.findViewById(R.id.lowestBidJobDetail);
-        ibCheckButtonBudget = getActivity().findViewById(R.id.imageButtonCheckBudgetBidJobDetail);
+        EditText edtMyBid = binding.myBidBidJobDetail;
+        TextView tvBudgetReceive = binding.budgetReceiveBidJobDetail;
+        TextView tvServiceFee = binding.serviceFeeBidJobDetail;
+        TextView tvHighestBid = binding.highestBidJobDetail;
+        TextView tvLowestBid = binding.lowestBidJobDetail;
+
+        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
+        ibCheckButtonBudget = bidJobDetail.activityBidJobDetailBinding.imageButtonCheckBudgetBidJobDetail;
 
         edtMyBid.setText(String.valueOf(myBid));
         tvBudgetReceive.setText("$" + String.format("%d", (long) this.budgetReceive) + " ");

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityRegisterBinding;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
@@ -22,11 +22,13 @@ public class Register extends AppCompatActivity {
     public static Activity register;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
+    private ActivityRegisterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
 
@@ -39,28 +41,28 @@ public class Register extends AppCompatActivity {
             finish();
         }
 
-        findViewById(R.id.registerBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.registerBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
 
-        findViewById(R.id.loginFBLinear).setOnClickListener(new View.OnClickListener() {
+        binding.loginFBLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Register.this, "Login Facebook", Toast.LENGTH_LONG).show();
             }
         });
 
-        findViewById(R.id.buttonRegisterLogin).setOnClickListener(new View.OnClickListener() {
+        binding.buttonRegisterLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Register.this, Login.class));
             }
         });
 
-        findViewById(R.id.buttonRegisterSignUp).setOnClickListener(new View.OnClickListener() {
+        binding.buttonRegisterSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Register.this, SignUp.class));

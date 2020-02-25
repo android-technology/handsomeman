@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.PayoutAdapter;
+import com.tt.handsomeman.databinding.FragmentMoreBinding;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Payout;
 import com.tt.handsomeman.ui.BaseFragment;
@@ -33,14 +35,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoreFragment extends BaseFragment<HandymanViewModel> {
-    private static final Integer REQUEST_MORE_FRAGMENT_RESULT_CODE = 7;
+public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBinding> {
+    private static final Integer REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE = 7;
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     private ConstraintLayout viewMyProfileLayout;
     private TextView tvLogout, tvWalletBalance, tvAccountName;
+    private ImageButton ibAddPayout;
     private PayoutAdapter payoutAdapter;
     private List<Payout> payoutList = new ArrayList<>();
 
@@ -48,21 +52,23 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
                              ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
-        return inflater.inflate(R.layout.fragment_more, container, false);
+        viewBinding = FragmentMoreBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewMyProfileLayout = view.findViewById(R.id.viewMyProfileLayout);
-        tvLogout = view.findViewById(R.id.logoutMore);
-        tvWalletBalance = view.findViewById(R.id.walletBalance);
-        tvAccountName = view.findViewById(R.id.accountNameMore);
+        viewMyProfileLayout = viewBinding.viewMyProfileLayout;
+        tvLogout = viewBinding.logoutMore;
+        tvWalletBalance = viewBinding.walletBalance;
+        tvAccountName = viewBinding.accountNameMore;
+        ibAddPayout = viewBinding.imageButtonAddPayout;
 
         viewMyProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), MyProfile.class), REQUEST_MORE_FRAGMENT_RESULT_CODE);
+                startActivityForResult(new Intent(getActivity(), MyProfile.class), REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE);
             }
         });
 
@@ -73,6 +79,10 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
                 startActivity(new Intent(getActivity(), Login.class));
                 getActivity().finish();
             }
+        });
+
+        ibAddPayout.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getActivity(), AddNewPayout.class), REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE);
         });
 
         createPayoutRecyclerView(view);
@@ -96,7 +106,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
     }
 
     private void createPayoutRecyclerView(@NonNull View view) {
-        RecyclerView rcvPayout = view.findViewById(R.id.recyclerViewPayoutMore);
+        RecyclerView rcvPayout = viewBinding.recyclerViewPayoutMore;
         payoutAdapter = new PayoutAdapter(payoutList, getContext());
         RecyclerView.LayoutManager layoutManagerPayout = new LinearLayoutManager(getContext());
         rcvPayout.setLayoutManager(layoutManagerPayout);
@@ -108,7 +118,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if (requestCode == REQUEST_MORE_FRAGMENT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMoreFragmentEdit", false)) {
                 fetchHandymanInfo();
             }

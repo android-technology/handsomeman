@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentBidJobDetailLetterReviewBinding;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
@@ -32,7 +33,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
+public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, FragmentBidJobDetailLetterReviewBinding> {
 
     private static String introduceValue, myBidValue;
     private static double serviceFeeValue;
@@ -44,6 +45,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
     SharedPreferencesUtils sharedPreferencesUtils;
     private String jobTitle;
     private int jobId, paymentMileStoneCount;
+    private FragmentBidJobDetailLetterReviewBinding binding;
 
     static BidJobLetterReviewFragment newInstance(Integer jobId, String jobTitle, int paymentMileStoneCount) {
         BidJobLetterReviewFragment bidJobLetterReviewFragment = new BidJobLetterReviewFragment();
@@ -78,18 +80,21 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel> {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        return inflater.inflate(R.layout.fragment_bid_job_detail_letter_review, container, false);
+        binding = FragmentBidJobDetailLetterReviewBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView tvJobTitle = view.findViewById(R.id.jobTitleBidJobDetail);
-        tvMyBudget = view.findViewById(R.id.myBudgetBidJobDetail);
-        TextView tvPaymentMileStoneCount = view.findViewById(R.id.paymentMileStoneCountBidJobDetail);
-        tvLetter = view.findViewById(R.id.introduceYourSelfTextView);
-        TableLayout tblPaymentMileStoneBidJobDetail = view.findViewById(R.id.paymentMileStoneTableLayoutBidJobDetail);
-        Button btnSubmit = getActivity().findViewById(R.id.submitBidJobDetail);
+        TextView tvJobTitle = binding.jobTitleBidJobDetail;
+        tvMyBudget = binding.myBudgetBidJobDetail;
+        TextView tvPaymentMileStoneCount = binding.paymentMileStoneCountBidJobDetail;
+        tvLetter = binding.introduceYourSelfTextView;
+        TableLayout tblPaymentMileStoneBidJobDetail = binding.paymentMileStoneTableLayoutBidJobDetail;
+
+        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
+        Button btnSubmit = bidJobDetail.activityBidJobDetailBinding.submitBidJobDetail;
 
         tvJobTitle.setText(jobTitle);
         tvMyBudget.setText("$" + myBidValue);

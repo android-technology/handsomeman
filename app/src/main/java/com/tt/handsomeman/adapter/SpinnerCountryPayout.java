@@ -7,18 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.SpinnerItemStandardBinding;
 
 public class SpinnerCountryPayout extends BaseAdapter {
 
     private Context context;
     private String[] country;
-    private LayoutInflater inflater;
+    private LayoutInflater layoutInflater;
+    private SpinnerItemStandardBinding binding;
 
     public SpinnerCountryPayout(Context context, String[] country) {
         this.context = context;
         this.country = country;
-        inflater = LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -38,8 +39,9 @@ public class SpinnerCountryPayout extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.spinner_item_standard, null);
-        TextView countryName = view.findViewById(R.id.textViewSpinnerPayout);
+        binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
+        view = binding.getRoot();
+        TextView countryName = binding.textViewSpinnerPayout;
         countryName.setText(country[i]);
         return view;
     }

@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui.handyman.more;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,14 +20,13 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SpinnerCountryPayout;
 import com.tt.handsomeman.adapter.SpinnerTypePayout;
-import com.tt.handsomeman.databinding.ActivitySignUpAddPayoutBinding;
+import com.tt.handsomeman.databinding.ActivityAddNewPayoutBinding;
 import com.tt.handsomeman.model.SignUpAddPayoutFormState;
-import com.tt.handsomeman.request.UserActivatingAccount;
+import com.tt.handsomeman.request.AddNewPayoutRequest;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.UserService;
-import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.NotificationDialog;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.SignUpAddPayoutViewModel;
 
@@ -43,7 +40,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpAddPayout extends AppCompatActivity {
+public class AddNewPayout extends AppCompatActivity {
+
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     @Inject
@@ -53,37 +51,36 @@ public class SignUpAddPayout extends AppCompatActivity {
     private ImageButton ibBirthDay, ibCheck;
     private Calendar myCalendar = Calendar.getInstance();
     private SignUpAddPayoutViewModel signUpAddPayoutViewModel;
-    private ActivitySignUpAddPayoutBinding binding;
+    private ActivityAddNewPayoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySignUpAddPayoutBinding.inflate(getLayoutInflater());
+        binding = ActivityAddNewPayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        final EditText edtFirstName = binding.editTextFirstNameSignUpPayout;
-        final EditText edtLastName = binding.editTextLastNameSignUpPayout;
-        final EditText edtAddress = binding.editTextAddressSignUpPayout;
-        final EditText edtPortalCode = binding.editTextPortalCodeSignUpPayout;
-        final EditText edtEmail = binding.editTextEmailSignUpPayout;
-        final EditText edtAccountNumber = binding.editTextAccountNumberSignUpPayout;
-        final EditText edtAccountRouting = binding.editTextAccountRoutingSignUpPayout;
-        edtBirthday = binding.editTextBirthdaySignUpPayout;
-        FrameLayout progressBarHolder = binding.progressBarHolder;
+        final EditText edtFirstName = binding.editTextFirstNameAddNewPayout;
+        final EditText edtLastName = binding.editTextLastNameAddNewPayout;
+        final EditText edtAddress = binding.editTextAddressAddNewPayout;
+        final EditText edtPortalCode = binding.editTextPortalCodeAddNewPayout;
+        final EditText edtEmail = binding.editTextEmailAddNewPayout;
+        final EditText edtAccountNumber = binding.editTextAccountNumberAddNewPayout;
+        final EditText edtAccountRouting = binding.editTextAccountRoutingAddNewPayout;
+        edtBirthday = binding.editTextBirthdayAddNewPayout;
 
         type = getResources().getStringArray(R.array.type_array);
         Spinner spinnerType = binding.spinnerTypePayout;
         country = getResources().getStringArray(R.array.countries_array);
         Spinner spinnerCountry = binding.spinnerCountryPayout;
 
-        ibBirthDay = binding.imageButtonSignUpBirthday;
-        ibCheck = binding.imageButtonCheckSignUpPayout;
+        ibBirthDay = binding.imageButtonAddNewPayoutBirthday;
+        ibCheck = binding.imageButtonCheckAddNewPayout;
         ibCheck.setEnabled(false);
 
         HandymanApp.getComponent().inject(this);
         signUpAddPayoutViewModel = new ViewModelProvider(this).get(SignUpAddPayoutViewModel.class);
 
-        binding.signUpPayoutBackButton.setOnClickListener(new View.OnClickListener() {
+        binding.addNewPayoutBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -112,22 +109,13 @@ public class SignUpAddPayout extends AppCompatActivity {
         generateTypeSpinner(spinnerType);
         generateCountrySpinner(spinnerCountry);
 
-        doAddPayout(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, progressBarHolder, spinnerType, spinnerCountry);
+        doAddPayout(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, spinnerType, spinnerCountry);
     }
 
-    private void doAddPayout(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, FrameLayout progressBarHolder, Spinner spinnerType, Spinner spinnerCountry) {
+    private void doAddPayout(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, Spinner spinnerType, Spinner spinnerCountry) {
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AlphaAnimation inAnimation;
-
-                progressBarHolder.bringToFront();
-                inAnimation = new AlphaAnimation(0f, 1f);
-                inAnimation.setDuration(300);
-                progressBarHolder.setAnimation(inAnimation);
-                progressBarHolder.setVisibility(View.VISIBLE);
-
                 ibCheck.setEnabled(false);
 
                 String token = sharedPreferencesUtils.get("token", String.class);
@@ -145,43 +133,32 @@ public class SignUpAddPayout extends AppCompatActivity {
                 String accountNumber = edtAccountNumber.getText().toString();
                 String accountRouting = edtAccountRouting.getText().toString();
                 String selectedCountry = country[spinnerCountry.getSelectedItemPosition()];
-                String accountStatus = "T"; // only one character
-                String businessNumber = "123456";
 
-                String kindOfHandyman = "CPR";
+                AddNewPayoutRequest addNewPayoutRequest = new AddNewPayoutRequest(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry);
 
-                UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry, accountStatus, businessNumber);
-
-                userService.doSignUpAddPayout(token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
+                userService.addPayout(token, addNewPayoutRequest).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
-                        if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
-                            Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                            sharedPreferencesUtils.put("state", Constants.STATE_REGISTER_ADDED_PAYOUT);
-                            startActivity(new Intent(SignUpAddPayout.this, HandyManMainScreen.class));
-                            finish();
+                        if (response.body().getStatus().equals(StatusConstant.OK)) {
+                            new NotificationDialog(AddNewPayout.this, R.style.PauseDialog, getString(R.string.add_new_payout_successful, response.body().getMessage()), new NotificationDialog.OnItemClickListener() {
+                                @Override
+                                public void onItemClickOk() {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("isMoreFragmentEdit", true);
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+                            }).show();
                         } else {
-                            AlphaAnimation outAnimation;
-
-                            outAnimation = new AlphaAnimation(1f, 0f);
-                            outAnimation.setDuration(200);
-                            progressBarHolder.setAnimation(outAnimation);
-                            progressBarHolder.setVisibility(View.GONE);
+                            Toast.makeText(AddNewPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                             ibCheck.setEnabled(true);
-                            Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<StandardResponse> call, Throwable t) {
-                        AlphaAnimation outAnimation;
-
-                        outAnimation = new AlphaAnimation(1f, 0f);
-                        outAnimation.setDuration(200);
-                        progressBarHolder.setAnimation(outAnimation);
-                        progressBarHolder.setVisibility(View.GONE);
                         ibCheck.setEnabled(true);
-                        Toast.makeText(SignUpAddPayout.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNewPayout.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -281,12 +258,12 @@ public class SignUpAddPayout extends AppCompatActivity {
     }
 
     private void generateTypeSpinner(Spinner spinnerType) {
-        SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(SignUpAddPayout.this, type);
+        SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(AddNewPayout.this, type);
         spinnerType.setAdapter(spinnerTypePayout);
     }
 
     private void generateCountrySpinner(Spinner spinnerCountry) {
-        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(SignUpAddPayout.this, country);
+        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(AddNewPayout.this, country);
         spinnerCountry.setAdapter(spinnerCountryPayout);
     }
 
@@ -297,7 +274,7 @@ public class SignUpAddPayout extends AppCompatActivity {
 //    }
 
     private void showDatePickerDialog(DatePickerDialog.OnDateSetListener date) {
-        new DatePickerDialog(SignUpAddPayout.this, date, 1996, 11, 26).show();
+        new DatePickerDialog(AddNewPayout.this, date, 1996, 11, 26).show();
     }
 
     private void updateLabel() {
@@ -306,11 +283,5 @@ public class SignUpAddPayout extends AppCompatActivity {
 
         edtBirthday.setText(sdf.format(myCalendar.getTime()));
         edtBirthday.setError(null);
-    }
-
-    @Override
-    protected void onDestroy() {
-        Register.register = null;
-        super.onDestroy();
     }
 }

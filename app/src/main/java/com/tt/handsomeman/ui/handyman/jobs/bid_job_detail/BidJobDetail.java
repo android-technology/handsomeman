@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityBidJobDetailBinding;
 import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.util.CustomViewPager;
 
@@ -32,7 +33,7 @@ public class BidJobDetail extends FragmentActivity {
      */
     static CustomViewPager mPager;
     static JobDetail jobDetail;
-
+    ActivityBidJobDetailBinding activityBidJobDetailBinding;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -44,20 +45,21 @@ public class BidJobDetail extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bid_job_detail);
+        activityBidJobDetailBinding = ActivityBidJobDetailBinding.inflate(getLayoutInflater());
+        setContentView(activityBidJobDetailBinding.getRoot());
 
-        tvViewPagerName = findViewById(R.id.bidJobDetailViewPagerName);
-        ibCheckButtonBudget = findViewById(R.id.imageButtonCheckBudgetBidJobDetail);
-        ibCheckButtonLetter = findViewById(R.id.imageButtonCheckLetterBidJobDetail);
-        btnSubmit = findViewById(R.id.submitBidJobDetail);
-        mPager = findViewById(R.id.bidJobDetailPager);
+        tvViewPagerName = activityBidJobDetailBinding.bidJobDetailViewPagerName;
+        ibCheckButtonBudget = activityBidJobDetailBinding.imageButtonCheckBudgetBidJobDetail;
+        ibCheckButtonLetter = activityBidJobDetailBinding.imageButtonCheckLetterBidJobDetail;
+        btnSubmit = activityBidJobDetailBinding.submitBidJobDetail;
+        mPager = activityBidJobDetailBinding.bidJobDetailPager;
 
         jobDetail = (JobDetail) getIntent().getSerializableExtra("jobDetail");
 
         generateViewPager();
         viewPagerUILogic();
 
-        findViewById(R.id.bidJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
+        activityBidJobDetailBinding.bidJobDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -107,7 +109,7 @@ public class BidJobDetail extends FragmentActivity {
 
         mPager.setAdapter(pagerAdapter);
 
-        CircleIndicator indicator = findViewById(R.id.bidJobDetailIndicator);
+        CircleIndicator indicator = activityBidJobDetailBinding.bidJobDetailIndicator;
         indicator.setViewPager(mPager);
 
         mPager.disableScroll(true);

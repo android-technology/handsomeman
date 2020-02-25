@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ItemMessageReceiverBinding;
+import com.tt.handsomeman.databinding.ItemMessageSenderBinding;
 import com.tt.handsomeman.response.MessageResponse;
 
 import java.text.ParseException;
@@ -18,9 +19,15 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int SENDER = 1;
+    private static final int RECEIVER = 2;
+
+
     private List<MessageResponse> messageResponseList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private ItemMessageSenderBinding senderBinding;
+    private ItemMessageReceiverBinding receiverBinding;
 
     public MessageAdapter(List<MessageResponse> messageResponseList, Context context) {
         this.messageResponseList = messageResponseList;
@@ -33,11 +40,13 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
-            case 1:
-                view = layoutInflater.inflate(R.layout.item_message_sender, parent, false);
+            case SENDER:
+                senderBinding = ItemMessageSenderBinding.inflate(layoutInflater, parent, false);
+                view = senderBinding.getRoot();
                 return new SenderViewHolder(view);
-            case 2:
-                view = layoutInflater.inflate(R.layout.item_message_receiver, parent, false);
+            case RECEIVER:
+                receiverBinding = ItemMessageReceiverBinding.inflate(layoutInflater, parent, false);
+                view = receiverBinding.getRoot();
                 return new ReceiverViewHolder(view);
             default:
                 throw new IllegalStateException("unsupported item type");
@@ -49,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         MessageResponse messageResponse = messageResponseList.get(position);
 
         switch (holder.getItemViewType()) {
-            case 1:
+            case SENDER:
                 SenderViewHolder senderViewHolder = (SenderViewHolder) holder;
                 try {
                     senderViewHolder.tvSendTime.setText(messageResponse.setSendTimeManipulate(messageResponse.getSendTime()));
@@ -58,7 +67,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 senderViewHolder.tvMessageBody.setText(messageResponse.getBody());
                 break;
-            case 2:
+            case RECEIVER:
                 ReceiverViewHolder receiverViewHolder = (ReceiverViewHolder) holder;
                 try {
                     receiverViewHolder.tvSendTime.setText(messageResponse.setSendTimeManipulate(messageResponse.getSendTime()));
@@ -86,12 +95,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final TextView tvSendTime;
         final TextView tvMessageBody;
 
-        public SenderViewHolder(@NonNull View itemView) {
+        SenderViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgAvatar = itemView.findViewById(R.id.avatarMessage);
-            tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
-            tvMessageBody = itemView.findViewById(R.id.messageBody);
+            imgAvatar = senderBinding.avatarMessage;
+            tvSendTime = senderBinding.sendTimeMessage;
+            tvMessageBody = senderBinding.messageBody;
         }
     }
 
@@ -101,12 +110,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final TextView tvSendTime;
         final TextView tvMessageBody;
 
-        public ReceiverViewHolder(@NonNull View itemView) {
+        ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgAvatar = itemView.findViewById(R.id.avatarMessage);
-            tvSendTime = itemView.findViewById(R.id.sendTimeMessage);
-            tvMessageBody = itemView.findViewById(R.id.messageBody);
+            imgAvatar = receiverBinding.avatarMessage;
+            tvSendTime = receiverBinding.sendTimeMessage;
+            tvMessageBody = receiverBinding.messageBody;
         }
     }
 }

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.ActivityLoginBinding;
 import com.tt.handsomeman.request.UserLogin;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.TokenState;
@@ -44,22 +45,24 @@ public class Login extends AppCompatActivity {
     private ProgressBar pgLogin;
     private boolean mailValidate = false;
     private boolean passwordValidate = false;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        cbVisiblePassword = findViewById(R.id.checkboxLoginVisiblePassword);
-        edtMail = findViewById(R.id.editTextLoginYourMail);
-        edtPassword = findViewById(R.id.editTextLoginPassword);
-        btLogin = findViewById(R.id.buttonLogin);
-        btForgot = findViewById(R.id.buttonForgotPassword);
-        pgLogin = findViewById(R.id.progressBarLogin);
+        cbVisiblePassword = binding.checkboxLoginVisiblePassword;
+        edtMail = binding.editTextLoginYourMail;
+        edtPassword = binding.editTextLoginPassword;
+        btLogin = binding.buttonLogin;
+        btForgot = binding.buttonForgotPassword;
+        pgLogin = binding.progressBarLogin;
 
         HandymanApp.getComponent().inject(this);
 
-        findViewById(R.id.loginBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.loginBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

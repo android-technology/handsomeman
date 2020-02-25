@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
+import com.tt.handsomeman.databinding.ActivityCustomerProfileJobDetailBinding;
 import com.tt.handsomeman.response.JobDetailCustomerReview;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
@@ -39,23 +40,25 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
     private ImageView customerAvatar;
     private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
+    private ActivityCustomerProfileJobDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_profile_job_detail);
+        binding = ActivityCustomerProfileJobDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        customerName = findViewById(R.id.customerNameCustomerProfileJobDetail);
-        customerAllProjectCount = findViewById(R.id.allProjectsCustomerJobDetail);
-        customerSuccessedProject = findViewById(R.id.successedProjectsCustomerJobDetail);
-        countReviews = findViewById(R.id.reviewCountCustomerProfileJobDetail);
-        countPoint = findViewById(R.id.ratingBarCustomerJobDetail);
+        customerName = binding.customerNameCustomerProfileJobDetail;
+        customerAllProjectCount = binding.allProjectsCustomerJobDetail;
+        customerSuccessedProject = binding.successedProjectsCustomerJobDetail;
+        countReviews = binding.reviewCountCustomerProfileJobDetail;
+        countPoint = binding.ratingBarCustomerJobDetail;
 
         HandymanApp.getComponent().inject(this);
 
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        findViewById(R.id.customerProfileJobDetailBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.customerProfileJobDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -91,7 +94,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
     }
 
     private void createCustomerReviewRecycleView() {
-        RecyclerView rcvReview = findViewById(R.id.reviewCustomerRecycleView);
+        RecyclerView rcvReview = binding.reviewCustomerRecycleView;
         customerReviewAdapter = new CustomerReviewAdapter(this, jobDetailCustomerReviews);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvReview.setLayoutManager(layoutManager);

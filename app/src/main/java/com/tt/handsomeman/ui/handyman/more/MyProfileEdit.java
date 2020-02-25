@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SkillEditAdapter;
+import com.tt.handsomeman.databinding.ActivityMyProfileEditBinding;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.request.HandymanEditRequest;
@@ -48,22 +49,24 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     private RecyclerView rcvSkillEdit;
     private List<Skill> skillEditList = new ArrayList<>();
     private boolean isEdit = false;
+    private ActivityMyProfileEditBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile_edit);
+        binding = ActivityMyProfileEditBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
-        yourNameEdit = findViewById(R.id.editTextYourNameMyProfileEdit);
-        educationEdit = findViewById(R.id.editTextEducationMyProfileEdit);
-        aboutEdit = findViewById(R.id.editTextAboutMyProfileEdit);
-        rcvSkillEdit = findViewById(R.id.editMySkillRecyclerView);
-        ibEdit = findViewById(R.id.imageButtonCheckEdit);
-        ibAddSkillMyProfileEdit = findViewById(R.id.imageButtonAddSkillMyProfileEdit);
+        yourNameEdit = binding.editTextYourNameMyProfileEdit;
+        educationEdit = binding.editTextEducationMyProfileEdit;
+        aboutEdit = binding.editTextAboutMyProfileEdit;
+        rcvSkillEdit = binding.editMySkillRecyclerView;
+        ibEdit = binding.imageButtonCheckEdit;
+        ibAddSkillMyProfileEdit = binding.imageButtonAddSkillMyProfileEdit;
 
-        findViewById(R.id.myProfileEditBackButton).setOnClickListener(new View.OnClickListener() {
+        binding.myProfileEditBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
