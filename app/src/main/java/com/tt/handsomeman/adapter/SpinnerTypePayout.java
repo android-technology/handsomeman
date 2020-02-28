@@ -37,11 +37,11 @@ public class SpinnerTypePayout extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView typeName = binding.textViewSpinnerPayout;
-        typeName.setText(type[i]);
+        TextView typeName = binding.textViewSpinnerItemName;
+        typeName.setText(type[position]);
         return view;
     }
 }

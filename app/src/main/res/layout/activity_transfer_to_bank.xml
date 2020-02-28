@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.handyman.jobs.JobFilter">
+    tools:context=".ui.handyman.more.TransferToBank">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,22 +17,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButtonCloseFilter"
+            android:id="@+id/imageButtonTransferBack"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/back_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewCategoryName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/filter"
+            android:text="@string/transfer"
             android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
@@ -40,7 +39,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButtonCheckFilter"
+            android:id="@+id/imageButtonTransfer"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_bg"
@@ -57,118 +56,127 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingBottom="15dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/distance"
-            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/my_balance"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
-        <SeekBar
-            android:id="@+id/seekBarDistance"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@null"
-            android:max="20"
-            android:progress="10"
-            android:progressDrawable="@drawable/seekbar_progress"
-            android:thumb="@drawable/ic_thumb_seekbar" />
+            android:layout_margin="10dp"
+            android:background="@drawable/border_client_profile_layout"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="10 km"
-            android:textColor="@color/text_white_bg"
-            android:textSize="@dimen/design_4sp" />
+            <TextView
+                android:id="@+id/walletBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/design_8sp"
+                android:textStyle="bold"
+                tools:text="$5000" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
             android:background="@color/divider_bg" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/price"
-            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/how_much_want_to_transfer"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
-        <com.jaygoo.widget.RangeSeekBar
-            android:id="@+id/rangeSeekBarPrice"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            app:rsb_gravity="bottom"
-            app:rsb_indicator_background_color="@android:color/transparent"
-            app:rsb_indicator_height="15dp"
-            app:rsb_indicator_margin="5dp"
-            app:rsb_indicator_show_mode="alwaysShow"
-            app:rsb_indicator_text_color="@color/text_white_bg"
-            app:rsb_indicator_text_size="@dimen/design_4sp"
-            app:rsb_max="1100"
-            app:rsb_min="0"
-            app:rsb_min_interval="100"
-            app:rsb_mode="range"
-            app:rsb_progress_color="@color/colorPrimary"
-            app:rsb_progress_default_color="@color/white_three"
-            app:rsb_progress_height="8dp"
-            app:rsb_progress_radius="2dp"
-            app:rsb_step_color="@android:color/transparent"
-            app:rsb_step_height="1dp"
-            app:rsb_step_width="1dp"
-            app:rsb_steps="11"
-            app:rsb_thumb_drawable="@drawable/ic_thumb_seekbar"
-            app:rsb_thumb_height="20dp"
-            app:rsb_thumb_width="4dp" />
+            android:layout_margin="10dp"
+            android:background="@drawable/border_client_profile_layout"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:text="@string/money_currency_sign"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/design_8sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editTextTransferAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:minWidth="7dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/design_8sp"
+                    android:textStyle="bold"
+                    tools:text="1000" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/divider_bg_bid_job" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
             android:background="@color/divider_bg" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/date"
-            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/choose_bank_account"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/design_4_7sp"
             android:textStyle="bold" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_top_edit_text_from_text"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/outline_text_box"
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spinnerCreateTime"
+                android:id="@+id/spinnerBankAccount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/custom_ripple_spinner"
+                android:background="@android:color/transparent"
                 android:foregroundGravity="center_vertical"
                 android:gravity="center_vertical"
                 android:spinnerMode="dropdown"

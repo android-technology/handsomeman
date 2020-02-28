@@ -8,9 +8,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.request.HandymanEditRequest;
+import com.tt.handsomeman.request.HandymanTransferRequest;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.ListCategory;
+import com.tt.handsomeman.response.ListPayoutResponse;
+import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.HandymanService;
 
@@ -24,6 +27,8 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<HandymanReviewProfile> handymanReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanProfileResponse> handymanProfileResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<ListCategory> listCategoryMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ListTransferHistory> listTransferHistoryMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ListPayoutResponse> listPayoutResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
     private HandymanService handymanService;
 
@@ -49,6 +54,14 @@ public class HandymanViewModel extends BaseViewModel {
         return listCategoryMutableLiveData;
     }
 
+    public MutableLiveData<ListPayoutResponse> getListPayoutResponseMutableLiveData() {
+        return listPayoutResponseMutableLiveData;
+    }
+
+    public MutableLiveData<ListTransferHistory> getListTransferHistoryMutableLiveData() {
+        return listTransferHistoryMutableLiveData;
+    }
+
     public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
         return standardResponseMutableLiveData;
     }
@@ -60,7 +73,7 @@ public class HandymanViewModel extends BaseViewModel {
                 .subscribe((dataBracketResponseResponse) -> {
                             handymanMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
                         },
-                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
     public void fetchHandymanReview(String authorization) {
@@ -79,7 +92,7 @@ public class HandymanViewModel extends BaseViewModel {
                 .subscribe((dataBracketResponseResponse) -> {
                             handymanProfileResponseMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
                         },
-                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
     public void editHandymanProfile(String authorization, HandymanEditRequest handymanEditRequest) {
@@ -88,7 +101,7 @@ public class HandymanViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {
                     standardResponseMutableLiveData.setValue(dataBracketResponseResponse.body());
-                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
     public void fetchListCategory(String authorization) {
@@ -98,6 +111,35 @@ public class HandymanViewModel extends BaseViewModel {
                 .subscribe((dataBracketResponseResponse) -> {
                             listCategoryMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
                         },
-                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void viewTransferHistory(String authorization) {
+        compositeDisposable.add(handymanService.viewTransferHistory(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((dataBracketResponseResponse) -> {
+                            listTransferHistoryMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void getListPayoutOfHandyman(String authorization) {
+        compositeDisposable.add(handymanService.getListPayoutOfHandyman(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((dataBracketResponseResponse) -> {
+                            listPayoutResponseMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void transferToBankAccount(String authorization, HandymanTransferRequest handymanTransferRequest) {
+        compositeDisposable.add(handymanService.transferToBank(authorization, handymanTransferRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

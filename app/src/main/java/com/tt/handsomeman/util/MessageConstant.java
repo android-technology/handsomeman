@@ -73,4 +73,8 @@ public class MessageConstant {
     public static final String WITHDRAW_SUCCESSFUL = "Withdraw successful";
     public static final String WITHDRAW_FAIL = "Withdraw fail, the money in wallet not enough";
     public static final String WITHDRAW_FAIL_HANDYMAN_CREDIT_CARD = "Withdraw fail, can't find handyman or credit card";
+    public static final String YOU_DONT_OWN_THIS_PAYOUT = "You don't own this payout";
+    public static final String CANT_WITHDRAW_ZERO = "You can't withdraw zero";
+    public static final String WRONG_CURRENT_PASSWORD = "Please check your current Password";
 }
+

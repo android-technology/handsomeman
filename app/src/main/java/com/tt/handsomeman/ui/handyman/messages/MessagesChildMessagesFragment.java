@@ -22,8 +22,8 @@ import com.tt.handsomeman.databinding.FragmentMessagesChildMessagesBinding;
 import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
-import com.tt.handsomeman.util.DeleteItemDialog;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.YesOrNoDialog;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
             public void onItemDelete(int position) {
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
                 ConversationResponse conversationResponse = conversationResponseList.get(position);
-                new DeleteItemDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.sure_to_delete_message), new DeleteItemDialog.OnItemClickListener() {
+                new YesOrNoDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.sure_to_delete_message), R.drawable.dele, new YesOrNoDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
                         baseViewModel.deleteConversationById(authorizationCode, conversationResponse.getConversationId());

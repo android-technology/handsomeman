@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
-                android:text="$"
+                android:text="@string/money_currency_sign"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/design_8sp"
                 android:textStyle="bold" />
@@ -48,20 +48,11 @@
                 android:background="@android:color/transparent"
                 android:inputType="number"
                 android:maxLength="4"
+                android:minWidth="7dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/design_8sp"
                 android:textStyle="bold"
                 tools:text="1000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@android:color/transparent"
-                android:text=" "
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/design_8sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +111,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/design_4_7sp"
                         android:textStyle="bold"
-                        tools:text="$90 " />
+                        tools:text="$90" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -169,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="end"
-            android:text="$"
+            android:text="@string/money_currency_sign"
             android:textColor="@color/text_white_bg"
             android:textSize="@dimen/design_4_3sp" />
 

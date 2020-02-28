@@ -6,31 +6,40 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.DialogYesOrNoBinding;
 
-public class DeleteItemDialog extends Dialog implements android.view.View.OnClickListener {
+public class YesOrNoDialog extends Dialog implements android.view.View.OnClickListener {
 
     private String dialogDescription;
+    private int imgDescriptionSource;
     private OnItemClickListener mListener;
+    private DialogYesOrNoBinding binding;
 
-    public DeleteItemDialog(Activity activity, int theme, String dialogDescription, OnItemClickListener listener) {
+    public YesOrNoDialog(Activity activity, int theme, String dialogDescription, int imgDescriptionSource, OnItemClickListener listener) {
         super(activity, theme);
         this.dialogDescription = dialogDescription;
+        this.imgDescriptionSource = imgDescriptionSource;
         mListener = listener;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_delete_conversation);
-        TextView tvDescription = findViewById(R.id.textViewDeleteDialogDescription);
-        Button yes = findViewById(R.id.deleteConversationButton);
-        Button no = findViewById(R.id.doNotDeleteConversationButton);
-        ImageButton ibClose = findViewById(R.id.deleteConversationBackButton);
+        binding = DialogYesOrNoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        TextView tvDescription = binding.textViewDeleteDialogDescription;
+        ImageView imgDescription = binding.imageViewDescription;
+        Button yes = binding.deleteConversationButton;
+        Button no = binding.doNotDeleteConversationButton;
+        ImageButton ibClose = binding.deleteConversationBackButton;
 
         tvDescription.setText(dialogDescription);
+        imgDescription.setImageResource(imgDescriptionSource);
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         ibClose.setOnClickListener(this);

@@ -3,7 +3,6 @@ package com.tt.handsomeman.ui.handyman.jobs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -11,7 +10,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -85,35 +83,24 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
-        binding.jobDetailBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        binding.jobDetailBackButton.setOnClickListener(v -> onBackPressed());
 
         Integer jobId = getIntent().getIntExtra("jobId", 0);
         fetchData(jobId);
         showClientProfile();
 
-        btnPlaceABid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
-                intent.putExtra("jobDetail", jobDetail);
-                startActivity(intent);
-            }
+        btnPlaceABid.setOnClickListener(v -> {
+            Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
+            intent.putExtra("jobDetail", jobDetail);
+            startActivity(intent);
         });
     }
 
     private void showClientProfile() {
-        tvShowClientProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
-                intent.putExtra("customerId", baseViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
-                startActivity(intent);
-            }
+        tvShowClientProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
+            intent.putExtra("customerId", baseViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
+            startActivity(intent);
         });
     }
 
@@ -121,103 +108,100 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchJobDetail(authorizationCode, jobId);
 
-        baseViewModel.getJobDetailLiveData().observe(this, new Observer<com.tt.handsomeman.model.JobDetail>() {
-            @Override
-            public void onChanged(com.tt.handsomeman.model.JobDetail jobDetail) {
-                JobDetail.jobDetail = jobDetail;
-                if (jobDetail.getIsBid()) {
-                    imIsWish.setImageResource(R.drawable.ic_hearted);
-                }
-                job = jobDetail.getJob();
-                tvJobTitle.setText(job.getTitle());
-                tvJobId.setText(String.valueOf(job.getId()));
-
-                tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(job.getCreateTime()), job.setCreateTimeBinding(job.getCreateTime())));
-                tvJobDetail.setText(job.getDetail());
-                tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
-                try {
-                    tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setDeadlineBinding(job.getDeadline()), job.setDeadlineBinding(job.getDeadline())));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                tvJobLocation.setText(job.getLocation());
-                tvBidRange.setText(job.setBidRange(job.getBidMin(), job.getBidMax()));
-                tvInterviewing.setText(String.valueOf(job.getInterviewing()));
-
-                if (job.getStatus().equals("A")) {
-                    tvHired.setText("No");
-                } else {
-                    tvHired.setText("Yes");
-                }
-
-                List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
-                tvPaymentMilestoneCount.setText(String.valueOf(listPaymentMilestone.size()));
-                for (int i = 0; i < listPaymentMilestone.size(); i++) {
-                    TableRow tr = new TableRow(JobDetail.this);
-                    tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-
-                    TextView b = new TextView(JobDetail.this);
-                    b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                    b.setTextColor(getResources().getColor(R.color.text_white_bg));
-                    b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
-                    b.setGravity(Gravity.START);
-                    switch ((i + 1) % 10) {
-                        case 1:
-                            b.setText(i + 1 + "st milestone");
-                            break;
-                        case 2:
-                            b.setText(i + 1 + "nd milestone");
-                            break;
-                        case 3:
-                            b.setText(i + 1 + "rd milestone");
-                            break;
-                        default:
-                            b.setText(i + 1 + "th milestone");
-                            break;
-                    }
-
-                    TextView b2 = new TextView(JobDetail.this);
-                    b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
-                    b2.setTextColor(getResources().getColor(R.color.text_white_bg));
-                    b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
-                    b2.setGravity(Gravity.END);
-                    b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
-                    tr.addView(b);
-                    tr.addView(b2);
-
-                    tlMileStone.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-                }
-
-                CustomerJobDetail customerJobDetail = jobDetail.getCustomerJobDetail();
-                tvClientName.setText(customerJobDetail.getCustomerName());
-
-                Integer countReview = jobDetail.getCountReviewers();
-                tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
-
-                Float averageReviewPoint = jobDetail.getAverageReviewPoint();
-                if (averageReviewPoint == null) {
-                    rtReview.setRating(0);
-                } else {
-                    rtReview.setRating(averageReviewPoint);
-                }
-
-                Double lat = job.getLat();
-                Double lng = job.getLng();
-
-                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.map);
-                mapFragment.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(GoogleMap googleMap) {
-                        mMap = googleMap;
-
-                        LatLng jobLocation = new LatLng(lat, lng);
-                        mMap.addMarker(new MarkerOptions().position(jobLocation).title(job.getLocation()));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(jobLocation, 15));
-                        mMap.getUiSettings().setScrollGesturesEnabled(false);
-                    }
-                });
+        baseViewModel.getJobDetailLiveData().observe(this, jobDetail -> {
+            JobDetail.jobDetail = jobDetail;
+            if (jobDetail.getIsBid()) {
+                imIsWish.setImageResource(R.drawable.ic_hearted);
             }
+            job = jobDetail.getJob();
+            tvJobTitle.setText(job.getTitle());
+            tvJobId.setText(String.valueOf(job.getId()));
+
+            tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(job.getCreateTime()), job.setCreateTimeBinding(job.getCreateTime())));
+            tvJobDetail.setText(job.getDetail());
+            tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
+            try {
+                tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setDeadlineBinding(job.getDeadline()), job.setDeadlineBinding(job.getDeadline())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            tvJobLocation.setText(job.getLocation());
+            tvBidRange.setText(job.setBidRange(job.getBidMin(), job.getBidMax()));
+            tvInterviewing.setText(String.valueOf(job.getInterviewing()));
+
+            if (job.getStatus().equals("A")) {
+                tvHired.setText(getString(R.string.no));
+            } else {
+                tvHired.setText(getString(R.string.yes));
+            }
+
+            List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
+            tvPaymentMilestoneCount.setText(String.valueOf(listPaymentMilestone.size()));
+            for (int i = 0; i < listPaymentMilestone.size(); i++) {
+                TableRow tr = new TableRow(JobDetail.this);
+                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+
+                TextView b = new TextView(JobDetail.this);
+                b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                b.setTextColor(getResources().getColor(R.color.text_white_bg));
+                b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
+                b.setGravity(Gravity.START);
+                switch ((i + 1) % 10) {
+                    case 1:
+                        b.setText(i + 1 + "st milestone");
+                        break;
+                    case 2:
+                        b.setText(i + 1 + "nd milestone");
+                        break;
+                    case 3:
+                        b.setText(i + 1 + "rd milestone");
+                        break;
+                    default:
+                        b.setText(i + 1 + "th milestone");
+                        break;
+                }
+
+                TextView b2 = new TextView(JobDetail.this);
+                b2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+                b2.setTextColor(getResources().getColor(R.color.text_white_bg));
+                b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
+                b2.setGravity(Gravity.END);
+                b2.setText(getString(R.string.percentage, listPaymentMilestone.get(i).getPercentage()));
+                tr.addView(b);
+                tr.addView(b2);
+
+                tlMileStone.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            }
+
+            CustomerJobDetail customerJobDetail = jobDetail.getCustomerJobDetail();
+            tvClientName.setText(customerJobDetail.getCustomerName());
+
+            Integer countReview = jobDetail.getCountReviewers();
+            tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
+
+            Float averageReviewPoint = jobDetail.getAverageReviewPoint();
+            if (averageReviewPoint == null) {
+                rtReview.setRating(0);
+            } else {
+                rtReview.setRating(averageReviewPoint);
+            }
+
+            Double lat = job.getLat();
+            Double lng = job.getLng();
+
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    mMap = googleMap;
+
+                    LatLng jobLocation = new LatLng(lat, lng);
+                    mMap.addMarker(new MarkerOptions().position(jobLocation).title(job.getLocation()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(jobLocation, 15));
+                    mMap.getUiSettings().setScrollGesturesEnabled(false);
+                }
+            });
         });
     }
 }

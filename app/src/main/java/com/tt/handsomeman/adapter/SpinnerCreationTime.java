@@ -37,11 +37,11 @@ public class SpinnerCreationTime extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView typeName = binding.textViewSpinnerPayout;
-        typeName.setText(time[i]);
+        TextView typeName = binding.textViewSpinnerItemName;
+        typeName.setText(time[position]);
         return view;
     }
 }

@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemPayoutBinding;
 import com.tt.handsomeman.model.Payout;
 
@@ -22,6 +23,7 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
     private LayoutInflater layoutInflater;
     private Context context;
     private ItemPayoutBinding binding;
+    private OnItemClickListener mListener;
 
     public PayoutAdapter(List<Payout> payoutList, Context context) {
         this.payoutList = payoutList;
@@ -29,33 +31,23 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
         layoutInflater = LayoutInflater.from(context);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     @NonNull
     @Override
     public PayoutAdapter.PayoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         binding = ItemPayoutBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
-        return new PayoutAdapter.PayoutViewHolder(item);
+        return new PayoutAdapter.PayoutViewHolder(item, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PayoutAdapter.PayoutViewHolder holder, int position) {
         Payout payout = payoutList.get(position);
-        holder.tvPayoutLastNumbers.setText(payout.getAccountNumber().substring(payout.getAccountNumber().length() - 4));
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, payout.getAccountNumber(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.btnPayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, payout.getAccountNumber(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        String lastPayoutNumber = payout.getAccountNumber().substring(payout.getAccountNumber().length() - 4);
+        holder.tvPayoutLastNumbers.setText(HandymanApp.getInstance().getString(R.string.account_ends_with, lastPayoutNumber));
     }
 
     @Override
@@ -63,14 +55,42 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
         return payoutList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     class PayoutViewHolder extends RecyclerView.ViewHolder {
         final ImageButton btnPayout;
         final TextView tvPayoutLastNumbers;
 
-        PayoutViewHolder(@NonNull View itemView) {
+        PayoutViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             btnPayout = binding.imageButtonItemPayout;
             tvPayoutLastNumbers = binding.payoutLastNumbers;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            btnPayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

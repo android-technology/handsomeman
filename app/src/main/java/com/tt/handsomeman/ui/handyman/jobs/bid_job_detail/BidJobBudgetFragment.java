@@ -16,8 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentBidJobDetailBudgetBinding;
-
-import java.text.DecimalFormat;
+import com.tt.handsomeman.util.DecimalFormat;
 
 public class BidJobBudgetFragment extends Fragment {
 
@@ -69,11 +68,10 @@ public class BidJobBudgetFragment extends Fragment {
         ibCheckButtonBudget = bidJobDetail.activityBidJobDetailBinding.imageButtonCheckBudgetBidJobDetail;
 
         edtMyBid.setText(String.valueOf(myBid));
-        tvBudgetReceive.setText("$" + String.format("%d", (long) this.budgetReceive) + " ");
-        tvServiceFee.setText(String.format("%d", (long) this.serviceFee));
+        tvBudgetReceive.setText(getString(R.string.money_currency_string, DecimalFormat.format(this.budgetReceive)));
+        tvServiceFee.setText(DecimalFormat.format(this.serviceFee));
         tvHighestBid.setText(String.valueOf(highestBid));
         tvLowestBid.setText(String.valueOf(lowestBid));
-
         edtMyBid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,7 +85,6 @@ public class BidJobBudgetFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                DecimalFormat df = new DecimalFormat("#.00");
                 if (!edtMyBid.getText().toString().trim().equals("")) {
                     myBidValue = Integer.parseInt(edtMyBid.getText().toString().trim());
                     if (myBidValue > highestBid) {
@@ -97,24 +94,21 @@ public class BidJobBudgetFragment extends Fragment {
                         ibCheckButtonBudget.setEnabled(false);
                         edtMyBid.setError(getResources().getString(R.string.higher_price_warning));
                     } else {
-                        tvBudgetReceive.setText("$" + df.format(myBidValue * 0.9) + " ");
-                        tvServiceFee.setText(df.format(myBidValue * 0.1));
+                        tvBudgetReceive.setText(getString(R.string.money_currency_string, DecimalFormat.format(myBidValue * 0.9)));
+                        tvServiceFee.setText(DecimalFormat.format(myBidValue * 0.1));
                         ibCheckButtonBudget.setEnabled(true);
                     }
                 } else {
                     ibCheckButtonBudget.setEnabled(false);
-                    edtMyBid.setError(getResources().getString(R.string.please_enter));
+                    edtMyBid.setError(getResources().getString(R.string.please_input));
                 }
             }
         });
 
-        ibCheckButtonBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BidJobLetterReviewFragment.setTextViewMyBidValue(edtMyBid.getText().toString().trim(), Double.parseDouble(tvServiceFee.getText().toString()));
-                if (BidJobDetail.mPager.getCurrentItem() < BidJobDetail.NUM_PAGES - 1) {
-                    BidJobDetail.mPager.setCurrentItem(BidJobDetail.mPager.getCurrentItem() + 1);
-                }
+        ibCheckButtonBudget.setOnClickListener(v -> {
+            BidJobLetterReviewFragment.setTextViewMyBidValue(edtMyBid.getText().toString().trim(), Double.parseDouble(tvServiceFee.getText().toString()));
+            if (BidJobDetail.mPager.getCurrentItem() < BidJobDetail.NUM_PAGES - 1) {
+                BidJobDetail.mPager.setCurrentItem(BidJobDetail.mPager.getCurrentItem() + 1);
             }
         });
 

@@ -92,23 +92,13 @@
             android:textSize="@dimen/design_4_7sp" />
 
         <ImageButton
-            android:id="@+id/imageEmojiConversation"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_ripple_transparent_color_bg"
-            android:scaleType="fitCenter"
-            android:src="@drawable/smile" />
-
-        <ImageButton
             android:id="@+id/imageButtonSendMessage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
+            android:layout_marginStart="13dp"
             android:background="@drawable/custom_ripple_transparent_color_bg"
             android:scaleType="fitCenter"
-            android:src="@drawable/plus" />
+            android:src="@drawable/send_button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

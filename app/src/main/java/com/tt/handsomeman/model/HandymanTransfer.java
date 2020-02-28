@@ -6,7 +6,7 @@ public class HandymanTransfer {
     private int id;
     private Handyman handyman;
     private int payoutId;
-    private int balance;
+    private double balance;
     private Date dateTransfer;
 
     public int getId() {
@@ -33,11 +33,11 @@ public class HandymanTransfer {
         this.payoutId = payoutId;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

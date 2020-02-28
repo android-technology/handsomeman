@@ -55,7 +55,7 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
 
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchAllContactOfAccount(authorizationCode);
-        baseViewModel.getContactListMutableLiveData().observe(this, new Observer<List<Contact>>() {
+        baseViewModel.getContactListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 contactList.clear();

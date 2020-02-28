@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.handyman.jobs.YourLocation">
+    tools:context=".ui.handyman.more.TransferHistory">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,22 +17,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/filterResultBackButton"
+            android:id="@+id/viewTransferHistoryBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_bg"
-            android:padding="@dimen/design_5_3sp"
+            android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/filter"
+            android:text="@string/transfer_history"
             android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
@@ -41,31 +40,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTransferHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical">
-
-        <ProgressBar
-            android:id="@+id/progressBarFilterResult"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/white"
-            android:indeterminateDrawable="@drawable/custom_progressbar"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewFilterResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:overScrollMode="never"
-            android:paddingBottom="15dp"
-            tools:listitem="@layout/item_job_filter" />
-    </LinearLayout>
-
-
+        android:overScrollMode="never"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_transfer_history" />
 </LinearLayout>

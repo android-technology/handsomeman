@@ -38,11 +38,11 @@ public class SpinnerCountryPayout extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView countryName = binding.textViewSpinnerPayout;
-        countryName.setText(country[i]);
+        TextView countryName = binding.textViewSpinnerItemName;
+        countryName.setText(country[position]);
         return view;
     }
 }

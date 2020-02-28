@@ -1,9 +1,11 @@
 package com.tt.handsomeman.model;
 
+import com.tt.handsomeman.util.DecimalFormat;
+
 public class Wallet {
     private int id;
     private Handyman handyman;
-    private int balance;
+    private double balance;
 
     public int getId() {
         return id;
@@ -21,11 +23,11 @@ public class Wallet {
         this.handyman = handyman;
     }
 
-    public int getBalance() {
-        return balance;
+    public String getBalance() {
+        return DecimalFormat.format(balance);
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

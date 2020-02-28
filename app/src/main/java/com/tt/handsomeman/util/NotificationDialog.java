@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.DialogNotificationBinding;
 
 public class NotificationDialog extends Dialog implements View.OnClickListener {
 
     private String dialogDescription;
     private OnItemClickListener mListener;
+    private DialogNotificationBinding binding;
 
     public NotificationDialog(Activity activity, int theme, String dialogDescription, OnItemClickListener listener) {
         super(activity, theme);
@@ -23,9 +25,11 @@ public class NotificationDialog extends Dialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_notification);
-        TextView tvDescription = findViewById(R.id.textViewNotificationDialogDescription);
-        Button ok = findViewById(R.id.okDialogButton);
+        binding = DialogNotificationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        TextView tvDescription = binding.textViewNotificationDialogDescription;
+        Button ok = binding.okDialogButton;
 
         tvDescription.setText(dialogDescription);
         ok.setOnClickListener(this);

@@ -2,9 +2,12 @@ package com.tt.handsomeman.ui.handyman.more;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,9 +29,9 @@ import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
-import com.tt.handsomeman.util.DeleteItemDialog;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
+import com.tt.handsomeman.util.YesOrNoDialog;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private TextView yourNameEdit, educationEdit, aboutEdit;
+    private EditText yourNameEdit, educationEdit, aboutEdit;
     private ImageButton ibEdit, ibAddSkillMyProfileEdit;
     private SkillEditAdapter skillEditAdapter;
     private RecyclerView rcvSkillEdit;
@@ -80,17 +83,44 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
             }
         });
 
+        editTextYourNameListener(yourNameEdit);
         createRecyclerView();
         fetchHandymanProfile();
         doEdit();
     }
+
+    private void editTextYourNameListener(EditText yourNameEdit) {
+        yourNameEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String yourName = yourNameEdit.getText().toString().trim();
+                if (TextUtils.isEmpty(yourName) || yourName.length() <= 4) {
+                    yourNameEdit.setError(getString(R.string.not_valid_name));
+                    ibEdit.setEnabled(false);
+                } else {
+                    ibEdit.setEnabled(true);
+                }
+            }
+        });
+    }
+
 
     private void createRecyclerView() {
         skillEditAdapter = new SkillEditAdapter(skillEditList, this);
         skillEditAdapter.setOnItemClickListener(new SkillEditAdapter.OnItemClickListener() {
             @Override
             public void deleteSkill(int position) {
-                new DeleteItemDialog(MyProfileEdit.this, R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.sure_to_delete_skill), new DeleteItemDialog.OnItemClickListener() {
+                new YesOrNoDialog(MyProfileEdit.this, R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.sure_to_delete_skill), R.drawable.dele, new YesOrNoDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
                         skillEditList.remove(position);

@@ -1,6 +1,7 @@
 package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.request.AddNewPayoutRequest;
+import com.tt.handsomeman.request.ChangePasswordRequest;
 import com.tt.handsomeman.request.UserActivatingAccount;
 import com.tt.handsomeman.request.UserLogin;
 import com.tt.handsomeman.request.UserRegistration;
@@ -37,4 +38,7 @@ public interface UserService {
 
     @POST(Constants.USER_REMOVE_PAYOUT)
     Single<Response<StandardResponse>> removePayout(@Header("Authorization") String token, @Path("payoutId") Integer payoutId);
+
+    @POST(Constants.CHANGE_PASSWORD)
+    Single<Response<StandardResponse>> changePassword(@Header("Authorization") String token, @Body ChangePasswordRequest changePasswordRequest);
 }

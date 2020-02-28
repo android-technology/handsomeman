@@ -107,8 +107,8 @@ public class Login extends AppCompatActivity {
             public void onClick(final View view) {
                 pgLogin.setVisibility(View.VISIBLE);
                 btLogin.setEnabled(false);
-                String mail = edtMail.getText().toString();
-                String password = edtPassword.getText().toString();
+                String mail = edtMail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
 
                 userService.doLogin(new UserLogin(mail, password)).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override

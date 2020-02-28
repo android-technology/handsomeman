@@ -138,6 +138,7 @@
                         android:background="@color/white" />
 
                     <TextView
+                        android:id="@+id/transferToBank"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_ripple_gray_color_bg"
@@ -154,6 +155,7 @@
                         android:background="@color/white" />
 
                     <TextView
+                        android:id="@+id/viewTransferHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_ripple_transparent_color_radius_bg"
@@ -331,6 +333,7 @@
                 android:background="@color/divider_bg" />
 
             <TextView
+                android:id="@+id/textViewChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_ripple_transparent_color_bg"

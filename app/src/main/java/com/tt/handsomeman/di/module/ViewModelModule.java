@@ -7,6 +7,7 @@ import com.tt.handsomeman.di.annotation.ViewModelKey;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
+import com.tt.handsomeman.viewmodel.UserViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -33,5 +34,9 @@ public abstract class ViewModelModule {
     @ViewModelKey(HandymanViewModel.class)
     abstract ViewModel bindMoreViewModel(HandymanViewModel handymanViewModel);
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserViewModel.class)
+    abstract ViewModel bindUserViewModel(UserViewModel userViewModel);
     //bind new ViewModel here
 }

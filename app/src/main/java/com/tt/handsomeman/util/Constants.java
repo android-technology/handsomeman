@@ -8,6 +8,7 @@ public class Constants {
     public static final String LOGIN_SUFFIX = "api/user/login";
     public static final String SIGN_UP_SUFFIX = "api/user/registration";
     public static final String SIGN_UP_ADD_PAYOUT_SUFFIX = "api/user/active-account";
+    public static final String CHANGE_PASSWORD = "api/user/changePassword";
 
     // Both handyman and customer can have payout
     public static final String USER_ADD_PAYOUT = "api/user/payout/add";
@@ -35,6 +36,9 @@ public class Constants {
     public static final String GET_HANDYMAN_PROFILE = "api/handyman/profile";
     public static final String GET_HANDYMAN_PROFILE_EDIT = "api/handyman/profile/edit";
     public static final String GET_LIST_CATEGORY = "api/handyman/categories";
+    public static final String VIEW_TRANSFER_HISTORY = "api/handyman/viewTransferHistory";
+    public static final String GET_LIST_PAYOUT = "api/handyman/listPayout";
+    public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

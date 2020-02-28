@@ -26,10 +26,14 @@ import com.tt.handsomeman.ui.handyman.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildMessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.AddNewPayout;
 import com.tt.handsomeman.ui.handyman.more.AddNewSkill;
+import com.tt.handsomeman.ui.handyman.more.ChangePassword;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileAboutFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
+import com.tt.handsomeman.ui.handyman.more.TransferHistory;
+import com.tt.handsomeman.ui.handyman.more.TransferToBank;
+import com.tt.handsomeman.ui.handyman.more.ViewPayout;
 
 import javax.inject.Singleton;
 
@@ -91,4 +95,12 @@ public interface AppComponent {
     void inject(AddNewSkill addNewSkill);
 
     void inject(AddNewPayout addNewPayout);
+
+    void inject(ViewPayout viewPayout);
+
+    void inject(TransferHistory transferHistory);
+
+    void inject(TransferToBank transferToBank);
+
+    void inject(ChangePassword changePassword);
 }

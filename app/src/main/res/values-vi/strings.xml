@@ -82,7 +82,7 @@
     <string name="reviews_from_other_handymen">Đánh giá từ các handymen khác</string>
     <string name="i_will_receive">Tôi sẽ nhận</string>
     <string name="this_is_what_client_see">Đây là cái mà khách hàng sẽ thấy</string>
-    <string name="per_project">/ mỗi dự án</string>
+    <string name="per_project">" / mỗi dự án"</string>
     <string name="my_bid">Đặt cược của tôi</string>
     <string name="handy_service_fee">Phí dịch vụ (10%)</string>
     <string name="highest_bid_for_now_on_this_project">Đặt cược cao nhất đang có ở dự án này</string>
@@ -97,7 +97,7 @@
     <string name="introduce_error">Hãy giới thiệu bản thân với khách hàng</string>
     <string name="lower_price_waring">Hãy đặt cọc giá cao hơn</string>
     <string name="higher_price_warning">Hãy đặt cọc giá thấp hơn</string>
-    <string name="please_enter">Hãy nhập một cái gì đó</string>
+    <string name="please_input">Hãy nhập một cái gì đó</string>
     <string name="contacts">Liên hệ</string>
     <string name="type_something">Hãy viết gì đó…</string>
     <string name="yesterday">Hôm qua</string>
@@ -119,7 +119,7 @@
     <string name="privacy_policy">Chính sách riêng tư</string>
     <string name="other">Khác</string>
     <string name="payout">Thanh toán</string>
-    <string name="account_ends_with">"Tài khoản với số "</string>
+    <string name="account_ends_with">Tài khoản với số %1$s</string>
     <string name="reviews">Đánh giá</string>
     <string name="my_skills">Kỹ năng của tôi</string>
     <string name="my_profile">Hồ sơ của tôi</string>
@@ -135,7 +135,25 @@
     <string name="sure_to_delete_skill">Bạn có chắc muốn xóa kỹ năng này không?</string>
     <string name="please_write_something">Làm ơn hãy viết gì đó</string>
     <string name="add_new_payout">Thêm tài khoản thanh toán</string>
-    <string name="add_new_payout_successful">Bạn vừa mới thêm tài khoản thanh toán mới\n\'tài khoản kết thúc với %1$s\'</string>
+    <string name="add_new_payout_successful">Bạn vừa mới thêm tài khoản thanh toán mới \'tài khoản kết thúc với %1$s\'</string>
+    <string name="pre_secret_number">"**** **** **** "</string>
+    <string name="sure_to_delete_payout">Bạn có chắc muốn xóa tài khoản thanh noàn này \'tài khoản kết thúc với %1$s\'?</string>
+    <string name="money_currency">$%1$f</string>
+    <string name="percentage">%1$d%%</string>
+    <string name="money_currency_sign">$</string>
+    <string name="money_currency_string">$%1$s</string>
+    <string name="transfer_history">Lịch sử giao dịch</string>
+    <string name="transfer">Giao dịch</string>
+    <string name="how_much_want_to_transfer">Số tiền Tôi muốn chuyển</string>
+    <string name="choose_bank_account">Chọn tài khoản ngân hàng của bạn</string>
+    <string name="want_to_log_out">Bạn có muốn đăng xuất?</string>
+    <string name="over_balance">Làm ơn nhập số ít hơn số dư</string>
+    <string name="balance_is_empty">Số dư của bạn là 0, bạn không thể rút</string>
+    <string name="cant_withdraw_zero">Làm ơn nhập số dương</string>
+    <string name="current_password">Mật khẩu hiện tại</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="veriry_new_password">Nhập lại mật khẩu mới</string>
+    <string name="new_password_not_different">Mật khẩu mới giống mật khẩu hiện tại của bạn</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>

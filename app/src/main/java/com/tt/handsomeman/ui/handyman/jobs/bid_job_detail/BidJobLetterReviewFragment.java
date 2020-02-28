@@ -97,7 +97,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         Button btnSubmit = bidJobDetail.activityBidJobDetailBinding.submitBidJobDetail;
 
         tvJobTitle.setText(jobTitle);
-        tvMyBudget.setText("$" + myBidValue);
+        tvMyBudget.setText(getString(R.string.money_currency_string, myBidValue));
         tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
         List<PaymentMilestone> listPaymentMilestone = BidJobDetail.jobDetail.getListPaymentMilestone();
@@ -131,7 +131,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
             b2.setTextColor(getResources().getColor(R.color.text_white_bg));
             b2.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), view.getContext()));
             b2.setGravity(Gravity.END);
-            b2.setText(listPaymentMilestone.get(i).getPercentage() + "%");
+            b2.setText(getString(R.string.percentage, listPaymentMilestone.get(i).getPercentage()));
 
             tr.addView(b);
             tr.addView(b2);

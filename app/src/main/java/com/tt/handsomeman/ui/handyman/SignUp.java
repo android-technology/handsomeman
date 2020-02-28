@@ -86,10 +86,10 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 pgSignUp.setVisibility(View.VISIBLE);
                 btnSignUp.setEnabled(false);
-                String name = edtName.getText().toString();
-                String mail = edtMail.getText().toString();
-                String password = edtPassword.getText().toString();
-                String rePassword = edtRePassword.getText().toString();
+                String name = edtName.getText().toString().trim();
+                String mail = edtMail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+                String rePassword = edtRePassword.getText().toString().trim();
 
                 userService.doSignUp(type, new UserRegistration(name, mail, password, rePassword)).enqueue(new Callback<StandardResponse>() {
                     @Override
@@ -157,8 +157,8 @@ public class SignUp extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                signUpViewModel.signUpDateChanged(edtName.getText().toString(), edtMail.getText().toString(),
-                        edtPassword.getText().toString(), edtRePassword.getText().toString());
+                signUpViewModel.signUpDateChanged(edtName.getText().toString().trim(), edtMail.getText().toString().trim(),
+                        edtPassword.getText().toString().trim(), edtRePassword.getText().toString().trim());
             }
         };
 
