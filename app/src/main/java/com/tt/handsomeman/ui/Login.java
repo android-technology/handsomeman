@@ -137,12 +137,20 @@ public class Login extends AppCompatActivity {
                                             Register.register.finish();
                                             Register.register = null;
                                         }
+                                        if (Start.start != null) {
+                                            Start.start.finish();
+                                            Start.start = null;
+                                        }
                                         finish();
                                     } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
                                         startActivity(new Intent(Login.this, HandyManMainScreen.class));
                                         if (Register.register != null) {
                                             Register.register.finish();
                                             Register.register = null;
+                                        }
+                                        if (Start.start != null) {
+                                            Start.start.finish();
+                                            Start.start = null;
                                         }
                                         finish();
                                     }
@@ -153,6 +161,10 @@ public class Login extends AppCompatActivity {
                                         if (Register.register != null) {
                                             Register.register.finish();
                                             Register.register = null;
+                                        }
+                                        if (Start.start != null) {
+                                            Start.start.finish();
+                                            Start.start = null;
                                         }
                                         finish();
                                     }

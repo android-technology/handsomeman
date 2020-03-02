@@ -155,6 +155,8 @@
     <string name="veriry_new_password">Nhập lại mật khẩu mới</string>
     <string name="new_password_not_different">Mật khẩu mới giống mật khẩu hiện tại của bạn</string>
     <string name="handyman">Handyman</string>
+    <string name="handyman_role">Bạn là Handyman</string>
+    <string name="customer_role">Bạn là Khách hàng</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>

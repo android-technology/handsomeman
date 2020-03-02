@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityRegisterBinding;
 import com.tt.handsomeman.ui.customer.CustomerMainScreen;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
@@ -34,22 +36,27 @@ public class Register extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
-
         register = this;
+
+        TextView tvRole = binding.textViewRole;
 
         Integer state = sharedPreferencesUtils.get("state", Integer.class);
         String type = sharedPreferencesUtils.get("type", String.class);
 
         switch (RoleName.valueOf(type)) {
             case ROLE_HANDYMAN:
+                tvRole.setText(getString(R.string.handyman_role));
                 if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
                     startActivity(new Intent(Register.this, SignUpAddPayout.class));
+                    register = null;
                     finish();
                 }
                 break;
             case ROLE_CUSTOMER:
+                tvRole.setText(getString(R.string.customer_role));
                 if (state.equals(Constants.NOT_ACTIVE_ACCOUNT) || state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
                     startActivity(new Intent(Register.this, CustomerMainScreen.class));
+                    register = null;
                     finish();
                 }
                 break;

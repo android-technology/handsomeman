@@ -1,9 +1,10 @@
 package com.tt.handsomeman.ui;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityStartBinding;
-import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
@@ -19,9 +19,10 @@ import javax.inject.Inject;
 
 public class Start extends AppCompatActivity implements View.OnClickListener {
 
+    @SuppressLint("StaticFieldLeak")
+    public static Activity start;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-
     private ActivityStartBinding binding;
 
     @Override
@@ -29,15 +30,8 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        start = this;
         HandymanApp.getComponent().inject(this);
-
-        String type = sharedPreferencesUtils.get("type", String.class);
-
-        if (!type.isEmpty()) {
-            startActivity(new Intent(Start.this, Register.class));
-            finish();
-        }
 
         binding.continueHandyman.setOnClickListener(this);
         binding.continueCustomer.setOnClickListener(this);
@@ -49,13 +43,11 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
             case R.id.continue_handyman:
                 sharedPreferencesUtils.put("type", RoleName.ROLE_HANDYMAN.name());
                 startActivity(new Intent(Start.this, Register.class));
-                finish();
                 break;
 
             case R.id.continue_customer:
                 sharedPreferencesUtils.put("type", RoleName.ROLE_CUSTOMER.name());
                 startActivity(new Intent(Start.this, Register.class));
-                finish();
                 break;
         }
     }
