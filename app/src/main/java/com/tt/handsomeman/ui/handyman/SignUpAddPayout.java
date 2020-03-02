@@ -307,10 +307,4 @@ public class SignUpAddPayout extends AppCompatActivity {
         edtBirthday.setText(sdf.format(myCalendar.getTime()));
         edtBirthday.setError(null);
     }
-
-    @Override
-    protected void onDestroy() {
-        Register.register = null;
-        super.onDestroy();
-    }
 }

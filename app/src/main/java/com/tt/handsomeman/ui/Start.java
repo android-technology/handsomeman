@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityStartBinding;
+import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
@@ -45,14 +47,15 @@ public class Start extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.continue_handyman:
-                sharedPreferencesUtils.put("type", "handyman");
+                sharedPreferencesUtils.put("type", RoleName.ROLE_HANDYMAN.name());
                 startActivity(new Intent(Start.this, Register.class));
                 finish();
                 break;
 
             case R.id.continue_customer:
-                sharedPreferencesUtils.put("type", "customer");
-                Toast.makeText(Start.this, "Customer", Toast.LENGTH_LONG).show();
+                sharedPreferencesUtils.put("type", RoleName.ROLE_CUSTOMER.name());
+                startActivity(new Intent(Start.this, Register.class));
+                finish();
                 break;
         }
     }

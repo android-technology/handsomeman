@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,12 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityOnBoardingSlidePagerBinding;
+import com.tt.handsomeman.ui.customer.CustomerMainScreen;
+import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
+import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomViewPager;
+import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
@@ -57,15 +61,34 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         HandymanApp.getComponent().inject(this);
 
         Integer state = sharedPreferencesUtils.get("state", Integer.class);
+        String type = sharedPreferencesUtils.get("type", String.class);
 
         skip = binding.skipOnBoarding;
 
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-                    startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
-                    finish();
+                if (!type.equals("")) {
+                    switch (RoleName.valueOf(type)) {
+                        case ROLE_HANDYMAN:
+                            if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                                startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
+                                finish();
+                            }
+                            break;
+                        case ROLE_CUSTOMER:
+                            if (state.equals(Constants.NOT_ACTIVE_ACCOUNT) || state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                                startActivity(new Intent(OnBoardingSlidePagerActivity.this, CustomerMainScreen.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
+                                finish();
+                            }
+                            break;
+                    }
                 } else {
                     startActivity(new Intent(OnBoardingSlidePagerActivity.this, Start.class));
                     finish();
@@ -73,12 +96,24 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
             }
         });
 
-        if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-            startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
-            finish();
-        } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
-            startActivity(new Intent(OnBoardingSlidePagerActivity.this, HandyManMainScreen.class));
-            finish();
+        if (!type.equals("")) {
+            switch (RoleName.valueOf(type)) {
+                case ROLE_HANDYMAN:
+                    if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                        startActivity(new Intent(OnBoardingSlidePagerActivity.this, SignUpAddPayout.class));
+                        finish();
+                    } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                        startActivity(new Intent(OnBoardingSlidePagerActivity.this, HandyManMainScreen.class));
+                        finish();
+                    }
+                    break;
+                case ROLE_CUSTOMER:
+                    if (state.equals(Constants.NOT_ACTIVE_ACCOUNT) || state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                        startActivity(new Intent(OnBoardingSlidePagerActivity.this, CustomerMainScreen.class));
+                        finish();
+                    }
+                    break;
+            }
         }
 
         // Instantiate a ViewPager and a PagerAdapter.

@@ -458,7 +458,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="27dp"
@@ -469,15 +469,32 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageButton
+                            android:id="@+id/imageButtonSendMessage"
+                            android:layout_width="50dp"
+                            android:layout_height="36dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/custom_ripple_transparent_color_bg"
+                            android:padding="7dp"
+                            android:visibility="invisible"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_mail"
+                            android:tint="@color/colorPrimary"
+                            app:layout_constraintBottom_toTopOf="@+id/viewDivider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/clientNameJobDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_marginTop="30dp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/design_3sp"
                             android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             tools:text="Keira Knightley" />
 
                         <RatingBar
@@ -485,35 +502,35 @@
                             style="@style/CustomHeartsRatingBar_16dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:isIndicator="true"
                             android:numStars="5"
-                            android:stepSize="1" />
+                            android:stepSize="1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clientNameJobDetail" />
 
-                        <LinearLayout
+
+                        <TextView
+                            android:id="@+id/reviewCountJobDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal"
-                            android:paddingTop="1dp">
-
-                            <TextView
-                                android:id="@+id/reviewCountJobDetail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/design_3sp"
-                                tools:text="(3 Reviews)" />
-
-                        </LinearLayout>
-
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/design_3sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingBarJobDetail"
+                            tools:text="(3 Reviews)" />
 
                         <View
+                            android:id="@+id/viewDivider"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/white" />
+                            android:layout_marginTop="5dp"
+                            android:background="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reviewCountJobDetail" />
 
                         <TextView
                             android:id="@+id/showClientProfileJobDetail"
@@ -525,8 +542,11 @@
                             android:paddingBottom="5dp"
                             android:text="@string/show_client_profile"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/design_4sp" />
-                    </LinearLayout>
+                            android:textSize="@dimen/design_4sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

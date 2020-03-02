@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 
 public interface UserService {
     @POST(Constants.LOGIN_SUFFIX)
-    Call<DataBracketResponse<TokenState>> doLogin(@Body UserLogin user);
+    Call<DataBracketResponse<TokenState>> doLogin(@Body UserLogin user, @Query("type") String type);
 
     @POST(Constants.SIGN_UP_SUFFIX)
     Call<StandardResponse> doSignUp(@Query("type") String type, @Body UserRegistration userRegistration);

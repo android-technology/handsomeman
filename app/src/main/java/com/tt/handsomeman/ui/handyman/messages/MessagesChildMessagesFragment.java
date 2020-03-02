@@ -121,8 +121,9 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     private void fetchData() {
 
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        String type = sharedPreferencesUtils.get("type", String.class);
 
-        baseViewModel.fetchAllConversationByAccountId(authorizationCode);
+        baseViewModel.fetchAllConversationByAccountId(authorizationCode, type);
         baseViewModel.getConversationResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
             @Override
             public void onChanged(List<ConversationResponse> conversationResponses) {

@@ -40,6 +40,8 @@ public class Constants {
     public static final String GET_LIST_PAYOUT = "api/handyman/listPayout";
     public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
 
+//    public static final String HANDYMAN = "handyman";
+//    public static final String CUSTOMER = "customer";
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;
 

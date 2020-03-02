@@ -59,8 +59,8 @@ public class MessageViewModel extends BaseViewModel {
         return messageResponse;
     }
 
-    public void fetchAllConversationByAccountId(String authorization) {
-        compositeDisposable.add(messageService.getAllConversationByAccountId(authorization)
+    public void fetchAllConversationByAccountId(String authorization, String type) {
+        compositeDisposable.add(messageService.getAllConversationByAccountId(authorization, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -105,8 +105,8 @@ public class MessageViewModel extends BaseViewModel {
                 ));
     }
 
-    public void fetchAllContactOfAccount(String authorization) {
-        compositeDisposable.add(messageService.getContactOfAccount(authorization)
+    public void fetchAllContactOfAccount(String authorization, String type) {
+        compositeDisposable.add(messageService.getContactOfAccount(authorization, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

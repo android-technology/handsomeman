@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,11 @@ import com.tt.handsomeman.request.UserLogin;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.TokenState;
 import com.tt.handsomeman.service.UserService;
+import com.tt.handsomeman.ui.customer.CustomerMainScreen;
+import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
+import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
@@ -107,10 +111,11 @@ public class Login extends AppCompatActivity {
             public void onClick(final View view) {
                 pgLogin.setVisibility(View.VISIBLE);
                 btLogin.setEnabled(false);
+                String type = sharedPreferencesUtils.get("type", String.class);
                 String mail = edtMail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
 
-                userService.doLogin(new UserLogin(mail, password)).enqueue(new Callback<DataBracketResponse<TokenState>>() {
+                userService.doLogin(new UserLogin(mail, password), type).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override
                     public void onResponse(Call<DataBracketResponse<TokenState>> call, Response<DataBracketResponse<TokenState>> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
@@ -124,18 +129,34 @@ public class Login extends AppCompatActivity {
                             sharedPreferencesUtils.put("state", state);
                             sharedPreferencesUtils.put("userId", userId);
 
-                            if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-                                startActivity(new Intent(Login.this, SignUpAddPayout.class));
-                                if (Register.register != null) {
-                                    Register.register.finish();
-                                }
-                                finish();
-                            } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
-                                startActivity(new Intent(Login.this, HandyManMainScreen.class));
-                                if (Register.register != null) {
-                                    Register.register.finish();
-                                }
-                                finish();
+                            switch (RoleName.valueOf(type)) {
+                                case ROLE_HANDYMAN:
+                                    if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                                        startActivity(new Intent(Login.this, SignUpAddPayout.class));
+                                        if (Register.register != null) {
+                                            Register.register.finish();
+                                            Register.register = null;
+                                        }
+                                        finish();
+                                    } else if (state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                                        startActivity(new Intent(Login.this, HandyManMainScreen.class));
+                                        if (Register.register != null) {
+                                            Register.register.finish();
+                                            Register.register = null;
+                                        }
+                                        finish();
+                                    }
+                                    break;
+                                case ROLE_CUSTOMER:
+                                    if (state.equals(Constants.NOT_ACTIVE_ACCOUNT) || state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                                        startActivity(new Intent(Login.this, CustomerMainScreen.class));
+                                        if (Register.register != null) {
+                                            Register.register.finish();
+                                            Register.register = null;
+                                        }
+                                        finish();
+                                    }
+                                    break;
                             }
                         } else {
                             pgLogin.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -54,7 +54,9 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
         createContactRecyclerView(view);
 
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        baseViewModel.fetchAllContactOfAccount(authorizationCode);
+        String type = sharedPreferencesUtils.get("type", String.class);
+
+        baseViewModel.fetchAllContactOfAccount(authorizationCode, type);
         baseViewModel.getContactListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {

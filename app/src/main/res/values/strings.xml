@@ -388,7 +388,6 @@
     <string name="my_skills">My skills</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="review_from_customers">Reviews from customers</string>
     <string name="edit">Edit</string>
     <string name="add_new_skill">Add new skill</string>
@@ -418,6 +417,7 @@
     <string name="new_password">New password</string>
     <string name="veriry_new_password">Verify new password</string>
     <string name="new_password_not_different">New Password is same as your Current Password</string>
+    <string name="handyman">Handyman</string>
 
     <plurals name="numberOfReview">
         <item quantity="one">(%d Review)</item>
@@ -431,4 +431,7 @@
         <item quantity="one">%d day left</item>
         <item quantity="other">%d days left</item>
     </plurals>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.databinding.ActivityRegisterBinding;
+import com.tt.handsomeman.ui.customer.CustomerMainScreen;
+import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
@@ -35,10 +38,21 @@ public class Register extends AppCompatActivity {
         register = this;
 
         Integer state = sharedPreferencesUtils.get("state", Integer.class);
+        String type = sharedPreferencesUtils.get("type", String.class);
 
-        if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
-            startActivity(new Intent(Register.this, SignUpAddPayout.class));
-            finish();
+        switch (RoleName.valueOf(type)) {
+            case ROLE_HANDYMAN:
+                if (state.equals(Constants.NOT_ACTIVE_ACCOUNT)) {
+                    startActivity(new Intent(Register.this, SignUpAddPayout.class));
+                    finish();
+                }
+                break;
+            case ROLE_CUSTOMER:
+                if (state.equals(Constants.NOT_ACTIVE_ACCOUNT) || state.equals(Constants.STATE_REGISTER_ADDED_PAYOUT)) {
+                    startActivity(new Intent(Register.this, CustomerMainScreen.class));
+                    finish();
+                }
+                break;
         }
 
         binding.registerBackButton.setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/handyman_main_screen_nav_menu" />
+        app:menu="@menu/customer_main_screen_nav_menu" />
     <!--        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"-->
 </LinearLayout>

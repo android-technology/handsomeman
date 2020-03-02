@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman;
+package com.tt.handsomeman.ui.customer;
 
 import android.Manifest;
 import android.content.Context;
@@ -24,32 +24,32 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.databinding.ActivityHandyManMainScreenBinding;
+import com.tt.handsomeman.databinding.ActivityCustomerMainScreenBinding;
 import com.tt.handsomeman.ui.Register;
-import com.tt.handsomeman.ui.handyman.jobs.JobsFragment;
-import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
-import com.tt.handsomeman.ui.handyman.more.MoreFragment;
-import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment;
-import com.tt.handsomeman.ui.handyman.notifications.NotificationsFragment;
+import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanFragment;
+import com.tt.handsomeman.ui.customer.message.MessagesCustomerFragment;
+import com.tt.handsomeman.ui.customer.more.MoreCustomerFragment;
+import com.tt.handsomeman.ui.customer.my_project.MyProjectsCustomerFragment;
+import com.tt.handsomeman.ui.customer.notification.NotificationsCustomerFragment;
 import com.tt.handsomeman.util.Constants;
 
-public class HandyManMainScreen extends AppCompatActivity {
+public class CustomerMainScreen extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_LOCATION = 0;
     private static final long MIN_TIME_TO_REQUEST_LOCATION = 0; //30s
     private static final float MIN_DISTANCE_TO_REQUEST_LOCATION = 5; //5 meters
-    final Fragment fragment1 = new JobsFragment();
-    final Fragment fragment2 = new MessagesFragment();
-    final Fragment fragment3 = new MyProjectsFragment();
-    final Fragment fragment4 = new NotificationsFragment();
-    final Fragment fragment5 = new MoreFragment();
+    final Fragment fragment1 = new FindHandymanFragment();
+    final Fragment fragment2 = new MessagesCustomerFragment();
+    final Fragment fragment3 = new MyProjectsCustomerFragment();
+    final Fragment fragment4 = new NotificationsCustomerFragment();
+    final Fragment fragment5 = new MoreCustomerFragment();
     final FragmentManager fm = getSupportFragmentManager();
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
             Constants.Latitude.postValue(location.getLatitude());
             Constants.Longitude.postValue(location.getLongitude());
-            Toast.makeText(HandyManMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CustomerMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -67,7 +67,7 @@ public class HandyManMainScreen extends AppCompatActivity {
 
         }
     };
-    private ActivityHandyManMainScreenBinding binding;
+    private ActivityCustomerMainScreenBinding binding;
     private Fragment active = fragment1;
     private LocationManager locationManager;
 
@@ -109,7 +109,7 @@ public class HandyManMainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHandyManMainScreenBinding.inflate(getLayoutInflater());
+        binding = ActivityCustomerMainScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = binding.navView;
@@ -195,7 +195,7 @@ public class HandyManMainScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Request the permission
-                    ActivityCompat.requestPermissions(HandyManMainScreen.this,
+                    ActivityCompat.requestPermissions(CustomerMainScreen.this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             PERMISSION_REQUEST_LOCATION);
                 }

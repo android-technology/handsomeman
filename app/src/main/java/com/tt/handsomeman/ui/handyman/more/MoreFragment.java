@@ -25,7 +25,8 @@ import com.tt.handsomeman.databinding.FragmentMoreBinding;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Payout;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.ui.handyman.Login;
+import com.tt.handsomeman.ui.Login;
+import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.YesOrNoDialog;
@@ -84,7 +85,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
                     @Override
                     public void onItemClickYes() {
                         sharedPreferencesUtils.clear();
-                        startActivity(new Intent(getContext(), Login.class));
+                        startActivity(new Intent(getContext(), Start.class));
                         getActivity().finish();
                     }
                 }).show();
@@ -169,7 +170,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
         if (requestCode == REQUEST_MORE_CHANGE_PASSWORD && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isChangePassword", false)) {
                 sharedPreferencesUtils.clear();
-                startActivity(new Intent(getContext(), Login.class));
+                startActivity(new Intent(getContext(), Start.class));
                 getActivity().finish();
             }
         }
