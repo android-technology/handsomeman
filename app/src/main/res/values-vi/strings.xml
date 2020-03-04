@@ -133,7 +133,6 @@
     <string name="choose_category">Chọn mục kỹ năng</string>
     <string name="please_choose_category">Làm ơn hãy chọn một mục</string>
     <string name="sure_to_delete_skill">Bạn có chắc muốn xóa kỹ năng này không?</string>
-    <string name="please_write_something">Làm ơn hãy viết gì đó</string>
     <string name="add_new_payout">Thêm tài khoản thanh toán</string>
     <string name="add_new_payout_successful">Bạn vừa mới thêm tài khoản thanh toán mới \'tài khoản kết thúc với %1$s\'</string>
     <string name="pre_secret_number">"**** **** **** "</string>
@@ -180,5 +179,8 @@
     </plurals>
     <plurals name="numberOfDay">
         <item quantity="other">%d ngày trước</item>
+    </plurals>
+    <plurals name="handymanDistance">
+        <item quantity="other">cách bạn %dm</item>
     </plurals>
 </resources>

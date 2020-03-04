@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.FragmentMyProjectsBinding;
 
 public class MyProjectsFragment extends Fragment {
 
@@ -24,18 +25,20 @@ public class MyProjectsFragment extends Fragment {
     private Fragment childInPastFragment = new MyProjectsChildInPastFragment();
     private Fragment active = childInProgressFragment;
     private EditText edtSearchByWord;
+    private FragmentMyProjectsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_projects, container, false);
+        binding = FragmentMyProjectsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RadioButton rdInProgress = view.findViewById(R.id.radioButtonInProgress);
-        RadioButton rdInPast = view.findViewById(R.id.radioButtonInPast);
-        edtSearchByWord = view.findViewById(R.id.editTextSearchByWordMyProjectFragment);
+        RadioButton rdInProgress = binding.radioButtonInProgress;
+        RadioButton rdInPast = binding.radioButtonInPast;
+        edtSearchByWord = binding.editTextSearchByWordMyProjectFragment;
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.myProjectFragmentParent, childInPastFragment).hide(childInPastFragment).commit();
@@ -70,4 +73,11 @@ public class MyProjectsFragment extends Fragment {
         spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         edtSearchByWord.setHint(spannableString);
     }
+
+    @Override
+    public void onDestroy() {
+        binding = null;
+        super.onDestroy();
+    }
+
 }

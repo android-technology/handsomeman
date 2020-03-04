@@ -158,7 +158,7 @@
                         android:id="@+id/viewTransferHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                        android:background="@drawable/custom_ripple_transparent_color_bottom_radius_bg"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="15dp"
-                android:paddingTop="15dp"
+                android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="5dp">
 
@@ -190,8 +190,8 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:layout_weight="1"
                         android:text="@string/payout"
                         android:textColor="@color/colorPrimary"
@@ -200,10 +200,11 @@
 
                     <ImageButton
                         android:id="@+id/imageButtonAddPayout"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
                         android:layout_gravity="center_vertical|end"
-                        android:background="@drawable/custom_ripple_transparent_color_bg"
+                        android:background="@drawable/custom_ripple_transparent_color_radius_bg"
                         android:scaleType="fitCenter"
                         android:src="@drawable/plus" />
                 </LinearLayout>

@@ -9,7 +9,7 @@ public abstract class BaseAppCompatActivity<T extends BaseViewModel> extends App
 
     @Override
     protected void onStop() {
-        baseViewModel.clearSubscriptions();
+        baseViewModel.clearSubscriptions(this.getClass().getName());
         super.onStop();
     }
 }

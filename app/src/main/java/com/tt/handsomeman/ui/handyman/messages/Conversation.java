@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.MessageAdapter;
 import com.tt.handsomeman.databinding.ActivityConversationBinding;
 import com.tt.handsomeman.request.SendMessageRequest;
@@ -76,7 +78,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         tvAddressName = binding.textViewConversationAccountName;
         ibSendMessage = binding.imageButtonSendMessage;
         edtMessageBody = binding.editTextMessageConversation;
-
+        ibSendMessage.setEnabled(false);
         binding.conversationBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,16 +95,11 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
         fetchData(authorizationCode, conversationId);
         addRecyclerViewBottomListener();
-
+        listenEditChange();
         ibSendMessage.setOnClickListener(view -> {
-            String bodyMessage = edtMessageBody.getText().toString();
-
-            if (bodyMessage.matches("")) {
-                Toast.makeText(this, HandymanApp.getInstance().getString(R.string.please_write_something), Toast.LENGTH_SHORT).show();
-            } else {
-                sendMessage(authorizationCode, conversationId, bodyMessage);
-                edtMessageBody.setText(null);
-            }
+            String bodyMessage = edtMessageBody.getText().toString().trim();
+            sendMessage(authorizationCode, conversationId, bodyMessage);
+            edtMessageBody.setText(null);
         });
 
         receiver = new BroadcastReceiver() {
@@ -137,6 +134,26 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 }
             }
         };
+    }
+
+    private void listenEditChange() {
+        edtMessageBody.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String bodyMessage = edtMessageBody.getText().toString().trim();
+                ibSendMessage.setEnabled(!bodyMessage.matches(""));
+            }
+        });
     }
 
     private void sendMessage(String authorizationCode, int conversationId, String bodyMessage) {

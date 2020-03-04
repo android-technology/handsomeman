@@ -73,4 +73,10 @@ public class MessagesFragment extends Fragment {
         spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         edtSearchByWord.setHint(spannableString);
     }
+
+    @Override
+    public void onDestroy() {
+        binding = null;
+        super.onDestroy();
+    }
 }

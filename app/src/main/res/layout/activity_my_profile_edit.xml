@@ -20,7 +20,7 @@
             android:id="@+id/myProfileEditBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_ripple_transparent_color_bg"
+            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_back"
@@ -44,7 +44,7 @@
             android:id="@+id/imageButtonCheckEdit"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_ripple_transparent_color_bg"
+            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
             android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_check"
@@ -190,7 +190,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -199,8 +202,9 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="@string/my_skills"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/design_4_7sp"
@@ -208,10 +212,11 @@
 
                     <ImageButton
                         android:id="@+id/imageButtonAddSkillMyProfileEdit"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/custom_ripple_transparent_color_bg"
+                        android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                        android:padding="5dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/plus" />
                 </LinearLayout>

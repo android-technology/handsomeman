@@ -113,4 +113,10 @@ public class BidJobBudgetFragment extends Fragment {
         });
 
     }
+
+    @Override
+    public void onDestroy() {
+        binding = null;
+        super.onDestroy();
+    }
 }

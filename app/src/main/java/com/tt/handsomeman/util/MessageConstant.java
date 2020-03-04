@@ -38,7 +38,7 @@ public class MessageConstant {
     public static final String FCM_PUSH_ERROR = "Push Notification ERROR!";
     public static final String NO_CATEGORY_FOUND = "No category is found!";
     public static final String REMOVE_REMOVE_PAYOUT_SUCCESSFUL = "Remove Payout Successful!!";
-    public static final String DONT_OWN_PAYOUT = "You not own this payout";
+    public static final String DONT_OWN_PAYOUT_OR_ONLY_ONE_PAYOUT = "You not own this payout, or you only have this payout";
     public static final String NOT_FOUND_PAYOUT = "Not found this payout";
     public static final String ACCOUNT_NUMBER_IS_TAKEN = "The Account number has been taken!!";
 

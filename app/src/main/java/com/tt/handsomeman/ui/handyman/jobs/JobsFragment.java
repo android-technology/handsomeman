@@ -46,8 +46,8 @@ public class JobsFragment extends Fragment {
         fm.beginTransaction().add(R.id.jobsFragmentParent, jobsChildJobsFragment).commit();
 
         int choice = getActivity().getIntent().getIntExtra("radioButtonChoice", 0);
-        getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//        getActivity().getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setEditTextHintTextAndIcon();
 
         if (choice == 1) {
@@ -82,5 +82,11 @@ public class JobsFragment extends Fragment {
         SpannableString spannableString = new SpannableString("    " + getResources().getString(R.string.search_by_word));
         spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         edtSearchByWord.setHint(spannableString);
+    }
+
+    @Override
+    public void onDestroy() {
+        binding = null;
+        super.onDestroy();
     }
 }

@@ -11,7 +11,7 @@ public abstract class BaseFragment<T extends BaseViewModel, Tx extends ViewBindi
 
     @Override
     public void onStop() {
-        baseViewModel.clearSubscriptions();
+        baseViewModel.clearSubscriptions(this.getClass().getName());
         super.onStop();
     }
 

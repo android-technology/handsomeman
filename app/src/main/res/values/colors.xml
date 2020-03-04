@@ -6,7 +6,7 @@
 
     <color name="orange_red">#fc3d3d</color>
     <color name="facebook_text_bg">#3b5998</color>
-    <color name="disable_button">#3C2CA4BF</color>
+    <color name="disable_button">#d5d5d5</color>
     <color name="white">#ffffff</color>
     <color name="divider_bg">#f1f1f1</color>
     <color name="white_three">#d5d5d5</color><!--seek_bar_background and some I don't remember-->

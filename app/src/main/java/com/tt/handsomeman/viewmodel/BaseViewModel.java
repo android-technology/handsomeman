@@ -16,9 +16,9 @@ public abstract class BaseViewModel extends AndroidViewModel {
         compositeDisposable = new CompositeDisposable();
     }
 
-    public void clearSubscriptions() {
-        super.onCleared();
+    public void clearSubscriptions(String name) {
         compositeDisposable.clear();
-        Log.d("AAA", "Disposed");
+        super.onCleared();
+        Log.d("Clear sub", name + ": Disposed");
     }
 }

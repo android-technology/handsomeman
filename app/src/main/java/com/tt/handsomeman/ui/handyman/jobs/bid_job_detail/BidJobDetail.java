@@ -127,6 +127,12 @@ public class BidJobDetail extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        activityBidJobDetailBinding = null;
+        super.onDestroy();
+    }
+
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
