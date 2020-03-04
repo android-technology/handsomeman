@@ -79,29 +79,28 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         ibSendMessage = binding.imageButtonSendMessage;
         edtMessageBody = binding.editTextMessageConversation;
         ibSendMessage.setEnabled(false);
+
         binding.conversationBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         int conversationId = getIntent().getIntExtra("conversationId", 0);
-
-        createRecyclerViewMessage();
-
         String addressName = getIntent().getStringExtra("addressName");
         tvAddressName.setText(addressName);
 
+        createRecyclerViewMessage();
         fetchData(authorizationCode, conversationId);
         addRecyclerViewBottomListener();
         listenEditChange();
-        ibSendMessage.setOnClickListener(view -> {
-            String bodyMessage = edtMessageBody.getText().toString().trim();
-            sendMessage(authorizationCode, conversationId, bodyMessage);
-            edtMessageBody.setText(null);
-        });
+        sendMessage(authorizationCode, conversationId);
+        listenToFireBaseService();
+    }
 
+    private void listenToFireBaseService() {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -134,6 +133,14 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 }
             }
         };
+    }
+
+    private void sendMessage(String authorizationCode, int conversationId) {
+        ibSendMessage.setOnClickListener(view -> {
+            String bodyMessage = edtMessageBody.getText().toString().trim();
+            sendMessage(authorizationCode, conversationId, bodyMessage);
+            edtMessageBody.setText(null);
+        });
     }
 
     private void listenEditChange() {

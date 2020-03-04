@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list>
+    <item>
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:state_enabled="true">
+                <bitmap android:src="@drawable/send_button" />
+            </item>
+
+            <item android:state_enabled="false">
+                <bitmap
+                    android:src="@drawable/send_button"
+                    android:tint="@color/disable_button" />
+            </item>
+        </selector>
+    </item>
+</layer-list>
