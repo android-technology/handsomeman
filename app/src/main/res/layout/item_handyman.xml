@@ -24,6 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButtonHandymanAvatar"
         app:layout_constraintTop_toTopOf="parent">
@@ -44,8 +46,8 @@
             android:layout_height="wrap_content"
             android:isIndicator="true"
             android:numStars="5"
-            android:paddingTop="2dp"
-            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="4dp"
             android:stepSize="1" />
 
         <LinearLayout
