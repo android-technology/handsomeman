@@ -37,6 +37,7 @@ public class JobsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         RadioButton rdJobs = binding.radioButtonJobs;
         RadioButton rdWishList = binding.radioButtonWishList;
         edtSearchByWord = binding.editTextSearchByWordJobFragment;
@@ -85,8 +86,8 @@ public class JobsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         binding = null;
-        super.onDestroy();
+        super.onDestroyView();
     }
 }

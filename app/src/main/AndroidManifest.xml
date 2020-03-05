@@ -15,35 +15,81 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.customer.CustomerMainScreen"></activity>
-        <activity android:name=".ui.handyman.more.ChangePassword" />
-        <activity android:name=".ui.handyman.more.TransferToBank" />
-        <activity android:name=".ui.handyman.more.TransferHistory" />
-        <activity android:name=".ui.handyman.more.ViewPayout" />
-        <activity android:name=".ui.handyman.more.AddNewPayout" />
-        <activity android:name=".ui.handyman.more.AddNewSkill" />
-        <activity android:name=".ui.handyman.more.MyProfileEdit" />
-        <activity android:name=".ui.handyman.more.MyProfile" />
-        <activity android:name=".ui.handyman.messages.Conversation" />
-        <activity android:name=".ui.handyman.jobs.bid_job_detail.BidJobDetail" />
-        <activity android:name=".ui.handyman.jobs.CustomerProfileJobDetail" />
-        <activity android:name=".ui.handyman.jobs.JobDetail" />
-        <activity android:name=".ui.handyman.jobs.JobFilterResult" />
-        <activity android:name=".ui.handyman.jobs.JobFilter" />
-        <activity android:name=".ui.handyman.jobs.GroupByCategory" />
-        <activity android:name=".ui.handyman.jobs.YourLocation" />
+        <activity
+            android:name=".ui.customer.CustomerMainScreen"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.ChangePassword"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.TransferToBank"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.TransferHistory"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.ViewPayout"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.AddNewPayout"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.AddNewSkill"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.MyProfileEdit"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.more.MyProfile"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.messages.Conversation"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.bid_job_detail.BidJobDetail"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.CustomerProfileJobDetail"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.JobDetail"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.JobFilterResult"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.JobFilter"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.GroupByCategory"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.jobs.YourLocation"
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.handyman.HandyManMainScreen"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.handyman.SignUpAddPayout" />
-        <activity android:name=".ui.ForgotPassword" />
-        <activity android:name=".ui.Register" />
-        <activity android:name=".ui.Login" />
-        <activity android:name=".ui.SignUp" />
-        <activity android:name=".ui.Start" />
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.SignUpAddPayout"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.ForgotPassword"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.Register"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.Login"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.SignUp"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.Start"
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.OnBoardingSlidePagerActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

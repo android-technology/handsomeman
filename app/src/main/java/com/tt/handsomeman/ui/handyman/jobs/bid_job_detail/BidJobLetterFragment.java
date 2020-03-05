@@ -32,6 +32,7 @@ public class BidJobLetterFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
         ibCheckButtonLetter = bidJobDetail.activityBidJobDetailBinding.imageButtonCheckLetterBidJobDetail;
         edtIntroduce = binding.introduceYourSelfEditText;

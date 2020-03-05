@@ -48,6 +48,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel, Fragm
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         createJobRecycleView(view);
 
         fetchData();

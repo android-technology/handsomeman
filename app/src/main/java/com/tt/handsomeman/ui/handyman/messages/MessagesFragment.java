@@ -75,8 +75,8 @@ public class MessagesFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         binding = null;
-        super.onDestroy();
+        super.onDestroyView();
     }
 }

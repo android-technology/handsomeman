@@ -5,4 +5,9 @@ public class DecimalFormat {
         java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
         return df.format(doubleValue);
     }
+
+    public static String formatGetDistance(double doubleValue) {
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#");
+        return df.format(doubleValue);
+    }
 }

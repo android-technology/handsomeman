@@ -7,7 +7,7 @@ import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.StandardResponse;
-import com.tt.handsomeman.response.StartScreenData;
+import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.util.Constants;
 
 import io.reactivex.Single;
@@ -23,7 +23,7 @@ import retrofit2.http.Path;
 
 public interface JobService {
     @POST(Constants.START_SCREEN_SUFFIX)
-    Single<Response<DataBracketResponse<StartScreenData>>> getStartScreen(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
+    Single<Response<DataBracketResponse<StartScreenHandyman>>> getStartScreen(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.YOUR_LOCATION_SUFFIX)
     Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);

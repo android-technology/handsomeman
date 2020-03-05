@@ -53,9 +53,9 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
 
     class HandymanReviewViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView customerAvatar;
-        final TextView customerName, customerComment;
-        final RatingBar customerRating;
+        private final ImageView customerAvatar;
+        private final TextView customerName, customerComment;
+        private final RatingBar customerRating;
 
         HandymanReviewViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -93,9 +93,9 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
 
     class ConversationViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
-        final SwipeLayout swipeLayout;
-        final LinearLayout layoutConversation, layoutDelete;
+        private final TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
+        private final SwipeLayout swipeLayout;
+        private final LinearLayout layoutConversation, layoutDelete;
         int conversationId;
 
         ConversationViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {

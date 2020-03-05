@@ -27,7 +27,7 @@ public class MessageViewModel extends BaseViewModel {
     private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @Inject
     MessageViewModel(@NonNull Application application, MessageService messageService) {

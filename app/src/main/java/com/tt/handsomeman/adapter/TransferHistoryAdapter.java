@@ -56,7 +56,7 @@ public class TransferHistoryAdapter extends RecyclerView.Adapter<TransferHistory
     }
 
     class TransferHistoryViewHolder extends RecyclerView.ViewHolder {
-        final TextView lastPayoutNumber, dateTransfer, balanceTransfer;
+        private final TextView lastPayoutNumber, dateTransfer, balanceTransfer;
 
         TransferHistoryViewHolder(@NonNull View itemView) {
             super(itemView);

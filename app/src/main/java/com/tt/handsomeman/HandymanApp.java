@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.tt.handsomeman.di.component.AppComponent;
 import com.tt.handsomeman.di.component.DaggerAppComponent;
 import com.tt.handsomeman.di.module.AppModule;
+import com.tt.handsomeman.di.module.CustomerModule;
 import com.tt.handsomeman.di.module.HandymanModule;
 import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.MessageModule;
@@ -46,6 +47,7 @@ public class HandymanApp extends Application {
                 .userModule(new UserModule())
                 .messageModule(new MessageModule())
                 .handymanModule(new HandymanModule())
+                .customerModule(new CustomerModule())
                 .build();
     }
 }

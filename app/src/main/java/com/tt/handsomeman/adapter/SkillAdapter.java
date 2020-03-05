@@ -49,7 +49,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     class SkillViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvSkillName;
+        private final TextView tvSkillName;
 
         SkillViewHolder(@NonNull View itemView) {
             super(itemView);

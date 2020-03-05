@@ -70,8 +70,8 @@ public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.JobF
 
     class JobFilterViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
-        final ImageButton btnJobDetail;
+        private final TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
+        private final ImageButton btnJobDetail;
 
         JobFilterViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);

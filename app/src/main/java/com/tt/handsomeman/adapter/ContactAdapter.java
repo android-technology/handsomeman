@@ -84,9 +84,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvHeaderCharacter;
-        ImageView imgContactAvatarHeader;
-        TextView tvContactNameHeader;
+        private final TextView tvHeaderCharacter;
+        private final ImageView imgContactAvatarHeader;
+        private final TextView tvContactNameHeader;
 
         HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,8 +99,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imgContactAvatar;
-        final TextView tvContactName;
+        private final ImageView imgContactAvatar;
+        private final TextView tvContactName;
 
         ContactViewHolder(@NonNull View itemView) {
             super(itemView);

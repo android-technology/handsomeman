@@ -60,8 +60,8 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
     }
 
     class PayoutViewHolder extends RecyclerView.ViewHolder {
-        final ImageButton btnPayout;
-        final TextView tvPayoutLastNumbers;
+        private final ImageButton btnPayout;
+        private final TextView tvPayoutLastNumbers;
 
         PayoutViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);

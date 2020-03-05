@@ -1,6 +1,7 @@
 package com.tt.handsomeman.di.component;
 
 import com.tt.handsomeman.di.module.AppModule;
+import com.tt.handsomeman.di.module.CustomerModule;
 import com.tt.handsomeman.di.module.HandymanModule;
 import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.MessageModule;
@@ -11,6 +12,7 @@ import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
 import com.tt.handsomeman.ui.SignUp;
+import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
@@ -47,6 +49,7 @@ import dagger.Component;
         NetworkModule.class,
         MessageModule.class,
         HandymanModule.class,
+        CustomerModule.class,
         ViewModelModule.class})
 public interface AppComponent {
 
@@ -103,4 +106,6 @@ public interface AppComponent {
     void inject(TransferToBank transferToBank);
 
     void inject(ChangePassword changePassword);
+
+    void inject(FindHandymanChildHandymanFragment handymanChildHandymanFragment);
 }

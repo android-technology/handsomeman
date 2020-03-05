@@ -19,7 +19,7 @@ public class MessageConstant {
     public static final String JOB_ADDED_SUCCESSFULLY = "Job added successfully";
     public static final String JOB_ADD_WISH_LIST_SUCCESSFULLY = "Job added to handymen wish list successfully";
     public static final String USER_CREATED = "New user have just been created successfully";
-    public static final String BID_MAX_SMALLER_THAN_BID_MIN = "Bid max is small than bid min";
+    public static final String BID_MAX_SMALLER_THAN_BID_MIN = "Bid max is smaller than bid min";
     public static final String UNAUTHORIZED = "Unauthorized";
     public static final String ACCESS_DENIED = "Access denied";
     public static final String USER_NOT_FOUND = "Cannot found user with username and password";
@@ -27,6 +27,7 @@ public class MessageConstant {
     public static final String NO_MESSAGE_IN_CONVERSATION = "No message";
     public static final String NO_CONVERSATION_WITH_ACCOUNT = "You haven't chat with this person";
     public static final String NOT_ELIGIBLE_ACCOUNT_TWO_CONVERSATION = "You can't find conversation between you and ... you!!!";
+    public static final String CHAT_TO_YOURSELF = "You can't chat to yourself!!!";
     public static final String MESSAGE_SENT = "Your message is sent";
     public static final String NO_CONTACT = "You don't have any contact";
     public static final String DELETE_CONVERSATION_SUCCESSFULLY = "This conversation is deleted success fully";
@@ -76,5 +77,7 @@ public class MessageConstant {
     public static final String YOU_DONT_OWN_THIS_PAYOUT = "You don't own this payout";
     public static final String CANT_WITHDRAW_ZERO = "You can't withdraw zero";
     public static final String WRONG_CURRENT_PASSWORD = "Please check your current Password";
+    public static final String BUDGET_MAX_SMALLER_THAN_BUDGET_MIN = "Budget max is smaller than budget min";
+    public static final String PLEASE_CHOOSE_ROLE = "Please choose valid role";
 }
 

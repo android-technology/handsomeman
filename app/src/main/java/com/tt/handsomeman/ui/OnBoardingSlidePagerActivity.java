@@ -50,7 +50,6 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Launcher);
         super.onCreate(savedInstanceState);
         binding = ActivityOnBoardingSlidePagerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

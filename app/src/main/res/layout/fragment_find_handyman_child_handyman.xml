@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBarJobs"
+        android:id="@+id/progressBarFindHandyman"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_gravity="center"
@@ -47,14 +47,14 @@
         android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewJobs"
+        android:id="@+id/recycleViewFindHandyman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         tools:itemCount="3"
-        tools:listitem="@layout/item_job" />
+        tools:listitem="@layout/item_handyman" />
 
     <View
         android:layout_width="match_parent"

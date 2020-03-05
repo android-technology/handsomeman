@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.di.annotation.ViewModelKey;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
@@ -38,5 +39,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserViewModel.class)
     abstract ViewModel bindUserViewModel(UserViewModel userViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CustomerViewModel.class)
+    abstract ViewModel bindCustomerViewModel(CustomerViewModel customerViewModel);
     //bind new ViewModel here
 }

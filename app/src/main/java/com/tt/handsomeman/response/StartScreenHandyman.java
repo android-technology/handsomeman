@@ -7,7 +7,7 @@ import com.tt.handsomeman.model.Job;
 
 import java.util.List;
 
-public class StartScreenData {
+public class StartScreenHandyman {
 
     @SerializedName("jobList")
     @Expose
@@ -16,7 +16,7 @@ public class StartScreenData {
     @Expose
     private List<Category> categoryList;
 
-    public StartScreenData(List<Job> jobList, List<Category> categoryList) {
+    public StartScreenHandyman(List<Job> jobList, List<Category> categoryList) {
         this.jobList = jobList;
         this.categoryList = categoryList;
     }

@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.jobs;
+package com.tt.handsomeman.ui.customer.find_handyman;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,16 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CategoryAdapter;
-import com.tt.handsomeman.adapter.JobAdapter;
-import com.tt.handsomeman.databinding.FragmentJobsChildJobsBinding;
+import com.tt.handsomeman.adapter.FindHandymanAdapter;
+import com.tt.handsomeman.databinding.FragmentFindHandymanChildHandymanBinding;
 import com.tt.handsomeman.model.Category;
-import com.tt.handsomeman.model.Job;
-import com.tt.handsomeman.request.NearbyJobRequest;
+import com.tt.handsomeman.request.NearbyHandymanRequest;
+import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.ui.handyman.jobs.GroupByCategory;
+import com.tt.handsomeman.ui.handyman.jobs.YourLocation;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,38 +41,37 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJobsChildJobsBinding> {
+public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerViewModel, FragmentFindHandymanChildHandymanBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-    private ProgressBar pgJob, pgCategory;
-    private JobAdapter jobAdapter;
-    private CategoryAdapter categoryAdapter;
-    private List<Job> jobArrayList = new ArrayList<>();
-    private List<Category> categoryArrayList = new ArrayList<>();
+    private ProgressBar pgFindHandyman, pgCategory;
     private LinearLayout showMoreYourLocation;
+    private FindHandymanAdapter findHandymanAdapter;
+    private CategoryAdapter categoryAdapter;
+    private List<HandymanResponse> handymanResponseList = new ArrayList<>();
+    private List<Category> categoryArrayList = new ArrayList<>();
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        viewBinding = FragmentJobsChildJobsBinding.inflate(inflater, container, false);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
+        viewBinding = FragmentFindHandymanChildHandymanBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pgJob = viewBinding.progressBarJobs;
+        pgFindHandyman = viewBinding.progressBarFindHandyman;
         pgCategory = viewBinding.progressBarCategory;
         showMoreYourLocation = viewBinding.showMoreYourLocation;
 
         createJobRecycleView(view);
-
         createCategoryRecycleView(view);
-
         showMoreByYourLocation();
 
         Constants.Longitude.observe(getViewLifecycleOwner(), new Observer<Double>() {
@@ -84,27 +86,28 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
         showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), YourLocation.class));
+                Toast.makeText(getContext(), "Your Location", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(getActivity(), YourLocation.class));
             }
         });
     }
 
     private void createJobRecycleView(View view) {
-        RecyclerView rcvJob = viewBinding.recycleViewJobs;
-        jobAdapter = new JobAdapter(getContext(), jobArrayList);
-        jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getActivity(), JobDetail.class);
-                intent.putExtra("jobId", jobArrayList.get(position).getId());
-                startActivity(intent);
-            }
-        });
+        RecyclerView rcvFindHandyman = viewBinding.recycleViewFindHandyman;
+        findHandymanAdapter = new FindHandymanAdapter(getContext(), handymanResponseList);
+//        findHandymanAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(getActivity(), JobDetail.class);
+//                intent.putExtra("jobId", jobArrayList.get(position).getId());
+//                startActivity(intent);
+//            }
+//        });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
-        rcvJob.setLayoutManager(layoutManagerJob);
-        rcvJob.setItemAnimator(new DefaultItemAnimator());
-        rcvJob.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
-        rcvJob.setAdapter(jobAdapter);
+        rcvFindHandyman.setLayoutManager(layoutManagerJob);
+        rcvFindHandyman.setItemAnimator(new DefaultItemAnimator());
+        rcvFindHandyman.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+        rcvFindHandyman.setAdapter(findHandymanAdapter);
     }
 
     private void createCategoryRecycleView(View view) {
@@ -113,12 +116,12 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String categoryName = categoryArrayList.get(position).getName();
-
-                Intent intent = new Intent(getActivity(), GroupByCategory.class);
-                intent.putExtra("categoryName", categoryName);
-                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
-                startActivity(intent);
+//                String categoryName = categoryArrayList.get(position).getName();
+//
+//                Intent intent = new Intent(getActivity(), GroupByCategory.class);
+//                intent.putExtra("categoryName", categoryName);
+//                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
+//                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
@@ -135,13 +138,13 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
         String dateRequest = formatter.format(now.getTime());
         double radius = 10d;
 
-        baseViewModel.fetchDataStartScreen(authorizationCode, new NearbyJobRequest(lat, lng, radius, dateRequest));
+        baseViewModel.fetchDataStartScreen(authorizationCode, new NearbyHandymanRequest(lat, lng, radius, dateRequest));
 
-        baseViewModel.getStartScreenData().observe(this, data -> {
-            pgJob.setVisibility(View.GONE);
-            jobArrayList.clear();
-            jobArrayList.addAll(data.getJobList());
-            jobAdapter.notifyDataSetChanged();
+        baseViewModel.getStartScreenCustomerMutableLiveData().observe(this, data -> {
+            pgFindHandyman.setVisibility(View.GONE);
+            handymanResponseList.clear();
+            handymanResponseList.addAll(data.getHandymanResponsesList());
+            findHandymanAdapter.notifyDataSetChanged();
 
             pgCategory.setVisibility(View.GONE);
             categoryArrayList.clear();

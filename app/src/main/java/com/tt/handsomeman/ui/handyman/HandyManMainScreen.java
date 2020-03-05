@@ -25,7 +25,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityHandyManMainScreenBinding;
-import com.tt.handsomeman.ui.Register;
 import com.tt.handsomeman.ui.handyman.jobs.JobsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
@@ -36,7 +35,7 @@ import com.tt.handsomeman.util.Constants;
 public class HandyManMainScreen extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_LOCATION = 0;
-    private static final long MIN_TIME_TO_REQUEST_LOCATION = 0; //30s
+    private static final long MIN_TIME_TO_REQUEST_LOCATION = 30000; //30s
     private static final float MIN_DISTANCE_TO_REQUEST_LOCATION = 5; //5 meters
     final Fragment fragment1 = new JobsFragment();
     final Fragment fragment2 = new MessagesFragment();
@@ -44,12 +43,17 @@ public class HandyManMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new MoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
+
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            Constants.Latitude.postValue(location.getLatitude());
-            Constants.Longitude.postValue(location.getLongitude());
-            Toast.makeText(HandyManMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+            Double lat = location.getLatitude();
+            Double lng = location.getLongitude();
+            if (lat != null && lng != null) {
+                Constants.Latitude.postValue(location.getLatitude());
+                Constants.Longitude.postValue(location.getLongitude());
+                Toast.makeText(HandyManMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

@@ -36,7 +36,7 @@ import com.tt.handsomeman.util.Constants;
 public class CustomerMainScreen extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_LOCATION = 0;
-    private static final long MIN_TIME_TO_REQUEST_LOCATION = 0; //30s
+    private static final long MIN_TIME_TO_REQUEST_LOCATION = 30000; //30s
     private static final float MIN_DISTANCE_TO_REQUEST_LOCATION = 5; //5 meters
     final Fragment fragment1 = new FindHandymanFragment();
     final Fragment fragment2 = new MessagesCustomerFragment();
@@ -44,12 +44,17 @@ public class CustomerMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsCustomerFragment();
     final Fragment fragment5 = new MoreCustomerFragment();
     final FragmentManager fm = getSupportFragmentManager();
+
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            Constants.Latitude.postValue(location.getLatitude());
-            Constants.Longitude.postValue(location.getLongitude());
-            Toast.makeText(CustomerMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+            Double lat = location.getLatitude();
+            Double lng = location.getLongitude();
+            if (lat != null && lng != null) {
+                Constants.Latitude.postValue(location.getLatitude());
+                Constants.Longitude.postValue(location.getLongitude());
+                Toast.makeText(CustomerMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

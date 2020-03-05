@@ -59,8 +59,8 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
 
     class SkillEditViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvSkillName;
-        private ImageButton ibDeleteSkill;
+        private final TextView tvSkillName;
+        private final ImageButton ibDeleteSkill;
 
         SkillEditViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);

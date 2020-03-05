@@ -7,10 +7,19 @@ public class NearbyJobRequest {
 
     private double radius;
 
+    private String dateRequest;
+
     public NearbyJobRequest(Double lat, Double lng, double radius) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;
+    }
+
+    public NearbyJobRequest(Double lat, Double lng, double radius, String dateRequest) {
+        this.lat = lat;
+        this.lng = lng;
+        this.radius = radius;
+        this.dateRequest = dateRequest;
     }
 
     public Double getLat() {

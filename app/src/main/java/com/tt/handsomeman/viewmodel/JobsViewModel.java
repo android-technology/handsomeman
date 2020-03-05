@@ -12,7 +12,7 @@ import com.tt.handsomeman.model.JobDetail;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.JobDetailProfile;
-import com.tt.handsomeman.response.StartScreenData;
+import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.service.JobService;
 import com.tt.handsomeman.util.StatusConstant;
 
@@ -26,12 +26,12 @@ import okhttp3.MultipartBody;
 
 public class JobsViewModel extends BaseViewModel {
 
-    private MutableLiveData<StartScreenData> screenDataMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<StartScreenHandyman> screenDataMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
-    private JobService jobService;
+    private final JobService jobService;
 
     @Inject
     JobsViewModel(@NonNull Application application, JobService jobService) {
@@ -39,7 +39,7 @@ public class JobsViewModel extends BaseViewModel {
         this.jobService = jobService;
     }
 
-    public LiveData<StartScreenData> getStartScreenData() {
+    public LiveData<StartScreenHandyman> getStartScreenData() {
         return screenDataMutableLiveData;
     }
 
@@ -59,7 +59,7 @@ public class JobsViewModel extends BaseViewModel {
         return messageResponse;
     }
 
-    public void fetchData(String authorization, NearbyJobRequest nearbyJobRequest) {
+    public void fetchDataStartScreen(String authorization, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(jobService.getStartScreen(authorization, nearbyJobRequest)
                         .subscribeOn(Schedulers.computation())

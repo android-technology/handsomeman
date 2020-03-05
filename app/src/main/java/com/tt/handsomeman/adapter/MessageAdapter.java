@@ -91,9 +91,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class SenderViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imgAvatar;
-        final TextView tvSendTime;
-        final TextView tvMessageBody;
+        private final ImageView imgAvatar;
+        private final TextView tvSendTime;
+        private final TextView tvMessageBody;
 
         SenderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,9 +106,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imgAvatar;
-        final TextView tvSendTime;
-        final TextView tvMessageBody;
+        private final ImageView imgAvatar;
+        private final TextView tvSendTime;
+        private final TextView tvMessageBody;
 
         ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);

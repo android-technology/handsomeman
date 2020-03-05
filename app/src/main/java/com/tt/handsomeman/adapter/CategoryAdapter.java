@@ -59,8 +59,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvCategoryName;
-        final ImageButton btnCategoryDetail;
+        private final TextView tvCategoryName;
+        private final ImageButton btnCategoryDetail;
 
         CategoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);

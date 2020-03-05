@@ -30,7 +30,7 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<ListTransferHistory> listTransferHistoryMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<ListPayoutResponse> listPayoutResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
-    private HandymanService handymanService;
+    private final HandymanService handymanService;
 
     @Inject
     HandymanViewModel(@NonNull Application application, HandymanService handymanService) {
