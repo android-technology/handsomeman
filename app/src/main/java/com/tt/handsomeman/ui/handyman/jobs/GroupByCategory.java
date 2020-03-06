@@ -47,7 +47,6 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
-
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
         pgJob = binding.progressBarJobCategory;

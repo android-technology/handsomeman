@@ -16,20 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemHandymanBinding;
+import com.tt.handsomeman.databinding.ItemHandymanFilterBinding;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.util.DecimalFormat;
 
 import java.util.List;
 
-public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapter.FindHandymanViewHolder> {
+public class FindHandymanFilterAdapter extends RecyclerView.Adapter<FindHandymanFilterAdapter.FindHandymanFilterViewHolder> {
 
     private Context context;
     private List<HandymanResponse> handymanResponseList;
     private LayoutInflater inflater;
-    private ItemHandymanBinding binding;
+    private ItemHandymanFilterBinding binding;
     private OnItemClickListener mListener;
 
-    public FindHandymanAdapter(Context context, List<HandymanResponse> handymanResponseList) {
+    public FindHandymanFilterAdapter(Context context, List<HandymanResponse> handymanResponseList) {
         this.context = context;
         this.handymanResponseList = handymanResponseList;
         this.inflater = LayoutInflater.from(context);
@@ -41,14 +42,14 @@ public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapte
 
     @NonNull
     @Override
-    public FindHandymanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemHandymanBinding.inflate(inflater, parent, false);
+    public FindHandymanFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        binding = ItemHandymanFilterBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
-        return new FindHandymanViewHolder(view, mListener);
+        return new FindHandymanFilterViewHolder(view, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindHandymanViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FindHandymanFilterViewHolder holder, int position) {
         HandymanResponse handymanResponse = handymanResponseList.get(position);
         int distance = Integer.parseInt(DecimalFormat.formatGetDistance(handymanResponse.getDistance() * 1000));
 
@@ -66,13 +67,13 @@ public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapte
         void onItemClick(int position);
     }
 
-    class FindHandymanViewHolder extends RecyclerView.ViewHolder {
+    class FindHandymanFilterViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imgAvatar;
         private final TextView tvHandymanName, tvDistance;
         private final RatingBar rtHandymanReviewPoint;
         private final ImageButton ibViewHandymanDetail;
 
-        FindHandymanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        FindHandymanFilterViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             imgAvatar = binding.imageButtonHandymanAvatar;
             tvHandymanName = binding.textViewHandymanNameItem;

@@ -41,6 +41,8 @@ public class Constants {
     public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
 
     public static final String FIND_HANDYMAN = "/api/customer/findHandyman";
+    public static final String FIND_HANDYMAN_CATEGORY = "/api/customer/byCategory/{id}";
+    public static final String FIND_HANDYMAN_NEARBY = "/api/customer/yourLocation";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

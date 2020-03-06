@@ -26,8 +26,6 @@ import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.request.NearbyHandymanRequest;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.ui.handyman.jobs.GroupByCategory;
-import com.tt.handsomeman.ui.handyman.jobs.YourLocation;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -86,8 +84,7 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Your Location", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(getActivity(), YourLocation.class));
+                startActivity(new Intent(getActivity(), HandymanNearYourLocation.class));
             }
         });
     }
@@ -95,14 +92,14 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
     private void createJobRecycleView(View view) {
         RecyclerView rcvFindHandyman = viewBinding.recycleViewFindHandyman;
         findHandymanAdapter = new FindHandymanAdapter(getContext(), handymanResponseList);
-//        findHandymanAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
+        findHandymanAdapter.setOnItemClickListener(new FindHandymanAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
 //                Intent intent = new Intent(getActivity(), JobDetail.class);
 //                intent.putExtra("jobId", jobArrayList.get(position).getId());
 //                startActivity(intent);
-//            }
-//        });
+            }
+        });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
         rcvFindHandyman.setLayoutManager(layoutManagerJob);
         rcvFindHandyman.setItemAnimator(new DefaultItemAnimator());
@@ -116,12 +113,12 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                String categoryName = categoryArrayList.get(position).getName();
-//
-//                Intent intent = new Intent(getActivity(), GroupByCategory.class);
-//                intent.putExtra("categoryName", categoryName);
-//                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
-//                startActivity(intent);
+                String categoryName = categoryArrayList.get(position).getName();
+
+                Intent intent = new Intent(getActivity(), FindHandymanCategory.class);
+                intent.putExtra("categoryName", categoryName);
+                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());

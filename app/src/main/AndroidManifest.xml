@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
+        <activity android:name=".ui.customer.find_handyman.HandymanNearYourLocation"></activity>
+        <activity android:name=".ui.customer.find_handyman.FindHandymanCategory" />
         <activity
             android:name=".ui.customer.CustomerMainScreen"
             android:screenOrientation="locked" />

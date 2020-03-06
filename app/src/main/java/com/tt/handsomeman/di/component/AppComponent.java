@@ -12,9 +12,11 @@ import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
 import com.tt.handsomeman.ui.SignUp;
-import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
-import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.Start;
+import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanCategory;
+import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
+import com.tt.handsomeman.ui.customer.find_handyman.HandymanNearYourLocation;
+import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
 import com.tt.handsomeman.ui.handyman.jobs.GroupByCategory;
 import com.tt.handsomeman.ui.handyman.jobs.JobDetail;
@@ -108,4 +110,8 @@ public interface AppComponent {
     void inject(ChangePassword changePassword);
 
     void inject(FindHandymanChildHandymanFragment handymanChildHandymanFragment);
+
+    void inject(FindHandymanCategory findHandymanCategory);
+
+    void inject(HandymanNearYourLocation handymanNearYourLocation);
 }

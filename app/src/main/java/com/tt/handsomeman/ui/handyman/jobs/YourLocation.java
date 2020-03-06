@@ -48,7 +48,6 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
-
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
         btnFilter = binding.imageButtonFilter;
@@ -60,10 +59,10 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
 
         createJobRecycleView();
 
-        Constants.Latitude.observe(this, new Observer<Double>() {
+        Constants.Longitude.observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                fetchData(aDouble, Constants.Longitude.getValue());
+                fetchData(Constants.Latitude.getValue(), aDouble);
             }
         });
     }
