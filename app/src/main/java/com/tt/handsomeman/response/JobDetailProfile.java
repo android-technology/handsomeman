@@ -24,7 +24,7 @@ public class JobDetailProfile {
     @SerializedName("averageReviewPoint")
     @Expose
     private Float averageReviewPoint;
-    @SerializedName("jobDetailCustomerReviews")
+    @SerializedName("customerReviewResponses")
     @Expose
     private List<CustomerReviewResponse> customerReviewResponses;
 
