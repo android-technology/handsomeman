@@ -32,9 +32,6 @@ public interface CustomerService {
     @POST(Constants.FIND_HANDYMAN_NEARBY)
     Single<Response<DataBracketResponse<NearbyHandymanResponse>>> getHandymanNearby(@Header("Authorization") String token, @Body NearbyHandymanRequest nearbyHandymanRequest);
 
-
-
-
     @GET(Constants.GET_CUSTOMER_REVIEW)
     Single<Response<DataBracketResponse<CustomerReviewProfile>>> getCustomerReview(@Header("Authorization") String token);
 
