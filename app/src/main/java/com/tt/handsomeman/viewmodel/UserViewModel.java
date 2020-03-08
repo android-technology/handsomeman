@@ -17,8 +17,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class UserViewModel extends BaseViewModel {
 
-    private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
     private final UserService userService;
+    private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
 
     @Inject
     UserViewModel(@NonNull Application application, UserService userService) {

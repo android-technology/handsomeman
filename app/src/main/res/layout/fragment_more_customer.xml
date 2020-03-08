@@ -176,8 +176,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="@string/payout"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/design_4_7sp"
@@ -187,9 +187,9 @@
                         android:id="@+id/imageButtonAddPayout"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:padding="5dp"
                         android:layout_gravity="center_vertical|end"
                         android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                        android:padding="5dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/plus" />
                 </LinearLayout>

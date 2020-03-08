@@ -23,6 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class HandymanViewModel extends BaseViewModel {
+    private final HandymanService handymanService;
     private MutableLiveData<Handyman> handymanMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanReviewProfile> handymanReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanProfileResponse> handymanProfileResponseMutableLiveData = new MutableLiveData<>();
@@ -30,7 +31,6 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<ListTransferHistory> listTransferHistoryMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<ListPayoutResponse> listPayoutResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
-    private final HandymanService handymanService;
 
     @Inject
     HandymanViewModel(@NonNull Application application, HandymanService handymanService) {

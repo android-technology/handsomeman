@@ -22,12 +22,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MessageViewModel extends BaseViewModel {
+    private final MessageService messageService;
     private MutableLiveData<List<ConversationResponse>> conversationResponseListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<MessageResponse>> messageResponseListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
-    private final MessageService messageService;
 
     @Inject
     MessageViewModel(@NonNull Application application, MessageService messageService) {

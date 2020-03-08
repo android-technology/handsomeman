@@ -8,14 +8,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.databinding.ItemHandymanBinding;
 import com.tt.handsomeman.databinding.ItemHandymanFilterBinding;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.util.DecimalFormat;

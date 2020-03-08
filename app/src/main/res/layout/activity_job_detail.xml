@@ -476,10 +476,10 @@
                             android:layout_marginEnd="10dp"
                             android:background="@drawable/custom_ripple_transparent_color_bg"
                             android:padding="7dp"
-                            android:visibility="invisible"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_mail"
                             android:tint="@color/colorPrimary"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toTopOf="@+id/viewDivider"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

@@ -79,9 +79,9 @@
             android:id="@+id/attachFileButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:padding="5dp"
             android:layout_gravity="center_vertical|end"
             android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/plus" />
     </LinearLayout>

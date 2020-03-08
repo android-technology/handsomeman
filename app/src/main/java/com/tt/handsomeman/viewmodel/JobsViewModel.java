@@ -26,12 +26,12 @@ import okhttp3.MultipartBody;
 
 public class JobsViewModel extends BaseViewModel {
 
+    private final JobService jobService;
     private MutableLiveData<StartScreenHandyman> screenDataMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Job>> jobMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
-    private final JobService jobService;
 
     @Inject
     JobsViewModel(@NonNull Application application, JobService jobService) {
