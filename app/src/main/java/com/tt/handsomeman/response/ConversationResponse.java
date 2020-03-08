@@ -1,7 +1,5 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 
@@ -13,20 +11,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ConversationResponse {
-    @SerializedName("conversationId")
-    @Expose
     private int conversationId;
-    @SerializedName("avatar")
-    @Expose
     private String avatar;
-    @SerializedName("accountName")
-    @Expose
     private String accountName;
-    @SerializedName("latestMessage")
-    @Expose
     private String latestMessage;
-    @SerializedName("sendTime")
-    @Expose
     private Date sendTime;
 
     public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {

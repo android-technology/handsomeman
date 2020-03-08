@@ -1,29 +1,14 @@
 package com.tt.handsomeman.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class JobDetail implements Serializable {
-    @SerializedName("job")
-    @Expose
     private Job job;
-    @SerializedName("isBid")
-    @Expose
     private boolean isBid;
-    @SerializedName("listPaymentMilestone")
-    @Expose
     private List<PaymentMilestone> listPaymentMilestone;
-    @SerializedName("customer")
-    @Expose
     private CustomerJobDetail customerJobDetail;
-    @SerializedName("averageReviewPoint")
-    @Expose
     private Float averageReviewPoint;
-    @SerializedName("countReviewers")
-    @Expose
     private Integer countReviewers;
 
     public Job getJob() {

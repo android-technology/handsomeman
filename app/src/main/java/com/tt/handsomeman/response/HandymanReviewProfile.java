@@ -1,19 +1,10 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class HandymanReviewProfile {
-    @SerializedName("countReviewers")
-    @Expose
     private Integer countReviewers;
-    @SerializedName("averageReviewPoint")
-    @Expose
     private Float averageReviewPoint;
-    @SerializedName("handymanReviewResponseList")
-    @Expose
     private List<HandymanReviewResponse> handymanReviewResponseList;
 
     public Integer getCountReviewers() {

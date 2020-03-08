@@ -1,20 +1,9 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Contact {
-    @SerializedName("id")
-    @Expose
     private int id;
-    @SerializedName("data")
-    @Expose
     private String avatar;
-    @SerializedName("name")
-    @Expose
     private String name;
-    @SerializedName("isHeader")
-    @Expose
     private boolean isHeader;
 
     public String getFirstCharacter(String name) {

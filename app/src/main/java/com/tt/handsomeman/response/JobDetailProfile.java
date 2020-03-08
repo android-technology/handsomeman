@@ -1,31 +1,14 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class JobDetailProfile {
-    @SerializedName("customerName")
-    @Expose
     private String customerName;
-    @SerializedName("customerAvatar")
-    @Expose
     private String customerAvatar;
-    @SerializedName("allProject")
-    @Expose
     private Integer allProject;
-    @SerializedName("successedProject")
-    @Expose
     private Integer successedProject;
-    @SerializedName("countReviewers")
-    @Expose
     private Integer countReviewers;
-    @SerializedName("averageReviewPoint")
-    @Expose
     private Float averageReviewPoint;
-    @SerializedName("customerReviewResponses")
-    @Expose
     private List<CustomerReviewResponse> customerReviewResponses;
 
     public String getCustomerName() {

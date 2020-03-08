@@ -1,22 +1,11 @@
 package com.tt.handsomeman.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class PaymentMilestone implements Serializable {
-    @SerializedName("id")
-    @Expose
     private Integer id;
-    @SerializedName("jobId")
-    @Expose
     private Integer jobId;
-    @SerializedName("indexOrder")
-    @Expose
     private Integer indexOrder;
-    @SerializedName("percentage")
-    @Expose
     private Integer percentage;
 
     public Integer getId() {

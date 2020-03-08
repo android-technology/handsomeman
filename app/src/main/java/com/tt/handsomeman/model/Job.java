@@ -1,7 +1,5 @@
 package com.tt.handsomeman.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.tt.handsomeman.util.DayCount;
 
 import java.io.Serializable;
@@ -13,53 +11,21 @@ import java.util.Locale;
 
 public class Job implements Serializable {
 
-    @SerializedName("id")
-    @Expose
     private Integer id;
-    @SerializedName("categoryId")
-    @Expose
     private Integer categoryId;
-    @SerializedName("title")
-    @Expose
     private String title;
-    @SerializedName("createTime")
-    @Expose
     private Date createTime;
-    @SerializedName("detail")
-    @Expose
     private String detail;
-    @SerializedName("budgetMin")
-    @Expose
     private Integer budgetMin;
-    @SerializedName("budgetMax")
-    @Expose
     private Integer budgetMax;
-    @SerializedName("deadline")
-    @Expose
     private Date deadline;
-    @SerializedName("location")
-    @Expose
     private String location;
-    @SerializedName("lat")
-    @Expose
     private Double lat;
-    @SerializedName("lng")
-    @Expose
     private Double lng;
-    @SerializedName("bidMin")
-    @Expose
     private Integer bidMin;
-    @SerializedName("bidMax")
-    @Expose
     private Integer bidMax;
-    @SerializedName("interviewing")
-    @Expose
     private Integer interviewing;
-    @SerializedName("customerId")
-    @Expose
     private Integer customerId;
-    @SerializedName("status")
-    @Expose
     private String status;
 
     public Job(Date createTime, String title, Integer budgetMin, Integer budgetMax, Date deadline, String location) {

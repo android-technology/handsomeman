@@ -1,17 +1,8 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class StandardResponse {
-    @SerializedName("status")
-    @Expose
     private String status;
-    @SerializedName("statusCode")
-    @Expose
     private String statusCode;
-    @SerializedName("message")
-    @Expose
     private String message;
 
     public String getStatus() {

@@ -1,19 +1,10 @@
 package com.tt.handsomeman.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class CustomerJobDetail implements Serializable {
-    @SerializedName("accountId")
-    @Expose
     private Integer accountId;
-    @SerializedName("customerName")
-    @Expose
     private String customerName;
-    @SerializedName("customerAvatar")
-    @Expose
     private Object customerAvatar;
 
     public Integer getAccountId() {

@@ -1,7 +1,5 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Job;
 
@@ -9,11 +7,7 @@ import java.util.List;
 
 public class StartScreenHandyman {
 
-    @SerializedName("jobList")
-    @Expose
     private List<Job> jobList;
-    @SerializedName("categoryList")
-    @Expose
     private List<Category> categoryList;
 
     public StartScreenHandyman(List<Job> jobList, List<Category> categoryList) {

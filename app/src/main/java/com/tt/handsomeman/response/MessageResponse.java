@@ -1,7 +1,5 @@
 package com.tt.handsomeman.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 
@@ -12,23 +10,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MessageResponse {
-    @SerializedName("messageId")
-    @Expose
     private int messageId;
-    @SerializedName("avatar")
-    @Expose
     private String avatar;
-    @SerializedName("accountId")
-    @Expose
     private int accountId;
-    @SerializedName("body")
-    @Expose
     private String body;
-    @SerializedName("sendTime")
-    @Expose
     private Date sendTime;
-    @SerializedName("type")
-    @Expose
     // type = 1 mean this is sender; type = 2 mean this is receiver
     private byte type;
 
