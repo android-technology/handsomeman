@@ -43,6 +43,11 @@ public class Constants {
     public static final String FIND_HANDYMAN = "/api/customer/findHandyman";
     public static final String FIND_HANDYMAN_CATEGORY = "/api/customer/byCategory/{id}";
     public static final String FIND_HANDYMAN_NEARBY = "/api/customer/yourLocation";
+    public static final String GET_CUSTOMER_REVIEW = "/api/customer/customerReview";
+    public static final String GET_HANDYMAN_DETAIL = "/api/customer/handymanDetail";
+    public static final String GET_CUSTOMER_INFO = "/api/customer/info";
+    public static final String GET_CUSTOMER_PROFILE = "/api/customer/profile";
+    public static final String EDIT_CUSTOMER_PROFILE = "/api/customer/profile/edit";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

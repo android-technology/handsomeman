@@ -179,12 +179,7 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
             Integer countReview = jobDetail.getCountReviewers();
             tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
 
-            Float averageReviewPoint = jobDetail.getAverageReviewPoint();
-            if (averageReviewPoint == null) {
-                rtReview.setRating(0);
-            } else {
-                rtReview.setRating(averageReviewPoint);
-            }
+            rtReview.setRating(jobDetail.getAverageReviewPoint());
 
             Double lat = job.getLat();
             Double lng = job.getLng();

@@ -15,13 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.customer.find_handyman.HandymanNearYourLocation"></activity>
-        <activity android:name=".ui.customer.find_handyman.FindHandymanCategory" />
+        <activity android:name=".ui.customer.more.CustomerProfileEdit"></activity>
+        <activity
+            android:name=".ui.customer.find_handyman.HandymanNearYourLocation"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.customer.find_handyman.FindHandymanCategory"
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.customer.CustomerMainScreen"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.handyman.more.ChangePassword"
+            android:name=".ui.ChangePassword"
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.handyman.more.TransferToBank"
@@ -42,7 +47,7 @@
             android:name=".ui.handyman.more.MyProfileEdit"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.handyman.more.MyProfile"
+            android:name=".ui.MyProfile"
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.handyman.messages.Conversation"

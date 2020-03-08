@@ -16,6 +16,10 @@ import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanCategory;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanNearYourLocation;
+import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
+import com.tt.handsomeman.ui.customer.more.CustomerProfileAboutFragment;
+import com.tt.handsomeman.ui.customer.more.CustomerProfileEdit;
+import com.tt.handsomeman.ui.customer.more.CustomerProfileReviewFragment;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
 import com.tt.handsomeman.ui.handyman.jobs.GroupByCategory;
@@ -30,8 +34,9 @@ import com.tt.handsomeman.ui.handyman.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildMessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.AddNewPayout;
 import com.tt.handsomeman.ui.handyman.more.AddNewSkill;
-import com.tt.handsomeman.ui.handyman.more.ChangePassword;
+import com.tt.handsomeman.ui.ChangePassword;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
+import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.ui.handyman.more.MyProfileAboutFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
@@ -114,4 +119,14 @@ public interface AppComponent {
     void inject(FindHandymanCategory findHandymanCategory);
 
     void inject(HandymanNearYourLocation handymanNearYourLocation);
+
+    void inject(CustomerMoreFragment customerMoreFragment);
+
+    void inject(CustomerProfileAboutFragment customerProfileAboutFragment);
+
+    void inject(CustomerProfileReviewFragment customerProfileReviewFragment);
+
+    void inject(MyProfile myProfile);
+
+    void inject(CustomerProfileEdit customerProfileEdit);
 }

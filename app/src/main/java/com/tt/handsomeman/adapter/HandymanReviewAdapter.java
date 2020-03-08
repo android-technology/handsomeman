@@ -42,8 +42,8 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
         HandymanReviewResponse handymanReviewResponse = handymanReviewResponseList.get(position);
 
         holder.customerName.setText(handymanReviewResponse.getCustomerName());
-        holder.customerRating.setRating(handymanReviewResponse.getHandymanReview().getVote());
-        holder.customerComment.setText(handymanReviewResponse.getHandymanReview().getComment());
+        holder.customerRating.setRating(handymanReviewResponse.getVote());
+        holder.customerComment.setText(handymanReviewResponse.getComment());
     }
 
     @Override

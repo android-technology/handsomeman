@@ -26,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityCustomerMainScreenBinding;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanFragment;
-import com.tt.handsomeman.ui.customer.more.MoreCustomerFragment;
+import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.handyman.notifications.NotificationsFragment;
@@ -41,7 +41,7 @@ public class CustomerMainScreen extends AppCompatActivity {
     final Fragment fragment2 = new MessagesFragment();
     final Fragment fragment3 = new MyProjectsFragment();
     final Fragment fragment4 = new NotificationsFragment();
-    final Fragment fragment5 = new MoreCustomerFragment();
+    final Fragment fragment5 = new CustomerMoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
 
     private final LocationListener locationListener = new LocationListener() {

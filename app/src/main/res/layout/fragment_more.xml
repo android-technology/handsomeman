@@ -42,7 +42,7 @@
                 android:padding="15dp">
 
                 <ImageView
-                    android:id="@+id/accountAvatarConversation"
+                    android:id="@+id/accountAvatar"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:src="@drawable/review_demo"
@@ -58,7 +58,7 @@
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/accountAvatarConversation"
+                    app:layout_constraintStart_toEndOf="@+id/accountAvatar"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -75,7 +75,7 @@
                         android:layout_height="5dp" />
 
                     <TextView
-                        android:id="@+id/latestMessageConversation"
+                        android:id="@+id/textViewProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/view_my_profile"

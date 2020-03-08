@@ -69,12 +69,7 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
         ibEdit = binding.imageButtonCheckEdit;
         ibAddSkillMyProfileEdit = binding.imageButtonAddSkillMyProfileEdit;
 
-        binding.myProfileEditBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        goBack();
 
         ibAddSkillMyProfileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +82,15 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
         createRecyclerView();
         fetchHandymanProfile();
         doEdit();
+    }
+
+    private void goBack() {
+        binding.myProfileEditBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void editTextYourNameListener(EditText yourNameEdit) {

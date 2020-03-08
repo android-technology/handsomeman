@@ -1,17 +1,21 @@
 package com.tt.handsomeman.response;
 
-public class HandymanReviewResponse {
-    private String customerName;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.tt.handsomeman.model.CustomerReview;
+
+public class CustomerReviewResponse {
+    private String handymanName;
     private String avatar;
     private Integer vote;
     private String comment;
 
-    public String getCustomerName() {
-        return customerName;
+    public String getHandymanName() {
+        return handymanName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setHandymanName(String handymanName) {
+        this.handymanName = handymanName;
     }
 
     public String getAvatar() {

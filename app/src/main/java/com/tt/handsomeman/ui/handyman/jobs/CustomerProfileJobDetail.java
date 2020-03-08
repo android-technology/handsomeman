@@ -16,7 +16,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
 import com.tt.handsomeman.databinding.ActivityCustomerProfileJobDetailBinding;
-import com.tt.handsomeman.response.JobDetailCustomerReview;
+import com.tt.handsomeman.response.CustomerReviewResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
@@ -36,7 +36,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
     SharedPreferencesUtils sharedPreferencesUtils;
 
     private CustomerReviewAdapter customerReviewAdapter;
-    private List<JobDetailCustomerReview> jobDetailCustomerReviews = new ArrayList<>();
+    private List<CustomerReviewResponse> customerReviewResponses = new ArrayList<>();
     private ImageView customerAvatar;
     private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
@@ -86,8 +86,8 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
                     countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
                 }
 
-                jobDetailCustomerReviews.clear();
-                jobDetailCustomerReviews.addAll(jobDetailProfile.getJobDetailCustomerReviews());
+                customerReviewResponses.clear();
+                customerReviewResponses.addAll(jobDetailProfile.getCustomerReviewResponses());
                 customerReviewAdapter.notifyDataSetChanged();
             }
         });
@@ -95,7 +95,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
 
     private void createCustomerReviewRecycleView() {
         RecyclerView rcvReview = binding.reviewCustomerRecycleView;
-        customerReviewAdapter = new CustomerReviewAdapter(this, jobDetailCustomerReviews);
+        customerReviewAdapter = new CustomerReviewAdapter(this, customerReviewResponses);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());

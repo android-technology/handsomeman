@@ -12,19 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.databinding.ItemReviewBinding;
-import com.tt.handsomeman.response.JobDetailCustomerReview;
+import com.tt.handsomeman.response.CustomerReviewResponse;
 
 import java.util.List;
 
 public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAdapter.CustomerReviewViewHolder> {
 
-    private List<JobDetailCustomerReview> jobDetailCustomerReviews;
+    private List<CustomerReviewResponse> customerReviewResponses;
     private LayoutInflater layoutInflater;
     private Context context;
     private ItemReviewBinding binding;
 
-    public CustomerReviewAdapter(Context context, List<JobDetailCustomerReview> jobDetailCustomerReviews) {
-        this.jobDetailCustomerReviews = jobDetailCustomerReviews;
+    public CustomerReviewAdapter(Context context, List<CustomerReviewResponse> customerReviewResponses) {
+        this.customerReviewResponses = customerReviewResponses;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -39,17 +39,17 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
 
     @Override
     public void onBindViewHolder(@NonNull CustomerReviewViewHolder holder, int position) {
-        JobDetailCustomerReview jobDetailCustomerReview = jobDetailCustomerReviews.get(position);
+        CustomerReviewResponse customerReviewResponse = customerReviewResponses.get(position);
 
 //        holder.handymenAvatar.setImageResource();
-        holder.handymenName.setText(jobDetailCustomerReview.getHandymanName());
-        holder.handymenRating.setRating(jobDetailCustomerReview.getCustomerReview().getVote());
-        holder.handymenComment.setText(jobDetailCustomerReview.getCustomerReview().getComment());
+        holder.handymenName.setText(customerReviewResponse.getHandymanName());
+        holder.handymenRating.setRating(customerReviewResponse.getVote());
+        holder.handymenComment.setText(customerReviewResponse.getComment());
     }
 
     @Override
     public int getItemCount() {
-        return jobDetailCustomerReviews.size();
+        return customerReviewResponses.size();
     }
 
     class CustomerReviewViewHolder extends RecyclerView.ViewHolder {

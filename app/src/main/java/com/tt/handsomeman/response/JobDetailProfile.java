@@ -26,7 +26,7 @@ public class JobDetailProfile {
     private Float averageReviewPoint;
     @SerializedName("jobDetailCustomerReviews")
     @Expose
-    private List<JobDetailCustomerReview> jobDetailCustomerReviews;
+    private List<CustomerReviewResponse> customerReviewResponses;
 
     public String getCustomerName() {
         return customerName;
@@ -76,11 +76,11 @@ public class JobDetailProfile {
         this.averageReviewPoint = averageReviewPoint;
     }
 
-    public List<JobDetailCustomerReview> getJobDetailCustomerReviews() {
-        return jobDetailCustomerReviews;
+    public List<CustomerReviewResponse> getCustomerReviewResponses() {
+        return customerReviewResponses;
     }
 
-    public void setJobDetailCustomerReviews(List<JobDetailCustomerReview> jobDetailCustomerReviews) {
-        this.jobDetailCustomerReviews = jobDetailCustomerReviews;
+    public void setCustomerReviewResponses(List<CustomerReviewResponse> customerReviewResponses) {
+        this.customerReviewResponses = customerReviewResponses;
     }
 }

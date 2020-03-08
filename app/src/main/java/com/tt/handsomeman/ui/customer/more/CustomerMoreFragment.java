@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.more;
+package com.tt.handsomeman.ui.customer.more;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,24 +22,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.PayoutAdapter;
-import com.tt.handsomeman.databinding.FragmentMoreBinding;
-import com.tt.handsomeman.model.Handyman;
+import com.tt.handsomeman.databinding.FragmentMoreCustomerBinding;
+import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.model.Payout;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.ChangePassword;
-import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.ui.Start;
+import com.tt.handsomeman.ui.handyman.more.AddNewPayout;
+import com.tt.handsomeman.ui.MyProfile;
+import com.tt.handsomeman.ui.handyman.more.ViewPayout;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.YesOrNoDialog;
-import com.tt.handsomeman.viewmodel.HandymanViewModel;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBinding> {
+public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, FragmentMoreCustomerBinding> {
     private static final Integer REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE = 7;
     private static final Integer REQUEST_MORE_CHANGE_PASSWORD = 0;
 
@@ -48,17 +50,18 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     private ConstraintLayout viewMyProfileLayout;
-    private TextView tvLogout, tvWalletBalance, tvAccountName, tvTransferToBank, tvViewTransferHistory, changePassword;
-    private ImageButton ibAddPayout;
+    private TextView tvLogout, tvAccountName, tvMakeTransaction, tvViewTransferHistory, changePassword;
     private ImageView imgAvatar;
+    private ImageButton ibAddPayout;
     private PayoutAdapter payoutAdapter;
     private List<Payout> payoutList = new ArrayList<>();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
-        viewBinding = FragmentMoreBinding.inflate(inflater, container, false);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
+        viewBinding = FragmentMoreCustomerBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
     }
 
@@ -68,22 +71,24 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
         imgAvatar = viewBinding.accountAvatar;
         viewMyProfileLayout = viewBinding.viewMyProfileLayout;
         tvLogout = viewBinding.logoutMore;
-        tvWalletBalance = viewBinding.walletBalance;
         tvAccountName = viewBinding.accountNameMore;
         ibAddPayout = viewBinding.imageButtonAddPayout;
-        tvTransferToBank = viewBinding.transferToBank;
+        tvMakeTransaction = viewBinding.textViewMakeTransaction;
         tvViewTransferHistory = viewBinding.viewTransferHistory;
         changePassword = viewBinding.textViewChangePassword;
 
-
         createPayoutRecyclerView();
-        fetchHandymanInfo();
+        fetchCustomerInfo();
         viewMyProfile();
-        transferToBank();
-        viewTransferHistory();
         addPayout();
         changePassword();
         logOut();
+    }
+
+    private void addPayout() {
+        ibAddPayout.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getContext(), AddNewPayout.class), REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE);
+        });
     }
 
     private void viewMyProfile() {
@@ -95,57 +100,16 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
         });
     }
 
-    private void logOut() {
-        tvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new YesOrNoDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.want_to_log_out), R.drawable.log_out, new YesOrNoDialog.OnItemClickListener() {
-                    @Override
-                    public void onItemClickYes() {
-                        sharedPreferencesUtils.clear();
-                        startActivity(new Intent(getContext(), Start.class));
-                        getActivity().finish();
-                    }
-                }).show();
-            }
-        });
-    }
-
-    private void addPayout() {
-        ibAddPayout.setOnClickListener(v -> {
-            startActivityForResult(new Intent(getContext(), AddNewPayout.class), REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE);
-        });
-    }
-
-    private void changePassword() {
-        changePassword.setOnClickListener(view -> {
-            startActivityForResult(new Intent(getContext(), ChangePassword.class), REQUEST_MORE_CHANGE_PASSWORD);
-        });
-    }
-
-    private void transferToBank() {
-        tvTransferToBank.setOnClickListener(view -> {
-            startActivityForResult(new Intent(getContext(), TransferToBank.class), REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE);
-        });
-    }
-
-    private void viewTransferHistory() {
-        tvViewTransferHistory.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), TransferHistory.class));
-        });
-    }
-
-    private void fetchHandymanInfo() {
+    private void fetchCustomerInfo() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        baseViewModel.fetchHandymanInfo(authorizationCode);
-        baseViewModel.getHandymanMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Handyman>() {
+        baseViewModel.fetchCustomerInfo(authorizationCode);
+        baseViewModel.getCustomerMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
             @Override
-            public void onChanged(Handyman handyman) {
-                tvAccountName.setText(handyman.getName());
-                tvWalletBalance.setText(getString(R.string.money_currency_string, handyman.getWallet().getBalance()));
+            public void onChanged(Customer customer) {
+                tvAccountName.setText(customer.getName());
 
                 payoutList.clear();
-                payoutList.addAll(handyman.getAccount().getPayoutList());
+                payoutList.addAll(customer.getAccount().getPayoutList());
                 payoutAdapter.notifyDataSetChanged();
             }
         });
@@ -173,12 +137,34 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
         rcvPayout.setAdapter(payoutAdapter);
     }
 
+    private void logOut() {
+        tvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new YesOrNoDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.want_to_log_out), R.drawable.log_out, new YesOrNoDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClickYes() {
+                        sharedPreferencesUtils.clear();
+                        startActivity(new Intent(getContext(), Start.class));
+                        getActivity().finish();
+                    }
+                }).show();
+            }
+        });
+    }
+
+    private void changePassword() {
+        changePassword.setOnClickListener(view -> {
+            startActivityForResult(new Intent(getContext(), ChangePassword.class), REQUEST_MORE_CHANGE_PASSWORD);
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMoreFragmentEdit", false)) {
-                fetchHandymanInfo();
+                fetchCustomerInfo();
             }
         }
         if (requestCode == REQUEST_MORE_CHANGE_PASSWORD && resultCode == Activity.RESULT_OK && data != null) {

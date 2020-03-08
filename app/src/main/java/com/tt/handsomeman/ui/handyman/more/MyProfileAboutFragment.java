@@ -24,6 +24,7 @@ import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
@@ -107,7 +108,7 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
                 fetchHandymanProfile();
                 isMyProfileEdit = true;
                 MyProfile myProfile = (MyProfile) getActivity();
-                myProfile.setEditResult(isMyProfileEdit);
+                myProfile.setMyProfileEditResult(isMyProfileEdit);
             }
         }
 

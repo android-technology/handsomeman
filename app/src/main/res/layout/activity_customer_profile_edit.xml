@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".ui.MyProfile">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/myProfileBackButton"
+            android:id="@+id/myProfileEditBackButton"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_radius_bg"
@@ -31,21 +30,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/my_profile"
+            android:text="@string/edit"
             android:textColor="@color/white"
             android:textSize="@dimen/design_6sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="0dp" />
 
         <ImageButton
-            android:id="@+id/imageButtonMyProfileEdit"
+            android:id="@+id/imageButtonCheckEdit"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:background="@drawable/custom_ripple_transparent_color_radius_bg"
-            android:padding="10dp"
+            android:padding="18dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/edit"
+            android:src="@drawable/ic_check"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,63 +57,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:fillViewport="true"
         android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.handyman.more.MyProfileAboutFragment">
 
-            <RadioGroup
+            <ImageView
+                android:id="@+id/accountAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/avatar_demo" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/outline_text_box"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <RadioButton
-                    android:id="@+id/radioButtonAbout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/radio_start_states"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="35dp"
-                    android:text="@string/about"
-                    android:textColor="@drawable/radio_text"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_name"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/design_4_7sp"
-                    app:buttonTint="@android:color/transparent" />
+                    android:textStyle="bold" />
 
-                <RadioButton
-                    android:id="@+id/radioButtonReviews"
+                <EditText
+                    android:id="@+id/editTextYourNameMyProfileEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/radio_end_states"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="35dp"
-                    android:text="@string/reviews"
-                    android:textColor="@drawable/radio_text"
-                    android:textSize="@dimen/design_4_7sp"
-                    app:buttonTint="@android:color/transparent" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_top_edit_text_from_text"
+                    android:background="@drawable/outline_text_box"
+                    android:hint="@string/your_name"
+                    android:importantForAutofill="no"
+                    android:minHeight="30dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/design_4_7sp" />
 
-            <FrameLayout
-                android:id="@+id/myProfileFragmentParent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+            </LinearLayout>
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

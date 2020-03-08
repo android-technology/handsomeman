@@ -57,11 +57,11 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
         countReviewers = viewBinding.reviewCountHandymanProfile;
         rtCountPoint = viewBinding.ratingBarHandymanProfile;
 
-        createReviewRecyclerView(view);
+        createReviewRecyclerView();
         fetchData();
     }
 
-    private void createReviewRecyclerView(@NonNull View view) {
+    private void createReviewRecyclerView() {
         RecyclerView rcvReview = viewBinding.reviewHandymanProfile;
         handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponseList, getContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -79,12 +79,7 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
             @Override
             public void onChanged(HandymanReviewProfile handymanReviewProfile) {
                 countReviewers.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanReviewProfile.getCountReviewers(), handymanReviewProfile.getCountReviewers()));
-                Float averageReviewPoint = handymanReviewProfile.getAverageReviewPoint();
-                if (averageReviewPoint == null) {
-                    rtCountPoint.setRating(0);
-                } else {
-                    rtCountPoint.setRating(averageReviewPoint);
-                }
+                rtCountPoint.setRating(handymanReviewProfile.getAverageReviewPoint());
 
                 handymanReviewResponseList.clear();
                 handymanReviewResponseList.addAll(handymanReviewProfile.getHandymanReviewResponseList());

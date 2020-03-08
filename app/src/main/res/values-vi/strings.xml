@@ -156,6 +156,8 @@
     <string name="handyman">Handyman</string>
     <string name="handyman_role">Bạn là Handyman</string>
     <string name="customer_role">Bạn là Khách hàng</string>
+    <string name="transaction">Giao dịch</string>
+    <string name="make_transaction">Tạo một giao dịch</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>
