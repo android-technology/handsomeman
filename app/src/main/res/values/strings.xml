@@ -417,6 +417,8 @@
     <string name="veriry_new_password">Verify new password</string>
     <string name="new_password_not_different">New Password is same as your Current Password</string>
     <string name="handyman">Handyman</string>
+    <string name="budget_range">$%1$d - $%2$d</string>
+    <string name="bid_range">%1$d to %2$d</string>
 
     <plurals name="numberOfReview">
         <item quantity="one">(%d Review)</item>

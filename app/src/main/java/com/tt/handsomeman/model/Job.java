@@ -1,6 +1,8 @@
 package com.tt.handsomeman.model;
 
-import com.tt.handsomeman.util.DayCount;
+import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
+import com.tt.handsomeman.util.TimeCount;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -37,27 +39,29 @@ public class Job implements Serializable {
         this.location = location;
     }
 
-    public Integer setCreateTimeBinding(Date createTime) {
-        String myFormat = "h"; //In which you need put here
+    public Integer setCreateTimeBinding() throws ParseException {
+        Calendar now = Calendar.getInstance();
+        String myFormat = "yyyy-MM-dd HH:mm:ss ZZ"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        return Integer.valueOf(sdf.format(createTime));
+        Date today = sdf.parse(sdf.format(now.getTime()));
+        Date createTime = sdf.parse(sdf.format(this.createTime));
+        return TimeCount.getHoursBetween(createTime, today);
     }
 
-    public String setBudgetRange(Integer budgetMin, Integer budgetMax) {
-        return ("$" + budgetMin + " - " + "$" + budgetMax);
+    public String setBudgetRange() {
+        return HandymanApp.getInstance().getString(R.string.budget_range, this.budgetMin, this.budgetMax);
     }
 
-    public Integer setDeadlineBinding(Date deadline) throws ParseException {
+    public Integer setDeadlineBinding() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Calendar now = Calendar.getInstance();
         Date today = formatter.parse(formatter.format(now.getTime()));
-        deadline = formatter.parse(formatter.format(deadline));
-
-        return DayCount.getCountOfDays(today, deadline);
+        Date deadline = formatter.parse(formatter.format(this.deadline));
+        return Math.max(TimeCount.getDaysBetween(today, deadline), 0);
     }
 
-    public String setBidRange(Integer bidMin, Integer bidMax) {
-        return (bidMin + " to " + bidMax);
+    public String setBidRange() {
+        return HandymanApp.getInstance().getString(R.string.bid_range, this.bidMin, this.bidMax);
     }
 
     public Integer getId() {

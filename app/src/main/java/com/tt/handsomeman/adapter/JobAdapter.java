@@ -49,14 +49,14 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         Job job = jobList.get(position);
 
         holder.tvJobTitle.setText(job.getTitle());
-        holder.tvCreateTime.setText(context.getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(job.getCreateTime()), job.setCreateTimeBinding(job.getCreateTime())));
-        holder.tvBudget.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
-        holder.tvLocationName.setText(job.getLocation());
         try {
-            holder.tvDeadline.setText(context.getResources().getQuantityString(R.plurals.numberOfHour, job.setDeadlineBinding(job.getDeadline()), job.setDeadlineBinding(job.getDeadline())));
+            holder.tvCreateTime.setText(context.getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
+            holder.tvDeadline.setText(context.getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        holder.tvBudget.setText(job.setBudgetRange());
+        holder.tvLocationName.setText(job.getLocation());
     }
 
     @Override

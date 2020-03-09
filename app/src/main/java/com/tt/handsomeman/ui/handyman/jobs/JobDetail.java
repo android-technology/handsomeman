@@ -124,16 +124,16 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
             tvJobTitle.setText(job.getTitle());
             tvJobId.setText(String.valueOf(job.getId()));
 
-            tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(job.getCreateTime()), job.setCreateTimeBinding(job.getCreateTime())));
-            tvJobDetail.setText(job.getDetail());
-            tvBudgetRange.setText(job.setBudgetRange(job.getBudgetMin(), job.getBudgetMax()));
             try {
-                tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setDeadlineBinding(job.getDeadline()), job.setDeadlineBinding(job.getDeadline())));
+                tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
+                tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            tvJobDetail.setText(job.getDetail());
+            tvBudgetRange.setText(job.setBudgetRange());
             tvJobLocation.setText(job.getLocation());
-            tvBidRange.setText(job.setBidRange(job.getBidMin(), job.getBidMax()));
+            tvBidRange.setText(job.setBidRange());
             tvInterviewing.setText(String.valueOf(job.getInterviewing()));
 
             if (job.getStatus().equals("A")) {

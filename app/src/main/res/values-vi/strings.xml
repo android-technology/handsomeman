@@ -160,6 +160,8 @@
     <string name="make_transaction">Tạo một giao dịch</string>
     <string name="invite_to_project">Mời vào dự án của tôi</string>
     <string name="reviews_from_other_customer">Đánh giá từ các khách hàng khác</string>
+    <string name="budget_range">$%1$d - $%2$d</string>
+    <string name="bid_range">%1$d đến %2$d</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>
@@ -182,7 +184,7 @@
         <item quantity="other">%d giờ trước</item>
     </plurals>
     <plurals name="numberOfDay">
-        <item quantity="other">%d ngày trước</item>
+        <item quantity="other">còn %d ngày</item>
     </plurals>
     <plurals name="handymanDistance">
         <item quantity="other">cách bạn %dm</item>
