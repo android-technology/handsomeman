@@ -83,7 +83,7 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), HandymanNearYourLocation.class));
+                startActivity(new Intent(getContext(), HandymanNearYourLocation.class));
             }
         });
     }
@@ -94,9 +94,9 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         findHandymanAdapter.setOnItemClickListener(new FindHandymanAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                Intent intent = new Intent(getActivity(), JobDetail.class);
-//                intent.putExtra("jobId", jobArrayList.get(position).getId());
-//                startActivity(intent);
+                Intent intent = new Intent(getContext(), HandymanDetail.class);
+                intent.putExtra("handymanId", handymanResponseList.get(position).getHandymanId());
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
@@ -114,7 +114,7 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
             public void onItemClick(int position) {
                 String categoryName = categoryArrayList.get(position).getName();
 
-                Intent intent = new Intent(getActivity(), FindHandymanCategory.class);
+                Intent intent = new Intent(getContext(), FindHandymanCategory.class);
                 intent.putExtra("categoryName", categoryName);
                 intent.putExtra("categoryId", categoryArrayList.get(position).getId());
                 startActivity(intent);

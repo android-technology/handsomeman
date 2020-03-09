@@ -17,6 +17,7 @@ import com.tt.handsomeman.ui.SignUp;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanCategory;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
+import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanNearYourLocation;
 import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileAboutFragment;
@@ -129,4 +130,6 @@ public interface AppComponent {
     void inject(MyProfile myProfile);
 
     void inject(CustomerProfileEdit customerProfileEdit);
+
+    void inject(HandymanDetail handymanDetail);
 }

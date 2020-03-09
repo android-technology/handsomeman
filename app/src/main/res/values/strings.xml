@@ -442,4 +442,6 @@
     <string name="customer_role">You are Customer</string>
     <string name="transaction">Transaction</string>
     <string name="make_transaction">Make the transaction</string>
+    <string name="invite_to_project">Invite to my project</string>
+    <string name="reviews_from_other_customer">Reviews from other customer</string>
 </resources>

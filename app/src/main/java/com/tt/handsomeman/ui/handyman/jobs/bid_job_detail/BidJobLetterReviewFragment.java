@@ -33,6 +33,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.jobDetail;
+
 public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, FragmentBidJobDetailLetterReviewBinding> {
 
     private static String introduceValue, myBidValue;
@@ -100,7 +102,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         tvMyBudget.setText(getString(R.string.money_currency_string, myBidValue));
         tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
-        List<PaymentMilestone> listPaymentMilestone = BidJobDetail.jobDetail.getListPaymentMilestone();
+        List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
         for (int i = 0; i < listPaymentMilestone.size(); i++) {
             TableRow tr = new TableRow(getContext());
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
@@ -149,7 +151,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
                     public void onChanged(String s) {
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                         if (s.equals(MessageConstant.JOB_IS_BIDDEN_SUCCESSFULLY)) {
-                            Intent intent = new Intent(getActivity(), HandyManMainScreen.class);
+                            Intent intent = new Intent(getContext(), HandyManMainScreen.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("radioButtonChoice", 1);
                             startActivity(intent);
@@ -164,6 +166,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
     public void onDetach() {
         tvLetter = null;
         tvMyBudget = null;
+        jobDetail = null;
         super.onDetach();
     }
 }

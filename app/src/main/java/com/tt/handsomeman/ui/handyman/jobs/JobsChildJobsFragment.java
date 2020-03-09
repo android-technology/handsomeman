@@ -84,7 +84,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
         showMoreYourLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), YourLocation.class));
+                startActivity(new Intent(getContext(), YourLocation.class));
             }
         });
     }
@@ -95,7 +95,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
         jobAdapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(getActivity(), JobDetail.class);
+                Intent intent = new Intent(getContext(), JobDetail.class);
                 intent.putExtra("jobId", jobArrayList.get(position).getId());
                 startActivity(intent);
             }
@@ -115,7 +115,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
             public void onItemClick(int position) {
                 String categoryName = categoryArrayList.get(position).getName();
 
-                Intent intent = new Intent(getActivity(), GroupByCategory.class);
+                Intent intent = new Intent(getContext(), GroupByCategory.class);
                 intent.putExtra("categoryName", categoryName);
                 intent.putExtra("categoryId", categoryArrayList.get(position).getId());
                 startActivity(intent);

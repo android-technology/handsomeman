@@ -158,6 +158,8 @@
     <string name="customer_role">Bạn là Khách hàng</string>
     <string name="transaction">Giao dịch</string>
     <string name="make_transaction">Tạo một giao dịch</string>
+    <string name="invite_to_project">Mời vào dự án của tôi</string>
+    <string name="reviews_from_other_customer">Đánh giá từ các khách hàng khác</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>

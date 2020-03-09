@@ -16,7 +16,7 @@ public class HandymanDetailResponse {
     private String detail;
     private List<Skill> skillList;
     private Integer countReviewers;
-    private Double averageReviewPoint;
+    private Float averageReviewPoint;
     private List<HandymanReviewResponse> handymanReviewResponseList;
 
     public Integer getHandymanId() {
@@ -99,11 +99,11 @@ public class HandymanDetailResponse {
         this.countReviewers = countReviewers;
     }
 
-    public Double getAverageReviewPoint() {
+    public Float getAverageReviewPoint() {
         return averageReviewPoint;
     }
 
-    public void setAverageReviewPoint(Double averageReviewPoint) {
+    public void setAverageReviewPoint(Float averageReviewPoint) {
         this.averageReviewPoint = averageReviewPoint;
     }
 

@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.customer.find_handyman;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -85,9 +86,9 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
         findHandymanfilterAdapter.setOnItemClickListener(new FindHandymanFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                Intent intent = new Intent(YourLocation.this, JobDetail.class);
-//                intent.putExtra("jobId", jobArrayList.get(position).getId());
-//                startActivity(intent);
+                Intent intent = new Intent(HandymanNearYourLocation.this, HandymanDetail.class);
+                intent.putExtra("handymanId", handymanResponseList.get(position).getHandymanId());
+                startActivity(intent);
             }
         });
         RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(this);

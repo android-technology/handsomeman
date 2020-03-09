@@ -82,9 +82,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
                 customerAllProjectCount.setText(String.valueOf(jobDetailProfile.getAllProject()));
                 customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getAllProject()));
                 countReviews.setText(getResources().getQuantityString(R.plurals.numberOfReview, jobDetailProfile.getCountReviewers(), jobDetailProfile.getCountReviewers()));
-                if (jobDetailProfile.getAverageReviewPoint() != null) {
-                    countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
-                }
+                countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
 
                 customerReviewResponses.clear();
                 customerReviewResponses.addAll(jobDetailProfile.getCustomerReviewResponses());

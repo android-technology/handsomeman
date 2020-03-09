@@ -5,11 +5,17 @@ import java.util.List;
 
 public class JobDetail implements Serializable {
     private Job job;
+
     private boolean isBid;
+
     private List<PaymentMilestone> listPaymentMilestone;
-    private CustomerJobDetail customerJobDetail;
+
+    private CustomerResponse customer;
+
     private Float averageReviewPoint;
+
     private Integer countReviewers;
+
 
     public Job getJob() {
         return job;
@@ -19,28 +25,28 @@ public class JobDetail implements Serializable {
         this.job = job;
     }
 
-    public boolean getIsBid() {
+    public boolean isBid() {
         return isBid;
     }
 
-    public void setIsBid(boolean isBid) {
-        this.isBid = isBid;
+    public void setBid(boolean bid) {
+        isBid = bid;
     }
 
     public List<PaymentMilestone> getListPaymentMilestone() {
         return listPaymentMilestone;
     }
 
-    public void setListPaymentMilestone(List<PaymentMilestone> paymentMilestone) {
-        this.listPaymentMilestone = paymentMilestone;
+    public void setListPaymentMilestone(List<PaymentMilestone> listPaymentMilestone) {
+        this.listPaymentMilestone = listPaymentMilestone;
     }
 
-    public CustomerJobDetail getCustomerJobDetail() {
-        return customerJobDetail;
+    public CustomerResponse getCustomer() {
+        return customer;
     }
 
-    public void setCustomerJobDetail(CustomerJobDetail customerJobDetail) {
-        this.customerJobDetail = customerJobDetail;
+    public void setCustomer(CustomerResponse customer) {
+        this.customer = customer;
     }
 
     public Float getAverageReviewPoint() {

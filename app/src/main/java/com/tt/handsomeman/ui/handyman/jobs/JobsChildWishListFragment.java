@@ -71,7 +71,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel, Fragm
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(getActivity(), JobDetail.class);
+                Intent intent = new Intent(getContext(), JobDetail.class);
                 intent.putExtra("jobId", jobArrayList.get(position).getId());
                 startActivity(intent);
             }

@@ -2,10 +2,10 @@ package com.tt.handsomeman.model;
 
 import java.io.Serializable;
 
-public class CustomerJobDetail implements Serializable {
+public class CustomerResponse implements Serializable {
     private Integer accountId;
     private String customerName;
-    private Object customerAvatar;
+    private String customerAvatar;
 
     public Integer getAccountId() {
         return accountId;
@@ -23,11 +23,11 @@ public class CustomerJobDetail implements Serializable {
         this.customerName = customerName;
     }
 
-    public Object getCustomerAvatar() {
+    public String getCustomerAvatar() {
         return customerAvatar;
     }
 
-    public void setCustomerAvatar(Object customerAvatar) {
+    public void setCustomerAvatar(String customerAvatar) {
         this.customerAvatar = customerAvatar;
     }
 }

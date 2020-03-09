@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".ui.customer.more.CustomerProfileEdit"></activity>
+        <activity
+            android:name=".ui.customer.find_handyman.HandymanDetail"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.customer.more.CustomerProfileEdit"
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.customer.find_handyman.HandymanNearYourLocation"
             android:screenOrientation="locked" />

@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityJobDetailBinding;
-import com.tt.handsomeman.model.CustomerJobDetail;
+import com.tt.handsomeman.model.CustomerResponse;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
@@ -50,7 +50,6 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
     private Button btnPlaceABid;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
-    private Job job;
     private ActivityJobDetailBinding binding;
 
     @Override
@@ -58,6 +57,8 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         super.onCreate(savedInstanceState);
         binding = ActivityJobDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        HandymanApp.getComponent().inject(this);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
 
         rtReview = binding.ratingBarJobDetail;
         tvJobTitle = binding.jobTitleJobDetail;
@@ -79,16 +80,22 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         imIsWish = binding.isWishListImage;
         btnPlaceABid = binding.buttonPlaceBidJobDetail;
 
-        HandymanApp.getComponent().inject(this);
-
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-
-        binding.jobDetailBackButton.setOnClickListener(v -> onBackPressed());
-
+        goBack();
         Integer jobId = getIntent().getIntExtra("jobId", 0);
         fetchData(jobId);
         showClientProfile();
+        bidJob();
 
+    }
+
+    private void goBack() {
+        binding.jobDetailBackButton.setOnClickListener(v -> {
+            jobDetail = null;
+            onBackPressed();
+        });
+    }
+
+    private void bidJob() {
         btnPlaceABid.setOnClickListener(v -> {
             Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
             intent.putExtra("jobDetail", jobDetail);
@@ -99,7 +106,7 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
     private void showClientProfile() {
         tvShowClientProfile.setOnClickListener(v -> {
             Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
-            intent.putExtra("customerId", baseViewModel.getJobDetailLiveData().getValue().getJob().getCustomerId());
+            intent.putExtra("customerId", jobDetail.getCustomer().getAccountId());
             startActivity(intent);
         });
     }
@@ -110,10 +117,10 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
         baseViewModel.getJobDetailLiveData().observe(this, jobDetail -> {
             JobDetail.jobDetail = jobDetail;
-            if (jobDetail.getIsBid()) {
+            if (jobDetail.isBid()) {
                 imIsWish.setImageResource(R.drawable.ic_hearted);
             }
-            job = jobDetail.getJob();
+            Job job = jobDetail.getJob();
             tvJobTitle.setText(job.getTitle());
             tvJobId.setText(String.valueOf(job.getId()));
 
@@ -173,8 +180,8 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
                 tlMileStone.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             }
 
-            CustomerJobDetail customerJobDetail = jobDetail.getCustomerJobDetail();
-            tvClientName.setText(customerJobDetail.getCustomerName());
+            CustomerResponse customerResponse = jobDetail.getCustomer();
+            tvClientName.setText(customerResponse.getCustomerName());
 
             Integer countReview = jobDetail.getCountReviewers();
             tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
