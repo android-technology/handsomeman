@@ -40,10 +40,10 @@
             android:name=".ui.handyman.more.TransferHistory"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.handyman.more.ViewPayout"
+            android:name=".ui.ViewPayout"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.handyman.more.AddNewPayout"
+            android:name=".ui.AddNewPayout"
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.handyman.more.AddNewSkill"

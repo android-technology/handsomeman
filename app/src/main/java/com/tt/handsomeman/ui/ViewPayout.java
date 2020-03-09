@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.more;
+package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

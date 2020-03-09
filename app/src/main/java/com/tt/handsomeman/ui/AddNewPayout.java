@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.more;
+package com.tt.handsomeman.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class AddNewPayout extends AppCompatActivity {
         final EditText edtEmail = binding.editTextEmailAddNewPayout;
         final EditText edtAccountNumber = binding.editTextAccountNumberAddNewPayout;
         final EditText edtAccountRouting = binding.editTextAccountRoutingAddNewPayout;
+        FrameLayout progressBarHolder = binding.progressBarHolder;
         edtBirthday = binding.editTextBirthdayAddNewPayout;
 
         type = getResources().getStringArray(R.array.type_array);
@@ -109,13 +112,21 @@ public class AddNewPayout extends AppCompatActivity {
         generateTypeSpinner(spinnerType);
         generateCountrySpinner(spinnerCountry);
 
-        doAddPayout(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, spinnerType, spinnerCountry);
+        doAddPayout(progressBarHolder, edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, spinnerType, spinnerCountry);
     }
 
-    private void doAddPayout(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, Spinner spinnerType, Spinner spinnerCountry) {
+    private void doAddPayout(FrameLayout progressBarHolder, EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, Spinner spinnerType, Spinner spinnerCountry) {
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlphaAnimation inAnimation;
+
+                progressBarHolder.bringToFront();
+                inAnimation = new AlphaAnimation(0f, 1f);
+                inAnimation.setDuration(300);
+                progressBarHolder.setAnimation(inAnimation);
+                progressBarHolder.setVisibility(View.VISIBLE);
+
                 ibCheck.setEnabled(false);
 
                 String token = sharedPreferencesUtils.get("token", String.class);
@@ -140,6 +151,13 @@ public class AddNewPayout extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK)) {
+                            AlphaAnimation outAnimation;
+
+                            outAnimation = new AlphaAnimation(1f, 0f);
+                            outAnimation.setDuration(200);
+                            progressBarHolder.setAnimation(outAnimation);
+                            progressBarHolder.setVisibility(View.GONE);
+
                             new NotificationDialog(AddNewPayout.this, R.style.PauseDialog, getString(R.string.add_new_payout_successful, response.body().getMessage()), new NotificationDialog.OnItemClickListener() {
                                 @Override
                                 public void onItemClickOk() {
@@ -150,13 +168,25 @@ public class AddNewPayout extends AppCompatActivity {
                                 }
                             }).show();
                         } else {
-                            Toast.makeText(AddNewPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            AlphaAnimation outAnimation;
+
+                            outAnimation = new AlphaAnimation(1f, 0f);
+                            outAnimation.setDuration(200);
+                            progressBarHolder.setAnimation(outAnimation);
+                            progressBarHolder.setVisibility(View.GONE);
                             ibCheck.setEnabled(true);
+                            Toast.makeText(AddNewPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<StandardResponse> call, Throwable t) {
+                        AlphaAnimation outAnimation;
+
+                        outAnimation = new AlphaAnimation(1f, 0f);
+                        outAnimation.setDuration(200);
+                        progressBarHolder.setAnimation(outAnimation);
+                        progressBarHolder.setVisibility(View.GONE);
                         ibCheck.setEnabled(true);
                         Toast.makeText(AddNewPayout.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }

@@ -35,7 +35,7 @@ import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobLetterReviewFrag
 import com.tt.handsomeman.ui.handyman.messages.Conversation;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildMessagesFragment;
-import com.tt.handsomeman.ui.handyman.more.AddNewPayout;
+import com.tt.handsomeman.ui.AddNewPayout;
 import com.tt.handsomeman.ui.handyman.more.AddNewSkill;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileAboutFragment;
@@ -43,7 +43,7 @@ import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
 import com.tt.handsomeman.ui.handyman.more.TransferHistory;
 import com.tt.handsomeman.ui.handyman.more.TransferToBank;
-import com.tt.handsomeman.ui.handyman.more.ViewPayout;
+import com.tt.handsomeman.ui.ViewPayout;
 
 import javax.inject.Singleton;
 
