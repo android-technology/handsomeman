@@ -9,9 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.JobDetailProfile;
+import com.tt.handsomeman.response.MyProjectList;
+import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.service.JobService;
 import com.tt.handsomeman.util.StatusConstant;
@@ -32,6 +35,8 @@ public class JobsViewModel extends BaseViewModel {
     private MutableLiveData<JobDetail> jobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
+    private MutableLiveData<MyProjectList> myProjectListMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
 
     @Inject
     JobsViewModel(@NonNull Application application, JobService jobService) {
@@ -55,14 +60,22 @@ public class JobsViewModel extends BaseViewModel {
         return jobDetailProfileMutableLiveData;
     }
 
+    public MutableLiveData<MyProjectList> getMyProjectListMutableLiveData() {
+        return myProjectListMutableLiveData;
+    }
+
     public LiveData<String> getMessageResponse() {
         return messageResponse;
+    }
+
+    public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
+        return standardResponseMutableLiveData;
     }
 
     public void fetchDataStartScreen(String authorization, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(jobService.getStartScreen(authorization, nearbyJobRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((startScreenResponseResponse) -> {
                                     screenDataMutableLiveData.setValue(startScreenResponseResponse.body().getData());
@@ -73,7 +86,7 @@ public class JobsViewModel extends BaseViewModel {
     public void fetchJobsWishList(String authorization) {
         compositeDisposable
                 .add(jobService.getJobWishList(authorization)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobWishList) -> {
                                     jobMutableLiveData.setValue(jobWishList.body().getData().getJobs());
@@ -85,7 +98,7 @@ public class JobsViewModel extends BaseViewModel {
     public void fetchYourLocationData(String authorization, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(jobService.getJobNearBy(authorization, nearbyJobRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobResponse) -> {
                                     jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
@@ -93,10 +106,10 @@ public class JobsViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchJobsByCategory(String authorization, Integer categoryId) {
+    public void fetchJobsByCategory(String authorization, Integer categoryId, NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
-                .add(jobService.getJobByCategory(authorization, categoryId)
-                        .subscribeOn(Schedulers.computation())
+                .add(jobService.getJobByCategory(authorization, categoryId, nearbyJobRequest)
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobResponse) -> {
                                     jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
@@ -107,7 +120,7 @@ public class JobsViewModel extends BaseViewModel {
     public void fetchJobsByFilter(String authorization, JobFilterRequest jobFilterRequest) {
         compositeDisposable
                 .add(jobService.getJobByFilter(authorization, jobFilterRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((jobResponse) -> {
                                     jobMutableLiveData.setValue(jobResponse.body().getData().getJobs());
@@ -117,7 +130,7 @@ public class JobsViewModel extends BaseViewModel {
 
     public void fetchJobDetail(String authorization, Integer jobId) {
         compositeDisposable.add(jobService.getJobDetail(authorization, jobId)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((jobResponse) -> {
                             jobDetailMutableLiveData.setValue(jobResponse.body().getData());
@@ -127,10 +140,30 @@ public class JobsViewModel extends BaseViewModel {
 
     public void fetchJobDetailProfile(String authorization, Integer customerId) {
         compositeDisposable.add(jobService.getJobDetailProfile(authorization, customerId)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((profileResponse) -> {
                             jobDetailProfileMutableLiveData.setValue(profileResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchJobsOfCustomer(String authorization, Integer customerId) {
+        compositeDisposable.add(jobService.getJobsOfCustomer(authorization, customerId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((myProjectListResponse) -> {
+                            myProjectListMutableLiveData.setValue(myProjectListResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void addNewJob(String authorization, AddJobRequest addJobRequest) {
+        compositeDisposable.add(jobService.addNewJob(authorization, addJobRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                            standardResponseMutableLiveData.setValue(standardResponseResponse.body());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }

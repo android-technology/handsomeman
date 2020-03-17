@@ -17,7 +17,9 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.databinding.ActivityGroupByCategoryBinding;
 import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
@@ -28,11 +30,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-
     private JobFilterAdapter jobAdapter;
     private List<Job> jobArrayList = new ArrayList<>();
     private ProgressBar pgJob;
@@ -105,7 +107,7 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
     private void fetchData(Integer categoryId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        baseViewModel.fetchJobsByCategory(authorizationCode, categoryId);
+        baseViewModel.fetchJobsByCategory(authorizationCode, categoryId, new NearbyJobRequest(Constants.Latitude.getValue(), Constants.Longitude.getValue(), 10));
 
         baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);

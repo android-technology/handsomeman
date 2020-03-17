@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.SpinnerCreationTime;
+import com.tt.handsomeman.adapter.SpinnerString;
 import com.tt.handsomeman.databinding.ActivityJobFilterBinding;
 
 import java.text.SimpleDateFormat;
@@ -58,7 +58,7 @@ public class JobFilter extends AppCompatActivity {
 
         rangeSeekBarPrice();
 
-        generateTypeSpinner();
+        generateCreateTimeSpinner();
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,8 +169,8 @@ public class JobFilter extends AppCompatActivity {
         });
     }
 
-    private void generateTypeSpinner() {
-        SpinnerCreationTime spinnerCreationTime = new SpinnerCreationTime(JobFilter.this, createTime);
+    private void generateCreateTimeSpinner() {
+        SpinnerString spinnerCreationTime = new SpinnerString(JobFilter.this, createTime);
         spinnerCreateTime.setAdapter(spinnerCreationTime);
     }
 }

@@ -14,7 +14,6 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemJobBinding;
 import com.tt.handsomeman.model.Job;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
@@ -49,12 +48,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         Job job = jobList.get(position);
 
         holder.tvJobTitle.setText(job.getTitle());
-        try {
-            holder.tvCreateTime.setText(context.getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
-            holder.tvDeadline.setText(context.getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        holder.tvCreateTime.setText(context.getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
+        holder.tvDeadline.setText(context.getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
         holder.tvBudget.setText(job.setBudgetRange());
         holder.tvLocationName.setText(job.getLocation());
     }

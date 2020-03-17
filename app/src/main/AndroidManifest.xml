@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
         <activity
+            android:name=".ui.customer.my_projects.add_job.AddNewJob"
+            android:screenOrientation="locked" />
+        <activity
             android:name=".ui.customer.find_handyman.HandymanDetail"
             android:screenOrientation="locked" />
         <activity

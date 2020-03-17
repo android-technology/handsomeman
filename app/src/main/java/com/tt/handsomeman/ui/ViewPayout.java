@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityViewPayoutBinding;
-import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.util.YesOrNoDialog;

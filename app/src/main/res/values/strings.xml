@@ -300,6 +300,31 @@
         <item>All the time</item>
     </string-array>
 
+    <string-array name="dead_line">
+        <item>Tomorrow</item>
+        <item>2 days from now</item>
+        <item>3 days from now</item>
+        <item>4 days from now</item>
+        <item>5 days from now</item>
+        <item>6 days from now</item>
+        <item>1 week from now</item>
+        <item>2 weeks from now</item>
+        <item>3 weeks from now</item>
+        <item>1 month from now</item>
+    </string-array>
+
+    <string-array name="percentages">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+    </string-array>
+
     <string name="not_valid_first_name">First name must be >2 characters</string>
     <string name="not_valid_last_name">Last name must be >2 characters</string>
     <string name="not_valid_address">Address must be >3 characters</string>
@@ -437,13 +462,31 @@
         <item quantity="other">%d meters from you</item>
     </plurals>
 
+    <string name="first_milestone">%dst milestone</string>
+    <string name="second_milestone">%dnd milestone</string>
+    <string name="third_milestone">%drd milestone</string>
+    <string name="default_milestone">%dth milestone</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="handyman_role">You are Handyman</string>
     <string name="customer_role">You are Customer</string>
     <string name="transaction">Transaction</string>
     <string name="make_transaction">Make the transaction</string>
     <string name="invite_to_project">Invite to my project</string>
     <string name="reviews_from_other_customer">Reviews from other customer</string>
+    <string name="add_new_project">Add new project</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="title">Title</string>
+    <string name="is_null">Please type something</string>
+    <string name="budget_max_smaller">Budget max must bigger</string>
+    <string name="title_error"><![CDATA[Title must >7 characters and <100 characters]]></string>
+    <string name="detail_error"><![CDATA[Detail must >17 characters and <255 characters]]></string>
+    <string name="first_payout_milestone">1st payment milestone</string>
+    <string name="second_payout_milestone">2nd payment milestone</string>
+    <string name="error_9010_auto_complete" translatable="false">Auto Complete: Operation failed due to exceeding the query limits.</string>
+    <string name="places_not_found_auto_complete" translatable="false">Auto Complete: Place not found</string>
+    <string name="error9010_search_place" translatable="false">Search Place: Operation failed due to exceeding the query limits.</string>
+    <string name="places_not_found_search_place" translatable="false">Search Place: Place not found</string>
 </resources>

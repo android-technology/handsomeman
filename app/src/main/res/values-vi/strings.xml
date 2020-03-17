@@ -162,6 +162,16 @@
     <string name="reviews_from_other_customer">Đánh giá từ các khách hàng khác</string>
     <string name="budget_range">$%1$d - $%2$d</string>
     <string name="bid_range">%1$d đến %2$d</string>
+    <string name="add_new_project">Thêm dự án mới</string>
+    <string name="from">Từ</string>
+    <string name="to">Đến</string>
+    <string name="title">Tiêu đề</string>
+    <string name="is_null">Làm ơn hãy nhập gì đó</string>
+
+    <string name="first_milestone">Mốc thứ %d</string>
+    <string name="second_milestone">Mốc thứ %d</string>
+    <string name="third_milestone">Mốc thứ %d</string>
+    <string name="default_milestone">Mốc thứ %d</string>
 
     <string-array name="type_array">
         <item>Cá nhân</item>
@@ -177,6 +187,19 @@
         <item>Tất cả</item>
     </string-array>
 
+    <string-array name="dead_line">
+        <item>Ngày mai</item>
+        <item>2 ngày sau</item>
+        <item>3 ngày sau</item>
+        <item>4 ngày sau</item>
+        <item>5 ngày sau</item>
+        <item>6 ngày sau</item>
+        <item>1 tuần sau</item>
+        <item>2 tuần sau</item>
+        <item>3 tuần sau</item>
+        <item>1 tháng sau</item>
+    </string-array>
+
     <plurals name="numberOfReview">
         <item quantity="other">(%d Đánh giá)</item>
     </plurals>
@@ -189,4 +212,10 @@
     <plurals name="handymanDistance">
         <item quantity="other">cách bạn %dm</item>
     </plurals>
+
+    <string name="budget_max_smaller">Giá tối đa phải lớn hơn</string>
+    <string name="title_error"><![CDATA[Tiêu đề phải lớn hơn 7 ký tự và nhỏ hơn 100 ký tự]]></string>
+    <string name="detail_error"><![CDATA[Chi tiết phải lớn hơn 17 ký tự và nhỏ hơn 255 ký tự]]></string>
+    <string name="first_payout_milestone">Mốc thanh toán thứ nhất</string>
+    <string name="second_payout_milestone">Mốc thanh toán thứ hai</string>
 </resources>

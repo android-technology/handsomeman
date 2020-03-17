@@ -1,11 +1,13 @@
 package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListJob;
+import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.util.Constants;
@@ -29,7 +31,7 @@ public interface JobService {
     Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.JOB_BY_CATEGORY_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Authorization") String token, @Path("id") Integer categoryId);
+    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Authorization") String token, @Path("id") Integer categoryId, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.JOB_FILTER_SUFFIX)
     Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Authorization") String token, @Body JobFilterRequest jobFilterRequest);
@@ -43,6 +45,9 @@ public interface JobService {
     @GET(Constants.JOB_WISH_LIST)
     Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Authorization") String token);
 
+    @GET(Constants.JOBS_OF_CUSTOMER)
+    Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfCustomer(@Header("Authorization") String token, @Path("customerId") Integer customerId);
+
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID)
     Single<Response<StandardResponse>> addJobBid(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("file") MultipartBody.Part file, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
@@ -50,4 +55,7 @@ public interface JobService {
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID_WITH_MULTI_FILE)
     Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
+
+    @POST(Constants.ADD_NEW_JOB)
+    Single<Response<StandardResponse>> addNewJob(@Header("Authorization") String authorization, @Body AddJobRequest addJobRequest);
 }

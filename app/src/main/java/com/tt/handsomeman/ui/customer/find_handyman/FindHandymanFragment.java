@@ -7,6 +7,7 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -46,8 +47,8 @@ public class FindHandymanFragment extends Fragment {
         fm.beginTransaction().add(R.id.findHandymanFragmentParent, childHandymanFragment).commit();
 
         int choice = getActivity().getIntent().getIntExtra("radioButtonChoice", 0);
-//        getActivity().getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setEditTextHintTextAndIcon();
 
         if (choice == 1) {

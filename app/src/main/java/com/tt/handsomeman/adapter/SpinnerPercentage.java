@@ -7,23 +7,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tt.handsomeman.databinding.SpinnerItemStandardBinding;
+import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
+import com.tt.handsomeman.databinding.SpinnerItemPercentageBinding;
 
-public class SpinnerTypePayout extends BaseAdapter {
+public class SpinnerPercentage extends BaseAdapter {
+
     private Context context;
-    private String[] type;
+    private String[] str;
     private LayoutInflater layoutInflater;
-    private SpinnerItemStandardBinding binding;
+    private SpinnerItemPercentageBinding binding;
 
-    public SpinnerTypePayout(Context context, String[] type) {
+    public SpinnerPercentage(Context context, String[] str) {
         this.context = context;
-        this.type = type;
+        this.str = str;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return type.length;
+        return str.length;
     }
 
     @Override
@@ -38,10 +41,10 @@ public class SpinnerTypePayout extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
+        binding = SpinnerItemPercentageBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView typeName = binding.textViewSpinnerItemName;
-        typeName.setText(type[position]);
+        TextView countryName = binding.textViewSpinnerItemName;
+        countryName.setText(HandymanApp.getInstance().getResources().getString(R.string.percentage, Integer.parseInt(str[position])));
         return view;
     }
 }

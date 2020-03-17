@@ -3,6 +3,8 @@ package com.tt.handsomeman.ui.customer;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,14 +25,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityCustomerMainScreenBinding;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
+import com.tt.handsomeman.ui.customer.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
-import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.handyman.notifications.NotificationsFragment;
 import com.tt.handsomeman.util.Constants;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import javax.inject.Inject;
 
 public class CustomerMainScreen extends AppCompatActivity {
 
@@ -43,6 +53,9 @@ public class CustomerMainScreen extends AppCompatActivity {
     final Fragment fragment4 = new NotificationsFragment();
     final Fragment fragment5 = new CustomerMoreFragment();
     final FragmentManager fm = getSupportFragmentManager();
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    private Geocoder geoCoder;
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
@@ -50,9 +63,43 @@ public class CustomerMainScreen extends AppCompatActivity {
             Double lat = location.getLatitude();
             Double lng = location.getLongitude();
             if (lat != null && lng != null) {
-                Constants.Latitude.postValue(location.getLatitude());
-                Constants.Longitude.postValue(location.getLongitude());
+                Constants.Latitude.setValue(location.getLatitude());
+                Constants.Longitude.setValue(location.getLongitude());
                 Toast.makeText(CustomerMainScreen.this, "Location changed", Toast.LENGTH_SHORT).show();
+
+                try {
+                    List<Address> address = geoCoder.getFromLocation(lat, lng, 1);
+
+                    StringBuilder builder = new StringBuilder();
+
+                    String featureName = address.get(0).getFeatureName();
+                    String thoroughfare = address.get(0).getThoroughfare();
+                    String subAdminArea = address.get(0).getSubAdminArea();
+                    String adminArea = address.get(0).getAdminArea();
+
+                    if (featureName != null) {
+                        builder.append(featureName);
+                        builder.append(", ");
+                    }
+                    if (thoroughfare != null) {
+                        builder.append(thoroughfare);
+                        builder.append(", ");
+                    }
+                    if (subAdminArea != null) {
+                        builder.append(subAdminArea);
+                        builder.append(", ");
+                    }
+                    if (adminArea != null) {
+                        builder.append(adminArea);
+                        builder.append(", ");
+                    }
+
+                    sharedPreferencesUtils.put("address", builder.substring(0, builder.length() - 2));
+                    sharedPreferencesUtils.put("countryCode", address.get(0).getCountryCode());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("Address error", e.getMessage());
+                }
             }
         }
 
@@ -115,6 +162,9 @@ public class CustomerMainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCustomerMainScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        HandymanApp.getComponent().inject(this);
+
+        geoCoder = new Geocoder(CustomerMainScreen.this, Locale.getDefault());
 
         BottomNavigationView navView = binding.navView;
 
@@ -137,8 +187,8 @@ public class CustomerMainScreen extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            Constants.Latitude.postValue(location.getLatitude());
-                            Constants.Longitude.postValue(location.getLongitude());
+                            Constants.Latitude.setValue(location.getLatitude());
+                            Constants.Longitude.setValue(location.getLongitude());
                         }
                     }
                 });

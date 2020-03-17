@@ -34,6 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.jobDetail;
+import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.mPager;
 
 public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, FragmentBidJobDetailLetterReviewBinding> {
 
@@ -167,6 +168,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         tvLetter = null;
         tvMyBudget = null;
         jobDetail = null;
+        mPager = null;
         super.onDetach();
     }
 }

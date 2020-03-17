@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="10dp">
 
-                    <fragment
+                    <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
@@ -289,70 +289,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/design_4_7sp"
                     android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/bids"
-                        android:textColor="@color/text_white_bg"
-                        android:textSize="@dimen/design_4_3sp" />
-
-                    <TextView
-                        android:id="@+id/bidRangeJobDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/design_4_3sp"
-                        tools:text="5 to 10" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_bg" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/interviewing"
-                        android:textColor="@color/text_white_bg"
-                        android:textSize="@dimen/design_4_3sp" />
-
-                    <TextView
-                        android:id="@+id/interviewingJobDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/design_4_3sp"
-                        tools:text="2" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -413,7 +349,6 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/design_4_3sp"
                             tools:text="2" />
-
                     </TableRow>
 
                 </TableLayout>
@@ -444,17 +379,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/clientAvatarJobDetail"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        android:layout_gravity="center"
-                        android:elevation="2dp"
-                        android:src="@drawable/avatar_demo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -545,6 +469,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/clientAvatarJobDetail"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/avatar_demo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

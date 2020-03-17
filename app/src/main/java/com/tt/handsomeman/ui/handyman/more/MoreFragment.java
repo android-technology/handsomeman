@@ -183,6 +183,7 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
                 fetchHandymanInfo();
             }
         }
+
         if (requestCode == REQUEST_MORE_CHANGE_PASSWORD && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isChangePassword", false)) {
                 sharedPreferencesUtils.clear();

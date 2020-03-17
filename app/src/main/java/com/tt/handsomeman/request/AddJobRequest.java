@@ -1,50 +1,22 @@
-package com.tt.handsomeman.model;
+package com.tt.handsomeman.request;
 
-import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
-import com.tt.handsomeman.util.TimeCount;
+import java.util.ArrayList;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
+public class AddJobRequest {
 
-public class Job implements Serializable {
-
-    private Integer id;
     private Integer categoryId;
     private String title;
-    private Date createTime;
+    private String createTime;
     private String detail;
     private Integer budgetMin;
     private Integer budgetMax;
-    private Date deadline;
+    private String deadline;
     private String location;
-    private Double lat;
-    private Double lng;
-    private Integer customerId;
+    private double lat;
+    private double lng;
+    private int customerId;
     private String status;
-
-    public Integer setCreateTimeBinding() {
-        Calendar now = Calendar.getInstance();
-        return TimeCount.getHoursBetween(this.createTime, now.getTime());
-    }
-
-    public String setBudgetRange() {
-        return HandymanApp.getInstance().getString(R.string.budget_range, this.budgetMin, this.budgetMax);
-    }
-
-    public Integer setDeadlineBinding() {
-        Calendar now = Calendar.getInstance();
-        return Math.max(TimeCount.getDaysBetween(now.getTime(), this.deadline), 0);
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private ArrayList<Integer> percentages;
 
     public Integer getCategoryId() {
         return categoryId;
@@ -62,20 +34,12 @@ public class Job implements Serializable {
         this.title = title;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
     }
 
     public String getDetail() {
@@ -102,6 +66,14 @@ public class Job implements Serializable {
         this.budgetMax = budgetMax;
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -110,27 +82,27 @@ public class Job implements Serializable {
         this.location = location;
     }
 
-    public Double getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public Integer getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -140,5 +112,13 @@ public class Job implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public ArrayList<Integer> getPercentages() {
+        return percentages;
+    }
+
+    public void setPercentages(ArrayList<Integer> percentages) {
+        this.percentages = percentages;
     }
 }

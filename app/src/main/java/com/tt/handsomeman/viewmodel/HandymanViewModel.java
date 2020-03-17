@@ -78,7 +78,7 @@ public class HandymanViewModel extends BaseViewModel {
 
     public void fetchHandymanReview(String authorization) {
         compositeDisposable.add(handymanService.getHandymanReview(authorization)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((response) -> {
                     handymanReviewProfileMutableLiveData.setValue(response.body().getData());

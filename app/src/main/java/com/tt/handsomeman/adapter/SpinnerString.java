@@ -9,21 +9,22 @@ import android.widget.TextView;
 
 import com.tt.handsomeman.databinding.SpinnerItemStandardBinding;
 
-public class SpinnerCreationTime extends BaseAdapter {
+public class SpinnerString extends BaseAdapter {
+
     private Context context;
-    private String[] time;
+    private String[] str;
     private LayoutInflater layoutInflater;
     private SpinnerItemStandardBinding binding;
 
-    public SpinnerCreationTime(Context context, String[] time) {
+    public SpinnerString(Context context, String[] str) {
         this.context = context;
-        this.time = time;
+        this.str = str;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return time.length;
+        return str.length;
     }
 
     @Override
@@ -40,8 +41,8 @@ public class SpinnerCreationTime extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView typeName = binding.textViewSpinnerItemName;
-        typeName.setText(time[position]);
+        TextView countryName = binding.textViewSpinnerItemName;
+        countryName.setText(str[position]);
         return view;
     }
 }

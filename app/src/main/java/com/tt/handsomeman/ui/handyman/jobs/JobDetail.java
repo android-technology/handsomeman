@@ -30,7 +30,6 @@ import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
-import java.text.ParseException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,8 +44,8 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
     private ImageView imClientAvatar, imIsWish;
     private RatingBar rtReview;
     private TextView tvJobTitle, tvJobId, tvJobCreateTime, tvJobDetail,
-            tvBudgetRange, tvJobDeadline, tvJobLocation, tvBidRange,
-            tvInterviewing, tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
+            tvBudgetRange, tvJobDeadline, tvJobLocation,
+            tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
     private Button btnPlaceABid;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
@@ -68,8 +67,6 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         tvBudgetRange = binding.budgetRangeJobDetail;
         tvJobDeadline = binding.deadlineJobDetail;
         tvJobLocation = binding.locationJobDetail;
-        tvBidRange = binding.bidRangeJobDetail;
-        tvInterviewing = binding.interviewingJobDetail;
         tvHired = binding.hiredJobDetail;
         tvPaymentMilestoneCount = binding.paymentMileStoneCountJobDetail;
         tvClientName = binding.clientNameJobDetail;
@@ -124,17 +121,11 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
             tvJobTitle.setText(job.getTitle());
             tvJobId.setText(String.valueOf(job.getId()));
 
-            try {
-                tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
-                tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            tvJobCreateTime.setText(getResources().getQuantityString(R.plurals.numberOfHour, job.setCreateTimeBinding(), job.setCreateTimeBinding()));
+            tvJobDeadline.setText(getResources().getQuantityString(R.plurals.numberOfDay, job.setDeadlineBinding(), job.setDeadlineBinding()));
             tvJobDetail.setText(job.getDetail());
             tvBudgetRange.setText(job.setBudgetRange());
             tvJobLocation.setText(job.getLocation());
-            tvBidRange.setText(job.setBidRange());
-            tvInterviewing.setText(String.valueOf(job.getInterviewing()));
 
             if (job.getStatus().equals("A")) {
                 tvHired.setText(getString(R.string.no));
@@ -151,20 +142,20 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
                 TextView b = new TextView(JobDetail.this);
                 b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 b.setTextColor(getResources().getColor(R.color.text_white_bg));
-                b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), getApplicationContext()));
+                b.setTextSize(DimensionConverter.spToPx(getResources().getDimension(R.dimen.design_3_3sp), JobDetail.this));
                 b.setGravity(Gravity.START);
                 switch ((i + 1) % 10) {
                     case 1:
-                        b.setText(i + 1 + "st milestone");
+                        b.setText(getString(R.string.first_milestone, i + 1));
                         break;
                     case 2:
-                        b.setText(i + 1 + "nd milestone");
+                        b.setText(getString(R.string.second_milestone, i + 1));
                         break;
                     case 3:
-                        b.setText(i + 1 + "rd milestone");
+                        b.setText(getString(R.string.third_milestone, i + 1));
                         break;
                     default:
-                        b.setText(i + 1 + "th milestone");
+                        b.setText(getString(R.string.default_milestone, i + 1));
                         break;
                 }
 

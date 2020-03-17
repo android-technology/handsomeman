@@ -45,4 +45,12 @@ public class NearbyJobRequest {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+
+    public String getDateRequest() {
+        return dateRequest;
+    }
+
+    public void setDateRequest(String dateRequest) {
+        this.dateRequest = dateRequest;
+    }
 }

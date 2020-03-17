@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.AddSkillCategoryAdapter;
+import com.tt.handsomeman.adapter.CategorySelectionAdapter;
 import com.tt.handsomeman.databinding.ActivityAddNewSkillBinding;
 import com.tt.handsomeman.model.Category;
 import com.tt.handsomeman.model.Skill;
@@ -38,7 +38,7 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
     private EditText edtNewSkillName;
     private ImageButton imCheckAddSkill;
     private RecyclerView rcvSkillCategoriesName;
-    private AddSkillCategoryAdapter addNewSkillAdapter;
+    private CategorySelectionAdapter addNewSkillAdapter;
     private List<Category> categoryList = new ArrayList<>();
     private ActivityAddNewSkillBinding binding;
 
@@ -80,7 +80,7 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
     }
 
     private void createCategoryRecyclerView() {
-        addNewSkillAdapter = new AddSkillCategoryAdapter(this, categoryList);
+        addNewSkillAdapter = new CategorySelectionAdapter(this, categoryList);
         RecyclerView.LayoutManager layoutManagerPayout = new LinearLayoutManager(this);
         rcvSkillCategoriesName.setLayoutManager(layoutManagerPayout);
         rcvSkillCategoriesName.setItemAnimator(new DefaultItemAnimator());

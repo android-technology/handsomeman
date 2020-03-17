@@ -2,6 +2,9 @@ package com.tt.handsomeman.util;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
 public class Constants {
     public static final String BASE_URL = "https://handsomeman.herokuapp.com/";
 
@@ -22,8 +25,10 @@ public class Constants {
     public static final String JOB_DETAIL_SUFFIX = "api/jobs/{id}";
     public static final String JOB_DETAIL_PROFILE_SUFFIX = "api/jobs/jobDetailProfile/{id}";
     public static final String JOB_WISH_LIST = "api/jobs/jobWishList";
+    public static final String JOBS_OF_CUSTOMER = "api/jobs/myProject/{customerId}";
     public static final String ADD_JOB_BID = "api/jobs/addJobBid";
     public static final String ADD_JOB_BID_WITH_MULTI_FILE = "api/jobs/addJobBidWithMultiFiles";
+    public static final String ADD_NEW_JOB = "api/jobs/add";
 
     public static final String GET_ALL_CONVERSATION_OF_ACCOUNT = "api/message/getAllConversationByAccountId";
     public static final String GET_ALL_MESSAGES_IN_CONVERSATION = "api/message/getAllMessageInConversation/{conversationId}";
@@ -54,4 +59,7 @@ public class Constants {
 
     public static MutableLiveData<Double> Latitude = new MutableLiveData<>();
     public static MutableLiveData<Double> Longitude = new MutableLiveData<>();
+    public static MutableLiveData<PlacesClient> placesClientMutableLiveData = new MutableLiveData<>();
+    public static MutableLiveData<AutocompleteSessionToken> autocompleteSessionTokenMutableLiveData = new MutableLiveData<>();
+
 }

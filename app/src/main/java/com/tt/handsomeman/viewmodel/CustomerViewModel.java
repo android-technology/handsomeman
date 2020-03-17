@@ -70,7 +70,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetchDataStartScreen(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getStartScreen(authorization, nearbyHandymanRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((startScreenResponseResponse) -> {
                                     startScreenCustomerMutableLiveData.setValue(startScreenResponseResponse.body().getData());
@@ -81,7 +81,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetHandymanByCategory(String authorization, Integer categoryId, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getHandymanByCateGory(authorization, categoryId, nearbyHandymanRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     nearbyHandymanResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -92,7 +92,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetHandymanNearby(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getHandymanNearby(authorization, nearbyHandymanRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     nearbyHandymanResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -103,7 +103,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetchCustomerReview(String authorization) {
         compositeDisposable
                 .add(customerService.getCustomerReview(authorization)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     customerReviewProfileMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -114,7 +114,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetchHandymanDetail(String token, HandymanDetailRequest handymanDetailRequest) {
         compositeDisposable
                 .add(customerService.getHandymanDetail(token, handymanDetailRequest)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     handymanDetailResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -125,7 +125,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetchCustomerInfo(String authorization) {
         compositeDisposable
                 .add(customerService.getCustomerInfo(authorization)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     customerMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -136,7 +136,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void fetchCustomerProfile(String authorization) {
         compositeDisposable
                 .add(customerService.getCustomerProfile(authorization)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     customerProfileResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
@@ -147,7 +147,7 @@ public class CustomerViewModel extends BaseViewModel {
     public void editCustomerProfile(String authorization, String customerEditName) {
         compositeDisposable
                 .add(customerService.editCustomerProfile(authorization, customerEditName)
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
                                     standardResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body());

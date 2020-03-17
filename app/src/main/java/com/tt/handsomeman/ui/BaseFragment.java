@@ -10,9 +10,9 @@ public abstract class BaseFragment<T extends BaseViewModel, Tx extends ViewBindi
     protected Tx viewBinding;
 
     @Override
-    public void onStop() {
+    public void onDestroy() {
         baseViewModel.clearSubscriptions(this.getClass().getName());
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override

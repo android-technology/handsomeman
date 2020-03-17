@@ -9,8 +9,8 @@ import com.tt.handsomeman.model.Category;
 
 import java.util.List;
 
-public class AddSkillCategoryAdapter extends RadioAdapter<Category> {
-    public AddSkillCategoryAdapter(Context context, List<Category> items) {
+public class CategorySelectionAdapter extends RadioAdapter<Category> {
+    public CategorySelectionAdapter(Context context, List<Category> items) {
         super(context, items);
     }
 

@@ -20,8 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.adapter.SpinnerCountryPayout;
-import com.tt.handsomeman.adapter.SpinnerTypePayout;
+import com.tt.handsomeman.adapter.SpinnerString;
 import com.tt.handsomeman.databinding.ActivitySignUpAddPayoutBinding;
 import com.tt.handsomeman.model.SignUpAddPayoutFormState;
 import com.tt.handsomeman.request.UserActivatingAccount;
@@ -281,12 +280,12 @@ public class SignUpAddPayout extends AppCompatActivity {
     }
 
     private void generateTypeSpinner(Spinner spinnerType) {
-        SpinnerTypePayout spinnerTypePayout = new SpinnerTypePayout(SignUpAddPayout.this, type);
+        SpinnerString spinnerTypePayout = new SpinnerString(SignUpAddPayout.this, type);
         spinnerType.setAdapter(spinnerTypePayout);
     }
 
     private void generateCountrySpinner(Spinner spinnerCountry) {
-        SpinnerCountryPayout spinnerCountryPayout = new SpinnerCountryPayout(SignUpAddPayout.this, country);
+        SpinnerString spinnerCountryPayout = new SpinnerString(SignUpAddPayout.this, country);
         spinnerCountry.setAdapter(spinnerCountryPayout);
     }
 
