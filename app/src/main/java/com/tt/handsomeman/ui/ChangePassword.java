@@ -87,7 +87,7 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
                 if (cbCurrentPassword.isChecked()) {
                     edtCurrentPassword.setTransformationMethod(null);
                 } else {
-                    edtCurrentPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtCurrentPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtCurrentPassword.setSelection(edtCurrentPassword.length());
             }
@@ -99,7 +99,7 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
                 if (cbNewPassword.isChecked()) {
                     edtNewPassword.setTransformationMethod(null);
                 } else {
-                    edtNewPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtNewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtNewPassword.setSelection(edtNewPassword.length());
             }
@@ -111,7 +111,7 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
                 if (cbRePassword.isChecked()) {
                     edtRePassword.setTransformationMethod(null);
                 } else {
-                    edtRePassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtRePassword.setSelection(edtRePassword.length());
             }

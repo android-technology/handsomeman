@@ -117,7 +117,7 @@ public class JobsChildJobsFragment extends BaseFragment<JobsViewModel, FragmentJ
 
                 Intent intent = new Intent(getContext(), GroupByCategory.class);
                 intent.putExtra("categoryName", categoryName);
-                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
+                intent.putExtra("categoryId", categoryArrayList.get(position).getCategory_id());
                 startActivity(intent);
             }
         });

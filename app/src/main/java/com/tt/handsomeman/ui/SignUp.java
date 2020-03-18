@@ -124,7 +124,7 @@ public class SignUp extends AppCompatActivity {
                 if (cbPassword.isChecked()) {
                     edtPassword.setTransformationMethod(null);
                 } else {
-                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtPassword.setSelection(edtPassword.length());
             }
@@ -136,7 +136,7 @@ public class SignUp extends AppCompatActivity {
                 if (cbRePassword.isChecked()) {
                     edtRePassword.setTransformationMethod(null);
                 } else {
-                    edtRePassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtRePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtRePassword.setSelection(edtRePassword.length());
             }

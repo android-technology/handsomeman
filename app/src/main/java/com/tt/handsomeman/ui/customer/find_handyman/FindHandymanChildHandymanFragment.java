@@ -116,7 +116,7 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
 
                 Intent intent = new Intent(getContext(), FindHandymanCategory.class);
                 intent.putExtra("categoryName", categoryName);
-                intent.putExtra("categoryId", categoryArrayList.get(position).getId());
+                intent.putExtra("categoryId", categoryArrayList.get(position).getCategory_id());
                 startActivity(intent);
             }
         });

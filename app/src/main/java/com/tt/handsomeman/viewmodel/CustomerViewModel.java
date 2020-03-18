@@ -16,6 +16,7 @@ import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenCustomer;
 import com.tt.handsomeman.service.CustomerService;
+import com.tt.handsomeman.util.Constants;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ public class CustomerViewModel extends BaseViewModel {
     private MutableLiveData<Customer> customerMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CustomerProfileResponse> customerProfileResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private String locale = Constants.language.getValue();
 
     @Inject
     CustomerViewModel(@NonNull Application application, CustomerService customerService) {
@@ -69,7 +71,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetchDataStartScreen(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
-                .add(customerService.getStartScreen(authorization, nearbyHandymanRequest)
+                .add(customerService.getStartScreen(locale, authorization, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((startScreenResponseResponse) -> {
@@ -80,7 +82,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetHandymanByCategory(String authorization, Integer categoryId, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
-                .add(customerService.getHandymanByCateGory(authorization, categoryId, nearbyHandymanRequest)
+                .add(customerService.getHandymanByCateGory(locale, authorization, categoryId, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -91,7 +93,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetHandymanNearby(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
-                .add(customerService.getHandymanNearby(authorization, nearbyHandymanRequest)
+                .add(customerService.getHandymanNearby(locale, authorization, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -102,7 +104,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetchCustomerReview(String authorization) {
         compositeDisposable
-                .add(customerService.getCustomerReview(authorization)
+                .add(customerService.getCustomerReview(locale, authorization)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -113,7 +115,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetchHandymanDetail(String token, HandymanDetailRequest handymanDetailRequest) {
         compositeDisposable
-                .add(customerService.getHandymanDetail(token, handymanDetailRequest)
+                .add(customerService.getHandymanDetail(locale, token, handymanDetailRequest)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -124,7 +126,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetchCustomerInfo(String authorization) {
         compositeDisposable
-                .add(customerService.getCustomerInfo(authorization)
+                .add(customerService.getCustomerInfo(locale, authorization)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -135,7 +137,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void fetchCustomerProfile(String authorization) {
         compositeDisposable
-                .add(customerService.getCustomerProfile(authorization)
+                .add(customerService.getCustomerProfile(locale, authorization)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
@@ -146,7 +148,7 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void editCustomerProfile(String authorization, String customerEditName) {
         compositeDisposable
-                .add(customerService.editCustomerProfile(authorization, customerEditName)
+                .add(customerService.editCustomerProfile(locale, authorization, customerEditName)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {

@@ -16,6 +16,7 @@ import com.tt.handsomeman.response.ListPayoutResponse;
 import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.HandymanService;
+import com.tt.handsomeman.util.Constants;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,7 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<ListTransferHistory> listTransferHistoryMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<ListPayoutResponse> listPayoutResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private String locale = Constants.language.getValue();
 
     @Inject
     HandymanViewModel(@NonNull Application application, HandymanService handymanService) {
@@ -67,7 +69,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void fetchHandymanInfo(String authorization) {
-        compositeDisposable.add(handymanService.getHandymanInfo(authorization)
+        compositeDisposable.add(handymanService.getHandymanInfo(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
@@ -77,7 +79,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void fetchHandymanReview(String authorization) {
-        compositeDisposable.add(handymanService.getHandymanReview(authorization)
+        compositeDisposable.add(handymanService.getHandymanReview(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((response) -> {
@@ -86,7 +88,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void fetchHandymanProfile(String authorization) {
-        compositeDisposable.add(handymanService.getHandymanProfile(authorization)
+        compositeDisposable.add(handymanService.getHandymanProfile(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
@@ -96,7 +98,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void editHandymanProfile(String authorization, HandymanEditRequest handymanEditRequest) {
-        compositeDisposable.add(handymanService.editHandymanProfile(authorization, handymanEditRequest)
+        compositeDisposable.add(handymanService.editHandymanProfile(locale, authorization, handymanEditRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {
@@ -105,7 +107,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void fetchListCategory(String authorization) {
-        compositeDisposable.add(handymanService.getListCategory(authorization)
+        compositeDisposable.add(handymanService.getListCategory(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
@@ -115,7 +117,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void viewTransferHistory(String authorization) {
-        compositeDisposable.add(handymanService.viewTransferHistory(authorization)
+        compositeDisposable.add(handymanService.viewTransferHistory(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
@@ -125,7 +127,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void getListPayoutOfHandyman(String authorization) {
-        compositeDisposable.add(handymanService.getListPayoutOfHandyman(authorization)
+        compositeDisposable.add(handymanService.getListPayoutOfHandyman(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
@@ -135,7 +137,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void transferToBankAccount(String authorization, HandymanTransferRequest handymanTransferRequest) {
-        compositeDisposable.add(handymanService.transferToBank(authorization, handymanTransferRequest)
+        compositeDisposable.add(handymanService.transferToBank(locale, authorization, handymanTransferRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {

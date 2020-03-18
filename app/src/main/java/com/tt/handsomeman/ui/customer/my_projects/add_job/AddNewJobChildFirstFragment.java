@@ -87,7 +87,7 @@ public class AddNewJobChildFirstFragment extends BaseFragment<HandymanViewModel,
     private void sendData() {
         ibCheckFirst.setOnClickListener(v -> {
             if (categorySelectionAdapter.getSelected() != null) {
-                addJobRequest.setCategoryId(categorySelectionAdapter.getSelected().getId());
+                addJobRequest.setCategoryId(categorySelectionAdapter.getSelected().getCategory_id());
                 addJobRequest.setTitle(edtTitle.getText().toString().trim());
                 addJobRequest.setDetail(edtDetail.getText().toString().trim());
                 addJobRequest.setBudgetMin(Integer.parseInt(edtBudgetMin.getText().toString().trim()));

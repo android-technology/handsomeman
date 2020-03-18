@@ -12,6 +12,7 @@ import com.tt.handsomeman.response.ConversationResponse;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.MessageService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.StatusConstant;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class MessageViewModel extends BaseViewModel {
     private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private String locale = Constants.language.getValue();
 
     @Inject
     MessageViewModel(@NonNull Application application, MessageService messageService) {
@@ -60,7 +62,7 @@ public class MessageViewModel extends BaseViewModel {
     }
 
     public void fetchAllConversationByAccountId(String authorization, String type) {
-        compositeDisposable.add(messageService.getAllConversationByAccountId(authorization, type)
+        compositeDisposable.add(messageService.getAllConversationByAccountId(locale, authorization, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -76,7 +78,7 @@ public class MessageViewModel extends BaseViewModel {
     }
 
     public void fetchAllMessageInConversation(String authorization, Integer conversationId) {
-        compositeDisposable.add(messageService.getAllMessagesInConversation(authorization, conversationId)
+        compositeDisposable.add(messageService.getAllMessagesInConversation(locale, authorization, conversationId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -92,7 +94,7 @@ public class MessageViewModel extends BaseViewModel {
     }
 
     public void deleteConversationById(String authorization, Integer conversationId) {
-        compositeDisposable.add(messageService.deleteConversationById(authorization, conversationId)
+        compositeDisposable.add(messageService.deleteConversationById(locale, authorization, conversationId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -106,7 +108,7 @@ public class MessageViewModel extends BaseViewModel {
     }
 
     public void fetchAllContactOfAccount(String authorization, String type) {
-        compositeDisposable.add(messageService.getContactOfAccount(authorization, type)
+        compositeDisposable.add(messageService.getContactOfAccount(locale, authorization, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -122,7 +124,7 @@ public class MessageViewModel extends BaseViewModel {
     }
 
     public void sendMessageToConversation(String authorization, SendMessageRequest sendMessageRequest) {
-        compositeDisposable.add(messageService.sendMessageToConversation(authorization, sendMessageRequest)
+        compositeDisposable.add(messageService.sendMessageToConversation(locale, authorization, sendMessageRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

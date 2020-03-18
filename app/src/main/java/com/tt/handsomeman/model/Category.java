@@ -4,11 +4,7 @@ public class Category {
 
     private Integer id;
     private String name;
-
-    public Category(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Integer category_id;
 
     public Integer getId() {
         return id;
@@ -26,4 +22,11 @@ public class Category {
         this.name = name;
     }
 
+    public Integer getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
+    }
 }

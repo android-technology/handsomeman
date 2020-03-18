@@ -25,37 +25,37 @@ import retrofit2.http.Path;
 
 public interface JobService {
     @POST(Constants.START_SCREEN_SUFFIX)
-    Single<Response<DataBracketResponse<StartScreenHandyman>>> getStartScreen(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
+    Single<Response<DataBracketResponse<StartScreenHandyman>>> getStartScreen(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.YOUR_LOCATION_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
+    Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.JOB_BY_CATEGORY_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Authorization") String token, @Path("id") Integer categoryId, @Body NearbyJobRequest nearbyJobRequest);
+    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer categoryId, @Body NearbyJobRequest nearbyJobRequest);
 
     @POST(Constants.JOB_FILTER_SUFFIX)
-    Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Authorization") String token, @Body JobFilterRequest jobFilterRequest);
+    Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body JobFilterRequest jobFilterRequest);
 
     @GET(Constants.JOB_DETAIL_SUFFIX)
-    Single<Response<DataBracketResponse<JobDetail>>> getJobDetail(@Header("Authorization") String token, @Path("id") Integer jobId);
+    Single<Response<DataBracketResponse<JobDetail>>> getJobDetail(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer jobId);
 
     @POST(Constants.JOB_DETAIL_PROFILE_SUFFIX)
-    Single<Response<DataBracketResponse<JobDetailProfile>>> getJobDetailProfile(@Header("Authorization") String token, @Path("id") Integer customerId);
+    Single<Response<DataBracketResponse<JobDetailProfile>>> getJobDetailProfile(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer customerId);
 
     @GET(Constants.JOB_WISH_LIST)
-    Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Authorization") String token);
+    Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
     @GET(Constants.JOBS_OF_CUSTOMER)
-    Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfCustomer(@Header("Authorization") String token, @Path("customerId") Integer customerId);
+    Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfCustomer(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("customerId") Integer customerId);
 
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID)
-    Single<Response<StandardResponse>> addJobBid(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("file") MultipartBody.Part file, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
+    Single<Response<StandardResponse>> addJobBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("file") MultipartBody.Part file, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
 
     @FormUrlEncoded
     @POST(Constants.ADD_JOB_BID_WITH_MULTI_FILE)
-    Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
+    Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee);
 
     @POST(Constants.ADD_NEW_JOB)
-    Single<Response<StandardResponse>> addNewJob(@Header("Authorization") String authorization, @Body AddJobRequest addJobRequest);
+    Single<Response<StandardResponse>> addNewJob(@Header("Accept-Language") String locale, @Header("Authorization") String authorization, @Body AddJobRequest addJobRequest);
 }

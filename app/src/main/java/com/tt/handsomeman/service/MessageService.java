@@ -21,17 +21,17 @@ import retrofit2.http.Query;
 
 public interface MessageService {
     @GET(Constants.GET_ALL_CONVERSATION_OF_ACCOUNT)
-    Observable<Response<DataBracketResponse<ListConversation>>> getAllConversationByAccountId(@Header("Authorization") String token, @Query("type") String type);
+    Observable<Response<DataBracketResponse<ListConversation>>> getAllConversationByAccountId(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("type") String type);
 
     @GET(Constants.GET_ALL_MESSAGES_IN_CONVERSATION)
-    Observable<Response<DataBracketResponse<ListMessage>>> getAllMessagesInConversation(@Header("Authorization") String token, @Path("conversationId") Integer conversationId);
+    Observable<Response<DataBracketResponse<ListMessage>>> getAllMessagesInConversation(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("conversationId") Integer conversationId);
 
     @DELETE(Constants.DELETE_CONVERSATION_ID)
-    Single<Response<StandardResponse>> deleteConversationById(@Header("Authorization") String token, @Path("conversationId") Integer conversationId);
+    Single<Response<StandardResponse>> deleteConversationById(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("conversationId") Integer conversationId);
 
     @GET(Constants.GET_CONTACT_OF_ACCOUNT)
-    Observable<Response<DataBracketResponse<ListContact>>> getContactOfAccount(@Header("Authorization") String token, @Query("type") String type);
+    Observable<Response<DataBracketResponse<ListContact>>> getContactOfAccount(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("type") String type);
 
     @PUT(Constants.SEND_MESSAGE_TO_CONVERSATION)
-    Single<Response<StandardResponse>> sendMessageToConversation(@Header("Authorization") String token, @Body SendMessageRequest message);
+    Single<Response<StandardResponse>> sendMessageToConversation(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body SendMessageRequest message);
 }

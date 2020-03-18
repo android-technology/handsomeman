@@ -130,6 +130,7 @@ public class SignUpAddPayout extends AppCompatActivity {
                 ibCheck.setEnabled(false);
 
                 String token = sharedPreferencesUtils.get("token", String.class);
+                String locale = Constants.language.getValue();
 
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -151,7 +152,7 @@ public class SignUpAddPayout extends AppCompatActivity {
 
                 UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry, accountStatus, businessNumber);
 
-                userService.doSignUpAddPayout(token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
+                userService.doSignUpAddPayout(locale, token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {

@@ -26,6 +26,7 @@ import com.tt.handsomeman.model.SignUpAddPayoutFormState;
 import com.tt.handsomeman.request.AddNewPayoutRequest;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.UserService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.NotificationDialog;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
@@ -129,6 +130,7 @@ public class AddNewPayout extends AppCompatActivity {
                 ibCheck.setEnabled(false);
 
                 String token = sharedPreferencesUtils.get("token", String.class);
+                String locale = Constants.language.getValue();
 
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -146,7 +148,7 @@ public class AddNewPayout extends AppCompatActivity {
 
                 AddNewPayoutRequest addNewPayoutRequest = new AddNewPayoutRequest(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry);
 
-                userService.addPayout(token, addNewPayoutRequest).enqueue(new Callback<StandardResponse>() {
+                userService.addPayout(locale, token, addNewPayoutRequest).enqueue(new Callback<StandardResponse>() {
                     @Override
                     public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK)) {

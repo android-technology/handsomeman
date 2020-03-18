@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                 if (cbVisiblePassword.isChecked()) {
                     edtPassword.setTransformationMethod(null);
                 } else {
-                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 edtPassword.setSelection(edtPassword.length());
             }

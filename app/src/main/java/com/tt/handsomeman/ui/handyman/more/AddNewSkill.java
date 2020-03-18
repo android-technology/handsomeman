@@ -71,7 +71,7 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
                     Category category = addNewSkillAdapter.getSelected();
 
                     Intent intent = new Intent();
-                    intent.putExtra("skillAdded", new Skill(category.getId(), edtNewSkillName.getText().toString()));
+                    intent.putExtra("skillAdded", new Skill(category.getCategory_id(), edtNewSkillName.getText().toString()));
                     setResult(RESULT_OK, intent);
                     finish();
                 }

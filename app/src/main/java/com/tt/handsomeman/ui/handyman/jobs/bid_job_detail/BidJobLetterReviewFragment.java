@@ -22,11 +22,12 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentBidJobDetailLetterReviewBinding;
 import com.tt.handsomeman.model.PaymentMilestone;
+import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
 import com.tt.handsomeman.util.DimensionConverter;
-import com.tt.handsomeman.util.MessageConstant;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.List;
@@ -147,11 +148,11 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
             public void onClick(View v) {
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
                 baseViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue);
-                baseViewModel.getMessageResponse().observe(getViewLifecycleOwner(), new Observer<String>() {
+                baseViewModel.getStandardResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<StandardResponse>() {
                     @Override
-                    public void onChanged(String s) {
-                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                        if (s.equals(MessageConstant.JOB_IS_BIDDEN_SUCCESSFULLY)) {
+                    public void onChanged(StandardResponse standardResponse) {
+                        Toast.makeText(getContext(), standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (standardResponse.getStatusCode().equals(StatusCodeConstant.CREATED)) {
                             Intent intent = new Intent(getContext(), HandyManMainScreen.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("radioButtonChoice", 1);

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tt.handsomeman.request.ChangePasswordRequest;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.UserService;
+import com.tt.handsomeman.util.Constants;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ public class UserViewModel extends BaseViewModel {
 
     private final UserService userService;
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private String locale = Constants.language.getValue();
 
     @Inject
     UserViewModel(@NonNull Application application, UserService userService) {
@@ -31,7 +33,7 @@ public class UserViewModel extends BaseViewModel {
     }
 
     public void removePayout(String authorization, Integer payoutId) {
-        compositeDisposable.add(userService.removePayout(authorization, payoutId)
+        compositeDisposable.add(userService.removePayout(locale, authorization, payoutId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -41,7 +43,7 @@ public class UserViewModel extends BaseViewModel {
     }
 
     public void changePassword(String authorization, ChangePasswordRequest changePasswordRequest) {
-        compositeDisposable.add(userService.changePassword(authorization, changePasswordRequest)
+        compositeDisposable.add(userService.changePassword(locale, authorization, changePasswordRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

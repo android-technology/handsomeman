@@ -22,26 +22,26 @@ import retrofit2.http.POST;
 public interface HandymanService {
 
     @GET(Constants.GET_HANDYMAN_INFO)
-    Single<Response<DataBracketResponse<Handyman>>> getHandymanInfo(@Header("Authorization") String header);
+    Single<Response<DataBracketResponse<Handyman>>> getHandymanInfo(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @GET(Constants.GET_HANDYMAN_REVIEW)
-    Single<Response<DataBracketResponse<HandymanReviewProfile>>> getHandymanReview(@Header("Authorization") String token);
+    Single<Response<DataBracketResponse<HandymanReviewProfile>>> getHandymanReview(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
     @GET(Constants.GET_HANDYMAN_PROFILE)
-    Single<Response<DataBracketResponse<HandymanProfileResponse>>> getHandymanProfile(@Header("Authorization") String header);
+    Single<Response<DataBracketResponse<HandymanProfileResponse>>> getHandymanProfile(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @POST(Constants.GET_HANDYMAN_PROFILE_EDIT)
-    Single<Response<StandardResponse>> editHandymanProfile(@Header("Authorization") String header, @Body HandymanEditRequest handymanEditRequest);
+    Single<Response<StandardResponse>> editHandymanProfile(@Header("Accept-Language") String locale, @Header("Authorization") String header, @Body HandymanEditRequest handymanEditRequest);
 
     @GET(Constants.GET_LIST_CATEGORY)
-    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Authorization") String header);
+    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @GET(Constants.VIEW_TRANSFER_HISTORY)
-    Single<Response<DataBracketResponse<ListTransferHistory>>> viewTransferHistory(@Header("Authorization") String header);
+    Single<Response<DataBracketResponse<ListTransferHistory>>> viewTransferHistory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @GET(Constants.GET_LIST_PAYOUT)
-    Single<Response<DataBracketResponse<ListPayoutResponse>>> getListPayoutOfHandyman(@Header("Authorization") String header);
+    Single<Response<DataBracketResponse<ListPayoutResponse>>> getListPayoutOfHandyman(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @POST(Constants.TRANSFER_TO_BANK)
-    Single<Response<StandardResponse>> transferToBank(@Header("Authorization") String header, @Body HandymanTransferRequest handymanTransferRequest);
+    Single<Response<StandardResponse>> transferToBank(@Header("Accept-Language") String locale, @Header("Authorization") String header, @Body HandymanTransferRequest handymanTransferRequest);
 }

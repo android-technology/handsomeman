@@ -27,6 +27,8 @@ import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.RoleName;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -62,8 +64,10 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
 
         HandymanApp.getComponent().inject(this);
 
+        sharedPreferencesUtils.put("language", Locale.getDefault().getLanguage());
         Integer state = sharedPreferencesUtils.get("state", Integer.class);
         String type = sharedPreferencesUtils.get("type", String.class);
+        Constants.language.setValue(sharedPreferencesUtils.get("language", String.class));
 
         skip = binding.skipOnBoarding;
 
