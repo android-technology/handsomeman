@@ -56,7 +56,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
     private Button btnPlaceABid, btnViewTransaction;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
-    private boolean isAccept, isRead;
+    private boolean isAccept, isRead, isReadForFirstTime = false;
     private int notificationId, notificationPos;
     private ActivityJobDetailBinding binding;
 
@@ -118,6 +118,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
         if (notificationId != 0) {
             Intent intent = new Intent();
             intent.putExtra("isRead", isRead);
+            intent.putExtra("isReadForFirstTime", this.isReadForFirstTime);
             intent.putExtra("notificationPos", notificationPos);
             setResult(RESULT_OK, intent);
             finish();
@@ -255,6 +256,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 public void onChanged(StandardResponse standardResponse) {
                     if (standardResponse.getStatus().equals(StatusConstant.OK)) {
                         isRead = true;
+                        JobDetail.this.isReadForFirstTime = true;
                     }
                 }
             });

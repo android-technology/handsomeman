@@ -115,7 +115,9 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
 
         if (requestCode == NOTIFICATION_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             boolean isRead = data.getBooleanExtra("isRead", false);
-            if (isRead) {
+            boolean isReadForFirstTime = data.getBooleanExtra("isReadForFirstTime", false);
+
+            if (isRead && isReadForFirstTime) {
                 int notificationPos = data.getIntExtra("notificationPos", 0);
                 responseList.get(notificationPos).setRead(true);
                 notificationAdapter.notifyItemChanged(notificationPos);

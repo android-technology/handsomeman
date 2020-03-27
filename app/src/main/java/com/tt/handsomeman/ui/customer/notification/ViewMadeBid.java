@@ -50,7 +50,7 @@ public class ViewMadeBid extends BaseAppCompatActivity<NotificationViewModel> {
     private LinearLayout listFileLayout;
     private FileNameAdapter fileNameAdapter;
     private List<BidFileResponse> bidFileResponseList = new ArrayList<>();
-    private boolean isRead;
+    private boolean isRead, isReadForFirstTime = false;
     private int notificationPos;
     private int jobId;
     private ActivityViewMadeBidBinding binding;
@@ -91,6 +91,7 @@ public class ViewMadeBid extends BaseAppCompatActivity<NotificationViewModel> {
                 public void onChanged(StandardResponse standardResponse) {
                     if (standardResponse.getStatus().equals(StatusConstant.OK)) {
                         isRead = true;
+                        ViewMadeBid.this.isReadForFirstTime = true;
                     }
                 }
             });
@@ -176,6 +177,7 @@ public class ViewMadeBid extends BaseAppCompatActivity<NotificationViewModel> {
     public void onBackPressed() {
         Intent intent = new Intent();
         intent.putExtra("isRead", isRead);
+        intent.putExtra("isReadForFirstTime", this.isReadForFirstTime);
         intent.putExtra("notificationPos", notificationPos);
         setResult(RESULT_OK, intent);
         finish();
