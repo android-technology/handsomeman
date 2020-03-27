@@ -3,15 +3,16 @@ package com.tt.handsomeman.di.component;
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.CustomerModule;
 import com.tt.handsomeman.di.module.HandymanModule;
-import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.MessageModule;
 import com.tt.handsomeman.di.module.NetworkModule;
+import com.tt.handsomeman.di.module.NotificationModule;
 import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.AddNewPayout;
 import com.tt.handsomeman.ui.ChangePassword;
 import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.MyProfile;
+import com.tt.handsomeman.ui.NotificationsFragment;
 import com.tt.handsomeman.ui.OnBoardingSlidePagerActivity;
 import com.tt.handsomeman.ui.Register;
 import com.tt.handsomeman.ui.SignUp;
@@ -27,11 +28,12 @@ import com.tt.handsomeman.ui.customer.more.CustomerProfileAboutFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileEdit;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileReviewFragment;
 import com.tt.handsomeman.ui.customer.my_projects.CustomerMyProjectsChildInProgressFragment;
-import com.tt.handsomeman.ui.customer.my_projects.MyProjectsChildInPastFragment;
+import com.tt.handsomeman.ui.customer.my_projects.MyJobDetail;
 import com.tt.handsomeman.ui.customer.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJob;
 import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJobChildFirstFragment;
 import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJobChildSecondFragment;
+import com.tt.handsomeman.ui.customer.notification.ViewMadeBid;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
@@ -52,7 +54,6 @@ import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
 import com.tt.handsomeman.ui.handyman.more.TransferHistory;
 import com.tt.handsomeman.ui.handyman.more.TransferToBank;
-import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsChildInProgressFragment;
 
 import javax.inject.Singleton;
 
@@ -61,10 +62,10 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         AppModule.class,
-        JobModule.class,
         UserModule.class,
         NetworkModule.class,
         MessageModule.class,
+        NotificationModule.class,
         HandymanModule.class,
         CustomerModule.class,
         ViewModelModule.class})
@@ -144,10 +145,6 @@ public interface AppComponent {
 
     void inject(MyProjectsFragment myProjectsFragment);
 
-    void inject(MyProjectsChildInProgressFragment myProjectsChildInProgressFragment);
-
-    void inject(MyProjectsChildInPastFragment myProjectsChildInPastFragment);
-
     void inject(CustomerMyProjectsChildInProgressFragment customerMyProjectsChildInProgressFragment);
 
     void inject(AddNewJob addNewJob);
@@ -159,4 +156,12 @@ public interface AppComponent {
     void inject(CustomerMainScreen customerMainScreen);
 
     void inject(HandyManMainScreen handyManMainScreen);
+
+    void inject(MyJobDetail myJobDetail);
+
+    void inject(NotificationsFragment notificationsFragment);
+
+    void inject(ViewMadeBid viewMadeBid);
+
+    void inject(com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment myProjectsFragment);
 }

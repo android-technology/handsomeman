@@ -1,23 +1,35 @@
 package com.tt.handsomeman.service;
 
 import com.tt.handsomeman.model.Handyman;
+import com.tt.handsomeman.model.HandymanJobDetail;
 import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.request.HandymanTransferRequest;
+import com.tt.handsomeman.request.JobFilterRequest;
+import com.tt.handsomeman.request.NearbyJobRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
+import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListCategory;
+import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.ListPayoutResponse;
 import com.tt.handsomeman.response.ListTransferHistory;
+import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.StandardResponse;
+import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.util.Constants;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface HandymanService {
 
@@ -33,15 +45,50 @@ public interface HandymanService {
     @POST(Constants.GET_HANDYMAN_PROFILE_EDIT)
     Single<Response<StandardResponse>> editHandymanProfile(@Header("Accept-Language") String locale, @Header("Authorization") String header, @Body HandymanEditRequest handymanEditRequest);
 
-    @GET(Constants.GET_LIST_CATEGORY)
+    @GET(Constants.HANDYMAN_GET_LIST_CATEGORY)
     Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @GET(Constants.VIEW_TRANSFER_HISTORY)
     Single<Response<DataBracketResponse<ListTransferHistory>>> viewTransferHistory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
-    @GET(Constants.GET_LIST_PAYOUT)
+    @GET(Constants.HANDYMAN_GET_LIST_PAYOUT)
     Single<Response<DataBracketResponse<ListPayoutResponse>>> getListPayoutOfHandyman(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 
     @POST(Constants.TRANSFER_TO_BANK)
     Single<Response<StandardResponse>> transferToBank(@Header("Accept-Language") String locale, @Header("Authorization") String header, @Body HandymanTransferRequest handymanTransferRequest);
+
+    @GET(Constants.HANDYMAN_MY_PROJECT)
+    Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfHandyman(@Header("Accept-Language") String locale, @Header("Authorization") String token);
+
+    @POST(Constants.HANDYMAN_START_SCREEN_SUFFIX)
+    Single<Response<DataBracketResponse<StartScreenHandyman>>> getStartScreen(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
+
+    @POST(Constants.HANDYMAN_YOUR_LOCATION_SUFFIX)
+    Single<Response<DataBracketResponse<ListJob>>> getJobNearBy(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body NearbyJobRequest nearbyJobRequest);
+
+    @POST(Constants.HANDYMAN_GET_JOB_BY_CATEGORY_SUFFIX)
+    Single<Response<DataBracketResponse<ListJob>>> getJobByCategory(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer categoryId, @Body NearbyJobRequest nearbyJobRequest);
+
+    @POST(Constants.HANDYMAN_GET_JOB_FILTER_SUFFIX)
+    Single<Response<DataBracketResponse<ListJob>>> getJobByFilter(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body JobFilterRequest jobFilterRequest);
+
+    @GET(Constants.HANDYMAN_VIEW_JOB_DETAIL)
+    Single<Response<DataBracketResponse<HandymanJobDetail>>> getHandymanJobDetail(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer jobId);
+
+    @POST(Constants.HANDYMAN_VIEW_CUSTOMER_PROFILE)
+    Single<Response<DataBracketResponse<JobDetailProfile>>> getJobDetailProfile(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("id") Integer customerId);
+
+    @GET(Constants.HANDYMAN_JOB_WISH_LIST)
+    Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Accept-Language") String locale, @Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST(Constants.HANDYMAN_ADD_JOB_BID)
+    Single<Response<StandardResponse>> addJobBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("file") MultipartBody.Part file, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee, @Field("bidTime") String bidTime);
+
+    @FormUrlEncoded
+    @POST(Constants.HANDYMAN_ADD_JOB_BID_WITH_MULTI_FILE)
+    Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee, @Field("bidTime") String bidTime);
+
+    @POST(Constants.MARK_NOTIFICATION_AS_READ)
+    Single<Response<StandardResponse>> markNotificationRead(@Header("Authorization") String token, @Query("notificationId") Integer notificationId);
 }

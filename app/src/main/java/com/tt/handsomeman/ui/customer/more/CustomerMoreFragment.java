@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.PayoutAdapter;
@@ -144,6 +145,8 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
                 new YesOrNoDialog(getActivity(), R.style.PauseDialog, HandymanApp.getInstance().getString(R.string.want_to_log_out), R.drawable.log_out, new YesOrNoDialog.OnItemClickListener() {
                     @Override
                     public void onItemClickYes() {
+                        String userId = sharedPreferencesUtils.get("userId", String.class);
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("notification-" + userId);
                         sharedPreferencesUtils.clear();
                         startActivity(new Intent(getContext(), Start.class));
                         getActivity().finish();
@@ -169,6 +172,8 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
         }
         if (requestCode == REQUEST_MORE_CHANGE_PASSWORD && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isChangePassword", false)) {
+                String userId = sharedPreferencesUtils.get("userId", String.class);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("notification-" + userId);
                 sharedPreferencesUtils.clear();
                 startActivity(new Intent(getContext(), Start.class));
                 getActivity().finish();

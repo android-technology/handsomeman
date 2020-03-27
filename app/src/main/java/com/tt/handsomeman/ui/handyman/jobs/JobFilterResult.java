@@ -21,14 +21,14 @@ import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
+public class JobFilterResult extends BaseAppCompatActivity<HandymanViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -47,7 +47,7 @@ public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
 
         HandymanApp.getComponent().inject(this);
 
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
         pgJob = binding.progressBarFilterResult;
 
@@ -59,11 +59,11 @@ public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
         Integer priceMin = getIntent().getIntExtra("priceMin", 0);
         Integer priceMax = getIntent().getIntExtra("priceMax", 0);
         String dateCreated = getIntent().getStringExtra("dateCreated");
-
+        Integer categoryId = getIntent().getIntExtra("categoryId", 0);
         Constants.Latitude.observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                fetchData(aDouble, Constants.Longitude.getValue(), radius, priceMin, priceMax, dateCreated);
+                fetchData(aDouble, Constants.Longitude.getValue(), radius, priceMin, priceMax, dateCreated, categoryId);
             }
         });
     }
@@ -96,10 +96,10 @@ public class JobFilterResult extends BaseAppCompatActivity<JobsViewModel> {
     }
 
 
-    private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime) {
+    private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime, Integer categoryId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
-        baseViewModel.fetchJobsByFilter(authorizationCode, new JobFilterRequest(lat, lng, radius, priceMin, priceMax, createTime));
+        baseViewModel.fetchJobsByFilter(authorizationCode, new JobFilterRequest(lat, lng, radius, priceMin, priceMax, createTime, categoryId));
 
         baseViewModel.getJobLiveData().observe(this, data -> {
             pgJob.setVisibility(View.GONE);

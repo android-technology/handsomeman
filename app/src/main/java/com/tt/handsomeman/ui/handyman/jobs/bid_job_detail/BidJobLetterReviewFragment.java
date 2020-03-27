@@ -28,16 +28,19 @@ import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
-import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.jobDetail;
+import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.handymanJobDetail;
 import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.mPager;
 
-public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, FragmentBidJobDetailLetterReviewBinding> {
+public class BidJobLetterReviewFragment extends BaseFragment<HandymanViewModel, FragmentBidJobDetailLetterReviewBinding> {
 
     private static String introduceValue, myBidValue;
     private static double serviceFeeValue;
@@ -83,7 +86,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         binding = FragmentBidJobDetailLetterReviewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -104,7 +107,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         tvMyBudget.setText(getString(R.string.money_currency_string, myBidValue));
         tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
-        List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
+        List<PaymentMilestone> listPaymentMilestone = handymanJobDetail.getListPaymentMilestone();
         for (int i = 0; i < listPaymentMilestone.size(); i++) {
             TableRow tr = new TableRow(getContext());
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
@@ -146,8 +149,12 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
+                String sendTime = formatter.format(now.getTime());
+
                 String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-                baseViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue);
+                baseViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue, sendTime);
                 baseViewModel.getStandardResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<StandardResponse>() {
                     @Override
                     public void onChanged(StandardResponse standardResponse) {
@@ -156,6 +163,7 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
                             Intent intent = new Intent(getContext(), HandyManMainScreen.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("radioButtonChoice", 1);
+                            clearStaticView();
                             startActivity(intent);
                         }
                     }
@@ -164,12 +172,10 @@ public class BidJobLetterReviewFragment extends BaseFragment<JobsViewModel, Frag
         });
     }
 
-    @Override
-    public void onDetach() {
+    private void clearStaticView() {
         tvLetter = null;
         tvMyBudget = null;
-        jobDetail = null;
+        handymanJobDetail = null;
         mPager = null;
-        super.onDetach();
     }
 }

@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.model.Customer;
+import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.HandymanDetailRequest;
 import com.tt.handsomeman.request.NearbyHandymanRequest;
+import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.response.CustomerReviewProfile;
 import com.tt.handsomeman.response.HandymanDetailResponse;
+import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenCustomer;
@@ -31,8 +34,10 @@ public class CustomerViewModel extends BaseViewModel {
     private MutableLiveData<CustomerReviewProfile> customerReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanDetailResponse> handymanDetailResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Customer> customerMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<MyProjectList> myProjectListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CustomerProfileResponse> customerProfileResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<CustomerJobDetail> customerJobDetailMutableLiveData = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -57,6 +62,10 @@ public class CustomerViewModel extends BaseViewModel {
         return handymanDetailResponseMutableLiveData;
     }
 
+    public MutableLiveData<MyProjectList> getMyProjectListMutableLiveData() {
+        return myProjectListMutableLiveData;
+    }
+
     public MutableLiveData<Customer> getCustomerMutableLiveData() {
         return customerMutableLiveData;
     }
@@ -67,6 +76,10 @@ public class CustomerViewModel extends BaseViewModel {
 
     public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
         return standardResponseMutableLiveData;
+    }
+
+    public MutableLiveData<CustomerJobDetail> getCustomerJobDetailMutableLiveData() {
+        return customerJobDetailMutableLiveData;
     }
 
     public void fetchDataStartScreen(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
@@ -155,5 +168,35 @@ public class CustomerViewModel extends BaseViewModel {
                                     standardResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body());
                                 },
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchCustomerJobDetail(String authorization, Integer jobId) {
+        compositeDisposable.add(customerService.getCustomerJobDetail(locale, authorization, jobId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((jobResponse) -> {
+                            customerJobDetailMutableLiveData.setValue(jobResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchJobsOfCustomer(String authorization) {
+        compositeDisposable.add(customerService.getJobsOfCustomer(locale, authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((myProjectListResponse) -> {
+                            myProjectListMutableLiveData.setValue(myProjectListResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void addNewJob(String authorization, AddJobRequest addJobRequest) {
+        compositeDisposable.add(customerService.addNewJob(locale, authorization, addJobRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                            standardResponseMutableLiveData.setValue(standardResponseResponse.body());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 }

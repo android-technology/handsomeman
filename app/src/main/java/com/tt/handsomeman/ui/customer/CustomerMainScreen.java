@@ -25,14 +25,15 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityCustomerMainScreenBinding;
+import com.tt.handsomeman.ui.NotificationsFragment;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
 import com.tt.handsomeman.ui.customer.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
-import com.tt.handsomeman.ui.handyman.notifications.NotificationsFragment;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
@@ -55,6 +56,9 @@ public class CustomerMainScreen extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
+    private ActivityCustomerMainScreenBinding binding;
+    private LocationManager locationManager;
+    private Fragment active = fragment1;
     private Geocoder geoCoder;
 
     private final LocationListener locationListener = new LocationListener() {
@@ -118,9 +122,6 @@ public class CustomerMainScreen extends AppCompatActivity {
 
         }
     };
-    private ActivityCustomerMainScreenBinding binding;
-    private Fragment active = fragment1;
-    private LocationManager locationManager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -222,7 +223,6 @@ public class CustomerMainScreen extends AppCompatActivity {
     }
 
     private void startLocationService() {
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // Permission is already available, start camera preview
@@ -261,6 +261,13 @@ public class CustomerMainScreen extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_LOCATION);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        String userId = sharedPreferencesUtils.get("userId", String.class);
+        FirebaseMessaging.getInstance().subscribeToTopic("notification-" + userId);
     }
 
     @Override

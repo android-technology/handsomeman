@@ -26,13 +26,13 @@ import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyProjectsFragment extends BaseFragment<JobsViewModel, FragmentMyProjectsBinding> {
+public class MyProjectsFragment extends BaseFragment<CustomerViewModel, FragmentMyProjectsBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -48,7 +48,7 @@ public class MyProjectsFragment extends BaseFragment<JobsViewModel, FragmentMyPr
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
         viewBinding = FragmentMyProjectsBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
     }
@@ -91,9 +91,8 @@ public class MyProjectsFragment extends BaseFragment<JobsViewModel, FragmentMyPr
 
     void fetchData() {
         String authorization = sharedPreferencesUtils.get("token", String.class);
-        String customerId = sharedPreferencesUtils.get("userId", String.class);
 
-        baseViewModel.fetchJobsOfCustomer(authorization, Integer.valueOf(customerId));
+        baseViewModel.fetchJobsOfCustomer(authorization);
         baseViewModel.getMyProjectListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<MyProjectList>() {
             @Override
             public void onChanged(MyProjectList myProjectList) {

@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tt.handsomeman.di.annotation.ViewModelKey;
 import com.tt.handsomeman.viewmodel.CustomerViewModel;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
+import com.tt.handsomeman.viewmodel.NotificationViewModel;
 import com.tt.handsomeman.viewmodel.UserViewModel;
 
 import dagger.Binds;
@@ -19,11 +19,6 @@ public abstract class ViewModelModule {
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(JobsViewModelFactory factory);
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(JobsViewModel.class)
-    abstract ViewModel bindJobsViewModel(JobsViewModel jobsViewModel);
 
     @Binds
     @IntoMap
@@ -44,5 +39,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CustomerViewModel.class)
     abstract ViewModel bindCustomerViewModel(CustomerViewModel customerViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel.class)
+    abstract ViewModel bindNotificationViewModel(NotificationViewModel notificationViewModel);
     //bind new ViewModel here
 }

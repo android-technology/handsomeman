@@ -73,6 +73,7 @@ public class JobFilter extends AppCompatActivity {
                 intent.putExtra("priceMin", priceMin);
                 intent.putExtra("priceMax", priceMax);
                 intent.putExtra("dateCreated", dateCreated);
+                intent.putExtra("categoryId", getIntent().getIntExtra("categoryId", 0));
                 startActivity(intent);
             }
         });

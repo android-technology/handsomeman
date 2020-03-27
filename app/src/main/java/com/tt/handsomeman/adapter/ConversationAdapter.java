@@ -81,7 +81,6 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         mItemManger.removeShownLayouts(deleteSwipeLayout);
         conversationResponsesList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, getItemCount());
         mItemManger.closeAllItems();
     }
 

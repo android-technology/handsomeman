@@ -22,7 +22,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int SENDER = 1;
     private static final int RECEIVER = 2;
 
-
     private List<MessageResponse> messageResponseList;
     private LayoutInflater layoutInflater;
     private Context context;

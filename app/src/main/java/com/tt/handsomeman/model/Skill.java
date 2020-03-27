@@ -1,6 +1,7 @@
 package com.tt.handsomeman.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Skill implements Serializable {
 
@@ -44,5 +45,19 @@ public class Skill implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skill skill = (Skill) o;
+        return Objects.equals(category_id, skill.category_id) &&
+                Objects.equals(name, skill.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(category_id, name);
     }
 }

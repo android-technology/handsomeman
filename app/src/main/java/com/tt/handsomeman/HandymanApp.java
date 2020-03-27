@@ -8,9 +8,9 @@ import com.tt.handsomeman.di.component.DaggerAppComponent;
 import com.tt.handsomeman.di.module.AppModule;
 import com.tt.handsomeman.di.module.CustomerModule;
 import com.tt.handsomeman.di.module.HandymanModule;
-import com.tt.handsomeman.di.module.JobModule;
 import com.tt.handsomeman.di.module.MessageModule;
 import com.tt.handsomeman.di.module.NetworkModule;
+import com.tt.handsomeman.di.module.NotificationModule;
 import com.tt.handsomeman.di.module.UserModule;
 
 public class HandymanApp extends Application {
@@ -43,8 +43,8 @@ public class HandymanApp extends Application {
                 .builder()
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
-                .jobModule(new JobModule())
                 .userModule(new UserModule())
+                .notificationModule(new NotificationModule())
                 .messageModule(new MessageModule())
                 .handymanModule(new HandymanModule())
                 .customerModule(new CustomerModule())

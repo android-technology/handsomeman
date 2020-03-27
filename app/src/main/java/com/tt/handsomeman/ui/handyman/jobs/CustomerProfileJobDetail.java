@@ -2,6 +2,7 @@ package com.tt.handsomeman.ui.handyman.jobs;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,14 +22,16 @@ import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewModel> {
+import static com.tt.handsomeman.ui.handyman.jobs.JobDetail.sendMessage;
+
+public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -40,6 +43,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
     private ImageView customerAvatar;
     private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
+    private Button btnChat;
     private ActivityCustomerProfileJobDetailBinding binding;
 
     @Override
@@ -53,10 +57,11 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
         customerSuccessedProject = binding.successedProjectsCustomerJobDetail;
         countReviews = binding.reviewCountCustomerProfileJobDetail;
         countPoint = binding.ratingBarCustomerJobDetail;
+        btnChat = binding.chat;
 
         HandymanApp.getComponent().inject(this);
 
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
         binding.customerProfileJobDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,17 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
 
         Integer customerId = getIntent().getIntExtra("customerId", 0);
         fetchData(customerId);
+        chatting();
+    }
+
+    private void chatting() {
+        boolean isAccept = getIntent().getBooleanExtra("isAccept", false);
+        if (isAccept) {
+            btnChat.setVisibility(View.VISIBLE);
+            btnChat.setOnClickListener(v -> {
+                sendMessage();
+            });
+        }
     }
 
     private void fetchData(Integer customerId) {
@@ -80,7 +96,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<JobsViewMode
             public void onChanged(JobDetailProfile jobDetailProfile) {
                 customerName.setText(jobDetailProfile.getCustomerName());
                 customerAllProjectCount.setText(String.valueOf(jobDetailProfile.getAllProject()));
-                customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getAllProject()));
+                customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getSuccessedProject()));
                 countReviews.setText(getResources().getQuantityString(R.plurals.numberOfReview, jobDetailProfile.getCountReviewers(), jobDetailProfile.getCountReviewers()));
                 countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
 

@@ -22,14 +22,14 @@ import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
+public class GroupByCategory extends BaseAppCompatActivity<HandymanViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -49,7 +49,7 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
         pgJob = binding.progressBarJobCategory;
         categoryName = binding.textViewCategoryName;
@@ -71,7 +71,9 @@ public class GroupByCategory extends BaseAppCompatActivity<JobsViewModel> {
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GroupByCategory.this, JobFilter.class));
+                Intent intent = new Intent(GroupByCategory.this, JobFilter.class);
+                intent.putExtra("categoryId", getIntent().getIntExtra("categoryId", 0));
+                startActivity(intent);
             }
         });
     }

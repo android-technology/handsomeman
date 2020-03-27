@@ -10,11 +10,18 @@
         android:name=".HandymanApp"
         android:allowBackup="true"
         android:appCategory="productivity"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher_1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_1_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
+        <activity
+            android:name=".ui.customer.notification.ViewMadeBid"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.customer.my_projects.MyJobDetail"
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.customer.my_projects.add_job.AddNewJob"
             android:screenOrientation="locked" />
@@ -112,7 +119,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ui.handyman.messages.FCMService">
+        <service android:name=".ui.FCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

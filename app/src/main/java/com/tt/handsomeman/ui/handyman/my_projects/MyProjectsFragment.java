@@ -15,30 +15,50 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentMyProjectsBinding;
+import com.tt.handsomeman.model.Job;
+import com.tt.handsomeman.response.MyProjectList;
+import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
-public class MyProjectsFragment extends Fragment {
+import java.util.List;
 
+import javax.inject.Inject;
+
+public class MyProjectsFragment extends BaseFragment<HandymanViewModel, FragmentMyProjectsBinding> {
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    MutableLiveData<List<Job>> inProgressList = new MutableLiveData<>();
+    MutableLiveData<List<Job>> inPastList = new MutableLiveData<>();
     private Fragment childInProgressFragment = new MyProjectsChildInProgressFragment();
     private Fragment childInPastFragment = new MyProjectsChildInPastFragment();
     private Fragment active = childInProgressFragment;
     private EditText edtSearchByWord;
-    private FragmentMyProjectsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMyProjectsBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        HandymanApp.getComponent().inject(this);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
+        viewBinding = FragmentMyProjectsBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RadioButton rdInProgress = binding.radioButtonInProgress;
-        RadioButton rdInPast = binding.radioButtonInPast;
-        edtSearchByWord = binding.editTextSearchByWordMyProjectFragment;
+        RadioButton rdInProgress = viewBinding.radioButtonInProgress;
+        RadioButton rdInPast = viewBinding.radioButtonInPast;
+        edtSearchByWord = viewBinding.editTextSearchByWordMyProjectFragment;
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.myProjectFragmentParent, childInPastFragment).hide(childInPastFragment).commit();
@@ -65,6 +85,21 @@ public class MyProjectsFragment extends Fragment {
                 }
             }
         });
+
+        fetchData();
+    }
+
+    void fetchData() {
+        String authorization = sharedPreferencesUtils.get("token", String.class);
+
+        baseViewModel.fetchJobsOfHandyman(authorization);
+        baseViewModel.getMyProjectListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<MyProjectList>() {
+            @Override
+            public void onChanged(MyProjectList myProjectList) {
+                inProgressList.setValue(myProjectList.getInProgressList());
+                inPastList.setValue(myProjectList.getInPastList());
+            }
+        });
     }
 
     private void setEditTextHintTextAndIcon() {
@@ -72,11 +107,5 @@ public class MyProjectsFragment extends Fragment {
         SpannableString spannableString = new SpannableString("    " + getResources().getString(R.string.search_by_word));
         spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         edtSearchByWord.setHint(spannableString);
-    }
-
-    @Override
-    public void onDestroyView() {
-        binding = null;
-        super.onDestroyView();
     }
 }

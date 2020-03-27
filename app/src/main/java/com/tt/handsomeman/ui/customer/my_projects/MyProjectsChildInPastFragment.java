@@ -8,47 +8,39 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.databinding.FragmentMyProjectsChildInPastBinding;
 import com.tt.handsomeman.model.Job;
-import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.ui.handyman.jobs.JobDetail;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
+public class MyProjectsChildInPastFragment extends Fragment {
 
-public class MyProjectsChildInPastFragment extends BaseFragment<JobsViewModel, FragmentMyProjectsChildInPastBinding> {
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
     private List<Job> inPastList = new ArrayList<>();
     private JobFilterAdapter jobAdapter;
+    private FragmentMyProjectsChildInPastBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        viewBinding = FragmentMyProjectsChildInPastBinding.inflate(inflater, container, false);
-        return viewBinding.getRoot();
+        binding = FragmentMyProjectsChildInPastBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createJobRecycleView();
+
         ((MyProjectsFragment) getParentFragment()).inPastList.observe(getViewLifecycleOwner(), new Observer<List<Job>>() {
             @Override
             public void onChanged(List<Job> jobs) {
@@ -60,12 +52,12 @@ public class MyProjectsChildInPastFragment extends BaseFragment<JobsViewModel, F
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = viewBinding.recycleViewJobsInPast;
+        RecyclerView rcvJob = binding.recycleViewJobsInPast;
         jobAdapter = new JobFilterAdapter(getContext(), inPastList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(getContext(), JobDetail.class);
+                Intent intent = new Intent(getContext(), MyJobDetail.class);
                 intent.putExtra("jobId", inPastList.get(position).getId());
                 startActivity(intent);
             }
@@ -77,4 +69,9 @@ public class MyProjectsChildInPastFragment extends BaseFragment<JobsViewModel, F
         rcvJob.setAdapter(jobAdapter);
     }
 
+    @Override
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
+    }
 }

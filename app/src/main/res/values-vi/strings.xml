@@ -63,13 +63,13 @@
     <string name="date">Ngày</string>
     <string name="distance">Khoảng cách</string>
     <string name="price">Giá</string>
-    <string name="place_a_bid">Đặt cọc</string>
+    <string name="place_a_bid">Đặt cược</string>
     <string name="details">Chi tiết</string>
     <string name="budget">Giá</string>
     <string name="deadline">Hạn chót</string>
     <string name="location">Địa điểm</string>
     <string name="this_job">Công việc này</string>
-    <string name="bids">Đặt cọc</string>
+    <string name="bids">Đặt cược</string>
     <string name="interviewing">Phỏng vấn</string>
     <string name="hired">Đã thuê</string>
     <string name="payment_milestones">Mốc thanh toán</string>
@@ -218,4 +218,18 @@
     <string name="detail_error"><![CDATA[Chi tiết phải lớn hơn 17 ký tự và nhỏ hơn 255 ký tự]]></string>
     <string name="first_payout_milestone">Mốc thanh toán thứ nhất</string>
     <string name="second_payout_milestone">Mốc thanh toán thứ hai</string>
+    <string name="my_project">Dự án của tôi</string>
+    <string name="sent">%1$s đã gửi:</string>
+    <string name="show_handyman_profile">Hiển thị hồ sơ handyman</string>
+    <string name="made_bid_notification">%1$s vừa mới đặt cược vào %2$s</string>
+    <string name="accept_bid_notification">%1$s vừa mới chấp nhận đặt cược của bạn vào %2$s</string>
+    <string name="paid_payment_notification">%1$s vừa mới trả %2$s</string>
+    <string name="who_just_made_bid">%1$s vừa mới đặt cược</string>
+    <string name="duplicate_skill">Bạn đã thêm kỹ năng này rồi</string>
+    <string name="please_wait">Vui lòng đợi trong giây lát</string>
+    <string name="accept_this_bid">Chấp nhận đặc cược này</string>
+    <string name="the_bid">Đặt cược</string>
+    <string name="not_done_yet">Vẫn chưa làm</string>
+    <string name="chat">Nhắn tin</string>
+    <string name="view_transaction">Xem Giao dịch</string>
 </resources>

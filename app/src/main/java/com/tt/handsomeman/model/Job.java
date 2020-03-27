@@ -22,7 +22,6 @@ public class Job implements Serializable {
     private Double lat;
     private Double lng;
     private Integer customerId;
-    private String status;
 
     public Integer setCreateTimeBinding() {
         Calendar now = Calendar.getInstance();
@@ -132,13 +131,5 @@ public class Job implements Serializable {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

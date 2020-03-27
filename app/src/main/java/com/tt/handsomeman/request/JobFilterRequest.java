@@ -13,13 +13,16 @@ public class JobFilterRequest {
 
     private String createTime;
 
-    public JobFilterRequest(double lat, double lng, double radius, double budgetMin, double budgetMax, String createTime) {
+    private Integer categoryId;
+
+    public JobFilterRequest(double lat, double lng, double radius, double budgetMin, double budgetMax, String createTime, Integer categoryId) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;
         this.budgetMin = budgetMin;
         this.budgetMax = budgetMax;
         this.createTime = createTime;
+        this.categoryId = categoryId;
     }
 
     public double getLat() {
@@ -68,5 +71,13 @@ public class JobFilterRequest {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

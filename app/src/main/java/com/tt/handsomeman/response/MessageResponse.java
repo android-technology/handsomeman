@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MessageResponse {
     private int messageId;
@@ -99,5 +100,19 @@ public class MessageResponse {
 
     public void setType(byte type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MessageResponse messageResponse = (MessageResponse) o;
+        return Objects.equals(sendTime, messageResponse.sendTime) &&
+                Objects.equals(type, messageResponse.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sendTime, type);
     }
 }

@@ -9,50 +9,42 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.JobFilterAdapter;
 import com.tt.handsomeman.databinding.FragmentCustomerMyProjectChildInProgressBinding;
 import com.tt.handsomeman.model.Job;
-import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJob;
-import com.tt.handsomeman.ui.handyman.jobs.JobDetail;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-public class CustomerMyProjectsChildInProgressFragment extends BaseFragment<JobsViewModel, FragmentCustomerMyProjectChildInProgressBinding> {
+public class CustomerMyProjectsChildInProgressFragment extends Fragment {
 
     private static final Integer ADD_NEW_JOB_CODE = 747;
 
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
     private List<Job> inProgressList = new ArrayList<>();
     private JobFilterAdapter jobAdapter;
+    private FragmentCustomerMyProjectChildInProgressBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
-        viewBinding = FragmentCustomerMyProjectChildInProgressBinding.inflate(inflater, container, false);
-        return viewBinding.getRoot();
+        binding = FragmentCustomerMyProjectChildInProgressBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createJobRecycleView();
+
         ((MyProjectsFragment) getParentFragment()).inProgressList.observe(getViewLifecycleOwner(), new Observer<List<Job>>() {
             @Override
             public void onChanged(List<Job> jobs) {
@@ -62,16 +54,16 @@ public class CustomerMyProjectsChildInProgressFragment extends BaseFragment<Jobs
             }
         });
 
-        viewBinding.buttonAddNewJob.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), AddNewJob.class), ADD_NEW_JOB_CODE));
+        binding.buttonAddNewJob.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), AddNewJob.class), ADD_NEW_JOB_CODE));
     }
 
     private void createJobRecycleView() {
-        RecyclerView rcvJob = viewBinding.recycleViewJobsInProgress;
+        RecyclerView rcvJob = binding.recycleViewJobsInProgress;
         jobAdapter = new JobFilterAdapter(getContext(), inProgressList);
         jobAdapter.setOnItemClickListener(new JobFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(getContext(), JobDetail.class);
+                Intent intent = new Intent(getContext(), MyJobDetail.class);
                 intent.putExtra("jobId", inProgressList.get(position).getId());
                 startActivity(intent);
             }
@@ -91,5 +83,11 @@ public class CustomerMyProjectsChildInProgressFragment extends BaseFragment<Jobs
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
     }
 }

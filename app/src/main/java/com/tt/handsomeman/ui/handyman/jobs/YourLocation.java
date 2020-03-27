@@ -22,14 +22,14 @@ import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
+public class YourLocation extends BaseAppCompatActivity<HandymanViewModel> {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -48,7 +48,7 @@ public class YourLocation extends BaseAppCompatActivity<JobsViewModel> {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
         btnFilter = binding.imageButtonFilter;
         pgJob = binding.progressBarJobYourLocation;

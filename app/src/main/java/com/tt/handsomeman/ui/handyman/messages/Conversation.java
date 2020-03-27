@@ -27,6 +27,7 @@ import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
+import com.tt.handsomeman.ui.FCMService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
@@ -47,18 +48,16 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
+    public static boolean isActive;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
-
     private MessageAdapter messageAdapter;
     private List<MessageResponse> messageResponseList = new ArrayList<>();
-
     private TextView tvAddressName;
     private ImageButton ibSendMessage;
     private EditText edtMessageBody;
-
     private BroadcastReceiver receiver;
     private int conversationId;
     private RecyclerView rcvMessage;
@@ -73,6 +72,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
+        isActive = true;
 
         tvAddressName = binding.textViewConversationAccountName;
         ibSendMessage = binding.imageButtonSendMessage;
@@ -120,12 +120,14 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 MessageResponse messageResponse = null;
                 try {
                     messageResponse = new MessageResponse(bundle.getString("avatar"), Integer.parseInt(bundle.getString("accountId"))
-                            , URLDecoder.decode(bundle.getString("Body"), "UTF-8"), sendTime, type);
+                            , URLDecoder.decode(bundle.getString("body"), "UTF-8"), sendTime, type);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
-                messageResponseList.add(messageResponse);
+                if (!messageResponseList.contains(messageResponse)) {
+                    messageResponseList.add(messageResponse);
+                }
                 messageAdapter.notifyItemInserted(messageResponseList.size() - 1);
                 if (isAtBottom) {
                     rcvMessage.scrollToPosition(messageResponseList.size() - 1);
@@ -217,16 +219,30 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     public void onStart() {
         super.onStart();
         conversationId = getIntent().getIntExtra("conversationId", 0);
-        FirebaseMessaging.getInstance().subscribeToTopic(String.valueOf(conversationId));
+        FirebaseMessaging.getInstance().subscribeToTopic("message-" + conversationId);
         LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
-                new IntentFilter(FCMService.REQUEST_ACCEPT)
+                new IntentFilter(FCMService.REQUEST_MESSAGE)
         );
+        isActive = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActive = true;
     }
 
     @Override
     public void onDestroy() {
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(String.valueOf(conversationId));
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("message-" + conversationId);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        isActive = false;
         super.onDestroy();
     }
 }

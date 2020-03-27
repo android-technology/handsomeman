@@ -3,19 +3,13 @@ package com.tt.handsomeman.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class JobDetail implements Serializable {
+public class HandymanJobDetail implements Serializable {
+
     private Job job;
-
-    private boolean isBid;
-
     private List<PaymentMilestone> listPaymentMilestone;
-
     private CustomerResponse customer;
-
-    private Float averageReviewPoint;
-
-    private Integer countReviewers;
-
+    private boolean isBid;
+    private boolean accepted;
 
     public Job getJob() {
         return job;
@@ -49,19 +43,11 @@ public class JobDetail implements Serializable {
         this.customer = customer;
     }
 
-    public Float getAverageReviewPoint() {
-        return averageReviewPoint;
+    public boolean isAccepted() {
+        return accepted;
     }
 
-    public void setAverageReviewPoint(Float averageReviewPoint) {
-        this.averageReviewPoint = averageReviewPoint;
-    }
-
-    public Integer getCountReviewers() {
-        return countReviewers;
-    }
-
-    public void setCountReviewers(Integer countReviewers) {
-        this.countReviewers = countReviewers;
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 }

@@ -21,14 +21,14 @@ import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobsChildWishListFragment extends BaseFragment<JobsViewModel, FragmentJobsChildWishListBinding> {
+public class JobsChildWishListFragment extends BaseFragment<HandymanViewModel, FragmentJobsChildWishListBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -41,7 +41,7 @@ public class JobsChildWishListFragment extends BaseFragment<JobsViewModel, Fragm
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         viewBinding = FragmentJobsChildWishListBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
     }

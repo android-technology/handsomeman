@@ -15,7 +15,6 @@ public class AddJobRequest {
     private double lat;
     private double lng;
     private int customerId;
-    private String status;
     private ArrayList<Integer> percentages;
 
     public Integer getCategoryId() {
@@ -104,14 +103,6 @@ public class AddJobRequest {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public ArrayList<Integer> getPercentages() {

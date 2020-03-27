@@ -20,7 +20,7 @@ import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,7 +40,7 @@ public class AddNewJob extends FragmentActivity {
     ViewPager2 viewPager;
     AddJobRequest addJobRequest;
     ActivityAddNewJobBinding binding;
-    private JobsViewModel jobsViewModel;
+    private CustomerViewModel customerViewModel;
     private Button btnSubmit;
     private FragmentStateAdapter pagerAdapter;
     private OnPageChangeCallback pageChangeCallback;
@@ -54,7 +54,7 @@ public class AddNewJob extends FragmentActivity {
         btnSubmit = binding.buttonSubmit;
 
         HandymanApp.getComponent().inject(this);
-        jobsViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        customerViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         generateViewPager();
         goBackward();
@@ -69,8 +69,8 @@ public class AddNewJob extends FragmentActivity {
             String token = sharedPreferencesUtils.get("token", String.class);
             addJobRequest.setCreateTime(simpleDateFormat.format(now.getTime()));
 
-            jobsViewModel.addNewJob(token, addJobRequest);
-            jobsViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
+            customerViewModel.addNewJob(token, addJobRequest);
+            customerViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
                 @Override
                 public void onChanged(StandardResponse standardResponse) {
                     Toast.makeText(AddNewJob.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -130,7 +130,7 @@ public class AddNewJob extends FragmentActivity {
     protected void onDestroy() {
         binding = null;
         viewPager.unregisterOnPageChangeCallback(pageChangeCallback);
-        jobsViewModel.clearSubscriptions(this.getClass().getName());
+        customerViewModel.clearSubscriptions(this.getClass().getName());
         super.onDestroy();
     }
 

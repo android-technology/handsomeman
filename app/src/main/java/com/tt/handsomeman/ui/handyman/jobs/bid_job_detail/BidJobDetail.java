@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityBidJobDetailBinding;
-import com.tt.handsomeman.model.JobDetail;
+import com.tt.handsomeman.model.HandymanJobDetail;
 import com.tt.handsomeman.util.CustomViewPager;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -32,7 +32,7 @@ public class BidJobDetail extends FragmentActivity {
      * and next wizard steps.
      */
     static CustomViewPager mPager;
-    static JobDetail jobDetail;
+    static HandymanJobDetail handymanJobDetail;
     ActivityBidJobDetailBinding activityBidJobDetailBinding;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -54,7 +54,7 @@ public class BidJobDetail extends FragmentActivity {
         btnSubmit = activityBidJobDetailBinding.submitBidJobDetail;
         mPager = activityBidJobDetailBinding.bidJobDetailPager;
 
-        jobDetail = (JobDetail) getIntent().getSerializableExtra("jobDetail");
+        handymanJobDetail = (HandymanJobDetail) getIntent().getSerializableExtra("handymanJobDetail");
 
         generateViewPager();
         viewPagerUILogic();
@@ -120,6 +120,8 @@ public class BidJobDetail extends FragmentActivity {
         if (mPager.getCurrentItem() == 0) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
+            handymanJobDetail = null;
+            mPager = null;
             super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
@@ -143,15 +145,15 @@ public class BidJobDetail extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return BidJobBudgetFragment.newInstance(jobDetail.getJob().getBudgetMin(),
-                            jobDetail.getJob().getBudgetMax(),
-                            jobDetail.getJob().getBudgetMin(),
-                            jobDetail.getJob().getBudgetMin() * 0.9,
-                            jobDetail.getJob().getBudgetMin() * 0.1);
+                    return BidJobBudgetFragment.newInstance(handymanJobDetail.getJob().getBudgetMin(),
+                            handymanJobDetail.getJob().getBudgetMax(),
+                            handymanJobDetail.getJob().getBudgetMin(),
+                            handymanJobDetail.getJob().getBudgetMin() * 0.9,
+                            handymanJobDetail.getJob().getBudgetMin() * 0.1);
                 case 1: // Fragment # 0 - This will show FirstFragment
                     return new BidJobLetterFragment();
                 case 2:
-                    return BidJobLetterReviewFragment.newInstance(jobDetail.getJob().getId(), jobDetail.getJob().getTitle(), jobDetail.getListPaymentMilestone().size());
+                    return BidJobLetterReviewFragment.newInstance(handymanJobDetail.getJob().getId(), handymanJobDetail.getJob().getTitle(), handymanJobDetail.getListPaymentMilestone().size());
                 default:
                     return null;
             }

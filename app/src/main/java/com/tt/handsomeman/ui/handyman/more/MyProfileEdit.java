@@ -50,8 +50,9 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     private ImageButton ibEdit, ibAddSkillMyProfileEdit;
     private SkillEditAdapter skillEditAdapter;
     private RecyclerView rcvSkillEdit;
-    private List<Skill> skillEditList = new ArrayList<>();
+    private ArrayList<Skill> skillEditList = new ArrayList<>();
     private boolean isEdit = false;
+    private boolean isLoadDone = false;
     private ActivityMyProfileEditBinding binding;
 
     @Override
@@ -74,7 +75,13 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
         ibAddSkillMyProfileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MyProfileEdit.this, AddNewSkill.class), REQUEST_MY_PROFILE_EDIT_RESULT_CODE);
+                if (isLoadDone) {
+                    Intent intent = new Intent(MyProfileEdit.this, AddNewSkill.class);
+                    intent.putExtra("listSkill", skillEditList);
+                    startActivityForResult(intent, REQUEST_MY_PROFILE_EDIT_RESULT_CODE);
+                } else {
+                    Toast.makeText(MyProfileEdit.this, getString(R.string.please_wait), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -191,6 +198,8 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
                 skillEditList.clear();
                 skillEditList.addAll(handymanProfileResponse.getSkillList());
                 skillEditAdapter.notifyDataSetChanged();
+
+                isLoadDone = true;
             }
         });
     }
@@ -199,8 +208,13 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == REQUEST_MY_PROFILE_EDIT_RESULT_CODE && resultCode == RESULT_OK && data != null) {
-            skillEditList.add((Skill) data.getSerializableExtra("skillAdded"));
-            skillEditAdapter.notifyItemInserted(skillEditList.size());
+            Skill skill = (Skill) data.getSerializableExtra("skillAdded");
+            if (skillEditList.contains(skill)) {
+                Toast.makeText(this, getString(R.string.duplicate_skill), Toast.LENGTH_SHORT).show();
+            } else {
+                skillEditList.add(skill);
+                skillEditAdapter.notifyItemInserted(skillEditList.size());
+            }
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

@@ -5,6 +5,7 @@ public class HandymanResponse {
     private Integer handymanId;
     private String name;
     private String avatar;
+    private Integer countReviewers;
     private Float averageReviewPoint;
     private Double distance;
 
@@ -38,6 +39,14 @@ public class HandymanResponse {
 
     public void setAverageReviewPoint(Float averageReviewPoint) {
         this.averageReviewPoint = averageReviewPoint;
+    }
+
+    public Integer getCountReviewers() {
+        return countReviewers;
+    }
+
+    public void setCountReviewers(Integer countReviewers) {
+        this.countReviewers = countReviewers;
     }
 
     public Double getDistance() {

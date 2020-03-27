@@ -412,7 +412,6 @@
     <string name="education">Education</string>
     <string name="my_skills">My skills</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="review_from_customers">Reviews from customers</string>
     <string name="edit">Edit</string>
     <string name="add_new_skill">Add new skill</string>
@@ -467,8 +466,6 @@
     <string name="third_milestone">%drd milestone</string>
     <string name="default_milestone">%dth milestone</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="handyman_role">You are Handyman</string>
     <string name="customer_role">You are Customer</string>
     <string name="transaction">Transaction</string>
@@ -489,4 +486,18 @@
     <string name="places_not_found_auto_complete" translatable="false">Auto Complete: Place not found</string>
     <string name="error9010_search_place" translatable="false">Search Place: Operation failed due to exceeding the query limits.</string>
     <string name="places_not_found_search_place" translatable="false">Search Place: Place not found</string>
+    <string name="my_project">My project</string>
+    <string name="sent">%1$s sent:</string>
+    <string name="show_handyman_profile">Show handyman\'s profile</string>
+    <string name="made_bid_notification">%1$s has just made a bid on \"%2$s\"</string>
+    <string name="accept_bid_notification">%1$s has just accepted your bid on \"%2$s\"</string>
+    <string name="paid_payment_notification">%1$s has just paid %2$s</string>
+    <string name="who_just_made_bid">%1$s has just made a bid</string>
+    <string name="duplicate_skill">You already added this skill</string>
+    <string name="please_wait">Please wait a second</string>
+    <string name="accept_this_bid">Accept this bid</string>
+    <string name="the_bid">The bid</string>
+    <string name="not_done_yet">Not done yet</string>
+    <string name="chat">Chat</string>
+    <string name="view_transaction">View Transaction</string>
 </resources>

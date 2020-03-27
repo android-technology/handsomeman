@@ -3,13 +3,16 @@ package com.tt.handsomeman.ui.handyman.jobs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,21 +25,24 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityJobDetailBinding;
 import com.tt.handsomeman.model.CustomerResponse;
+import com.tt.handsomeman.model.HandymanJobDetail;
 import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
+import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.JobsViewModel;
+import com.tt.handsomeman.util.StatusConstant;
+import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
+public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
-    private static com.tt.handsomeman.model.JobDetail jobDetail;
+    private static HandymanJobDetail handymanJobDetail;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -46,10 +52,17 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
     private TextView tvJobTitle, tvJobId, tvJobCreateTime, tvJobDetail,
             tvBudgetRange, tvJobDeadline, tvJobLocation,
             tvHired, tvPaymentMilestoneCount, tvClientName, tvReviewCount, tvShowClientProfile;
-    private Button btnPlaceABid;
+    private ImageButton ibSendMessage;
+    private Button btnPlaceABid, btnViewTransaction;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
+    private boolean isAccept, isRead;
+    private int notificationId, notificationPos;
     private ActivityJobDetailBinding binding;
+
+    static void sendMessage() {
+        // TODO: handyman sendMessage
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +70,21 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         binding = ActivityJobDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(JobsViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
+        Intent intent = getIntent();
+        Integer jobId = intent.getIntExtra("jobId", 0);
+        notificationId = intent.getIntExtra("notificationId", 0);
+        isRead = intent.getBooleanExtra("isRead", false);
+        notificationPos = intent.getIntExtra("notificationPos", 0);
+
+        bindView();
+        goBack();
+        fetchData(jobId);
+        showClientProfile();
+    }
+
+    private void bindView() {
         rtReview = binding.ratingBarJobDetail;
         tvJobTitle = binding.jobTitleJobDetail;
         tvJobId = binding.jobIdJobDetail;
@@ -76,47 +102,52 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
         imClientAvatar = binding.clientAvatarJobDetail;
         imIsWish = binding.isWishListImage;
         btnPlaceABid = binding.buttonPlaceBidJobDetail;
-
-        goBack();
-        Integer jobId = getIntent().getIntExtra("jobId", 0);
-        fetchData(jobId);
-        showClientProfile();
-        bidJob();
-
+        btnViewTransaction = binding.viewTransaction;
+        ibSendMessage = binding.imageButtonSendMessage;
     }
 
     private void goBack() {
         binding.jobDetailBackButton.setOnClickListener(v -> {
-            jobDetail = null;
+            handymanJobDetail = null;
             onBackPressed();
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (notificationId != 0) {
+            Intent intent = new Intent();
+            intent.putExtra("isRead", isRead);
+            intent.putExtra("notificationPos", notificationPos);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void bidJob() {
-        btnPlaceABid.setOnClickListener(v -> {
-            Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
-            intent.putExtra("jobDetail", jobDetail);
-            startActivity(intent);
-        });
+        Intent intent = new Intent(JobDetail.this, BidJobDetail.class);
+        intent.putExtra("handymanJobDetail", handymanJobDetail);
+        startActivity(intent);
     }
 
     private void showClientProfile() {
         tvShowClientProfile.setOnClickListener(v -> {
             Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
-            intent.putExtra("customerId", jobDetail.getCustomer().getAccountId());
+            intent.putExtra("customerId", handymanJobDetail.getCustomer().getAccountId());
+            intent.putExtra("isAccept", this.isAccept);
             startActivity(intent);
         });
     }
 
     private void fetchData(Integer jobId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        baseViewModel.fetchJobDetail(authorizationCode, jobId);
+        baseViewModel.fetchHandymanJobDetail(authorizationCode, jobId);
 
         baseViewModel.getJobDetailLiveData().observe(this, jobDetail -> {
-            JobDetail.jobDetail = jobDetail;
-            if (jobDetail.isBid()) {
-                imIsWish.setImageResource(R.drawable.ic_hearted);
-            }
+            JobDetail.handymanJobDetail = jobDetail;
+
             Job job = jobDetail.getJob();
             tvJobTitle.setText(job.getTitle());
             tvJobId.setText(String.valueOf(job.getId()));
@@ -126,12 +157,6 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
             tvJobDetail.setText(job.getDetail());
             tvBudgetRange.setText(job.setBudgetRange());
             tvJobLocation.setText(job.getLocation());
-
-            if (job.getStatus().equals("A")) {
-                tvHired.setText(getString(R.string.no));
-            } else {
-                tvHired.setText(getString(R.string.yes));
-            }
 
             List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
             tvPaymentMilestoneCount.setText(String.valueOf(listPaymentMilestone.size()));
@@ -173,11 +198,9 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
 
             CustomerResponse customerResponse = jobDetail.getCustomer();
             tvClientName.setText(customerResponse.getCustomerName());
-
-            Integer countReview = jobDetail.getCountReviewers();
+            Integer countReview = customerResponse.getCountReviewers();
             tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
-
-            rtReview.setRating(jobDetail.getAverageReviewPoint());
+            rtReview.setRating(customerResponse.getAverageReviewPoint());
 
             Double lat = job.getLat();
             Double lng = job.getLng();
@@ -195,6 +218,46 @@ public class JobDetail extends BaseAppCompatActivity<JobsViewModel> {
                     mMap.getUiSettings().setScrollGesturesEnabled(false);
                 }
             });
+
+            if (jobDetail.isBid()) {
+                imIsWish.setImageResource(R.drawable.ic_hearted);
+            }
+
+            if (jobDetail.isAccepted()) {
+                tvHired.setText(getString(R.string.yes));
+                this.isAccept = true;
+                btnViewTransaction.setVisibility(View.VISIBLE);
+                btnViewTransaction.setOnClickListener(v -> {
+                    // TODO: View transaction
+                });
+                ibSendMessage.setVisibility(View.VISIBLE);
+                ibSendMessage.setOnClickListener(v -> {
+                    sendMessage();
+                });
+            } else {
+                this.isAccept = false;
+                btnPlaceABid.setVisibility(View.VISIBLE);
+                btnPlaceABid.setOnClickListener(v -> bidJob());
+                tvHired.setText(getString(R.string.no));
+            }
+
+            if (!isRead) {
+                markAsRead(notificationId, authorizationCode);
+            }
         });
+    }
+
+    private void markAsRead(Integer notificationId, String token) {
+        if (!isRead) {
+            baseViewModel.markNotificationAsRead(token, notificationId);
+            baseViewModel.getStandardResponseMarkReadMutableLiveData().observe(this, new Observer<StandardResponse>() {
+                @Override
+                public void onChanged(StandardResponse standardResponse) {
+                    if (standardResponse.getStatus().equals(StatusConstant.OK)) {
+                        isRead = true;
+                    }
+                }
+            });
+        }
     }
 }

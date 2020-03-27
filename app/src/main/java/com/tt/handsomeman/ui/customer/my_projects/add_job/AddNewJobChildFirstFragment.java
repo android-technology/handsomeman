@@ -93,7 +93,6 @@ public class AddNewJobChildFirstFragment extends BaseFragment<HandymanViewModel,
                 addJobRequest.setBudgetMin(Integer.parseInt(edtBudgetMin.getText().toString().trim()));
                 addJobRequest.setBudgetMax(Integer.parseInt(edtBudgetMax.getText().toString().trim()));
                 addJobRequest.setCustomerId(Integer.parseInt(sharedPreferencesUtils.get("userId", String.class)));
-                addJobRequest.setStatus("A");
 
                 ArrayList<Integer> paymentMileStone = new ArrayList<>();
 

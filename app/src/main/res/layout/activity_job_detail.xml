@@ -45,7 +45,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPlaceBidJobDetail"
+        app:layout_constraintBottom_toTopOf="@+id/layoutButtonBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -396,12 +396,12 @@
                             android:layout_width="50dp"
                             android:layout_height="36dp"
                             android:layout_marginEnd="10dp"
-                            android:background="@drawable/custom_ripple_transparent_color_bg"
+                            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
                             android:padding="7dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_mail"
                             android:tint="@color/colorPrimary"
-                            android:visibility="invisible"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toTopOf="@+id/viewDivider"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -488,20 +488,42 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonPlaceBidJobDetail"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layoutButtonBottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_ripple_primary_color_bg"
-        android:gravity="center"
-        android:text="@string/place_a_bid"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/design_6sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/buttonPlaceBidJobDetail"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple_primary_color_bg"
+            android:gravity="center"
+            android:text="@string/place_a_bid"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/design_6sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/viewTransaction"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple_primary_color_bg"
+            android:gravity="center"
+            android:text="@string/view_transaction"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/design_6sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

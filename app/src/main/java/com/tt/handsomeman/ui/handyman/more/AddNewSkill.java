@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -40,6 +41,7 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
     private RecyclerView rcvSkillCategoriesName;
     private CategorySelectionAdapter addNewSkillAdapter;
     private List<Category> categoryList = new ArrayList<>();
+    private List<Skill> skillEditList = new ArrayList<>();
     private ActivityAddNewSkillBinding binding;
 
     @Override
@@ -64,16 +66,23 @@ public class AddNewSkill extends BaseAppCompatActivity<HandymanViewModel> {
         createCategoryRecyclerView();
         getListCategory();
 
+        skillEditList = (List<Skill>) getIntent().getSerializableExtra("listSkill");
+
         imCheckAddSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtNewSkillName.getText().toString().matches("") && addNewSkillAdapter.getSelected() != null) {
+                if (!edtNewSkillName.getText().toString().trim().matches("") && addNewSkillAdapter.getSelected() != null) {
                     Category category = addNewSkillAdapter.getSelected();
+                    Skill skill = new Skill(category.getCategory_id(), edtNewSkillName.getText().toString().trim());
 
-                    Intent intent = new Intent();
-                    intent.putExtra("skillAdded", new Skill(category.getCategory_id(), edtNewSkillName.getText().toString()));
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    if (skillEditList.contains(skill)) {
+                        Toast.makeText(AddNewSkill.this, getString(R.string.duplicate_skill), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent();
+                        intent.putExtra("skillAdded", skill);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
             }
         });
