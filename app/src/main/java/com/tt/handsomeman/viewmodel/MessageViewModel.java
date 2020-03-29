@@ -7,15 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tt.handsomeman.request.SendMessageRequest;
-import com.tt.handsomeman.response.Contact;
-import com.tt.handsomeman.response.ConversationResponse;
-import com.tt.handsomeman.response.MessageResponse;
+import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.ListConversation;
+import com.tt.handsomeman.response.ListMessage;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.MessageService;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.StatusConstant;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,11 +22,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MessageViewModel extends BaseViewModel {
     private final MessageService messageService;
-    private MutableLiveData<List<ConversationResponse>> conversationResponseListMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<MessageResponse>> messageResponseListMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Contact>> contactListMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<String> messageResponse = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ListConversation>> listConversation = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ListMessage>> listMessageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -37,24 +34,16 @@ public class MessageViewModel extends BaseViewModel {
         this.messageService = messageService;
     }
 
-    public MutableLiveData<List<ConversationResponse>> getConversationResponseMutableLiveData() {
-        return conversationResponseListMutableLiveData;
+    public MutableLiveData<DataBracketResponse<ListMessage>> getListMessageResponse() {
+        return listMessageResponse;
     }
 
-    public MutableLiveData<List<MessageResponse>> getMessageResponseListMutableLiveData() {
-        return messageResponseListMutableLiveData;
-    }
-
-    public MutableLiveData<List<Contact>> getContactListMutableLiveData() {
-        return contactListMutableLiveData;
+    public MutableLiveData<DataBracketResponse<ListConversation>> getListConversation() {
+        return listConversation;
     }
 
     public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
         return standardResponseMutableLiveData;
-    }
-
-    public void clearStandardResponseLiveDate() {
-        standardResponseMutableLiveData.setValue(null);
     }
 
     public MutableLiveData<String> getMessageResponse() {
@@ -66,29 +55,17 @@ public class MessageViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                            List<ConversationResponse> conversationResponseList = response.body().getData().getConversationList();
-                            if (conversationResponseList.isEmpty()) {
-                                messageResponse.setValue(response.body().getMessage());
-                                conversationResponseListMutableLiveData.setValue(conversationResponseList);
-                            } else {
-                                conversationResponseListMutableLiveData.setValue(conversationResponseList);
-                            }
+                            listConversation.setValue(response.body());
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
     }
 
-    public void fetchAllMessageInConversation(String authorization, Integer conversationId) {
-        compositeDisposable.add(messageService.getAllMessagesInConversation(locale, authorization, conversationId)
+    public void fetchAllMessagesWithAccount(String authorization, Integer accountId) {
+        compositeDisposable.add(messageService.getAllMessagesWithAccount(locale, authorization, accountId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                            List<MessageResponse> messageResponseList = response.body().getData().getMessageResponseList();
-                            if (messageResponseList.isEmpty()) {
-                                messageResponse.setValue(response.body().getMessage());
-                                messageResponseListMutableLiveData.setValue(messageResponseList);
-                            } else {
-                                messageResponseListMutableLiveData.setValue(messageResponseList);
-                            }
+                            listMessageResponse.setValue(response.body());
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
     }
@@ -102,22 +79,6 @@ public class MessageViewModel extends BaseViewModel {
                                 messageResponse.setValue(response.body().getMessage());
                             } else {
                                 messageResponse.setValue(response.body().getMessage());
-                            }
-                        }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
-                ));
-    }
-
-    public void fetchAllContactOfAccount(String authorization, String type) {
-        compositeDisposable.add(messageService.getContactOfAccount(locale, authorization, type)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                            List<Contact> contactList = response.body().getData().getContactList();
-                            if (contactList.isEmpty()) {
-                                messageResponse.setValue(response.body().getMessage());
-                                contactListMutableLiveData.setValue(contactList);
-                            } else {
-                                contactListMutableLiveData.setValue(contactList);
                             }
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));

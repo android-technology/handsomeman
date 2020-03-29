@@ -1,5 +1,6 @@
 package com.tt.handsomeman.ui.handyman.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.tt.handsomeman.databinding.ActivityCustomerProfileJobDetailBinding;
 import com.tt.handsomeman.response.CustomerReviewResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
+import com.tt.handsomeman.ui.handyman.messages.Conversation;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
@@ -28,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import static com.tt.handsomeman.ui.handyman.jobs.JobDetail.sendMessage;
 
 public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
@@ -74,17 +74,13 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
 
         Integer customerId = getIntent().getIntExtra("customerId", 0);
         fetchData(customerId);
-        chatting();
     }
 
-    private void chatting() {
-        boolean isAccept = getIntent().getBooleanExtra("isAccept", false);
-        if (isAccept) {
-            btnChat.setVisibility(View.VISIBLE);
-            btnChat.setOnClickListener(v -> {
-                sendMessage();
-            });
-        }
+    private void sendMessage(String receiverName) {
+        Intent intent = new Intent(CustomerProfileJobDetail.this, Conversation.class);
+        intent.putExtra("addressName", receiverName);
+        intent.putExtra("receiveId", getIntent().getIntExtra("customerId", 0));
+        startActivity(intent);
     }
 
     private void fetchData(Integer customerId) {
@@ -103,6 +99,14 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
                 customerReviewResponses.clear();
                 customerReviewResponses.addAll(jobDetailProfile.getCustomerReviewResponses());
                 customerReviewAdapter.notifyDataSetChanged();
+
+                boolean isAccept = getIntent().getBooleanExtra("isAccept", false);
+                if (isAccept) {
+                    btnChat.setVisibility(View.VISIBLE);
+                    btnChat.setOnClickListener(v -> {
+                        sendMessage(jobDetailProfile.getCustomerName());
+                    });
+                }
             }
         });
     }

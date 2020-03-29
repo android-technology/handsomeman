@@ -34,6 +34,7 @@ import javax.inject.Inject;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel, FragmentMessagesChildMessagesBinding> {
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -71,7 +72,6 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
         super.onViewCreated(view, savedInstanceState);
 
         createMessageRecycleView(view);
-        fetchData();
 
         isScroll.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -79,6 +79,15 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
                 if (aBoolean) {
                     conversationAdapter.closeSwipeLayout();
                 }
+            }
+        });
+
+        ((MessagesFragment) getParentFragment()).conversationList.observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
+            @Override
+            public void onChanged(List<ConversationResponse> conversationResponses) {
+                conversationResponseList.clear();
+                conversationResponseList.addAll(conversationResponses);
+                conversationAdapter.notifyItemRangeInserted(1, conversationResponseList.size());
             }
         });
     }
@@ -92,7 +101,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
                 ConversationResponse conversationResponse = conversationResponseList.get(position);
                 Intent intent = new Intent(getContext(), Conversation.class);
                 intent.putExtra("addressName", conversationResponse.getAccountName());
-                intent.putExtra("conversationId", conversationResponse.getConversationId());
+                intent.putExtra("receiveId", conversationResponse.getAccountTwoId());
                 startActivity(intent);
             }
 
@@ -116,22 +125,6 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
         rcvMessage.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvMessage.setAdapter(conversationAdapter);
         rcvMessage.addOnScrollListener(onScrollListener);
-    }
-
-    private void fetchData() {
-
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        String type = sharedPreferencesUtils.get("type", String.class);
-
-        baseViewModel.fetchAllConversationByAccountId(authorizationCode, type);
-        baseViewModel.getConversationResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
-            @Override
-            public void onChanged(List<ConversationResponse> conversationResponses) {
-                conversationResponseList.clear();
-                conversationResponseList.addAll(conversationResponses);
-                conversationAdapter.notifyItemRangeInserted(1, conversationResponseList.size());
-            }
-        });
     }
 
     @Override

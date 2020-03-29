@@ -15,30 +15,52 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentMessagesBinding;
+import com.tt.handsomeman.response.Contact;
+import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.response.DataBracketResponse;
+import com.tt.handsomeman.response.ListConversation;
+import com.tt.handsomeman.ui.BaseFragment;
+import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.viewmodel.MessageViewModel;
 
-public class MessagesFragment extends Fragment {
+import java.util.List;
 
+import javax.inject.Inject;
+
+public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMessagesBinding> {
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    SharedPreferencesUtils sharedPreferencesUtils;
+    MutableLiveData<List<ConversationResponse>> conversationList = new MutableLiveData<>();
+    MutableLiveData<List<Contact>> contactList = new MutableLiveData<>();
     private Fragment childMessagesFragment = new MessagesChildMessagesFragment();
     private Fragment childContactsFragment = new MessagesChildContactsFragment();
     private Fragment active = childMessagesFragment;
     private EditText edtSearchByWord;
-    private FragmentMessagesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMessagesBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        HandymanApp.getComponent().inject(this);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
+        viewBinding = FragmentMessagesBinding.inflate(inflater, container, false);
+        return viewBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RadioButton rdMessage = binding.radioButtonMessages;
-        RadioButton rdContact = binding.radioButtonContacts;
-        edtSearchByWord = binding.editTextSearchByWordMessageFragment;
+        RadioButton rdMessage = viewBinding.radioButtonMessages;
+        RadioButton rdContact = viewBinding.radioButtonContacts;
+        edtSearchByWord = viewBinding.editTextSearchByWordMessageFragment;
 
         final FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.messageFragmentParent, childContactsFragment).hide(childContactsFragment).commit();
@@ -65,6 +87,22 @@ public class MessagesFragment extends Fragment {
                 }
             }
         });
+
+        fetchData();
+    }
+
+    private void fetchData() {
+        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        String type = sharedPreferencesUtils.get("type", String.class);
+
+        baseViewModel.fetchAllConversationByAccountId(authorizationCode, type);
+        baseViewModel.getListConversation().observe(getViewLifecycleOwner(), new Observer<DataBracketResponse<ListConversation>>() {
+            @Override
+            public void onChanged(DataBracketResponse<ListConversation> listConversationDataBracketResponse) {
+                conversationList.setValue(listConversationDataBracketResponse.getData().getConversationList());
+                contactList.setValue(listConversationDataBracketResponse.getData().getContactList());
+            }
+        });
     }
 
     private void setEditTextHintTextAndIcon() {
@@ -76,7 +114,7 @@ public class MessagesFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        binding = null;
+        viewBinding = null;
         super.onDestroyView();
     }
 }

@@ -1,22 +1,22 @@
 package com.tt.handsomeman.request;
 
 public class SendMessageRequest {
-    private Integer conversationId;
+    private Integer receiveId;
     private String body;
     private String sendTime;
 
-    public SendMessageRequest(Integer conversationId, String body, String sendTime) {
-        this.conversationId = conversationId;
+    public SendMessageRequest(Integer receiveId, String body, String sendTime) {
+        this.receiveId = receiveId;
         this.body = body;
         this.sendTime = sendTime;
     }
 
-    public Integer getConversationId() {
-        return conversationId;
+    public Integer getReceiveId() {
+        return receiveId;
     }
 
-    public void setConversationId(Integer conversationId) {
-        this.conversationId = conversationId;
+    public void setReceiveId(Integer receiveId) {
+        this.receiveId = receiveId;
     }
 
     public String getBody() {

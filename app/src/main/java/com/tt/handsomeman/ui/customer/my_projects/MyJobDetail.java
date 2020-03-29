@@ -28,6 +28,7 @@ import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
+import com.tt.handsomeman.ui.handyman.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.CustomerViewModel;
@@ -182,7 +183,10 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
         rtReview.setRating(handymanResponse.getAverageReviewPoint());
         tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanResponse.getCountReviewers(), handymanResponse.getCountReviewers()));
         binding.imageButtonSendMessage.setOnClickListener(v -> {
-            // TODO: customer sendMessage
+            Intent intent = new Intent(MyJobDetail.this, Conversation.class);
+            intent.putExtra("addressName", handymanResponse.getName());
+            intent.putExtra("receiveId", handymanResponse.getHandymanId());
+            startActivity(intent);
         });
         tvShowHandymanProfile.setOnClickListener(v -> {
             Intent intent = new Intent(MyJobDetail.this, HandymanDetail.class);

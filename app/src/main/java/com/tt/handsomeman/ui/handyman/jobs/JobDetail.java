@@ -31,6 +31,7 @@ import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.ui.handyman.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
@@ -59,10 +60,6 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
     private boolean isAccept, isRead, isReadForFirstTime = false;
     private int notificationId, notificationPos;
     private ActivityJobDetailBinding binding;
-
-    static void sendMessage() {
-        // TODO: handyman sendMessage
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +230,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 });
                 ibSendMessage.setVisibility(View.VISIBLE);
                 ibSendMessage.setOnClickListener(v -> {
-                    sendMessage();
+                    sendMessage(jobDetail.getCustomer().getCustomerName(), jobDetail.getJob().getCustomerId());
                 });
             } else {
                 this.isAccept = false;
@@ -246,6 +243,13 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 markAsRead(notificationId, authorizationCode);
             }
         });
+    }
+
+    private void sendMessage(String receiverName, Integer customerId) {
+        Intent intent = new Intent(JobDetail.this, Conversation.class);
+        intent.putExtra("addressName", receiverName);
+        intent.putExtra("receiveId", customerId);
+        startActivity(intent);
     }
 
     private void markAsRead(Integer notificationId, String token) {

@@ -40,7 +40,7 @@ public class FCMService extends FirebaseMessagingService {
 
             switch (NotificationType.valueOf(remoteMessage.getData().get("type"))) {
                 case SEND_MESSAGE:
-                    if (!Conversation.isActive) {
+                    if (Conversation.receiveDefaultId != (Integer.parseInt(remoteMessage.getData().get("accountId")))) {
                         sendMessageNotification(remoteMessage.getData().get("body"), remoteMessage.getData().get("accountName"));
                     }
                     Intent intent = new Intent(REQUEST_MESSAGE);
@@ -77,9 +77,7 @@ public class FCMService extends FirebaseMessagingService {
                 case PAID_PAYMENT:
                     break;
             }
-
         }
-
     }
 
     private void sendAcceptBidNotification(String accountName, String jobName) {
@@ -88,7 +86,7 @@ public class FCMService extends FirebaseMessagingService {
 
         try {
             notificationBuilder = new NotificationCompat.Builder(this, "Accept bid")
-                    .setSmallIcon(R.drawable.ic_launcher_1_round_small)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
                     .setContentText(getString(R.string.accept_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
@@ -108,7 +106,7 @@ public class FCMService extends FirebaseMessagingService {
 
         try {
             notificationBuilder = new NotificationCompat.Builder(this, "Made a bid")
-                    .setSmallIcon(R.drawable.ic_launcher_1_round_small)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
                     .setContentText(getString(R.string.made_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
@@ -128,7 +126,7 @@ public class FCMService extends FirebaseMessagingService {
 
         try {
             notificationBuilder = new NotificationCompat.Builder(this, "Message")
-                    .setSmallIcon(R.drawable.ic_launcher_1_round_small)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setColor(getResources().getColor(R.color.colorPrimary))
                     .setContentTitle(getString(R.string.sent, URLDecoder.decode(accountName, "UTF-8")))
                     .setContentText(URLDecoder.decode(message, "UTF-8"))

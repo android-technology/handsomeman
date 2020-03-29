@@ -18,13 +18,10 @@ public class Constants {
     public static final String USER_EDIT_PAYOUT = "api/user/payout/edit/{payoutId}";
     public static final String USER_REMOVE_PAYOUT = "api/user/payout/remove/{payoutId}";
 
-    public static final String CHECK_CONVERSATION_OF_ACCOUNTS = "api/user/message/checkConversationSame/{accountTwoId}";
     public static final String DELETE_CONVERSATION_ID = "api/user/message/deleteConversation/{conversationId}";
     public static final String GET_ALL_CONVERSATION_OF_ACCOUNT = "api/user/message/getAllConversationByAccountId";
-    public static final String GET_ALL_MESSAGES_IN_CONVERSATION = "api/user/message/getAllMessageInConversation/{conversationId}";
-    public static final String SEND_MESSAGE_TO_CONVERSATION = "api/user/message/sendMessageToConversation";
-    public static final String SEND_MESSAGE_TO_NEW_CONVERSATION = "api/user/message/sendMessageToNewConversation/{receiveId}";
-    public static final String GET_CONTACT_OF_ACCOUNT = "api/user/message/showContactOfAccount";
+    public static final String GET_ALL_MESSAGES_WITH_ACCOUNT = "api/user/message/getAllMessagesWithAccount/{accountId}";
+    public static final String SEND_MESSAGE_TO_CONVERSATION = "api/user/message/sendMessageToAccount";
 
     public static final String HANDYMAN_GET_LIST_CATEGORY = "api/handyman/categories";
     public static final String HANDYMAN_VIEW_CUSTOMER_PROFILE = "api/handyman/customerProfile/{id}";

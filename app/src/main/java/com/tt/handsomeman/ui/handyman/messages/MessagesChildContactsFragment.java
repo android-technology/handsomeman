@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,35 +30,25 @@ import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
-public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel, FragmentMessagesChildContactsBinding> {
+public class MessagesChildContactsFragment extends Fragment {
 
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-    @Inject
-    SharedPreferencesUtils sharedPreferencesUtils;
     private ContactAdapter contactAdapter;
     private List<Contact> contactList = new ArrayList<>();
+    private FragmentMessagesChildContactsBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
-        viewBinding = FragmentMessagesChildContactsBinding.inflate(inflater, container, false);
-        return viewBinding.getRoot();
+        binding = FragmentMessagesChildContactsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        createContactRecyclerView();
 
-        createContactRecyclerView(view);
-
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-        String type = sharedPreferencesUtils.get("type", String.class);
-
-        baseViewModel.fetchAllContactOfAccount(authorizationCode, type);
-        baseViewModel.getContactListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
+        ((MessagesFragment) getParentFragment()).contactList.observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 contactList.clear();
@@ -67,8 +58,8 @@ public class MessagesChildContactsFragment extends BaseFragment<MessageViewModel
         });
     }
 
-    private void createContactRecyclerView(@NonNull View view) {
-        RecyclerView rcvContact = viewBinding.recycleViewContacts;
+    private void createContactRecyclerView() {
+        RecyclerView rcvContact = binding.recycleViewContacts;
         contactAdapter = new ContactAdapter(contactList, getContext());
 
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());

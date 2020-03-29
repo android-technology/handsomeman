@@ -47,6 +47,7 @@ import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobLetterReviewFrag
 import com.tt.handsomeman.ui.handyman.messages.Conversation;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildContactsFragment;
 import com.tt.handsomeman.ui.handyman.messages.MessagesChildMessagesFragment;
+import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.AddNewSkill;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileAboutFragment;
@@ -101,7 +102,7 @@ public interface AppComponent {
 
     void inject(MessagesChildMessagesFragment messagesFragment);
 
-    void inject(MessagesChildContactsFragment contactsFragment);
+    void inject(MessagesFragment messagesFragment);
 
     void inject(Conversation conversation);
 

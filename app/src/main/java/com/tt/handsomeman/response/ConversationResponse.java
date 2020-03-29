@@ -12,6 +12,7 @@ import java.util.Locale;
 
 public class ConversationResponse {
     private int conversationId;
+    private int accountTwoId;
     private String avatar;
     private String accountName;
     private String latestMessage;
@@ -45,6 +46,14 @@ public class ConversationResponse {
 
     public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
+    }
+
+    public int getAccountTwoId() {
+        return accountTwoId;
+    }
+
+    public void setAccountTwoId(int accountTwoId) {
+        this.accountTwoId = accountTwoId;
     }
 
     public String getAvatar() {
