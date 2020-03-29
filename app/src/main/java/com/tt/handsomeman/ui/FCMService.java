@@ -40,7 +40,8 @@ public class FCMService extends FirebaseMessagingService {
 
             switch (NotificationType.valueOf(remoteMessage.getData().get("type"))) {
                 case SEND_MESSAGE:
-                    if (Conversation.receiveDefaultId != (Integer.parseInt(remoteMessage.getData().get("accountId")))) {
+                    int receiveId = Conversation.receiveDefaultId == null ? 0 : Conversation.receiveDefaultId;
+                    if (receiveId != (Integer.parseInt(remoteMessage.getData().get("accountId")))) {
                         sendMessageNotification(remoteMessage.getData().get("body"), remoteMessage.getData().get("accountName"));
                     }
                     Intent intent = new Intent(REQUEST_MESSAGE);
