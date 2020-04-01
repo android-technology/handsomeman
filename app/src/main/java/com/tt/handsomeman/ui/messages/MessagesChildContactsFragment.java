@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.messages;
+package com.tt.handsomeman.ui.messages;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,24 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.ContactAdapter;
 import com.tt.handsomeman.databinding.FragmentMessagesChildContactsBinding;
 import com.tt.handsomeman.response.Contact;
-import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.ContactDivider;
-import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.viewmodel.MessageViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 

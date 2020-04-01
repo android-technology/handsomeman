@@ -7,6 +7,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 public class Constants {
     public static final String BASE_URL = "https://handsomeman.herokuapp.com/";
+//    public static final String BASE_URL = "http://7.7.7.17:8080/";
 
     public static final String SIGN_UP_ADD_PAYOUT_SUFFIX = "api/user/active-account";
     public static final String CHANGE_PASSWORD = "api/user/changePassword";
@@ -43,6 +44,7 @@ public class Constants {
     public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
     public static final String VIEW_TRANSFER_HISTORY = "api/handyman/viewTransferHistory";
 
+    public static final String CUSTOMER_GET_LIST_CATEGORY = "api/customer/categories";
     public static final String FIND_HANDYMAN_CATEGORY = "api/customer/byCategory/{id}";
     public static final String GET_CUSTOMER_REVIEW = "api/customer/customerReview";
     public static final String DOWNLOAD_FILE_BID_JOB = "api/customer/downloadFile/{fileName}/{jobBidId}/handymanId";

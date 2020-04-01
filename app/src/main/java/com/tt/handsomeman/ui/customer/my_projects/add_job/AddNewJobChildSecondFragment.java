@@ -319,8 +319,8 @@ public class AddNewJobChildSecondFragment extends Fragment {
 
         AddNewJob addNewJob = (AddNewJob) getActivity();
         addJobRequest = addNewJob.addJobRequest;
-        viewPager = addNewJob.binding.viewPager;
-        ibCheckSecond = addNewJob.binding.imageButtonCheckSecond;
+        viewPager = addNewJob.viewBinding.viewPager;
+        ibCheckSecond = addNewJob.viewBinding.imageButtonCheckSecond;
 
         mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.addJobMap);

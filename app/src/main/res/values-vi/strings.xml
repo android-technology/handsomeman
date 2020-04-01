@@ -232,4 +232,15 @@
     <string name="not_done_yet">Vẫn chưa làm</string>
     <string name="chat">Nhắn tin</string>
     <string name="view_transaction">Xem Giao dịch</string>
+    <string name="select_pdf">Làm ơn chọn tệp tin PDF</string>
+    <string name="permission_denied">Quyền bị từ chối</string>
+    <string name="need_permission">Phải cần quyền</string>
+    <string name="grant_permisstion">CHO PHÉP</string>
+    <string name="location_unavailable">Vị trí không có sẵn</string>
+    <string name="read_permisstion_unvailable">Quyền đọc không có sẵn</string>
+    <string name="duplicate_file">Bạn đã thêm tệp tin này rồi</string>
+    <string name="file_too_large">" tệp tin quá lớn"</string>
+    <string name="open">Mở</string>
+    <string name="file_not_available">Tệp tin này không có sẵn</string>
+    <string name="open_with">Mở với …</string>
 </resources>

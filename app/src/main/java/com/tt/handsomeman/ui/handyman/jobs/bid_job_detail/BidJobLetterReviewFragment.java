@@ -1,92 +1,72 @@
 package com.tt.handsomeman.ui.handyman.jobs.bid_job_detail;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
+import com.tt.handsomeman.adapter.FileDisplayAdapter;
 import com.tt.handsomeman.databinding.FragmentBidJobDetailLetterReviewBinding;
+import com.tt.handsomeman.model.HandymanJobDetail;
 import com.tt.handsomeman.model.PaymentMilestone;
-import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseFragment;
-import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
+import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
-import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
-import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.handymanJobDetail;
-import static com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail.mPager;
+public class BidJobLetterReviewFragment extends Fragment {
 
-public class BidJobLetterReviewFragment extends BaseFragment<HandymanViewModel, FragmentBidJobDetailLetterReviewBinding> {
-
-    private static String introduceValue, myBidValue;
-    private static double serviceFeeValue;
-    @SuppressLint("StaticFieldLeak")
-    private static TextView tvLetter, tvMyBudget;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
+    private TextView tvLetter, tvMyBudget, tvPaymentMileStoneCount, tvJobTitle;
+    private TableLayout tblPaymentMileStoneBidJobDetail;
+    private FileDisplayAdapter displayAdapter;
     private String jobTitle;
-    private int jobId, paymentMileStoneCount;
+    private JobBidRequest jobBidRequest;
+    private int paymentMileStoneCount;
+    private HandymanJobDetail handymanJobDetail;
     private FragmentBidJobDetailLetterReviewBinding binding;
 
-    static BidJobLetterReviewFragment newInstance(Integer jobId, String jobTitle, int paymentMileStoneCount) {
+    static BidJobLetterReviewFragment newInstance(HandymanJobDetail handymanJobDetail) {
         BidJobLetterReviewFragment bidJobLetterReviewFragment = new BidJobLetterReviewFragment();
         Bundle args = new Bundle();
-        args.putInt("jobId", jobId);
-        args.putString("jobTitle", jobTitle);
-        args.putInt("paymentMileStoneCount", paymentMileStoneCount);
+        args.putSerializable("handymanJobDetail", handymanJobDetail);
         bidJobLetterReviewFragment.setArguments(args);
         return bidJobLetterReviewFragment;
-    }
-
-    static void setTextViewIntroduceValue(String edtValue) {
-        introduceValue = edtValue;
-        tvLetter.setText(introduceValue);
-    }
-
-    static void setTextViewMyBidValue(String edtMyBidValue, double tvServiceFeeValue) {
-        myBidValue = edtMyBidValue;
-        serviceFeeValue = tvServiceFeeValue;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jobId = getArguments().getInt("jobId");
-        jobTitle = getArguments().getString("jobTitle");
-        paymentMileStoneCount = getArguments().getInt("paymentMileStoneCount");
+        handymanJobDetail = (HandymanJobDetail) getArguments().getSerializable("handymanJobDetail");
+        jobTitle = handymanJobDetail.getJob().getTitle();
+        paymentMileStoneCount = handymanJobDetail.getListPaymentMilestone().size();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         binding = FragmentBidJobDetailLetterReviewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -94,17 +74,12 @@ public class BidJobLetterReviewFragment extends BaseFragment<HandymanViewModel, 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView tvJobTitle = binding.jobTitleBidJobDetail;
-        tvMyBudget = binding.myBudgetBidJobDetail;
-        TextView tvPaymentMileStoneCount = binding.paymentMileStoneCountBidJobDetail;
-        tvLetter = binding.introduceYourSelfTextView;
-        TableLayout tblPaymentMileStoneBidJobDetail = binding.paymentMileStoneTableLayoutBidJobDetail;
 
-        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
-        Button btnSubmit = bidJobDetail.activityBidJobDetailBinding.submitBidJobDetail;
+        bindView();
 
+        tvLetter.setText(jobBidRequest.getDescription());
         tvJobTitle.setText(jobTitle);
-        tvMyBudget.setText(getString(R.string.money_currency_string, myBidValue));
+        tvMyBudget.setText(getString(R.string.money_currency_string, jobBidRequest.getBid()));
         tvPaymentMileStoneCount.setText(String.valueOf(paymentMileStoneCount));
 
         List<PaymentMilestone> listPaymentMilestone = handymanJobDetail.getListPaymentMilestone();
@@ -145,37 +120,45 @@ public class BidJobLetterReviewFragment extends BaseFragment<HandymanViewModel, 
 
             tblPaymentMileStoneBidJobDetail.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
-                String sendTime = formatter.format(now.getTime());
-
-                String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-                baseViewModel.addJobBid(authorizationCode, Double.parseDouble(myBidValue), introduceValue, null, jobId, serviceFeeValue, sendTime);
-                baseViewModel.getStandardResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<StandardResponse>() {
-                    @Override
-                    public void onChanged(StandardResponse standardResponse) {
-                        Toast.makeText(getContext(), standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        if (standardResponse.getStatusCode().equals(StatusCodeConstant.CREATED)) {
-                            Intent intent = new Intent(getContext(), HandyManMainScreen.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("radioButtonChoice", 1);
-                            clearStaticView();
-                            startActivity(intent);
-                        }
-                    }
-                });
-            }
-        });
+        createRecyclerView();
     }
 
-    private void clearStaticView() {
-        tvLetter = null;
-        tvMyBudget = null;
-        handymanJobDetail = null;
-        mPager = null;
+    private void bindView() {
+        tvJobTitle = binding.jobTitleBidJobDetail;
+        tvMyBudget = binding.myBudgetBidJobDetail;
+        tvPaymentMileStoneCount = binding.paymentMileStoneCountBidJobDetail;
+        tvLetter = binding.introduceYourSelfTextView;
+        tblPaymentMileStoneBidJobDetail = binding.paymentMileStoneTableLayoutBidJobDetail;
+
+        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
+        jobBidRequest = bidJobDetail.jobBidRequest;
+    }
+
+    private void createRecyclerView() {
+        if (jobBidRequest.getFileRequestList().size() > 0) {
+            binding.listFileLayout.setVisibility(View.VISIBLE);
+        } else {
+            binding.listFileLayout.setVisibility(View.GONE);
+        }
+        RecyclerView rcvNotification = binding.recyclerFileName;
+        displayAdapter = new FileDisplayAdapter(getContext(), jobBidRequest.getFileRequestList());
+        RecyclerView.LayoutManager layoutManagerJob = new LinearLayoutManager(getContext());
+        rcvNotification.setLayoutManager(layoutManagerJob);
+        rcvNotification.setItemAnimator(new DefaultItemAnimator());
+        rcvNotification.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
+        rcvNotification.setAdapter(displayAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        tvLetter.setText(jobBidRequest.getDescription());
+        createRecyclerView();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
     }
 }

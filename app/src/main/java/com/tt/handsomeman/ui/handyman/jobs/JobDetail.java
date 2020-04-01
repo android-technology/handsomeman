@@ -31,7 +31,7 @@ import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
-import com.tt.handsomeman.ui.handyman.messages.Conversation;
+import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
@@ -232,7 +232,10 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 ibSendMessage.setOnClickListener(v -> {
                     sendMessage(jobDetail.getCustomer().getCustomerName(), jobDetail.getJob().getCustomerId());
                 });
-            } else {
+            } else if (jobDetail.isBid()){
+                this.isAccept = false;
+                tvHired.setText(getString(R.string.no));
+            } else{
                 this.isAccept = false;
                 btnPlaceABid.setVisibility(View.VISIBLE);
                 btnPlaceABid.setOnClickListener(v -> bidJob());

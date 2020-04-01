@@ -19,15 +19,19 @@ import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.util.Constants;
 
+import java.util.List;
+
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -81,13 +85,9 @@ public interface HandymanService {
     @GET(Constants.HANDYMAN_JOB_WISH_LIST)
     Single<Response<DataBracketResponse<ListJob>>> getJobWishList(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
-    @FormUrlEncoded
+    @Multipart
     @POST(Constants.HANDYMAN_ADD_JOB_BID)
-    Single<Response<StandardResponse>> addJobBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("file") MultipartBody.Part file, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee, @Field("bidTime") String bidTime);
-
-    @FormUrlEncoded
-    @POST(Constants.HANDYMAN_ADD_JOB_BID_WITH_MULTI_FILE)
-    Single<Response<StandardResponse>> addJobBidWithMultiFile(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Field("bid") double bid, @Field("description") String description, @Field("files") MultipartBody.Part[] files, @Field("jobId") int jobId, @Field("serviceFee") double serviceFee, @Field("bidTime") String bidTime);
+    Single<Response<StandardResponse>> addJobBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Part("bid") RequestBody bid, @Part("description") RequestBody description, @Part List<MultipartBody.Part> files, @Part("jobId") RequestBody jobId, @Part("serviceFee") RequestBody serviceFee, @Part("bidTime") RequestBody bidTime, @Part("md5List") List<RequestBody> md5List);
 
     @POST(Constants.MARK_NOTIFICATION_AS_READ)
     Single<Response<StandardResponse>> markNotificationRead(@Header("Authorization") String token, @Query("notificationId") Integer notificationId);

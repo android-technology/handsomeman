@@ -1,111 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context=".ui.handyman.jobs.bid_job_detail.BidJobDetail">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/progressBarHolder"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="@color/black"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/bidJobDetailBackButton"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
-            android:padding="18dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/back_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/custom_progressbar" />
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/bidJobDetailViewPagerName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/budget"
-            android:textColor="@color/white"
-            android:textSize="@dimen/design_6sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imageButtonCheckBudgetBidJobDetail"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
-            android:padding="18dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_check"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imageButtonCheckLetterBidJobDetail"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
-            android:padding="18dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_check"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <me.relex.circleindicator.CircleIndicator
-            android:id="@+id/bidJobDetailIndicator"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            app:ci_drawable="@drawable/primary_color_radius"
-            app:ci_drawable_unselected="@drawable/circle_indicator_unselected_radius"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.tt.handsomeman.util.CustomViewPager
-            android:id="@+id/bidJobDetailPager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:overScrollMode="never"
-            app:layout_constraintBottom_toTopOf="@id/submitBidJobDetail"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bidJobDetailIndicator" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/submitBidJobDetail"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_ripple_primary_color_bg"
-            android:gravity="center"
-            android:text="@string/submit"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <ImageButton
+                android:id="@+id/bidJobDetailBackButton"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/back_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/bidJobDetailViewPagerName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/budget"
+                android:textColor="@color/white"
+                android:textSize="@dimen/design_6sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+            <ImageButton
+                android:id="@+id/imageButtonCheckBudgetBidJobDetail"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButtonCheckLetterBidJobDetail"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/bidJobDetailIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:ci_drawable="@drawable/primary_color_radius"
+                app:ci_drawable_unselected="@drawable/circle_indicator_unselected_radius"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.tt.handsomeman.util.CustomViewPager
+                android:id="@+id/bidJobDetailPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toTopOf="@id/submitBidJobDetail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bidJobDetailIndicator" />
+
+            <Button
+                android:id="@+id/submitBidJobDetail"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_ripple_primary_color_bg"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

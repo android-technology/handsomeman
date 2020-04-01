@@ -1,89 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:overScrollMode="never"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="15dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/design_4_7sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/introduceYourSelfEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/outline_text_box"
-            android:gravity="start"
-            android:hint="@string/introduce_yourself"
-            android:minLines="10"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/design_4_3sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="15dp">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/design_4_7sp"
+                android:textStyle="bold" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_bg" />
+            <EditText
+                android:id="@+id/introduceYourSelfEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/outline_text_box"
+                android:gravity="start"
+                android:hint="@string/introduce_yourself"
+                android:minLines="10"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/design_4_3sp"
+                android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/attachFileLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:weightSum="2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/attach_files"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/design_4_7sp"
-            android:textStyle="bold" />
+        </LinearLayout>
 
         <View
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_bg" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/optional"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/design_4sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:weightSum="2">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/attach_files"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/design_4_7sp"
+                android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/attachFileButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical|end"
-            android:background="@drawable/custom_ripple_transparent_color_radius_bg"
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/plus" />
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/optional"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/design_4sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <ImageButton
+                android:id="@+id/attachFileButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@drawable/custom_ripple_transparent_color_radius_bg"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/plus" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/listFileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_bg" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerFileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:paddingBottom="15dp"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_file_add" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

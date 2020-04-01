@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.messages;
+package com.tt.handsomeman.ui.messages;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

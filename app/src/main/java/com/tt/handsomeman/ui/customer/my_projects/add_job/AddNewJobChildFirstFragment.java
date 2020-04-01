@@ -35,14 +35,14 @@ import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.AddJobFirstFormViewModel;
-import com.tt.handsomeman.viewmodel.HandymanViewModel;
+import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class AddNewJobChildFirstFragment extends BaseFragment<HandymanViewModel, FragmentAddNewJobChildFirstBinding> {
+public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel, FragmentAddNewJobChildFirstBinding> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -64,7 +64,7 @@ public class AddNewJobChildFirstFragment extends BaseFragment<HandymanViewModel,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
         formViewModel = new ViewModelProvider(this).get(AddJobFirstFormViewModel.class);
         viewBinding = FragmentAddNewJobChildFirstBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -189,8 +189,8 @@ public class AddNewJobChildFirstFragment extends BaseFragment<HandymanViewModel,
         layoutSecondPaymentMilestone = viewBinding.layoutSecondPaymentMilestone;
 
         AddNewJob addNewJob = (AddNewJob) getActivity();
-        ibCheckFirst = addNewJob.binding.imageButtonCheckFirst;
-        viewPager = addNewJob.binding.viewPager;
+        ibCheckFirst = addNewJob.viewBinding.imageButtonCheckFirst;
+        viewPager = addNewJob.viewBinding.viewPager;
         addJobRequest = addNewJob.addJobRequest;
 
         paymentMilestone = new String[]{"1", "2"};

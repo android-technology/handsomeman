@@ -28,7 +28,7 @@ import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
-import com.tt.handsomeman.ui.handyman.messages.Conversation;
+import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.CustomerViewModel;

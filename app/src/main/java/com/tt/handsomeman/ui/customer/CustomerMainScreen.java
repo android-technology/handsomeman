@@ -33,7 +33,7 @@ import com.tt.handsomeman.ui.NotificationsFragment;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
 import com.tt.handsomeman.ui.customer.my_projects.MyProjectsFragment;
-import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
+import com.tt.handsomeman.ui.messages.MessagesFragment;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 

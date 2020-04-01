@@ -9,6 +9,7 @@ import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.response.CustomerReviewProfile;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanDetailResponse;
+import com.tt.handsomeman.response.ListCategory;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
@@ -58,4 +59,7 @@ public interface CustomerService {
 
     @GET(Constants.CUSTOMER_MY_PROJECT)
     Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfCustomer(@Header("Accept-Language") String locale, @Header("Authorization") String token);
+
+    @GET(Constants.CUSTOMER_GET_LIST_CATEGORY)
+    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
 }

@@ -500,4 +500,15 @@
     <string name="not_done_yet">Not done yet</string>
     <string name="chat">Chat</string>
     <string name="view_transaction">View Transaction</string>
+    <string name="select_pdf">Please choose PDF file</string>
+    <string name="permission_denied">Permission is denied</string>
+    <string name="need_permission">Permission is needed</string>
+    <string name="grant_permisstion">GRANT IT</string>
+    <string name="location_unavailable">Location is unavailable</string>
+    <string name="read_permisstion_unvailable">Read permisstion is unvailable</string>
+    <string name="duplicate_file">You already added this file</string>
+    <string name="file_too_large">" file is too large."</string>
+    <string name="open">Open</string>
+    <string name="file_not_available">This file not available</string>
+    <string name="open_with">Open with …</string>
 </resources>

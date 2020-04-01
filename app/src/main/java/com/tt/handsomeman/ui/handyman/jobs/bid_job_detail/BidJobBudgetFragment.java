@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentBidJobDetailBudgetBinding;
+import com.tt.handsomeman.model.HandymanJobDetail;
+import com.tt.handsomeman.util.CustomViewPager;
 import com.tt.handsomeman.util.DecimalFormat;
 
 public class BidJobBudgetFragment extends Fragment {
@@ -23,16 +25,17 @@ public class BidJobBudgetFragment extends Fragment {
     private int myBid, highestBid, lowestBid, myBidValue;
     private double budgetReceive, serviceFee;
     private ImageButton ibCheckButtonBudget;
+    private EditText edtMyBid;
+    private CustomViewPager mPager;
+    private JobBidRequest jobBidRequest;
+    private TextView tvBudgetReceive, tvServiceFee, tvHighestBid, tvLowestBid;
+    private HandymanJobDetail handymanJobDetail;
     private FragmentBidJobDetailBudgetBinding binding;
 
-    static BidJobBudgetFragment newInstance(int myBid, int highestBid, int lowestBid, double budgetReceive, double serviceFee) {
+    static BidJobBudgetFragment newInstance(HandymanJobDetail handymanJobDetail) {
         BidJobBudgetFragment bidJobBudgetFragment = new BidJobBudgetFragment();
         Bundle args = new Bundle();
-        args.putInt("myBid", myBid);
-        args.putDouble("budgetReceive", budgetReceive);
-        args.putDouble("serviceFee", serviceFee);
-        args.putInt("highestBid", highestBid);
-        args.putInt("lowestBid", lowestBid);
+        args.putSerializable("handymanJobDetail", handymanJobDetail);
         bidJobBudgetFragment.setArguments(args);
         return bidJobBudgetFragment;
     }
@@ -41,11 +44,12 @@ public class BidJobBudgetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myBid = getArguments().getInt("myBid");
-        budgetReceive = getArguments().getDouble("budgetReceive");
-        serviceFee = getArguments().getDouble("serviceFee");
-        highestBid = getArguments().getInt("highestBid");
-        lowestBid = getArguments().getInt("lowestBid");
+        handymanJobDetail = (HandymanJobDetail) getArguments().getSerializable("handymanJobDetail");
+        myBid = handymanJobDetail.getJob().getBudgetMin();
+        budgetReceive = handymanJobDetail.getJob().getBudgetMin() * 0.9;
+        serviceFee = handymanJobDetail.getJob().getBudgetMin() * 0.1;
+        highestBid = handymanJobDetail.getJob().getBudgetMax();
+        lowestBid = handymanJobDetail.getJob().getBudgetMin();
     }
 
     @Override
@@ -58,14 +62,7 @@ public class BidJobBudgetFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        EditText edtMyBid = binding.myBidBidJobDetail;
-        TextView tvBudgetReceive = binding.budgetReceiveBidJobDetail;
-        TextView tvServiceFee = binding.serviceFeeBidJobDetail;
-        TextView tvHighestBid = binding.highestBidJobDetail;
-        TextView tvLowestBid = binding.lowestBidJobDetail;
-
-        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
-        ibCheckButtonBudget = bidJobDetail.activityBidJobDetailBinding.imageButtonCheckBudgetBidJobDetail;
+        bindView();
 
         edtMyBid.setText(String.valueOf(myBid));
         tvBudgetReceive.setText(getString(R.string.money_currency_string, DecimalFormat.format(this.budgetReceive)));
@@ -106,12 +103,25 @@ public class BidJobBudgetFragment extends Fragment {
         });
 
         ibCheckButtonBudget.setOnClickListener(v -> {
-            BidJobLetterReviewFragment.setTextViewMyBidValue(edtMyBid.getText().toString().trim(), Double.parseDouble(tvServiceFee.getText().toString()));
-            if (BidJobDetail.mPager.getCurrentItem() < BidJobDetail.NUM_PAGES - 1) {
-                BidJobDetail.mPager.setCurrentItem(BidJobDetail.mPager.getCurrentItem() + 1);
-            }
+            jobBidRequest.setBid(edtMyBid.getText().toString());
+            jobBidRequest.setServiceFee(tvServiceFee.getText().toString());
+
+            mPager.setCurrentItem(mPager.getCurrentItem() + 1);
         });
 
+    }
+
+    private void bindView() {
+        edtMyBid = binding.myBidBidJobDetail;
+        tvBudgetReceive = binding.budgetReceiveBidJobDetail;
+        tvServiceFee = binding.serviceFeeBidJobDetail;
+        tvHighestBid = binding.highestBidJobDetail;
+        tvLowestBid = binding.lowestBidJobDetail;
+
+        BidJobDetail bidJobDetail = (BidJobDetail) getActivity();
+        jobBidRequest = bidJobDetail.jobBidRequest;
+        ibCheckButtonBudget = bidJobDetail.viewBinding.imageButtonCheckBudgetBidJobDetail;
+        mPager = bidJobDetail.viewBinding.bidJobDetailPager;
     }
 
     @Override

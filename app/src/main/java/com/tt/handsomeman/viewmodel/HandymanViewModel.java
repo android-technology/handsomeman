@@ -34,8 +34,10 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class HandymanViewModel extends BaseViewModel {
+
     private final HandymanService handymanService;
     private MutableLiveData<Handyman> handymanMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanReviewProfile> handymanReviewProfileMutableLiveData = new MutableLiveData<>();
@@ -279,23 +281,12 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
 
-    public void addJobBid(String authorization, double bid, String description, MultipartBody.Part file, int jobId, double serviceFee, String bidTime) {
-        compositeDisposable.add(handymanService.addJobBid(locale, authorization, bid, description, file, jobId, serviceFee, bidTime)
+    public void addJobBid(String authorization, RequestBody bid, RequestBody description, List<MultipartBody.Part> files, RequestBody jobId, RequestBody serviceFee, RequestBody bidTime, List<RequestBody> md5List) {
+        compositeDisposable.add(handymanService.addJobBid(locale, authorization, bid, description, files, jobId, serviceFee, bidTime, md5List)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((response) -> {
                     standardResponseMutableLiveData.setValue(response.body());
-                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
-    }
-
-    public void addJobBidWithMultiFile(String authorization, double bid, String description, MultipartBody.Part[] files, int jobId, double serviceFee, String bidTime) {
-        compositeDisposable.add(handymanService.addJobBidWithMultiFile(locale, authorization, bid, description, files, jobId, serviceFee, bidTime)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((response) -> {
-                    if (response.body().getStatus().equals(StatusConstant.OK))
-                        messageResponse.setValue(response.body().getMessage());
-                    else messageResponse.setValue(response.body().getMessage());
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 

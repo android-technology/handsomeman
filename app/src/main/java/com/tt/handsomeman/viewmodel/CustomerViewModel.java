@@ -14,6 +14,7 @@ import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.response.CustomerReviewProfile;
 import com.tt.handsomeman.response.HandymanDetailResponse;
+import com.tt.handsomeman.response.ListCategory;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
@@ -34,6 +35,7 @@ public class CustomerViewModel extends BaseViewModel {
     private MutableLiveData<CustomerReviewProfile> customerReviewProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<HandymanDetailResponse> handymanDetailResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Customer> customerMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<ListCategory> listCategoryMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<MyProjectList> myProjectListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CustomerProfileResponse> customerProfileResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
@@ -52,6 +54,10 @@ public class CustomerViewModel extends BaseViewModel {
 
     public MutableLiveData<NearbyHandymanResponse> getNearbyHandymanResponseMutableLiveData() {
         return nearbyHandymanResponseMutableLiveData;
+    }
+
+    public MutableLiveData<ListCategory> getListCategoryMutableLiveData() {
+        return listCategoryMutableLiveData;
     }
 
     public MutableLiveData<CustomerReviewProfile> getCustomerReviewProfileMutableLiveData() {
@@ -198,5 +204,15 @@ public class CustomerViewModel extends BaseViewModel {
                             standardResponseMutableLiveData.setValue(standardResponseResponse.body());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
+    }
+
+    public void fetchListCategory(String authorization) {
+        compositeDisposable.add(customerService.getListCategory(locale, authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((dataBracketResponseResponse) -> {
+                            listCategoryMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
+                        },
+                        throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

@@ -31,7 +31,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityHandyManMainScreenBinding;
 import com.tt.handsomeman.ui.NotificationsFragment;
 import com.tt.handsomeman.ui.handyman.jobs.JobsFragment;
-import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
+import com.tt.handsomeman.ui.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment;
 import com.tt.handsomeman.util.Constants;
@@ -214,7 +214,7 @@ public class HandyManMainScreen extends AppCompatActivity {
                 startLocationService();
             } else {
                 // Permission request was denied.
-                Snackbar.make(binding.container, "Permission is denied",
+                Snackbar.make(binding.container, getString(R.string.permission_denied),
                         Snackbar.LENGTH_SHORT)
                         .show();
             }
@@ -244,8 +244,8 @@ public class HandyManMainScreen extends AppCompatActivity {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with cda button to request the missing permission.
-            Snackbar.make(binding.container, "Permission is needed",
-                    Snackbar.LENGTH_INDEFINITE).setAction("GRANT IT", new View.OnClickListener() {
+            Snackbar.make(binding.container, getString(R.string.need_permission),
+                    Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.grant_permisstion), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // Request the permission
@@ -256,7 +256,7 @@ public class HandyManMainScreen extends AppCompatActivity {
             }).show();
 
         } else {
-            Snackbar.make(binding.container, "Location is unavailable", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.container, getString(R.string.location_unavailable), Snackbar.LENGTH_SHORT).show();
             // Request the permission. The result will be received in onRequestPermissionResult().
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_LOCATION);

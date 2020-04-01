@@ -1,4 +1,4 @@
-package com.tt.handsomeman.ui.handyman.messages;
+package com.tt.handsomeman.ui.messages;
 
 import android.os.Bundle;
 import android.text.SpannableString;

@@ -18,6 +18,7 @@ import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.databinding.ActivityAddNewJobBinding;
 import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.response.StandardResponse;
+import com.tt.handsomeman.ui.BaseFragmentActivity;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.CustomerViewModel;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 
 import me.relex.circleindicator.CircleIndicator3;
 
-public class AddNewJob extends FragmentActivity {
+public class AddNewJob extends BaseFragmentActivity<CustomerViewModel, ActivityAddNewJobBinding> {
 
     private static final int NUM_PAGES = 3;
     @Inject
@@ -39,8 +40,6 @@ public class AddNewJob extends FragmentActivity {
     SharedPreferencesUtils sharedPreferencesUtils;
     ViewPager2 viewPager;
     AddJobRequest addJobRequest;
-    ActivityAddNewJobBinding binding;
-    private CustomerViewModel customerViewModel;
     private Button btnSubmit;
     private FragmentStateAdapter pagerAdapter;
     private OnPageChangeCallback pageChangeCallback;
@@ -48,13 +47,13 @@ public class AddNewJob extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddNewJobBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        viewBinding = ActivityAddNewJobBinding.inflate(getLayoutInflater());
+        setContentView(viewBinding.getRoot());
         addJobRequest = new AddJobRequest();
-        btnSubmit = binding.buttonSubmit;
+        btnSubmit = viewBinding.buttonSubmit;
 
         HandymanApp.getComponent().inject(this);
-        customerViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         generateViewPager();
         goBackward();
@@ -63,14 +62,14 @@ public class AddNewJob extends FragmentActivity {
     }
 
     private void addNewJob() {
-        binding.buttonSubmit.setOnClickListener(v -> {
+        viewBinding.buttonSubmit.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
             String token = sharedPreferencesUtils.get("token", String.class);
             addJobRequest.setCreateTime(simpleDateFormat.format(now.getTime()));
 
-            customerViewModel.addNewJob(token, addJobRequest);
-            customerViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
+            baseViewModel.addNewJob(token, addJobRequest);
+            baseViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
                 @Override
                 public void onChanged(StandardResponse standardResponse) {
                     Toast.makeText(AddNewJob.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -85,26 +84,26 @@ public class AddNewJob extends FragmentActivity {
     }
 
     private void setViewPagerUILogic() {
-        binding.imageButtonCheckFirst.setEnabled(false);
-        binding.imageButtonCheckSecond.setEnabled(false);
+        viewBinding.imageButtonCheckFirst.setEnabled(false);
+        viewBinding.imageButtonCheckSecond.setEnabled(false);
 
         viewPager.registerOnPageChangeCallback(pageChangeCallback = new OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        binding.imageButtonCheckFirst.setVisibility(View.VISIBLE);
-                        binding.imageButtonCheckSecond.setVisibility(View.INVISIBLE);
+                        viewBinding.imageButtonCheckFirst.setVisibility(View.VISIBLE);
+                        viewBinding.imageButtonCheckSecond.setVisibility(View.INVISIBLE);
                         btnSubmit.setVisibility(View.GONE);
                         break;
                     case 1:
-                        binding.imageButtonCheckFirst.setVisibility(View.INVISIBLE);
-                        binding.imageButtonCheckSecond.setVisibility(View.VISIBLE);
+                        viewBinding.imageButtonCheckFirst.setVisibility(View.INVISIBLE);
+                        viewBinding.imageButtonCheckSecond.setVisibility(View.VISIBLE);
                         btnSubmit.setVisibility(View.GONE);
                         break;
                     case 2:
-                        binding.imageButtonCheckFirst.setVisibility(View.INVISIBLE);
-                        binding.imageButtonCheckSecond.setVisibility(View.INVISIBLE);
+                        viewBinding.imageButtonCheckFirst.setVisibility(View.INVISIBLE);
+                        viewBinding.imageButtonCheckSecond.setVisibility(View.INVISIBLE);
                         btnSubmit.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -113,24 +112,22 @@ public class AddNewJob extends FragmentActivity {
     }
 
     private void generateViewPager() {
-        viewPager = binding.viewPager;
+        viewPager = viewBinding.viewPager;
         viewPager.setUserInputEnabled(false);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
 
-        CircleIndicator3 indicator = binding.circleIndicator;
+        CircleIndicator3 indicator = viewBinding.circleIndicator;
         indicator.setViewPager(viewPager);
     }
 
     private void goBackward() {
-        binding.backButton.setOnClickListener(v -> onBackPressed());
+        viewBinding.backButton.setOnClickListener(v -> onBackPressed());
     }
 
     @Override
-    protected void onDestroy() {
-        binding = null;
+    public void onDestroy() {
         viewPager.unregisterOnPageChangeCallback(pageChangeCallback);
-        customerViewModel.clearSubscriptions(this.getClass().getName());
         super.onDestroy();
     }
 

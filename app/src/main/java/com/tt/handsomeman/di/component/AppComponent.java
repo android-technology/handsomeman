@@ -43,11 +43,7 @@ import com.tt.handsomeman.ui.handyman.jobs.JobFilterResult;
 import com.tt.handsomeman.ui.handyman.jobs.JobsChildJobsFragment;
 import com.tt.handsomeman.ui.handyman.jobs.JobsChildWishListFragment;
 import com.tt.handsomeman.ui.handyman.jobs.YourLocation;
-import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobLetterReviewFragment;
-import com.tt.handsomeman.ui.handyman.messages.Conversation;
-import com.tt.handsomeman.ui.handyman.messages.MessagesChildContactsFragment;
-import com.tt.handsomeman.ui.handyman.messages.MessagesChildMessagesFragment;
-import com.tt.handsomeman.ui.handyman.messages.MessagesFragment;
+import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.ui.handyman.more.AddNewSkill;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.more.MyProfileAboutFragment;
@@ -55,6 +51,9 @@ import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
 import com.tt.handsomeman.ui.handyman.more.TransferHistory;
 import com.tt.handsomeman.ui.handyman.more.TransferToBank;
+import com.tt.handsomeman.ui.messages.Conversation;
+import com.tt.handsomeman.ui.messages.MessagesChildMessagesFragment;
+import com.tt.handsomeman.ui.messages.MessagesFragment;
 
 import javax.inject.Singleton;
 
@@ -98,7 +97,7 @@ public interface AppComponent {
 
     void inject(CustomerProfileJobDetail customerProfileJobDetail);
 
-    void inject(BidJobLetterReviewFragment reviewFragment);
+    void inject(BidJobDetail bidJobDetail);
 
     void inject(MessagesChildMessagesFragment messagesFragment);
 
