@@ -12,7 +12,7 @@
     <string name="log_in">Log In</string>
     <string name="facebook_login">Continue with Facebook</string>
     <string name="register_description">Please <b>Log In</b> if you have an account. And <b>Sign up</b> if you are a new member</string>
-    <string name="welcome_back">Welcome back to Handyman !</string>
+    <string name="welcome_back">Welcome back to Handyman!</string>
     <string name="your_mail">Your Mail</string>
     <string name="password">Password</string>
     <string name="fill_info">Please fill this information.</string>
@@ -511,4 +511,11 @@
     <string name="open">Open</string>
     <string name="file_not_available">This file not available</string>
     <string name="open_with">Open with …</string>
+    <string name="need_payout_to_make_transaction">You need at least 1 payout to make transaction</string>
+    <string name="to_project">To project</string>
+    <string name="bonus_value">"Bonus: %1$s"</string>
+    <string name="cant_send_smaller_than_min_pay">You must send amount greater or equal %1$s</string>
+    <string name="i_have_received">I have received</string>
+    <string name="bonus">Bonus</string>
+    <string name="in_total">In Total</string>
 </resources>

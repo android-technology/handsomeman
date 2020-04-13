@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/paymentMileStoneOrder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_white_bg"
+        android:textSize="@dimen/design_4_3sp"
+        tools:text="1st payment milestone"/>
+
+    <TextView
+        android:id="@+id/paymentMileStonePercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_white_bg"
+        android:textSize="@dimen/design_4_3sp"
+        tools:text="$50"/>
+
+</LinearLayout>

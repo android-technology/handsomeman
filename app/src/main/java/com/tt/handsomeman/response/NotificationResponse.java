@@ -21,30 +21,6 @@ public class NotificationResponse {
     private Boolean read;
     private Integer contentId;
 
-    public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        String result;
-        Calendar now = Calendar.getInstance();
-        Date today, yesterday, todayTime;
-        todayTime = sendTimeInput;
-
-        sendTimeInput = formatter.parse(formatter.format(sendTimeInput));
-        today = formatter.parse(formatter.format(now.getTime()));
-        now.add(Calendar.DATE, -1);
-        yesterday = formatter.parse(formatter.format(now.getTime()));
-
-        if (sendTimeInput.compareTo(today) == 0) {
-            SimpleDateFormat todayFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-            result = todayFormat.format(todayTime);
-        } else if (sendTimeInput.compareTo(yesterday) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.yesterday);
-        } else {
-            result = formatter.format(sendTimeInput);
-        }
-
-        return result;
-    }
-
     public int getId() {
         return id;
     }

@@ -76,9 +76,55 @@ public class FCMService extends FirebaseMessagingService {
                     broadcaster.sendBroadcast(intent2);
                     break;
                 case PAID_PAYMENT:
+                    sendPaidPaymentNotification(remoteMessage.getData().get("accountName"), remoteMessage.getData().get("milestoneOrder"));
+                    Intent intent3 = new Intent(REQUEST_PAID_PAYMENT);
+                    Bundle bundle3 = new Bundle();
+                    Map<String, String> dataMap3 = remoteMessage.getData();
+                    for (String key : dataMap3.keySet()) {
+                        bundle3.putString(key, dataMap3.get(key));
+                    }
+                    intent3.putExtras(bundle3);
+                    broadcaster.sendBroadcast(intent3);
                     break;
             }
         }
+    }
+
+    private void sendPaidPaymentNotification(String accountName, String milestoneOrder) {
+        createNotificationChannel("Paid payment", "Receive customer paid payment", "Paid payment");
+        NotificationCompat.Builder notificationBuilder = null;
+
+        int paymentMilestoneOrder = Integer.parseInt(milestoneOrder);
+        String result;
+        switch (paymentMilestoneOrder) {
+            case 1:
+                result = getString(R.string.first_milestone, paymentMilestoneOrder);
+                break;
+            case 2:
+                result = getString(R.string.second_milestone, paymentMilestoneOrder);
+                break;
+            case 3:
+                result = getString(R.string.third_milestone, paymentMilestoneOrder);
+                break;
+            default:
+                result = getString(R.string.default_milestone, paymentMilestoneOrder);
+                break;
+        }
+
+        try {
+            notificationBuilder = new NotificationCompat.Builder(this, "Paid payment")
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setColor(getResources().getColor(R.color.colorPrimary))
+                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
+                    .setContentText(getString(R.string.paid_payment_notification, URLDecoder.decode(accountName, "UTF-8"), result))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(true);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(47, notificationBuilder.build());
     }
 
     private void sendAcceptBidNotification(String accountName, String jobName) {

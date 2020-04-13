@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,6 +85,18 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
         addPayout();
         changePassword();
         logOut();
+
+        tvMakeTransaction.setOnClickListener(v -> {
+            if (payoutList.size() == 0) {
+                Toast.makeText(getContext(), getString(R.string.need_payout_to_make_transaction), Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(getContext(), CustomerMakeTransaction.class));
+            }
+        });
+
+        tvViewTransferHistory.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), CustomerTransferHistory.class));
+        });
     }
 
     private void addPayout() {

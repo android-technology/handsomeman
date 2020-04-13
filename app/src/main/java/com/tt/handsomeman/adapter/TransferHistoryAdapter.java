@@ -14,6 +14,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemTransferHistoryBinding;
 import com.tt.handsomeman.response.TransferHistoryResponse;
 import com.tt.handsomeman.util.DecimalFormat;
+import com.tt.handsomeman.util.TimeParseUtil;
 
 import java.text.ParseException;
 import java.util.List;
@@ -43,7 +44,7 @@ public class TransferHistoryAdapter extends RecyclerView.Adapter<TransferHistory
         TransferHistoryResponse transferHistory = transferHistoryList.get(position);
         holder.lastPayoutNumber.setText(HandymanApp.getInstance().getString(R.string.account_ends_with, transferHistory.getLastPayoutNumber()));
         try {
-            holder.dateTransfer.setText(transferHistory.setSendTimeManipulate(transferHistory.getDateTransfer()));
+            holder.dateTransfer.setText(TimeParseUtil.setSendTimeManipulate(transferHistory.getDateTransfer()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

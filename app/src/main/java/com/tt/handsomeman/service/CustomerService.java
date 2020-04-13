@@ -3,6 +3,7 @@ package com.tt.handsomeman.service;
 import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.HandymanDetailRequest;
+import com.tt.handsomeman.request.MadeTheTransactionRequest;
 import com.tt.handsomeman.request.NearbyHandymanRequest;
 import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.CustomerProfileResponse;
@@ -10,10 +11,12 @@ import com.tt.handsomeman.response.CustomerReviewProfile;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanDetailResponse;
 import com.tt.handsomeman.response.ListCategory;
+import com.tt.handsomeman.response.ListCustomerTransfer;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenCustomer;
+import com.tt.handsomeman.response.ViewMadeTransactionResponse;
 import com.tt.handsomeman.util.Constants;
 
 import io.reactivex.Single;
@@ -61,5 +64,14 @@ public interface CustomerService {
     Single<Response<DataBracketResponse<MyProjectList>>> getJobsOfCustomer(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
     @GET(Constants.CUSTOMER_GET_LIST_CATEGORY)
-    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String header);
+    Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String token);
+
+    @GET(Constants.CUSTOMER_VIEW_MAKE_TRANSACTION)
+    Single<Response<DataBracketResponse<ViewMadeTransactionResponse>>> viewMakeTransaction(@Header("Authorization") String token);
+
+    @POST(Constants.CUSTOMER_MAKE_TRANSACTION)
+    Single<Response<StandardResponse>> makeTheTransaction(@Header("Authorization") String token, @Body MadeTheTransactionRequest madeTheTransactionRequest);
+
+    @GET(Constants.CUSTOMER_VIEW_TRANSFER_HISTORY)
+    Single<Response<DataBracketResponse<ListCustomerTransfer>>> viewTransferHistory(@Header("Authorization") String token);
 }

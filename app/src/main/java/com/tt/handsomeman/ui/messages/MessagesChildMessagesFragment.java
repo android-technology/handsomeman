@@ -128,8 +128,8 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     }
 
     @Override
-    public void onStop() {
+    public void onDestroy() {
         isScroll.removeObservers(this);
-        super.onStop();
+        super.onDestroy();
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.tt.handsomeman.request.PageableRequest;
 import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.ListConversation;
@@ -14,6 +15,8 @@ import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.service.MessageService;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.StatusConstant;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -60,8 +63,8 @@ public class MessageViewModel extends BaseViewModel {
                 ));
     }
 
-    public void fetchAllMessagesWithAccount(String authorization, Integer accountId) {
-        compositeDisposable.add(messageService.getAllMessagesWithAccount(locale, authorization, accountId)
+    public void fetchMessagesWithAccount(String authorization, Integer accountId, PageableRequest pageableRequest) {
+        compositeDisposable.add(messageService.getAllMessagesWithAccount(locale, authorization, accountId, pageableRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

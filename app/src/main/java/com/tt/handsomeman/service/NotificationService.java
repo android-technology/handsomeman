@@ -4,6 +4,7 @@ import com.tt.handsomeman.request.AcceptBidRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.MadeABidNotificationResponse;
 import com.tt.handsomeman.response.NotificationResponse;
+import com.tt.handsomeman.response.PaidPaymentNotificationResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.util.Constants;
 
@@ -30,4 +31,7 @@ public interface NotificationService {
 
     @POST(Constants.ACCEPT_BID)
     Single<Response<StandardResponse>> acceptBid(@Header("Authorization") String token, @Body AcceptBidRequest acceptBidRequest);
+
+    @GET(Constants.READ_PAID_PAYMENT_NOTIFICATION)
+    Single<Response<DataBracketResponse<PaidPaymentNotificationResponse>>> viewPaidPayment(@Header("Authorization") String token, @Query("customerTransferId") Integer customerTransferId);
 }

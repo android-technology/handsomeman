@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
-import com.tt.handsomeman.databinding.SpinnerItemPercentageBinding;
+import com.tt.handsomeman.databinding.SpinnerItemBlackTextBinding;
 
 public class SpinnerPercentage extends BaseAdapter {
 
     private Context context;
     private String[] str;
     private LayoutInflater layoutInflater;
-    private SpinnerItemPercentageBinding binding;
+    private SpinnerItemBlackTextBinding binding;
 
     public SpinnerPercentage(Context context, String[] str) {
         this.context = context;
@@ -41,7 +41,7 @@ public class SpinnerPercentage extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        binding = SpinnerItemPercentageBinding.inflate(layoutInflater, viewGroup, false);
+        binding = SpinnerItemBlackTextBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
         TextView countryName = binding.textViewSpinnerItemName;
         countryName.setText(HandymanApp.getInstance().getResources().getString(R.string.percentage, Integer.parseInt(str[position])));

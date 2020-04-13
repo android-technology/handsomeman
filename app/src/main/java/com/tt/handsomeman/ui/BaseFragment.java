@@ -3,6 +3,7 @@ package com.tt.handsomeman.ui;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+import com.tt.handsomeman.BuildConfig;
 import com.tt.handsomeman.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment<T extends BaseViewModel, Tx extends ViewBinding> extends Fragment {
@@ -11,7 +12,7 @@ public abstract class BaseFragment<T extends BaseViewModel, Tx extends ViewBindi
 
     @Override
     public void onDestroy() {
-        baseViewModel.clearSubscriptions(this.getClass().getName());
+        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID,""));
         super.onDestroy();
     }
 

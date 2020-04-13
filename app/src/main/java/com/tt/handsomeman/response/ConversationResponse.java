@@ -18,28 +18,6 @@ public class ConversationResponse {
     private String latestMessage;
     private Date sendTime;
 
-    public String setSendTimeManipulate(Date sendTimeInput) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        String result;
-        Calendar now = Calendar.getInstance();
-        Date today, yesterday;
-
-        sendTimeInput = formatter.parse(formatter.format(sendTimeInput));
-        today = formatter.parse(formatter.format(now.getTime()));
-        now.add(Calendar.DATE, -1);
-        yesterday = formatter.parse(formatter.format(now.getTime()));
-
-        if (sendTimeInput.compareTo(today) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.today);
-        } else if (sendTimeInput.compareTo(yesterday) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.yesterday);
-        } else {
-            result = formatter.format(sendTimeInput);
-        }
-
-        return result;
-    }
-
     public int getConversationId() {
         return conversationId;
     }

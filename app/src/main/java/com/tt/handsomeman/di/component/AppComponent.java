@@ -23,10 +23,12 @@ import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanCategory;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanNearYourLocation;
+import com.tt.handsomeman.ui.customer.more.CustomerMakeTransaction;
 import com.tt.handsomeman.ui.customer.more.CustomerMoreFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileAboutFragment;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileEdit;
 import com.tt.handsomeman.ui.customer.more.CustomerProfileReviewFragment;
+import com.tt.handsomeman.ui.customer.more.CustomerTransferHistory;
 import com.tt.handsomeman.ui.customer.my_projects.CustomerMyProjectsChildInProgressFragment;
 import com.tt.handsomeman.ui.customer.my_projects.MyJobDetail;
 import com.tt.handsomeman.ui.customer.my_projects.MyProjectsFragment;
@@ -36,6 +38,7 @@ import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJobChildSecondFr
 import com.tt.handsomeman.ui.customer.notification.ViewMadeBid;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
+import com.tt.handsomeman.ui.handyman.ViewJobTransaction;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
 import com.tt.handsomeman.ui.handyman.jobs.GroupByCategory;
 import com.tt.handsomeman.ui.handyman.jobs.JobDetail;
@@ -51,6 +54,7 @@ import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.handyman.more.MyProfileReviewsFragment;
 import com.tt.handsomeman.ui.handyman.more.TransferHistory;
 import com.tt.handsomeman.ui.handyman.more.TransferToBank;
+import com.tt.handsomeman.ui.handyman.notifications.ViewTransaction;
 import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.ui.messages.MessagesChildMessagesFragment;
 import com.tt.handsomeman.ui.messages.MessagesFragment;
@@ -164,4 +168,12 @@ public interface AppComponent {
     void inject(ViewMadeBid viewMadeBid);
 
     void inject(com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment myProjectsFragment);
+
+    void inject(CustomerMakeTransaction customerMakeTransaction);
+
+    void inject(CustomerTransferHistory customerTransferHistory);
+
+    void inject(ViewTransaction viewTransaction);
+
+    void inject(ViewJobTransaction viewJobTransaction);
 }

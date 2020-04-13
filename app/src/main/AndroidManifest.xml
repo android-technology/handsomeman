@@ -35,6 +35,18 @@
             android:resource="@xml/network_security_config" />
 
         <activity
+            android:name=".ui.handyman.ViewJobTransaction"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.handyman.notifications.ViewTransaction"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.customer.more.CustomerMakeTransaction"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.customer.more.CustomerTransferHistory"
+            android:screenOrientation="locked" />
+        <activity
             android:name=".ui.customer.notification.ViewMadeBid"
             android:screenOrientation="locked" />
         <activity

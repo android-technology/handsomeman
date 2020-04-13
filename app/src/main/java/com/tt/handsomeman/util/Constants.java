@@ -30,7 +30,6 @@ public class Constants {
     public static final String GET_HANDYMAN_INFO = "api/handyman/info";
     public static final String HANDYMAN_VIEW_JOB_DETAIL = "api/handyman/job/{id}";
     public static final String HANDYMAN_ADD_JOB_BID = "api/handyman/job/addJobBid";
-    public static final String HANDYMAN_ADD_JOB_BID_WITH_MULTI_FILE = "api/handyman/job/addJobBidWithMultiFiles";
     public static final String HANDYMAN_GET_JOB_BY_CATEGORY_SUFFIX = "api/handyman/job/byCategory/{id}";
     public static final String HANDYMAN_GET_JOB_FILTER_SUFFIX = "api/handyman/job/filter";
     public static final String HANDYMAN_JOB_WISH_LIST = "api/handyman/job/jobWishList";
@@ -43,11 +42,11 @@ public class Constants {
     public static final String GET_HANDYMAN_PROFILE_EDIT = "api/handyman/profile/edit";
     public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
     public static final String VIEW_TRANSFER_HISTORY = "api/handyman/viewTransferHistory";
+    public static final String VIEW_PAYMENT_TRANSACTION = "api/handyman/viewTransaction";
 
     public static final String CUSTOMER_GET_LIST_CATEGORY = "api/customer/categories";
     public static final String FIND_HANDYMAN_CATEGORY = "api/customer/byCategory/{id}";
     public static final String GET_CUSTOMER_REVIEW = "api/customer/customerReview";
-    public static final String DOWNLOAD_FILE_BID_JOB = "api/customer/downloadFile/{fileName}/{jobBidId}/handymanId";
     public static final String FIND_HANDYMAN = "api/customer/findHandyman";
     public static final String GET_HANDYMAN_DETAIL = "api/customer/handymanDetail";
     public static final String GET_CUSTOMER_INFO = "api/customer/info";
@@ -59,11 +58,15 @@ public class Constants {
     public static final String GET_CUSTOMER_PROFILE = "api/customer/profile";
     public static final String EDIT_CUSTOMER_PROFILE = "api/customer/profile/edit";
     public static final String FIND_HANDYMAN_NEARBY = "api/customer/yourLocation";
+    public static final String CUSTOMER_VIEW_MAKE_TRANSACTION = "api/customer/viewMakeTransaction";
+    public static final String CUSTOMER_MAKE_TRANSACTION = "api/customer/makeTheTransaction";
+    public static final String CUSTOMER_VIEW_TRANSFER_HISTORY = "api/customer/viewTransferHistory";
 
     public static final String ACCEPT_BID = "api/user/notification/acceptBid";
     public static final String GET_ALL_NOTIFICATION = "api/user/notification/getAll";
     public static final String MARK_NOTIFICATION_AS_READ = "api/user/notification/markAsRead";
     public static final String READ_MADE_BID_NOTIFICATION = "api/user/notification/viewMadeABid";
+    public static final String READ_PAID_PAYMENT_NOTIFICATION = "api/user/notification/viewPaidPayment";
 
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;

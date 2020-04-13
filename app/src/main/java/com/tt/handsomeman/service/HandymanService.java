@@ -17,6 +17,7 @@ import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
+import com.tt.handsomeman.response.TransactionDetailResponse;
 import com.tt.handsomeman.util.Constants;
 
 import java.util.List;
@@ -91,4 +92,7 @@ public interface HandymanService {
 
     @POST(Constants.MARK_NOTIFICATION_AS_READ)
     Single<Response<StandardResponse>> markNotificationRead(@Header("Authorization") String token, @Query("notificationId") Integer notificationId);
+
+    @GET(Constants.VIEW_PAYMENT_TRANSACTION)
+    Single<Response<DataBracketResponse<TransactionDetailResponse>>> viewPaymentTransaction(@Header("Authorization") String token, @Query("jobId") Integer jobId);
 }

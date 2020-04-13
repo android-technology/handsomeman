@@ -41,8 +41,8 @@ public class SpinnerString extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
-        TextView countryName = binding.textViewSpinnerItemName;
-        countryName.setText(str[position]);
+        TextView itemName = binding.textViewSpinnerItemName;
+        itemName.setText(str[position]);
         return view;
     }
 }

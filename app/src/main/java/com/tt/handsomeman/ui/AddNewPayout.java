@@ -137,7 +137,7 @@ public class AddNewPayout extends AppCompatActivity {
                 String firstName = edtFirstName.getText().toString();
                 String lastName = edtLastName.getText().toString();
                 String address = edtAddress.getText().toString();
-                Integer portalCode = Integer.parseInt(edtPortalCode.getText().toString());
+                int portalCode = Integer.parseInt(edtPortalCode.getText().toString());
                 String birthday = sdf.format(myCalendar.getTime());
                 String selectedType = type[spinnerType.getSelectedItemPosition()];
                 String email = edtEmail.getText().toString();

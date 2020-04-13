@@ -59,9 +59,6 @@ public class OnBoardingSlidePagerActivity extends FragmentActivity {
         binding = ActivityOnBoardingSlidePagerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         HandymanApp.getComponent().inject(this);
 
         sharedPreferencesUtils.put("language", Locale.getDefault().getLanguage());

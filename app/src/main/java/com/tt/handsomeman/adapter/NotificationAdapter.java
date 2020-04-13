@@ -17,6 +17,7 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemNotificationBinding;
 import com.tt.handsomeman.response.NotificationResponse;
 import com.tt.handsomeman.util.NotificationType;
+import com.tt.handsomeman.util.TimeParseUtil;
 
 import java.text.ParseException;
 import java.util.List;
@@ -69,7 +70,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 MadeBidViewHolder madeBidViewHolder = (MadeBidViewHolder) holder;
                 madeBidViewHolder.tvNotificationBody.setText(HandymanApp.getInstance().getResources().getString(R.string.made_bid_notification, notification.getSenderName(), notification.getNotificationDescription()));
                 try {
-                    madeBidViewHolder.tvSendTime.setText(notification.setSendTimeManipulate(notification.getCreationTime()));
+                    madeBidViewHolder.tvSendTime.setText(TimeParseUtil.setSendTimeManipulate(notification.getCreationTime()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +83,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 AcceptBidViewHolder acceptBidViewHolder = (AcceptBidViewHolder) holder;
                 acceptBidViewHolder.tvNotificationBody.setText(HandymanApp.getInstance().getResources().getString(R.string.accept_bid_notification, notification.getSenderName(), notification.getNotificationDescription()));
                 try {
-                    acceptBidViewHolder.tvSendTime.setText(notification.setSendTimeManipulate(notification.getCreationTime()));
+                    acceptBidViewHolder.tvSendTime.setText(TimeParseUtil.setSendTimeManipulate(notification.getCreationTime()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -91,12 +92,27 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     acceptBidViewHolder.tvNotificationBody.setTypeface(acceptBidViewHolder.tvNotificationBody.getTypeface(), Typeface.BOLD);
                 }
                 break;
-
             case PAID_PAYMENT:
                 PaidPaymentViewHolder paidPaymentViewHolder = (PaidPaymentViewHolder) holder;
-                paidPaymentViewHolder.tvNotificationBody.setText(HandymanApp.getInstance().getResources().getString(R.string.paid_payment_notification, notification.getSenderName(), notification.getNotificationDescription()));
+                int paymentMilestoneOrder = Integer.parseInt(notification.getNotificationDescription());
+                String result;
+                switch (paymentMilestoneOrder) {
+                    case 1:
+                        result = context.getString(R.string.first_milestone, paymentMilestoneOrder);
+                        break;
+                    case 2:
+                        result = context.getString(R.string.second_milestone, paymentMilestoneOrder);
+                        break;
+                    case 3:
+                        result = context.getString(R.string.third_milestone, paymentMilestoneOrder);
+                        break;
+                    default:
+                        result = context.getString(R.string.default_milestone, paymentMilestoneOrder);
+                        break;
+                }
+                paidPaymentViewHolder.tvNotificationBody.setText(HandymanApp.getInstance().getResources().getString(R.string.paid_payment_notification, notification.getSenderName(), result));
                 try {
-                    paidPaymentViewHolder.tvSendTime.setText(notification.setSendTimeManipulate(notification.getCreationTime()));
+                    paidPaymentViewHolder.tvSendTime.setText(TimeParseUtil.setSendTimeManipulate(notification.getCreationTime()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -104,10 +120,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if (!notification.getRead()) {
                     paidPaymentViewHolder.tvNotificationBody.setTypeface(paidPaymentViewHolder.tvNotificationBody.getTypeface(), Typeface.BOLD);
                 }
-
-                paidPaymentViewHolder.itemView.setOnClickListener(v -> {
-                    Toast.makeText(context, String.valueOf(notification.getContentId()), Toast.LENGTH_SHORT).show();
-                });
                 break;
         }
     }

@@ -15,6 +15,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemConversationBinding;
 import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.util.TimeParseUtil;
 
 import java.text.ParseException;
 import java.util.List;
@@ -54,7 +55,7 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         holder.tvAccountName.setText(conversationResponse.getAccountName());
         holder.tvLatestMessage.setText(conversationResponse.getLatestMessage());
         try {
-            holder.tvLatestMessageSendTime.setText(conversationResponse.setSendTimeManipulate(conversationResponse.getSendTime()));
+            holder.tvLatestMessageSendTime.setText(TimeParseUtil.setSendTimeManipulate(conversationResponse.getSendTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

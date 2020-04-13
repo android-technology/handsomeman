@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.adapter.MessageAdapter;
 import com.tt.handsomeman.databinding.ActivityConversationBinding;
+import com.tt.handsomeman.request.PageableRequest;
 import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.ListMessage;
@@ -30,6 +31,7 @@ import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.FCMService;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.MessageViewModel;
 
@@ -56,13 +58,14 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     SharedPreferencesUtils sharedPreferencesUtils;
     private MessageAdapter messageAdapter;
     private List<MessageResponse> messageResponseList = new ArrayList<>();
-    private TextView tvAddressName;
+    private TextView tvReceiverName;
     private ImageButton ibSendMessage;
     private EditText edtMessageBody;
     private BroadcastReceiver receiver;
     private RecyclerView rcvMessage;
-    private int sendId, receiveId;
-    private boolean isAtBottom = true;
+    private int sendId, receiveId, page = 0;
+    private String authorizationCode;
+    private boolean isAtBottom = false, isNext = false, isAtTop = false, isLoading;
     private ActivityConversationBinding binding;
 
     @Override
@@ -74,7 +77,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
 
-        tvAddressName = binding.textViewConversationAccountName;
+        tvReceiverName = binding.textViewConversationAccountName;
         ibSendMessage = binding.imageButtonSendMessage;
         edtMessageBody = binding.editTextMessageConversation;
         ibSendMessage.setEnabled(false);
@@ -86,18 +89,18 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
             }
         });
 
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         sendId = Integer.parseInt(sharedPreferencesUtils.get("userId", String.class));
 
         String addressName = getIntent().getStringExtra("addressName");
         receiveId = getIntent().getIntExtra("receiveId", 0);
-        tvAddressName.setText(addressName);
+        tvReceiverName.setText(addressName);
         receiveDefaultId = receiveId;
 
         createRecyclerViewMessage();
-        fetchData(authorizationCode, receiveId);
-        addRecyclerViewBottomListener();
         listenEditChange();
+        fetchData(authorizationCode, receiveId, new PageableRequest(0, 10));
+        addRecyclerViewListener();
         sendMessage(authorizationCode, receiveId);
         listenToFireBaseService(receiveId);
     }
@@ -130,10 +133,10 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                     }
 
                     if (!messageResponseList.contains(messageResponse)) {
-                        messageResponseList.add(messageResponse);
-                        messageAdapter.notifyItemInserted(messageResponseList.size() - 1);
+                        messageResponseList.add(0, messageResponse);
+                        messageAdapter.notifyItemInserted(0);
                         if (isAtBottom) {
-                            rcvMessage.scrollToPosition(messageResponseList.size() - 1);
+                            rcvMessage.scrollToPosition(0);
                         }
                     }
                 }
@@ -182,43 +185,99 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                 if (standardResponse.getStatus().equals(StatusConstant.OK)) {
                     MessageResponse messageResponse = new MessageResponse(null, sendId, bodyMessage, now.getTime(), (byte) 1);
                     if (!messageResponseList.contains(messageResponse)) {
-                        messageResponseList.add(messageResponse);
-                        messageAdapter.notifyItemInserted(messageResponseList.size() - 1);
-                        rcvMessage.scrollToPosition(messageResponseList.size() - 1);
+                        messageResponseList.add(0, messageResponse);
+                        messageAdapter.notifyItemInserted(0);
+                        rcvMessage.scrollToPosition(0);
                     }
                 }
             }
         });
     }
 
-    private void addRecyclerViewBottomListener() {
+    private void addRecyclerViewListener() {
         rcvMessage.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
                 isAtBottom = !recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE;
+                isAtTop = !recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE;
+
+                if (isAtTop && isNext && !isLoading) {
+                    if (page == 0) {
+                        page++;
+                        fetchData(authorizationCode, receiveId, new PageableRequest(page, 10));
+                    } else
+                        fetchData(authorizationCode, receiveId, new PageableRequest(page++, 10));
+                }
             }
         });
     }
 
-    private void fetchData(String authorizationCode, int accountId) {
-        baseViewModel.fetchAllMessagesWithAccount(authorizationCode, accountId);
+    private void fetchData(String authorizationCode, int accountId, PageableRequest pageableRequest) {
+        messageAdapter.addLoading();
+        isLoading = true;
+        baseViewModel.fetchMessagesWithAccount(authorizationCode, accountId, pageableRequest);
         baseViewModel.getListMessageResponse().observe(this, new Observer<DataBracketResponse<ListMessage>>() {
             @Override
             public void onChanged(DataBracketResponse<ListMessage> listMessageDataBracketResponse) {
-                messageResponseList.clear();
-                messageResponseList.addAll(listMessageDataBracketResponse.getData().getMessageResponseList());
-                messageAdapter.notifyItemRangeInserted(1, messageResponseList.size());
-                rcvMessage.scrollToPosition(messageResponseList.size() - 1);
+                messageAdapter.removeLoading();
+                if (listMessageDataBracketResponse.getStatus().equals(StatusConstant.OK) && listMessageDataBracketResponse.getStatusCode().equals(StatusCodeConstant.OK)) {
+                    int size = messageResponseList.size();
+                    List<MessageResponse> messageResponses = listMessageDataBracketResponse.getData().getMessageResponseList();
+                    for (MessageResponse messageResponse : messageResponses) {
+                        if (!messageResponseList.contains(messageResponse)) {
+                            messageResponseList.add(messageResponse);
+                        }
+                    }
+                    messageAdapter.notifyItemRangeInserted(size, messageResponseList.size() - size);
+                    if (page == 0) {
+                        rcvMessage.scrollToPosition(0);
+                    }
+                    isNext = true;
+                } else {
+                    isNext = false;
+                }
+                isLoading = false;
             }
         });
+    }
+
+    public int getVisibleItemCount(RecyclerView rv) {
+        final int firstVisiblePos = getFirstVisiblePosition(rv);
+        final int lastVisiblePos = getLastVisiblePosition(rv);
+        return Math.max(0, lastVisiblePos - firstVisiblePos);
+    }
+
+    public int getFirstVisiblePosition(RecyclerView rv) {
+        if (rv != null) {
+            final RecyclerView.LayoutManager layoutManager = rv
+                    .getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                return ((LinearLayoutManager) layoutManager)
+                        .findFirstVisibleItemPosition();
+            }
+        }
+        return 0;
+    }
+
+    public int getLastVisiblePosition(RecyclerView rv) {
+        if (rv != null) {
+            final RecyclerView.LayoutManager layoutManager = rv
+                    .getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                return ((LinearLayoutManager) layoutManager)
+                        .findLastVisibleItemPosition();
+            }
+        }
+        return 0;
     }
 
     private void createRecyclerViewMessage() {
         rcvMessage = binding.messageRecyclerView;
         messageAdapter = new MessageAdapter(messageResponseList, this);
-        RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManagerMessage = new LinearLayoutManager(this);
+        layoutManagerMessage.setStackFromEnd(true);
+        layoutManagerMessage.setReverseLayout(true);
         rcvMessage.setLayoutManager(layoutManagerMessage);
         rcvMessage.setItemAnimator(new FadeInUpAnimator());
 

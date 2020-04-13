@@ -22,6 +22,7 @@ import com.tt.handsomeman.databinding.FragmentNotificationsBinding;
 import com.tt.handsomeman.response.NotificationResponse;
 import com.tt.handsomeman.ui.customer.notification.ViewMadeBid;
 import com.tt.handsomeman.ui.handyman.jobs.JobDetail;
+import com.tt.handsomeman.ui.handyman.notifications.ViewTransaction;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.NotificationType;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -99,6 +100,14 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
                         intent1.putExtra("isRead", notificationResponse.getRead());
                         intent1.putExtra("notificationPos", position);
                         startActivityForResult(intent1, NOTIFICATION_REQUEST);
+                        break;
+                    case PAID_PAYMENT:
+                        Intent intent2 = new Intent(getContext(), ViewTransaction.class);
+                        intent2.putExtra("notificationId", notificationResponse.getId());
+                        intent2.putExtra("customerTransferId", notificationResponse.getContentId());
+                        intent2.putExtra("isRead", notificationResponse.getRead());
+                        intent2.putExtra("notificationPos", position);
+                        startActivityForResult(intent2, NOTIFICATION_REQUEST);
                         break;
                 }
             }

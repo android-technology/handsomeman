@@ -1,5 +1,6 @@
 package com.tt.handsomeman.service;
 
+import com.tt.handsomeman.request.PageableRequest;
 import com.tt.handsomeman.request.SendMessageRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.ListConversation;
@@ -14,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -22,8 +24,8 @@ public interface MessageService {
     @GET(Constants.GET_ALL_CONVERSATION_OF_ACCOUNT)
     Observable<Response<DataBracketResponse<ListConversation>>> getAllConversationByAccountId(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("type") String type);
 
-    @GET(Constants.GET_ALL_MESSAGES_WITH_ACCOUNT)
-    Observable<Response<DataBracketResponse<ListMessage>>> getAllMessagesWithAccount(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("accountId") Integer accountId);
+    @POST(Constants.GET_ALL_MESSAGES_WITH_ACCOUNT)
+    Observable<Response<DataBracketResponse<ListMessage>>> getAllMessagesWithAccount(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("accountId") Integer accountId, @Body PageableRequest pageableRequest);
 
     @DELETE(Constants.DELETE_CONVERSATION_ID)
     Single<Response<StandardResponse>> deleteConversationById(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("conversationId") Integer conversationId);

@@ -14,6 +14,7 @@ import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.request.HandymanTransferRequest;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
+import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
@@ -23,9 +24,9 @@ import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
+import com.tt.handsomeman.response.TransactionDetailResponse;
 import com.tt.handsomeman.service.HandymanService;
 import com.tt.handsomeman.util.Constants;
-import com.tt.handsomeman.util.StatusConstant;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<JobDetailProfile> jobDetailProfileMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMarkReadMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<TransactionDetailResponse>> jobTransactionLiveData = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -111,6 +113,10 @@ public class HandymanViewModel extends BaseViewModel {
 
     public MutableLiveData<StandardResponse> getStandardResponseMarkReadMutableLiveData() {
         return standardResponseMarkReadMutableLiveData;
+    }
+
+    public MutableLiveData<DataBracketResponse<TransactionDetailResponse>> getJobTransactionLiveData() {
+        return jobTransactionLiveData;
     }
 
     public MutableLiveData<String> getMessageResponse() {
@@ -287,6 +293,15 @@ public class HandymanViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((response) -> {
                     standardResponseMutableLiveData.setValue(response.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void fetchJobTransactionDetail(String authorization, Integer jobId) {
+        compositeDisposable.add(handymanService.viewPaymentTransaction(authorization, jobId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    jobTransactionLiveData.setValue(dataBracketResponseResponse.body());
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 

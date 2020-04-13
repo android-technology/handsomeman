@@ -23,28 +23,6 @@ public class TransferHistoryResponse {
         this.lastPayoutNumber = lastPayoutNumber;
     }
 
-    public String setSendTimeManipulate(Date dateTransfer) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        String result;
-        Calendar now = Calendar.getInstance();
-        Date today, yesterday;
-
-        dateTransfer = formatter.parse(formatter.format(dateTransfer));
-        today = formatter.parse(formatter.format(now.getTime()));
-        now.add(Calendar.DATE, -1);
-        yesterday = formatter.parse(formatter.format(now.getTime()));
-
-        if (dateTransfer.compareTo(today) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.today);
-        } else if (dateTransfer.compareTo(yesterday) == 0) {
-            result = HandymanApp.getInstance().getString(R.string.yesterday);
-        } else {
-            result = formatter.format(dateTransfer);
-        }
-
-        return result;
-    }
-
     public double getBalance() {
         return balance;
     }

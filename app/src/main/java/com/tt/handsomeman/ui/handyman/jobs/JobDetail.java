@@ -30,6 +30,7 @@ import com.tt.handsomeman.model.Job;
 import com.tt.handsomeman.model.PaymentMilestone;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
+import com.tt.handsomeman.ui.handyman.ViewJobTransaction;
 import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
 import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
@@ -226,7 +227,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 this.isAccept = true;
                 btnViewTransaction.setVisibility(View.VISIBLE);
                 btnViewTransaction.setOnClickListener(v -> {
-                    // TODO: View transaction
+                    viewJobTransaction(jobId);
                 });
                 ibSendMessage.setVisibility(View.VISIBLE);
                 ibSendMessage.setOnClickListener(v -> {
@@ -246,6 +247,12 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 markAsRead(notificationId, authorizationCode);
             }
         });
+    }
+
+    private void viewJobTransaction(Integer jobId) {
+        Intent intent = new Intent(JobDetail.this, ViewJobTransaction.class);
+        intent.putExtra("jobId", jobId);
+        startActivity(intent);
     }
 
     private void sendMessage(String receiverName, Integer customerId) {

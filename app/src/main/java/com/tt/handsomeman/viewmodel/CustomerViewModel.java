@@ -9,16 +9,20 @@ import androidx.lifecycle.MutableLiveData;
 import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.HandymanDetailRequest;
+import com.tt.handsomeman.request.MadeTheTransactionRequest;
 import com.tt.handsomeman.request.NearbyHandymanRequest;
 import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.response.CustomerReviewProfile;
+import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanDetailResponse;
 import com.tt.handsomeman.response.ListCategory;
+import com.tt.handsomeman.response.ListCustomerTransfer;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenCustomer;
+import com.tt.handsomeman.response.ViewMadeTransactionResponse;
 import com.tt.handsomeman.service.CustomerService;
 import com.tt.handsomeman.util.Constants;
 
@@ -40,6 +44,8 @@ public class CustomerViewModel extends BaseViewModel {
     private MutableLiveData<CustomerProfileResponse> customerProfileResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CustomerJobDetail> customerJobDetailMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ViewMadeTransactionResponse>> viewTransactionLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ListCustomerTransfer>> listTransferHistoryLiveData = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -80,12 +86,20 @@ public class CustomerViewModel extends BaseViewModel {
         return customerProfileResponseMutableLiveData;
     }
 
+    public MutableLiveData<DataBracketResponse<ListCustomerTransfer>> getListTransferHistoryLiveData() {
+        return listTransferHistoryLiveData;
+    }
+
     public MutableLiveData<StandardResponse> getStandardResponseMutableLiveData() {
         return standardResponseMutableLiveData;
     }
 
     public MutableLiveData<CustomerJobDetail> getCustomerJobDetailMutableLiveData() {
         return customerJobDetailMutableLiveData;
+    }
+
+    public MutableLiveData<DataBracketResponse<ViewMadeTransactionResponse>> getViewTransactionLiveData() {
+        return viewTransactionLiveData;
     }
 
     public void fetchDataStartScreen(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
@@ -214,5 +228,32 @@ public class CustomerViewModel extends BaseViewModel {
                             listCategoryMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void viewMakeTransaction(String authorization) {
+        compositeDisposable.add(customerService.viewMakeTransaction(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    viewTransactionLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void makeTheTransaction(String authorization, MadeTheTransactionRequest madeTheTransactionRequest) {
+        compositeDisposable.add(customerService.makeTheTransaction(authorization, madeTheTransactionRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(standardResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void fetchTransferHistory(String authorization) {
+        compositeDisposable.add(customerService.viewTransferHistory(authorization)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    listTransferHistoryLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

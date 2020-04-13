@@ -72,6 +72,7 @@ public class TransferToBank extends BaseAppCompatActivity<HandymanViewModel> {
 
     private void transferToBank() {
         if (balance > 0) {
+            ibTransfer.setEnabled(false);
             String authorization = sharedPreferencesUtils.get("token", String.class);
 
             Calendar now = Calendar.getInstance();
