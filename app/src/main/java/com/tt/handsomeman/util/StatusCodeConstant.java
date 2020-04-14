@@ -21,5 +21,6 @@ public class StatusCodeConstant {
     public static final String UPDATED = "A019";
     public static final String FCM_ERROR = "A020";
     public static final String WRONG_PASSWORD = "A021";
+    public static final String NOT_VERIFY_ACCOUNT = "A022";
 }
 

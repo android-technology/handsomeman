@@ -13,6 +13,7 @@ public class Constants {
     public static final String CHANGE_PASSWORD = "api/user/changePassword";
     public static final String LOGIN_SUFFIX = "api/user/login";
     public static final String SIGN_UP_SUFFIX = "api/user/registration";
+    public static final String FORGET_PASSWORD = "api/user/resetPassword";
 
     // Both handyman and customer can have payout
     public static final String USER_ADD_PAYOUT = "api/user/payout/add";
@@ -68,6 +69,7 @@ public class Constants {
     public static final String READ_MADE_BID_NOTIFICATION = "api/user/notification/viewMadeABid";
     public static final String READ_PAID_PAYMENT_NOTIFICATION = "api/user/notification/viewPaidPayment";
 
+    public static final Integer NOT_VERIFIED_ACCOUNT = 0;
     public static final Integer NOT_ACTIVE_ACCOUNT = 1;
     public static final Integer STATE_REGISTER_ADDED_PAYOUT = 3;
 

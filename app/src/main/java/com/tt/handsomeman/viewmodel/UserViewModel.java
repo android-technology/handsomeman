@@ -51,4 +51,14 @@ public class UserViewModel extends BaseViewModel {
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
     }
+
+    public void forgotPassword(String email) {
+        compositeDisposable.add(userService.forgetPassword(locale, email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            standardResponseMutableLiveData.setValue(response.body());
+                        }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                ));
+    }
 }

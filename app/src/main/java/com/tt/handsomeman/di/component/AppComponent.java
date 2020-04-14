@@ -10,6 +10,7 @@ import com.tt.handsomeman.di.module.UserModule;
 import com.tt.handsomeman.di.module.ViewModelModule;
 import com.tt.handsomeman.ui.AddNewPayout;
 import com.tt.handsomeman.ui.ChangePassword;
+import com.tt.handsomeman.ui.ForgotPassword;
 import com.tt.handsomeman.ui.Login;
 import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.ui.NotificationsFragment;
@@ -80,6 +81,8 @@ public interface AppComponent {
     void inject(JobsChildWishListFragment fragment);
 
     void inject(Login login);
+
+    void inject(ForgotPassword forgotPassword);
 
     void inject(SignUp signUp);
 

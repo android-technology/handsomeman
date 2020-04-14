@@ -12,10 +12,8 @@ public class UserActivatingAccount {
     private String accountNumber;
     private String accountRouting;
     private String country;
-    private String accountStatus;
-    private String businessNumber;
 
-    public UserActivatingAccount(String firstName, String lastName, String address, Integer portalCode, String birthday, String type, String email, String accountNumber, String accountRouting, String country, String accountStatus, String businessNumber) {
+    public UserActivatingAccount(String firstName, String lastName, String address, Integer portalCode, String birthday, String type, String email, String accountNumber, String accountRouting, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -26,8 +24,6 @@ public class UserActivatingAccount {
         this.accountNumber = accountNumber;
         this.accountRouting = accountRouting;
         this.country = country;
-        this.accountStatus = accountStatus;
-        this.businessNumber = businessNumber;
     }
 
     public String getFirstName() {
@@ -110,19 +106,4 @@ public class UserActivatingAccount {
         this.country = country;
     }
 
-    public String getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
-    }
-
-    public String getBusinessNumber() {
-        return businessNumber;
-    }
-
-    public void setBusinessNumber(String businessNumber) {
-        this.businessNumber = businessNumber;
-    }
 }

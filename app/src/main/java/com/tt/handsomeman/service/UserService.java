@@ -41,4 +41,7 @@ public interface UserService {
 
     @POST(Constants.CHANGE_PASSWORD)
     Single<Response<StandardResponse>> changePassword(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body ChangePasswordRequest changePasswordRequest);
+
+    @POST(Constants.FORGET_PASSWORD)
+    Single<Response<StandardResponse>> forgetPassword(@Header("Accept-Language") String locale, @Query("email") String email);
 }

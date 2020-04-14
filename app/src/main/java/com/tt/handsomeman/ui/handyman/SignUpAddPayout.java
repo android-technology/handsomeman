@@ -144,12 +144,10 @@ public class SignUpAddPayout extends AppCompatActivity {
                 String accountNumber = edtAccountNumber.getText().toString();
                 String accountRouting = edtAccountRouting.getText().toString();
                 String selectedCountry = country[spinnerCountry.getSelectedItemPosition()];
-                String accountStatus = "T"; // only one character
-                String businessNumber = "123456";
 
                 String kindOfHandyman = "CPR";
 
-                UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry, accountStatus, businessNumber);
+                UserActivatingAccount userActivatingAccount = new UserActivatingAccount(firstName, lastName, address, portalCode, birthday, selectedType, email, accountNumber, accountRouting, selectedCountry);
 
                 userService.doSignUpAddPayout(locale, token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
                     @Override
