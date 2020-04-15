@@ -243,4 +243,11 @@
     <string name="open">Mở</string>
     <string name="file_not_available">Tệp tin này không có sẵn</string>
     <string name="open_with">Mở với …</string>
+    <string name="need_payout_to_make_transaction">Bạn cần ít nhất 1 tài khoản thanh toán để thực hiện giao dịch</string>
+    <string name="to_project">Đến công việc</string>
+    <string name="bonus_value">Thưởng: %1$s</string>
+    <string name="cant_send_smaller_than_min_pay">Bạn phải gửi số tiền lơn hơn hoặc bằng %1$s</string>
+    <string name="i_have_received">Tôi đã nhận</string>
+    <string name="bonus">Thưởng</string>
+    <string name="in_total">Tổng</string>
 </resources>

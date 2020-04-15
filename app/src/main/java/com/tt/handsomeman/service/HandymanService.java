@@ -94,5 +94,5 @@ public interface HandymanService {
     Single<Response<StandardResponse>> markNotificationRead(@Header("Authorization") String token, @Query("notificationId") Integer notificationId);
 
     @GET(Constants.VIEW_PAYMENT_TRANSACTION)
-    Single<Response<DataBracketResponse<TransactionDetailResponse>>> viewPaymentTransaction(@Header("Authorization") String token, @Query("jobId") Integer jobId);
+    Single<Response<DataBracketResponse<TransactionDetailResponse>>> viewPaymentTransaction(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("jobId") Integer jobId);
 }

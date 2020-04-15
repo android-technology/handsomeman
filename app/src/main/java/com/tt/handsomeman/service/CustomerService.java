@@ -67,10 +67,10 @@ public interface CustomerService {
     Single<Response<DataBracketResponse<ListCategory>>> getListCategory(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
     @GET(Constants.CUSTOMER_VIEW_MAKE_TRANSACTION)
-    Single<Response<DataBracketResponse<ViewMadeTransactionResponse>>> viewMakeTransaction(@Header("Authorization") String token);
+    Single<Response<DataBracketResponse<ViewMadeTransactionResponse>>> viewMakeTransaction(@Header("Accept-Language") String locale, @Header("Authorization") String token);
 
     @POST(Constants.CUSTOMER_MAKE_TRANSACTION)
-    Single<Response<StandardResponse>> makeTheTransaction(@Header("Authorization") String token, @Body MadeTheTransactionRequest madeTheTransactionRequest);
+    Single<Response<StandardResponse>> makeTheTransaction(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body MadeTheTransactionRequest madeTheTransactionRequest);
 
     @GET(Constants.CUSTOMER_VIEW_TRANSFER_HISTORY)
     Single<Response<DataBracketResponse<ListCustomerTransfer>>> viewTransferHistory(@Header("Authorization") String token);

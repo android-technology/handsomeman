@@ -297,7 +297,7 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
     public void fetchJobTransactionDetail(String authorization, Integer jobId) {
-        compositeDisposable.add(handymanService.viewPaymentTransaction(authorization, jobId)
+        compositeDisposable.add(handymanService.viewPaymentTransaction(locale, authorization, jobId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {

@@ -24,14 +24,14 @@ public interface NotificationService {
     Single<Response<DataBracketResponse<List<NotificationResponse>>>> getAllNotification(@Header("Authorization") String token, @Query("type") String type);
 
     @POST(Constants.MARK_NOTIFICATION_AS_READ)
-    Single<Response<StandardResponse>> markNotificationRead(@Header("Authorization") String token, @Query("notificationId") Integer notificationId);
+    Single<Response<StandardResponse>> markNotificationRead(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("notificationId") Integer notificationId);
 
     @GET(Constants.READ_MADE_BID_NOTIFICATION)
-    Single<Response<DataBracketResponse<MadeABidNotificationResponse>>> viewMadeBid(@Header("Authorization") String token, @Query("jobBidId") Integer jobBidId);
+    Single<Response<DataBracketResponse<MadeABidNotificationResponse>>> viewMadeBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("jobBidId") Integer jobBidId);
 
     @POST(Constants.ACCEPT_BID)
-    Single<Response<StandardResponse>> acceptBid(@Header("Authorization") String token, @Body AcceptBidRequest acceptBidRequest);
+    Single<Response<StandardResponse>> acceptBid(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body AcceptBidRequest acceptBidRequest);
 
     @GET(Constants.READ_PAID_PAYMENT_NOTIFICATION)
-    Single<Response<DataBracketResponse<PaidPaymentNotificationResponse>>> viewPaidPayment(@Header("Authorization") String token, @Query("customerTransferId") Integer customerTransferId);
+    Single<Response<DataBracketResponse<PaidPaymentNotificationResponse>>> viewPaidPayment(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Query("customerTransferId") Integer customerTransferId);
 }

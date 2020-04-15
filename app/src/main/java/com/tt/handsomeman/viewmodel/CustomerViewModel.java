@@ -231,7 +231,7 @@ public class CustomerViewModel extends BaseViewModel {
     }
 
     public void viewMakeTransaction(String authorization) {
-        compositeDisposable.add(customerService.viewMakeTransaction(authorization)
+        compositeDisposable.add(customerService.viewMakeTransaction(locale, authorization)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {
@@ -240,7 +240,7 @@ public class CustomerViewModel extends BaseViewModel {
     }
 
     public void makeTheTransaction(String authorization, MadeTheTransactionRequest madeTheTransactionRequest) {
-        compositeDisposable.add(customerService.makeTheTransaction(authorization, madeTheTransactionRequest)
+        compositeDisposable.add(customerService.makeTheTransaction(locale, authorization, madeTheTransactionRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(standardResponseResponse -> {
