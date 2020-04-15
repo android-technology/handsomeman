@@ -63,7 +63,8 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
         });
     }
 
-    private void fetchData(Double lat, Double lng) {
+    private void fetchData(Double lat,
+                           Double lng) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());

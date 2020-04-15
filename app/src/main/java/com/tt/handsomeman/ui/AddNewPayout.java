@@ -97,7 +97,9 @@ public class AddNewPayout extends AppCompatActivity {
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
+            public void onDateSet(DatePicker view,
+                                  int year,
+                                  int monthOfYear,
                                   int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -114,7 +116,16 @@ public class AddNewPayout extends AppCompatActivity {
         doAddPayout(progressBarHolder, edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, spinnerType, spinnerCountry);
     }
 
-    private void doAddPayout(FrameLayout progressBarHolder, EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, Spinner spinnerType, Spinner spinnerCountry) {
+    private void doAddPayout(FrameLayout progressBarHolder,
+                             EditText edtFirstName,
+                             EditText edtLastName,
+                             EditText edtAddress,
+                             EditText edtPortalCode,
+                             EditText edtEmail,
+                             EditText edtAccountNumber,
+                             EditText edtAccountRouting,
+                             Spinner spinnerType,
+                             Spinner spinnerCountry) {
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +160,8 @@ public class AddNewPayout extends AppCompatActivity {
 
                 userService.addPayout(locale, token, addNewPayoutRequest).enqueue(new Callback<StandardResponse>() {
                     @Override
-                    public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                    public void onResponse(Call<StandardResponse> call,
+                                           Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK)) {
                             AlphaAnimation outAnimation;
 
@@ -180,7 +192,8 @@ public class AddNewPayout extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<StandardResponse> call, Throwable t) {
+                    public void onFailure(Call<StandardResponse> call,
+                                          Throwable t) {
                         AlphaAnimation outAnimation;
 
                         outAnimation = new AlphaAnimation(1f, 0f);
@@ -212,15 +225,27 @@ public class AddNewPayout extends AppCompatActivity {
         });
     }
 
-    private void edtChangedListener(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
+    private void edtChangedListener(EditText edtFirstName,
+                                    EditText edtLastName,
+                                    EditText edtAddress,
+                                    EditText edtPortalCode,
+                                    EditText edtEmail,
+                                    EditText edtAccountNumber,
+                                    EditText edtAccountRouting) {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i,
+                                          int i1,
+                                          int i2) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence,
+                                      int i,
+                                      int i1,
+                                      int i2) {
 
             }
 
@@ -241,7 +266,13 @@ public class AddNewPayout extends AppCompatActivity {
         edtAccountRouting.addTextChangedListener(textWatcher);
     }
 
-    private void observeSignUpAddPayoutState(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
+    private void observeSignUpAddPayoutState(EditText edtFirstName,
+                                             EditText edtLastName,
+                                             EditText edtAddress,
+                                             EditText edtPortalCode,
+                                             EditText edtEmail,
+                                             EditText edtAccountNumber,
+                                             EditText edtAccountRouting) {
         signUpAddPayoutViewModel.getUpAddPayoutFormState().observe(this, new Observer<SignUpAddPayoutFormState>() {
             @Override
             public void onChanged(SignUpAddPayoutFormState signUpAddPayoutFormState) {

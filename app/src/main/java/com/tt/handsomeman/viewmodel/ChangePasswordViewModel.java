@@ -13,7 +13,9 @@ public class ChangePasswordViewModel extends ViewModel {
         return changePasswordFormStateMutableLiveData;
     }
 
-    public void changePasswordStateChanged(String currentPassword, String newPassword, String rePassword) {
+    public void changePasswordStateChanged(String currentPassword,
+                                           String newPassword,
+                                           String rePassword) {
         if (!isCurrentPasswordValid(currentPassword)) {
             changePasswordFormStateMutableLiveData.setValue(new ChangePasswordFormState(R.string.not_valid_password, null, null, false));
         }
@@ -39,11 +41,13 @@ public class ChangePasswordViewModel extends ViewModel {
         return newPassword != null && newPassword.trim().length() > 5;
     }
 
-    private boolean isMatchPassword(String newPassword, String rePassword) {
+    private boolean isMatchPassword(String newPassword,
+                                    String rePassword) {
         return rePassword == null || rePassword.equals(newPassword);
     }
 
-    private boolean isNewPasswordDifferent(String currentPassword, String newPassword) {
+    private boolean isNewPasswordDifferent(String currentPassword,
+                                           String newPassword) {
         return newPassword != null && !newPassword.equals(currentPassword);
     }
 }

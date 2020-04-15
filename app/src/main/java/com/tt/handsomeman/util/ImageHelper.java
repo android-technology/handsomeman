@@ -10,7 +10,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class ImageHelper {
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,
+                                                int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);

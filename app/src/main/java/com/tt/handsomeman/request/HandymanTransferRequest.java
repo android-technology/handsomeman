@@ -5,7 +5,9 @@ public class HandymanTransferRequest {
     private double balance;
     private String dateTransfer;
 
-    public HandymanTransferRequest(int payOutId, double balance, String dateTransfer) {
+    public HandymanTransferRequest(int payOutId,
+                                   double balance,
+                                   String dateTransfer) {
         this.payOutId = payOutId;
         this.balance = balance;
         this.dateTransfer = dateTransfer;

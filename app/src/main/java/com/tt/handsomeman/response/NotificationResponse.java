@@ -1,14 +1,8 @@
 package com.tt.handsomeman.response;
 
-import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
 import com.tt.handsomeman.util.NotificationType;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class NotificationResponse {
     private int id;

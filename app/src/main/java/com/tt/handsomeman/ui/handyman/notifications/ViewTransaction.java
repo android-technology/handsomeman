@@ -56,7 +56,8 @@ public class ViewTransaction extends BaseAppCompatActivity<NotificationViewModel
         fetchData(authorization, customerTransferId);
     }
 
-    private void fetchData(String authorization, int customerTransferId) {
+    private void fetchData(String authorization,
+                           int customerTransferId) {
         baseViewModel.fetchPaidPaymentNotification(authorization, customerTransferId);
         baseViewModel.getPaidPaymentNotificationResponseMutableLiveData().observe(this, new Observer<DataBracketResponse<PaidPaymentNotificationResponse>>() {
             @Override
@@ -98,7 +99,8 @@ public class ViewTransaction extends BaseAppCompatActivity<NotificationViewModel
         });
     }
 
-    private void markAsRead(Integer notificationId, String token) {
+    private void markAsRead(Integer notificationId,
+                            String token) {
         if (!isRead) {
             baseViewModel.markNotificationAsRead(token, notificationId);
             baseViewModel.getStandardResponseMarkReadMutableLiveData().observe(this, new Observer<StandardResponse>() {

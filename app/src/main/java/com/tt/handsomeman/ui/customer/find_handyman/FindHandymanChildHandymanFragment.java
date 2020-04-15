@@ -52,7 +52,8 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
     private List<Category> categoryArrayList = new ArrayList<>();
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
@@ -61,7 +62,8 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         pgFindHandyman = viewBinding.progressBarFindHandyman;
         pgCategory = viewBinding.progressBarCategory;
@@ -127,7 +129,8 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         rcvCategory.setAdapter(categoryAdapter);
     }
 
-    private void fetchData(Double lat, Double lng) {
+    private void fetchData(Double lat,
+                           Double lng) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());

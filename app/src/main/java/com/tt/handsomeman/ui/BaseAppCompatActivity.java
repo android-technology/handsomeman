@@ -10,7 +10,7 @@ public abstract class BaseAppCompatActivity<T extends BaseViewModel> extends App
 
     @Override
     protected void onDestroy() {
-        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID,""));
+        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID, ""));
         super.onDestroy();
     }
 }

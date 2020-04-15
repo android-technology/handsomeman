@@ -36,7 +36,8 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
     private boolean isMyProfileEdit = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
@@ -45,7 +46,8 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         yourName = viewBinding.aboutYourName;
         allProjects = viewBinding.aboutAllProjects;
@@ -70,7 +72,9 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
 
         if (requestCode == REQUEST_MY_PROFILE_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMyProfileEdit", false)) {

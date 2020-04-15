@@ -10,7 +10,8 @@ public class Skill implements Serializable {
     private Integer category_id;
     private String name;
 
-    public Skill(Integer category_id, String name) {
+    public Skill(Integer category_id,
+                 String name) {
         this.category_id = category_id;
         this.name = name;
     }

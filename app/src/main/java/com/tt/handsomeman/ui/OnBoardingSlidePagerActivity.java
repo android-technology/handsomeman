@@ -2,7 +2,6 @@ package com.tt.handsomeman.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 
 import androidx.annotation.NonNull;

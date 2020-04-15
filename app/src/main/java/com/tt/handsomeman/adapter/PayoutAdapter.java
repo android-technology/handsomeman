@@ -25,7 +25,8 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
     private ItemPayoutBinding binding;
     private OnItemClickListener mListener;
 
-    public PayoutAdapter(List<Payout> payoutList, Context context) {
+    public PayoutAdapter(List<Payout> payoutList,
+                         Context context) {
         this.payoutList = payoutList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -37,14 +38,16 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
 
     @NonNull
     @Override
-    public PayoutAdapter.PayoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PayoutAdapter.PayoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                             int viewType) {
         binding = ItemPayoutBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new PayoutAdapter.PayoutViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PayoutAdapter.PayoutViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PayoutAdapter.PayoutViewHolder holder,
+                                 int position) {
         Payout payout = payoutList.get(position);
         String lastPayoutNumber = payout.getAccountNumber().substring(payout.getAccountNumber().length() - 4);
         holder.tvPayoutLastNumbers.setText(HandymanApp.getInstance().getString(R.string.account_ends_with, lastPayoutNumber));
@@ -63,7 +66,8 @@ public class PayoutAdapter extends RecyclerView.Adapter<PayoutAdapter.PayoutView
         private final ImageButton btnPayout;
         private final TextView tvPayoutLastNumbers;
 
-        PayoutViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        PayoutViewHolder(@NonNull View itemView,
+                         final OnItemClickListener listener) {
             super(itemView);
             btnPayout = binding.imageButtonItemPayout;
             tvPayoutLastNumbers = binding.payoutLastNumbers;

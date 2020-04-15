@@ -18,7 +18,8 @@ public class SpinnerPercentage extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private SpinnerItemBlackTextBinding binding;
 
-    public SpinnerPercentage(Context context, String[] str) {
+    public SpinnerPercentage(Context context,
+                             String[] str) {
         this.context = context;
         this.str = str;
         layoutInflater = LayoutInflater.from(context);
@@ -40,7 +41,9 @@ public class SpinnerPercentage extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int position,
+                        View view,
+                        ViewGroup viewGroup) {
         binding = SpinnerItemBlackTextBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
         TextView countryName = binding.textViewSpinnerItemName;

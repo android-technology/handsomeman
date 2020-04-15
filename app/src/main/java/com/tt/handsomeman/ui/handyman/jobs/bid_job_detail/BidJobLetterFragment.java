@@ -48,13 +48,16 @@ public class BidJobLetterFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentBidJobDetailLetterWritingBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         bindView();
@@ -66,12 +69,18 @@ public class BidJobLetterFragment extends Fragment {
 
         edtIntroduce.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 
@@ -119,7 +128,9 @@ public class BidJobLetterFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
         if (requestCode == REQUEST_FILE && data != null) {
             binding.listFileLayout.setVisibility(View.VISIBLE);
             if (data.getClipData() != null) {
@@ -162,7 +173,8 @@ public class BidJobLetterFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         // BEGIN_INCLUDE(onRequestPermissionsResult)
         if (requestCode == PERMISSION_REQUEST_READ_STORAGE) {

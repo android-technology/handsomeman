@@ -21,7 +21,8 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     private Context context;
     private ItemSkillBinding binding;
 
-    public SkillAdapter(List<Skill> skillList, Context context) {
+    public SkillAdapter(List<Skill> skillList,
+                        Context context) {
         this.skillList = skillList;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -29,14 +30,16 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     @NonNull
     @Override
-    public SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                              int viewType) {
         binding = ItemSkillBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new SkillAdapter.SkillViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SkillViewHolder holder,
+                                 int position) {
         Skill skill = skillList.get(position);
 
         holder.tvSkillName.setText(skill.getName());

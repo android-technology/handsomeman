@@ -49,7 +49,8 @@ public class CustomerViewModel extends BaseViewModel {
     private String locale = Constants.language.getValue();
 
     @Inject
-    CustomerViewModel(@NonNull Application application, CustomerService customerService) {
+    CustomerViewModel(@NonNull Application application,
+                      CustomerService customerService) {
         super(application);
         this.customerService = customerService;
     }
@@ -102,7 +103,8 @@ public class CustomerViewModel extends BaseViewModel {
         return viewTransactionLiveData;
     }
 
-    public void fetchDataStartScreen(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
+    public void fetchDataStartScreen(String authorization,
+                                     NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getStartScreen(locale, authorization, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
@@ -113,7 +115,9 @@ public class CustomerViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetHandymanByCategory(String authorization, Integer categoryId, NearbyHandymanRequest nearbyHandymanRequest) {
+    public void fetHandymanByCategory(String authorization,
+                                      Integer categoryId,
+                                      NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getHandymanByCateGory(locale, authorization, categoryId, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
@@ -124,7 +128,8 @@ public class CustomerViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetHandymanNearby(String authorization, NearbyHandymanRequest nearbyHandymanRequest) {
+    public void fetHandymanNearby(String authorization,
+                                  NearbyHandymanRequest nearbyHandymanRequest) {
         compositeDisposable
                 .add(customerService.getHandymanNearby(locale, authorization, nearbyHandymanRequest)
                         .subscribeOn(Schedulers.io())
@@ -146,7 +151,8 @@ public class CustomerViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchHandymanDetail(String token, HandymanDetailRequest handymanDetailRequest) {
+    public void fetchHandymanDetail(String token,
+                                    HandymanDetailRequest handymanDetailRequest) {
         compositeDisposable
                 .add(customerService.getHandymanDetail(locale, token, handymanDetailRequest)
                         .subscribeOn(Schedulers.io())
@@ -179,7 +185,8 @@ public class CustomerViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void editCustomerProfile(String authorization, String customerEditName) {
+    public void editCustomerProfile(String authorization,
+                                    String customerEditName) {
         compositeDisposable
                 .add(customerService.editCustomerProfile(locale, authorization, customerEditName)
                         .subscribeOn(Schedulers.io())
@@ -190,7 +197,8 @@ public class CustomerViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchCustomerJobDetail(String authorization, Integer jobId) {
+    public void fetchCustomerJobDetail(String authorization,
+                                       Integer jobId) {
         compositeDisposable.add(customerService.getCustomerJobDetail(locale, authorization, jobId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -210,7 +218,8 @@ public class CustomerViewModel extends BaseViewModel {
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void addNewJob(String authorization, AddJobRequest addJobRequest) {
+    public void addNewJob(String authorization,
+                          AddJobRequest addJobRequest) {
         compositeDisposable.add(customerService.addNewJob(locale, authorization, addJobRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -239,7 +248,8 @@ public class CustomerViewModel extends BaseViewModel {
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void makeTheTransaction(String authorization, MadeTheTransactionRequest madeTheTransactionRequest) {
+    public void makeTheTransaction(String authorization,
+                                   MadeTheTransactionRequest madeTheTransactionRequest) {
         compositeDisposable.add(customerService.makeTheTransaction(locale, authorization, madeTheTransactionRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

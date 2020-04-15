@@ -84,7 +84,8 @@ public class AddNewJobChildSecondFragment extends Fragment {
     private FragmentAddNewJobChildSecondBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         binding = FragmentAddNewJobChildSecondBinding.inflate(inflater, container, false);
@@ -92,7 +93,8 @@ public class AddNewJobChildSecondFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -213,7 +215,8 @@ public class AddNewJobChildSecondFragment extends Fragment {
         rcvPlace.setAdapter(placeAdapter);
     }
 
-    private void searchPlaceBaseOnPlaceId(String placeId, String placeName) {
+    private void searchPlaceBaseOnPlaceId(String placeId,
+                                          String placeName) {
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
 
         // Construct a request object, passing the place ID and fields array.

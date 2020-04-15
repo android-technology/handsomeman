@@ -15,7 +15,8 @@ import java.security.NoSuchAlgorithmException;
 public class MD5 {
     private static final String TAG = "MD5";
 
-    public static boolean checkMD5(String md5, File updateFile) {
+    public static boolean checkMD5(String md5,
+                                   File updateFile) {
         if (TextUtils.isEmpty(md5) || updateFile == null) {
             Log.e(TAG, "MD5 string empty or updateFile null");
             return false;

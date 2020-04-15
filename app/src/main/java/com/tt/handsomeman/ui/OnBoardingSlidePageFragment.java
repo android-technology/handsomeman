@@ -17,7 +17,8 @@ public class OnBoardingSlidePageFragment extends Fragment {
     private int description;
     private OnBoardingFragmentSlidePageBinding binding;
 
-    static OnBoardingSlidePageFragment newInstance(int image, int description) {
+    static OnBoardingSlidePageFragment newInstance(int image,
+                                                   int description) {
         OnBoardingSlidePageFragment screenSlidePageFragment = new OnBoardingSlidePageFragment();
         Bundle args = new Bundle();
         args.putInt("image", image);
@@ -35,7 +36,8 @@ public class OnBoardingSlidePageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         binding = OnBoardingFragmentSlidePageBinding.inflate(inflater, container, false);
 

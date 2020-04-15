@@ -22,7 +22,14 @@ public class SignUpAddPayoutFormState {
 
     private boolean isDataValid;
 
-    public SignUpAddPayoutFormState(@Nullable Integer firstNameError, @Nullable Integer lastNameError, @Nullable Integer addressError, @Nullable Integer portalCodeError, @Nullable Integer emailError, @Nullable Integer accountNumberError, @Nullable Integer accountRoutingError, @Nullable Integer birthdayError) {
+    public SignUpAddPayoutFormState(@Nullable Integer firstNameError,
+                                    @Nullable Integer lastNameError,
+                                    @Nullable Integer addressError,
+                                    @Nullable Integer portalCodeError,
+                                    @Nullable Integer emailError,
+                                    @Nullable Integer accountNumberError,
+                                    @Nullable Integer accountRoutingError,
+                                    @Nullable Integer birthdayError) {
         this.firstNameError = firstNameError;
         this.lastNameError = lastNameError;
         this.addressError = addressError;

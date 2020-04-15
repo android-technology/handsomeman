@@ -43,14 +43,16 @@ public class AddNewJobChildThirdFragment extends Fragment {
     private FragmentAddNewJobChildThirdBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddNewJobChildThirdBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -140,7 +142,8 @@ public class AddNewJobChildThirdFragment extends Fragment {
         });
     }
 
-    private String setBudgetRange(Integer budgetMin, Integer budgetMax) {
+    private String setBudgetRange(Integer budgetMin,
+                                  Integer budgetMax) {
         return HandymanApp.getInstance().getString(R.string.budget_range, budgetMin, budgetMax);
     }
 

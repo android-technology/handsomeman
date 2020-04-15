@@ -1,14 +1,6 @@
 package com.tt.handsomeman.response;
 
-import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class ConversationResponse {
     private int conversationId;

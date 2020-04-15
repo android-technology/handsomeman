@@ -108,7 +108,8 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     private void listenToFireBaseService(int receiveId) {
         receiver = new BroadcastReceiver() {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context context,
+                                  Intent intent) {
                 Bundle bundle = intent.getExtras();
 
                 if (receiveId == Integer.parseInt(bundle.getString("accountId")) && Integer.parseInt(bundle.getString("accountId")) != sendId) {
@@ -144,7 +145,8 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         };
     }
 
-    private void sendMessage(String authorizationCode, int receiveId) {
+    private void sendMessage(String authorizationCode,
+                             int receiveId) {
         ibSendMessage.setOnClickListener(view -> {
             String bodyMessage = edtMessageBody.getText().toString().trim();
             sendMessage(authorizationCode, receiveId, bodyMessage);
@@ -155,12 +157,18 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     private void listenEditChange() {
         edtMessageBody.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 
@@ -172,7 +180,9 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         });
     }
 
-    private void sendMessage(String authorizationCode, int receiveId, String bodyMessage) {
+    private void sendMessage(String authorizationCode,
+                             int receiveId,
+                             String bodyMessage) {
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
         String sendTime = formatter.format(now.getTime());
@@ -197,7 +207,8 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
     private void addRecyclerViewListener() {
         rcvMessage.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(RecyclerView recyclerView,
+                                             int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 isAtBottom = !recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE;
                 isAtTop = !recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE;
@@ -213,7 +224,9 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         });
     }
 
-    private void fetchData(String authorizationCode, int accountId, PageableRequest pageableRequest) {
+    private void fetchData(String authorizationCode,
+                           int accountId,
+                           PageableRequest pageableRequest) {
         messageAdapter.addLoading();
         isLoading = true;
         baseViewModel.fetchMessagesWithAccount(authorizationCode, accountId, pageableRequest);

@@ -96,7 +96,9 @@ public class SignUpAddPayout extends AppCompatActivity {
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
+            public void onDateSet(DatePicker view,
+                                  int year,
+                                  int monthOfYear,
                                   int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -113,7 +115,16 @@ public class SignUpAddPayout extends AppCompatActivity {
         doAddPayout(edtFirstName, edtLastName, edtAddress, edtPortalCode, edtEmail, edtAccountNumber, edtAccountRouting, progressBarHolder, spinnerType, spinnerCountry);
     }
 
-    private void doAddPayout(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting, FrameLayout progressBarHolder, Spinner spinnerType, Spinner spinnerCountry) {
+    private void doAddPayout(EditText edtFirstName,
+                             EditText edtLastName,
+                             EditText edtAddress,
+                             EditText edtPortalCode,
+                             EditText edtEmail,
+                             EditText edtAccountNumber,
+                             EditText edtAccountRouting,
+                             FrameLayout progressBarHolder,
+                             Spinner spinnerType,
+                             Spinner spinnerCountry) {
         ibCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +162,8 @@ public class SignUpAddPayout extends AppCompatActivity {
 
                 userService.doSignUpAddPayout(locale, token, userActivatingAccount, kindOfHandyman).enqueue(new Callback<StandardResponse>() {
                     @Override
-                    public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                    public void onResponse(Call<StandardResponse> call,
+                                           Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
                             Toast.makeText(SignUpAddPayout.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                             sharedPreferencesUtils.put("state", Constants.STATE_REGISTER_ADDED_PAYOUT);
@@ -170,7 +182,8 @@ public class SignUpAddPayout extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<StandardResponse> call, Throwable t) {
+                    public void onFailure(Call<StandardResponse> call,
+                                          Throwable t) {
                         AlphaAnimation outAnimation;
 
                         outAnimation = new AlphaAnimation(1f, 0f);
@@ -202,15 +215,27 @@ public class SignUpAddPayout extends AppCompatActivity {
         });
     }
 
-    private void edtChangedListener(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
+    private void edtChangedListener(EditText edtFirstName,
+                                    EditText edtLastName,
+                                    EditText edtAddress,
+                                    EditText edtPortalCode,
+                                    EditText edtEmail,
+                                    EditText edtAccountNumber,
+                                    EditText edtAccountRouting) {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i,
+                                          int i1,
+                                          int i2) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence,
+                                      int i,
+                                      int i1,
+                                      int i2) {
 
             }
 
@@ -231,7 +256,13 @@ public class SignUpAddPayout extends AppCompatActivity {
         edtAccountRouting.addTextChangedListener(textWatcher);
     }
 
-    private void observeSignUpAddPayoutState(EditText edtFirstName, EditText edtLastName, EditText edtAddress, EditText edtPortalCode, EditText edtEmail, EditText edtAccountNumber, EditText edtAccountRouting) {
+    private void observeSignUpAddPayoutState(EditText edtFirstName,
+                                             EditText edtLastName,
+                                             EditText edtAddress,
+                                             EditText edtPortalCode,
+                                             EditText edtEmail,
+                                             EditText edtAccountNumber,
+                                             EditText edtAccountRouting) {
         signUpAddPayoutViewModel.getUpAddPayoutFormState().observe(this, new Observer<SignUpAddPayoutFormState>() {
             @Override
             public void onChanged(SignUpAddPayoutFormState signUpAddPayoutFormState) {

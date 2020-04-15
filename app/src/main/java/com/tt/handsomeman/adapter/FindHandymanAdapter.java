@@ -28,7 +28,8 @@ public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapte
     private ItemHandymanBinding binding;
     private OnItemClickListener mListener;
 
-    public FindHandymanAdapter(Context context, List<HandymanResponse> handymanResponseList) {
+    public FindHandymanAdapter(Context context,
+                               List<HandymanResponse> handymanResponseList) {
         this.context = context;
         this.handymanResponseList = handymanResponseList;
         this.inflater = LayoutInflater.from(context);
@@ -40,14 +41,16 @@ public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapte
 
     @NonNull
     @Override
-    public FindHandymanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FindHandymanViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                     int viewType) {
         binding = ItemHandymanBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new FindHandymanViewHolder(view, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindHandymanViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FindHandymanViewHolder holder,
+                                 int position) {
         HandymanResponse handymanResponse = handymanResponseList.get(position);
         int distance = Integer.parseInt(DecimalFormat.formatGetDistance(handymanResponse.getDistance() * 1000));
 
@@ -71,7 +74,8 @@ public class FindHandymanAdapter extends RecyclerView.Adapter<FindHandymanAdapte
         private final RatingBar rtHandymanReviewPoint;
         private final ImageButton ibViewHandymanDetail;
 
-        FindHandymanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        FindHandymanViewHolder(@NonNull View itemView,
+                               final OnItemClickListener listener) {
             super(itemView);
             imgAvatar = binding.imageButtonHandymanAvatar;
             tvHandymanName = binding.textViewHandymanNameItem;

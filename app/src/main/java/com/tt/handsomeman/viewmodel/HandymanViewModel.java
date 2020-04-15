@@ -58,7 +58,8 @@ public class HandymanViewModel extends BaseViewModel {
     private String locale = Constants.language.getValue();
 
     @Inject
-    HandymanViewModel(@NonNull Application application, HandymanService handymanService) {
+    HandymanViewModel(@NonNull Application application,
+                      HandymanService handymanService) {
         super(application);
         this.handymanService = handymanService;
     }
@@ -152,7 +153,8 @@ public class HandymanViewModel extends BaseViewModel {
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void editHandymanProfile(String authorization, HandymanEditRequest handymanEditRequest) {
+    public void editHandymanProfile(String authorization,
+                                    HandymanEditRequest handymanEditRequest) {
         compositeDisposable.add(handymanService.editHandymanProfile(locale, authorization, handymanEditRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -191,7 +193,8 @@ public class HandymanViewModel extends BaseViewModel {
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void transferToBankAccount(String authorization, HandymanTransferRequest handymanTransferRequest) {
+    public void transferToBankAccount(String authorization,
+                                      HandymanTransferRequest handymanTransferRequest) {
         compositeDisposable.add(handymanService.transferToBank(locale, authorization, handymanTransferRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -210,7 +213,8 @@ public class HandymanViewModel extends BaseViewModel {
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchDataStartScreen(String authorization, NearbyJobRequest nearbyJobRequest) {
+    public void fetchDataStartScreen(String authorization,
+                                     NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(handymanService.getStartScreen(locale, authorization, nearbyJobRequest)
                         .subscribeOn(Schedulers.io())
@@ -233,7 +237,8 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
 
-    public void fetchYourLocationData(String authorization, NearbyJobRequest nearbyJobRequest) {
+    public void fetchYourLocationData(String authorization,
+                                      NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(handymanService.getJobNearBy(locale, authorization, nearbyJobRequest)
                         .subscribeOn(Schedulers.io())
@@ -244,7 +249,9 @@ public class HandymanViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchJobsByCategory(String authorization, Integer categoryId, NearbyJobRequest nearbyJobRequest) {
+    public void fetchJobsByCategory(String authorization,
+                                    Integer categoryId,
+                                    NearbyJobRequest nearbyJobRequest) {
         compositeDisposable
                 .add(handymanService.getJobByCategory(locale, authorization, categoryId, nearbyJobRequest)
                         .subscribeOn(Schedulers.io())
@@ -255,7 +262,8 @@ public class HandymanViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchJobsByFilter(String authorization, JobFilterRequest jobFilterRequest) {
+    public void fetchJobsByFilter(String authorization,
+                                  JobFilterRequest jobFilterRequest) {
         compositeDisposable
                 .add(handymanService.getJobByFilter(locale, authorization, jobFilterRequest)
                         .subscribeOn(Schedulers.io())
@@ -266,7 +274,8 @@ public class HandymanViewModel extends BaseViewModel {
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchHandymanJobDetail(String authorization, Integer jobId) {
+    public void fetchHandymanJobDetail(String authorization,
+                                       Integer jobId) {
         compositeDisposable.add(handymanService.getHandymanJobDetail(locale, authorization, jobId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -276,7 +285,8 @@ public class HandymanViewModel extends BaseViewModel {
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
 
-    public void fetchJobDetailProfile(String authorization, Integer customerId) {
+    public void fetchJobDetailProfile(String authorization,
+                                      Integer customerId) {
         compositeDisposable.add(handymanService.getJobDetailProfile(locale, authorization, customerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -287,7 +297,14 @@ public class HandymanViewModel extends BaseViewModel {
     }
 
 
-    public void addJobBid(String authorization, RequestBody bid, RequestBody description, List<MultipartBody.Part> files, RequestBody jobId, RequestBody serviceFee, RequestBody bidTime, List<RequestBody> md5List) {
+    public void addJobBid(String authorization,
+                          RequestBody bid,
+                          RequestBody description,
+                          List<MultipartBody.Part> files,
+                          RequestBody jobId,
+                          RequestBody serviceFee,
+                          RequestBody bidTime,
+                          List<RequestBody> md5List) {
         compositeDisposable.add(handymanService.addJobBid(locale, authorization, bid, description, files, jobId, serviceFee, bidTime, md5List)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -296,7 +313,8 @@ public class HandymanViewModel extends BaseViewModel {
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void fetchJobTransactionDetail(String authorization, Integer jobId) {
+    public void fetchJobTransactionDetail(String authorization,
+                                          Integer jobId) {
         compositeDisposable.add(handymanService.viewPaymentTransaction(locale, authorization, jobId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -305,7 +323,8 @@ public class HandymanViewModel extends BaseViewModel {
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void markNotificationAsRead(String authorization, Integer notificationId) {
+    public void markNotificationAsRead(String authorization,
+                                       Integer notificationId) {
         compositeDisposable.add(handymanService.markNotificationRead(authorization, notificationId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

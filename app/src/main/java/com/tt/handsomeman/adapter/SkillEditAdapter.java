@@ -24,7 +24,8 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
 
     private OnItemClickListener onItemClickListener;
 
-    public SkillEditAdapter(List<Skill> skillList, Context context) {
+    public SkillEditAdapter(List<Skill> skillList,
+                            Context context) {
         this.skillList = skillList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -36,14 +37,16 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
 
     @NonNull
     @Override
-    public SkillEditAdapter.SkillEditViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SkillEditAdapter.SkillEditViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                   int viewType) {
         binding = ItemSkillEditBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new SkillEditViewHolder(item, onItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SkillEditAdapter.SkillEditViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SkillEditAdapter.SkillEditViewHolder holder,
+                                 int position) {
         Skill skill = skillList.get(position);
         holder.tvSkillName.setText(skill.getName());
     }
@@ -62,7 +65,8 @@ public class SkillEditAdapter extends RecyclerView.Adapter<SkillEditAdapter.Skil
         private final TextView tvSkillName;
         private final ImageButton ibDeleteSkill;
 
-        SkillEditViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+        SkillEditViewHolder(@NonNull View itemView,
+                            OnItemClickListener listener) {
             super(itemView);
 
             tvSkillName = binding.textViewItemSkillNameEdit;

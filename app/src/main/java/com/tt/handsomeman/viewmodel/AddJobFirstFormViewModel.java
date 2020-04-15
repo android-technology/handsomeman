@@ -14,7 +14,10 @@ public class AddJobFirstFormViewModel extends ViewModel {
         return formStateMutableLiveData;
     }
 
-    public void addJobFirmFormChanged(String budgetMin, String budgetMax, String title, String detail) {
+    public void addJobFirmFormChanged(String budgetMin,
+                                      String budgetMax,
+                                      String title,
+                                      String detail) {
         if (!isBudgetMinValid(budgetMin)) {
             formStateMutableLiveData.setValue(new AddJobFirstFormState(R.string.is_null, null, null, null));
         }
@@ -43,7 +46,8 @@ public class AddJobFirstFormViewModel extends ViewModel {
         return budgetMax != null && !budgetMax.matches("");
     }
 
-    private boolean isBudgetRangeValid(String budgetMin, String budgetMax) {
+    private boolean isBudgetRangeValid(String budgetMin,
+                                       String budgetMax) {
         boolean isValid = true;
         if (!budgetMin.matches("") && !budgetMax.matches("")) {
             isValid = Integer.parseInt(budgetMin) < Integer.parseInt(budgetMax);

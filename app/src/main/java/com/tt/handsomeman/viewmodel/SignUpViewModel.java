@@ -17,7 +17,10 @@ public class SignUpViewModel extends ViewModel {
         return signUpFormState;
     }
 
-    public void signUpDateChanged(String name, String mail, String password, String rePassword) {
+    public void signUpDateChanged(String name,
+                                  String mail,
+                                  String password,
+                                  String rePassword) {
         if (!(isNameValid(name))) {
             signUpFormState.setValue(new SignUpFormState(R.string.not_valid_name, null, null, null));
         }
@@ -54,7 +57,8 @@ public class SignUpViewModel extends ViewModel {
         return password != null && password.trim().length() > 5;
     }
 
-    private boolean isMatchPassword(String password, String rePassword) {
+    private boolean isMatchPassword(String password,
+                                    String rePassword) {
         return rePassword == null || rePassword.equals(password);
     }
 }

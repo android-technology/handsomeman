@@ -48,7 +48,8 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     private EditText edtSearchByWord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
         viewBinding = FragmentMessagesBinding.inflate(inflater, container, false);
@@ -56,7 +57,8 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RadioButton rdMessage = viewBinding.radioButtonMessages;
         RadioButton rdContact = viewBinding.radioButtonContacts;
@@ -70,7 +72,8 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
 
         rdMessage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childMessagesFragment).commit();
                     active = childMessagesFragment;
@@ -80,7 +83,8 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
 
         rdContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childContactsFragment).commit();
                     active = childContactsFragment;

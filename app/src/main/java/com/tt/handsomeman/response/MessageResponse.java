@@ -1,13 +1,6 @@
 package com.tt.handsomeman.response;
 
-import com.tt.handsomeman.HandymanApp;
-import com.tt.handsomeman.R;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 public class MessageResponse {
@@ -24,7 +17,11 @@ public class MessageResponse {
         this.type = (byte) type;
     }
 
-    public MessageResponse(String avatar, int accountId, String body, Date sendTime, byte type) {
+    public MessageResponse(String avatar,
+                           int accountId,
+                           String body,
+                           Date sendTime,
+                           byte type) {
         this.avatar = avatar;
         this.accountId = accountId;
         this.body = body;

@@ -9,7 +9,9 @@ public class FileRequest {
     private String fileDir;
     private String md5;
 
-    public FileRequest(String fileName, String fileDir, String md5) {
+    public FileRequest(String fileName,
+                       String fileDir,
+                       String md5) {
         this.fileName = fileName;
         this.fileDir = fileDir;
         this.md5 = md5;

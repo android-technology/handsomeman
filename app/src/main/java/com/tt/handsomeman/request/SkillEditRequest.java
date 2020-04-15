@@ -4,7 +4,8 @@ public class SkillEditRequest {
     private Integer category_id;
     private String name;
 
-    public SkillEditRequest(Integer category_id, String name) {
+    public SkillEditRequest(Integer category_id,
+                            String name) {
         this.category_id = category_id;
         this.name = name;
     }

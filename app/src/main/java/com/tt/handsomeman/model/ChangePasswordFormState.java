@@ -12,7 +12,10 @@ public class ChangePasswordFormState {
 
     private boolean isDataValid;
 
-    public ChangePasswordFormState(@Nullable Integer currentPasswordError, @Nullable Integer newPasswordError, @Nullable Integer rePasswordError, boolean isDataValid) {
+    public ChangePasswordFormState(@Nullable Integer currentPasswordError,
+                                   @Nullable Integer newPasswordError,
+                                   @Nullable Integer rePasswordError,
+                                   boolean isDataValid) {
         this.currentPasswordError = currentPasswordError;
         this.newPasswordError = newPasswordError;
         this.rePasswordError = rePasswordError;

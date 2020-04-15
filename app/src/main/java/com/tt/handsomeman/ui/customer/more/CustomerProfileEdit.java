@@ -104,12 +104,18 @@ public class CustomerProfileEdit extends BaseAppCompatActivity<CustomerViewModel
     private void editTextYourNameListener(EditText yourNameEdit) {
         yourNameEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 

@@ -5,7 +5,8 @@ public class UserLogin {
 
     private String password;
 
-    public UserLogin(String email, String password) {
+    public UserLogin(String email,
+                     String password) {
         this.email = email;
         this.password = password;
     }

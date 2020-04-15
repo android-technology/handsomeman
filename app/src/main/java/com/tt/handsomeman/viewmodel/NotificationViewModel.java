@@ -32,7 +32,8 @@ public class NotificationViewModel extends BaseViewModel {
     private String locale = Constants.language.getValue();
 
     @Inject
-    NotificationViewModel(@NonNull Application application, NotificationService notificationService) {
+    NotificationViewModel(@NonNull Application application,
+                          NotificationService notificationService) {
         super(application);
         this.notificationService = notificationService;
     }
@@ -57,7 +58,8 @@ public class NotificationViewModel extends BaseViewModel {
         return paidPaymentNotificationResponseMutableLiveData;
     }
 
-    public void fetchNotificationOfAccount(String authorization, String type) {
+    public void fetchNotificationOfAccount(String authorization,
+                                           String type) {
         compositeDisposable.add(notificationService.getAllNotification(authorization, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +69,8 @@ public class NotificationViewModel extends BaseViewModel {
                 ));
     }
 
-    public void markNotificationAsRead(String authorization, Integer notificationId) {
+    public void markNotificationAsRead(String authorization,
+                                       Integer notificationId) {
         compositeDisposable.add(notificationService.markNotificationRead(locale, authorization, notificationId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,7 +80,8 @@ public class NotificationViewModel extends BaseViewModel {
                 ));
     }
 
-    public void fetchMadeBidNotification(String authorization, Integer jobBidId) {
+    public void fetchMadeBidNotification(String authorization,
+                                         Integer jobBidId) {
         compositeDisposable.add(notificationService.viewMadeBid(locale, authorization, jobBidId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +91,8 @@ public class NotificationViewModel extends BaseViewModel {
                 ));
     }
 
-    public void fetchPaidPaymentNotification(String authorization, Integer customerTransferId) {
+    public void fetchPaidPaymentNotification(String authorization,
+                                             Integer customerTransferId) {
         compositeDisposable.add(notificationService.viewPaidPayment(locale, authorization, customerTransferId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -97,7 +102,8 @@ public class NotificationViewModel extends BaseViewModel {
                 ));
     }
 
-    public void acceptBid(String authorization, AcceptBidRequest acceptBidRequest) {
+    public void acceptBid(String authorization,
+                          AcceptBidRequest acceptBidRequest) {
         compositeDisposable.add(notificationService.acceptBid(locale, authorization, acceptBidRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

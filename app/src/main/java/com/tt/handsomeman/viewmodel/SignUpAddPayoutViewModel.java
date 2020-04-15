@@ -16,7 +16,14 @@ public class SignUpAddPayoutViewModel extends ViewModel {
         return liveData;
     }
 
-    public void signUpPayOutDateChanged(String firstName, String lastName, String address, String portalCode, String email, String accountNumber, String accountRouting, String birthday) {
+    public void signUpPayOutDateChanged(String firstName,
+                                        String lastName,
+                                        String address,
+                                        String portalCode,
+                                        String email,
+                                        String accountNumber,
+                                        String accountRouting,
+                                        String birthday) {
         if (!(isFirstNameValid(firstName))) {
             liveData.setValue(new SignUpAddPayoutFormState(R.string.not_valid_first_name, null, null, null, null, null, null, null));
         }

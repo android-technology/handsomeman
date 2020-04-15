@@ -24,7 +24,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private OnItemClickListener mListener;
 
-    public CategoryAdapter(Context context, List<Category> categoryList) {
+    public CategoryAdapter(Context context,
+                           List<Category> categoryList) {
         this.categoryList = categoryList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -36,14 +37,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                 int viewType) {
         binding = ItemCategoryBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new CategoryViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder,
+                                 int position) {
         Category category = categoryList.get(position);
         holder.tvCategoryName.setText(category.getName());
     }
@@ -62,7 +65,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         private final TextView tvCategoryName;
         private final ImageButton btnCategoryDetail;
 
-        CategoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        CategoryViewHolder(@NonNull View itemView,
+                           final OnItemClickListener listener) {
             super(itemView);
 
             tvCategoryName = binding.textViewJobName;

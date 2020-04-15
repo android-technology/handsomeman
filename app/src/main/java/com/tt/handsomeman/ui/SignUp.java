@@ -78,7 +78,12 @@ public class SignUp extends AppCompatActivity {
         doSignUp(edtPassword, edtRePassword, edtName, edtMail, btnSignUp, pgSignUp);
     }
 
-    private void doSignUp(EditText edtPassword, EditText edtRePassword, EditText edtName, EditText edtMail, Button btnSignUp, ProgressBar pgSignUp) {
+    private void doSignUp(EditText edtPassword,
+                          EditText edtRePassword,
+                          EditText edtName,
+                          EditText edtMail,
+                          Button btnSignUp,
+                          ProgressBar pgSignUp) {
         String type = sharedPreferencesUtils.get("type", String.class);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +98,8 @@ public class SignUp extends AppCompatActivity {
 
                 userService.doSignUp(type, new UserRegistration(name, mail, password, rePassword)).enqueue(new Callback<StandardResponse>() {
                     @Override
-                    public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                    public void onResponse(Call<StandardResponse> call,
+                                           Response<StandardResponse> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.CREATED)) {
                             pgSignUp.setVisibility(View.GONE);
                             Toast.makeText(SignUp.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
@@ -107,7 +113,8 @@ public class SignUp extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<StandardResponse> call, Throwable t) {
+                    public void onFailure(Call<StandardResponse> call,
+                                          Throwable t) {
                         pgSignUp.setVisibility(View.GONE);
                         btnSignUp.setEnabled(true);
                         Toast.makeText(SignUp.this, t.getMessage(), Toast.LENGTH_LONG).show();
@@ -117,7 +124,10 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void cbViewPassword(CheckBox cbPassword, CheckBox cbRePassword, EditText edtPassword, EditText edtRePassword) {
+    private void cbViewPassword(CheckBox cbPassword,
+                                CheckBox cbRePassword,
+                                EditText edtPassword,
+                                EditText edtRePassword) {
         cbPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,15 +153,24 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void edtChangedListener(EditText edtPassword, EditText edtRePassword, EditText edtName, EditText edtMail) {
+    private void edtChangedListener(EditText edtPassword,
+                                    EditText edtRePassword,
+                                    EditText edtName,
+                                    EditText edtMail) {
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
                 // ignore
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
                 // ignore
             }
 
@@ -168,7 +187,11 @@ public class SignUp extends AppCompatActivity {
         edtRePassword.addTextChangedListener(afterTextChangedListener);
     }
 
-    private void observeSignUpState(EditText edtPassword, EditText edtRePassword, EditText edtName, EditText edtMail, Button btnSignUp) {
+    private void observeSignUpState(EditText edtPassword,
+                                    EditText edtRePassword,
+                                    EditText edtName,
+                                    EditText edtMail,
+                                    Button btnSignUp) {
         signUpViewModel.getSignUpFormState().observe(this, new Observer<SignUpFormState>() {
             @Override
             public void onChanged(SignUpFormState signUpFormState) {

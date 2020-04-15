@@ -27,7 +27,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ItemContactBinding contactBinding;
     private ItemContactHeaderBinding headerBinding;
 
-    public ContactAdapter(List<Contact> contactList, Context context) {
+    public ContactAdapter(List<Contact> contactList,
+                          Context context) {
         this.contactList = contactList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -35,7 +36,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                      int viewType) {
         View view;
         switch (viewType) {
             case HEADER:
@@ -52,7 +54,8 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,
+                                 int position) {
         Contact contact = contactList.get(position);
 
         switch (holder.getItemViewType()) {

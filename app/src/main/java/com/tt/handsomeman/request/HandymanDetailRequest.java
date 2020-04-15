@@ -5,7 +5,9 @@ public class HandymanDetailRequest {
     private double lng;
     private Integer handymanId;
 
-    public HandymanDetailRequest(double lat, double lng, Integer handymanId) {
+    public HandymanDetailRequest(double lat,
+                                 double lng,
+                                 Integer handymanId) {
         this.lat = lat;
         this.lng = lng;
         this.handymanId = handymanId;

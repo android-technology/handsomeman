@@ -22,7 +22,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     private ItemPlaceBinding binding;
     private OnItemClickListener listener;
 
-    public PlaceAdapter(Context context, List<PlaceResponse> placeResponseList) {
+    public PlaceAdapter(Context context,
+                        List<PlaceResponse> placeResponseList) {
         this.context = context;
         this.placeResponseList = placeResponseList;
         inflater = LayoutInflater.from(context);
@@ -34,14 +35,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
 
     @NonNull
     @Override
-    public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                              int viewType) {
         binding = ItemPlaceBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new PlaceViewHolder(view, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaceViewHolder holder,
+                                 int position) {
         PlaceResponse placeResponse = placeResponseList.get(position);
 
         holder.primaryPlaceName.setText(placeResponse.getPrimaryPlaceName());
@@ -60,7 +63,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     class PlaceViewHolder extends RecyclerView.ViewHolder {
         private final TextView primaryPlaceName, secondaryPlaceName;
 
-        PlaceViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        PlaceViewHolder(@NonNull View itemView,
+                        final OnItemClickListener listener) {
             super(itemView);
 
             primaryPlaceName = binding.primaryPlaceName;

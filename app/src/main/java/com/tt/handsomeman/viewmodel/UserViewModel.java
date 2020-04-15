@@ -23,7 +23,8 @@ public class UserViewModel extends BaseViewModel {
     private String locale = Constants.language.getValue();
 
     @Inject
-    UserViewModel(@NonNull Application application, UserService userService) {
+    UserViewModel(@NonNull Application application,
+                  UserService userService) {
         super(application);
         this.userService = userService;
     }
@@ -32,7 +33,8 @@ public class UserViewModel extends BaseViewModel {
         return standardResponseMutableLiveData;
     }
 
-    public void removePayout(String authorization, Integer payoutId) {
+    public void removePayout(String authorization,
+                             Integer payoutId) {
         compositeDisposable.add(userService.removePayout(locale, authorization, payoutId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -42,7 +44,8 @@ public class UserViewModel extends BaseViewModel {
                 ));
     }
 
-    public void changePassword(String authorization, ChangePasswordRequest changePasswordRequest) {
+    public void changePassword(String authorization,
+                               ChangePasswordRequest changePasswordRequest) {
         compositeDisposable.add(userService.changePassword(locale, authorization, changePasswordRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

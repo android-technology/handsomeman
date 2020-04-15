@@ -43,7 +43,8 @@ public class CustomerProfileReviewFragment extends BaseFragment<CustomerViewMode
     private List<CustomerReviewResponse> customerReviewResponseList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
@@ -52,7 +53,8 @@ public class CustomerProfileReviewFragment extends BaseFragment<CustomerViewMode
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         countReviewers = viewBinding.reviewCountCustomerProfile;
         rtCountPoint = viewBinding.ratingBarCustomerProfile;

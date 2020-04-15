@@ -103,12 +103,18 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     private void editTextYourNameListener(EditText yourNameEdit) {
         yourNameEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 
@@ -205,7 +211,9 @@ public class MyProfileEdit extends BaseAppCompatActivity<HandymanViewModel> {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
 
         if (requestCode == REQUEST_MY_PROFILE_EDIT_RESULT_CODE && resultCode == RESULT_OK && data != null) {
             Skill skill = (Skill) data.getSerializableExtra("skillAdded");

@@ -29,14 +29,16 @@ public class FindHandymanFragment extends Fragment {
     private FragmentFindHandymanBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFindHandymanBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RadioButton rdHandyman = binding.radioButtonHandyman;
         RadioButton rdWishList = binding.radioButtonWishList;
@@ -59,7 +61,8 @@ public class FindHandymanFragment extends Fragment {
 
         rdHandyman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childHandymanFragment).commit();
                     active = childHandymanFragment;
@@ -69,7 +72,8 @@ public class FindHandymanFragment extends Fragment {
 
         rdWishList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childWishlistFragment).commit();
                     active = childWishlistFragment;

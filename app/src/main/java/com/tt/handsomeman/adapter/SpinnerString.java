@@ -16,7 +16,8 @@ public class SpinnerString extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private SpinnerItemStandardBinding binding;
 
-    public SpinnerString(Context context, String[] str) {
+    public SpinnerString(Context context,
+                         String[] str) {
         this.context = context;
         this.str = str;
         layoutInflater = LayoutInflater.from(context);
@@ -38,7 +39,9 @@ public class SpinnerString extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int position,
+                        View view,
+                        ViewGroup viewGroup) {
         binding = SpinnerItemStandardBinding.inflate(layoutInflater, viewGroup, false);
         view = binding.getRoot();
         TextView itemName = binding.textViewSpinnerItemName;

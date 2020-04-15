@@ -61,7 +61,8 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
     private List<Category> categoryList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
@@ -71,7 +72,8 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         bindView();
@@ -113,10 +115,15 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
         });
     }
 
-    private void spinnerMilestoneItemSelectListener(Spinner spPaymentMileStone, Spinner spFirstPaymentMilestone, Spinner spSecondPaymentMilestone) {
+    private void spinnerMilestoneItemSelectListener(Spinner spPaymentMileStone,
+                                                    Spinner spFirstPaymentMilestone,
+                                                    Spinner spSecondPaymentMilestone) {
         spPaymentMileStone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
                 if (position == 1) {
                     layoutSecondPaymentMilestone.setVisibility(View.VISIBLE);
 
@@ -145,7 +152,10 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
 
         spFirstPaymentMilestone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
                 if (paymentMilestonePercentages.length > 1) {
                     spSecondPaymentMilestone.setSelection(paymentMilestonePercentages.length - 1 - position);
                 }
@@ -159,7 +169,10 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
 
         spSecondPaymentMilestone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
                 if (paymentMilestonePercentages.length > 1) {
                     spFirstPaymentMilestone.setSelection(paymentMilestonePercentages.length - 1 - position);
                 }
@@ -196,7 +209,11 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
         paymentMilestone = new String[]{"1", "2"};
     }
 
-    private void observeFormState(EditText edtBudgetMin, EditText edtBudgetMax, EditText edtTitle, EditText edtDetail, ImageButton ibCheckFirst) {
+    private void observeFormState(EditText edtBudgetMin,
+                                  EditText edtBudgetMax,
+                                  EditText edtTitle,
+                                  EditText edtDetail,
+                                  ImageButton ibCheckFirst) {
         formViewModel.getFormStateMutableLiveData().observe(getViewLifecycleOwner(), new Observer<AddJobFirstFormState>() {
             @Override
             public void onChanged(AddJobFirstFormState addJobFirstFormState) {
@@ -220,15 +237,24 @@ public class AddNewJobChildFirstFragment extends BaseFragment<CustomerViewModel,
         });
     }
 
-    private void editChangeListener(EditText edtBudgetMin, EditText edtBudgetMax, EditText edtTitle, EditText edtDetail) {
+    private void editChangeListener(EditText edtBudgetMin,
+                                    EditText edtBudgetMax,
+                                    EditText edtTitle,
+                                    EditText edtDetail) {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 

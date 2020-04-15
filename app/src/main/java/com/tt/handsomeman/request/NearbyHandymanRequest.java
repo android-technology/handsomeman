@@ -9,7 +9,10 @@ public class NearbyHandymanRequest {
 
     private String dateRequest;
 
-    public NearbyHandymanRequest(double lat, double lng, double radius, String dateRequest) {
+    public NearbyHandymanRequest(double lat,
+                                 double lng,
+                                 double radius,
+                                 String dateRequest) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;

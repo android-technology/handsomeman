@@ -84,7 +84,8 @@ class ViewMadeBid : BaseAppCompatActivity<NotificationViewModel?>() {
         acceptBid(handymanId, token)
     }
 
-    private fun markAsRead(notificationId: Int, token: String) {
+    private fun markAsRead(notificationId: Int,
+                           token: String) {
         if (!isRead) {
             baseViewModel!!.markNotificationAsRead(token, notificationId)
             baseViewModel!!.standardResponseMarkReadMutableLiveData.observe(this, Observer { standardResponse ->
@@ -96,7 +97,8 @@ class ViewMadeBid : BaseAppCompatActivity<NotificationViewModel?>() {
         }
     }
 
-    private fun acceptBid(handymanId: Int, token: String) {
+    private fun acceptBid(handymanId: Int,
+                          token: String) {
         btnAcceptBid.setOnClickListener {
             val now = Calendar.getInstance()
             val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault())
@@ -115,7 +117,9 @@ class ViewMadeBid : BaseAppCompatActivity<NotificationViewModel?>() {
         }
     }
 
-    private fun getNotificationData(notificationId: Int, jobBidId: Int, token: String) {
+    private fun getNotificationData(notificationId: Int,
+                                    jobBidId: Int,
+                                    token: String) {
         baseViewModel!!.fetchMadeBidNotification(token, jobBidId)
         baseViewModel!!.madeABidNotificationResponseMutableLiveData.observe(this, Observer { madeABidNotificationResponseDataBracketResponse ->
             if (madeABidNotificationResponseDataBracketResponse.status == StatusConstant.OK) {
@@ -154,7 +158,8 @@ class ViewMadeBid : BaseAppCompatActivity<NotificationViewModel?>() {
         rcvFileName.adapter = fileNameAdapter
     }
 
-    private fun downloadFile(bidFileResponse: BidFileResponse, position: Int) {
+    private fun downloadFile(bidFileResponse: BidFileResponse,
+                             position: Int) {
         scope.launch {
             val client = OkHttpClient()
             val request = Request.Builder()
@@ -224,7 +229,8 @@ class ViewMadeBid : BaseAppCompatActivity<NotificationViewModel?>() {
         }
     }
 
-    private fun updateDownloadProgressBar(position: Int, progress: Int) {
+    private fun updateDownloadProgressBar(position: Int,
+                                          progress: Int) {
         val viewHolder = rcvFileName.findViewHolderForAdapterPosition(position)
         (viewHolder as FileNameAdapter.ViewHolder).pgDownload.progress = progress
     }

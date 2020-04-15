@@ -10,7 +10,8 @@ public class StartScreenHandyman {
     private List<Job> jobList;
     private List<Category> categoryList;
 
-    public StartScreenHandyman(List<Job> jobList, List<Category> categoryList) {
+    public StartScreenHandyman(List<Job> jobList,
+                               List<Category> categoryList) {
         this.jobList = jobList;
         this.categoryList = categoryList;
     }

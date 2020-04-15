@@ -104,7 +104,8 @@ public class YourLocation extends BaseAppCompatActivity<HandymanViewModel> {
     }
 
 
-    private void fetchData(Double lat, Double lng) {
+    private void fetchData(Double lat,
+                           Double lng) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
         double radius = 10d;

@@ -11,7 +11,10 @@ public class HandymanEditRequest {
 
     private List<SkillEditRequest> skillList;
 
-    public HandymanEditRequest(String name, String education, String details, List<SkillEditRequest> skillList) {
+    public HandymanEditRequest(String name,
+                               String education,
+                               String details,
+                               List<SkillEditRequest> skillList) {
         this.name = name;
         this.education = education;
         this.details = details;

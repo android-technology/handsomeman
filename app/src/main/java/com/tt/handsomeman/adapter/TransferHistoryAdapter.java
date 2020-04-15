@@ -26,7 +26,8 @@ public class TransferHistoryAdapter extends RecyclerView.Adapter<TransferHistory
     private Context context;
     private ItemTransferHistoryBinding binding;
 
-    public TransferHistoryAdapter(List<TransferHistoryResponse> transferHistoryList, Context context) {
+    public TransferHistoryAdapter(List<TransferHistoryResponse> transferHistoryList,
+                                  Context context) {
         this.transferHistoryList = transferHistoryList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -34,13 +35,15 @@ public class TransferHistoryAdapter extends RecyclerView.Adapter<TransferHistory
 
     @NonNull
     @Override
-    public TransferHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TransferHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                        int viewType) {
         binding = ItemTransferHistoryBinding.inflate(layoutInflater, parent, false);
         return new TransferHistoryViewHolder(binding.getRoot());
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TransferHistoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TransferHistoryViewHolder holder,
+                                 int position) {
         TransferHistoryResponse transferHistory = transferHistoryList.get(position);
         holder.lastPayoutNumber.setText(HandymanApp.getInstance().getString(R.string.account_ends_with, transferHistory.getLastPayoutNumber()));
         try {

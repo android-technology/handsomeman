@@ -30,7 +30,8 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
 
     private OnItemClickListener mListener;
 
-    public ConversationAdapter(List<ConversationResponse> conversationResponsesList, Context context) {
+    public ConversationAdapter(List<ConversationResponse> conversationResponsesList,
+                               Context context) {
         this.conversationResponsesList = conversationResponsesList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -42,14 +43,16 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
 
     @NonNull
     @Override
-    public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                     int viewType) {
         binding = ItemConversationBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new ConversationViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ConversationViewHolder holder,
+                                 int position) {
         ConversationResponse conversationResponse = conversationResponsesList.get(position);
 
         holder.tvAccountName.setText(conversationResponse.getAccountName());
@@ -98,7 +101,8 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         private final LinearLayout layoutConversation, layoutDelete;
         int conversationId;
 
-        ConversationViewHolder(@NonNull View itemView, final ConversationAdapter.OnItemClickListener listener) {
+        ConversationViewHolder(@NonNull View itemView,
+                               final ConversationAdapter.OnItemClickListener listener) {
             super(itemView);
             tvAccountName = binding.accountNameConversation;
             tvLatestMessage = binding.latestMessageConversation;

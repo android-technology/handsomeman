@@ -13,7 +13,16 @@ public class UserActivatingAccount {
     private String accountRouting;
     private String country;
 
-    public UserActivatingAccount(String firstName, String lastName, String address, Integer portalCode, String birthday, String type, String email, String accountNumber, String accountRouting, String country) {
+    public UserActivatingAccount(String firstName,
+                                 String lastName,
+                                 String address,
+                                 Integer portalCode,
+                                 String birthday,
+                                 String type,
+                                 String email,
+                                 String accountNumber,
+                                 String accountRouting,
+                                 String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

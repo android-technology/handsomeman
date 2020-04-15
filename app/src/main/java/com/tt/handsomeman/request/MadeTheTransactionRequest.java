@@ -9,7 +9,13 @@ public class MadeTheTransactionRequest {
     private String dateTransfer;
     private double bonus;
 
-    public MadeTheTransactionRequest(int jobId, int handymanId, int payoutId, double balance, int paymentMilestoneOrder, String dateTransfer, double bonus) {
+    public MadeTheTransactionRequest(int jobId,
+                                     int handymanId,
+                                     int payoutId,
+                                     double balance,
+                                     int paymentMilestoneOrder,
+                                     String dateTransfer,
+                                     double bonus) {
         this.jobId = jobId;
         this.handymanId = handymanId;
         this.payoutId = payoutId;

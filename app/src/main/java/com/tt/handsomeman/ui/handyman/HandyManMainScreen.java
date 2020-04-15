@@ -31,9 +31,9 @@ import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityHandyManMainScreenBinding;
 import com.tt.handsomeman.ui.NotificationsFragment;
 import com.tt.handsomeman.ui.handyman.jobs.JobsFragment;
-import com.tt.handsomeman.ui.messages.MessagesFragment;
 import com.tt.handsomeman.ui.handyman.more.MoreFragment;
 import com.tt.handsomeman.ui.handyman.my_projects.MyProjectsFragment;
+import com.tt.handsomeman.ui.messages.MessagesFragment;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 
@@ -108,7 +108,9 @@ public class HandyManMainScreen extends AppCompatActivity {
         }
 
         @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
+        public void onStatusChanged(String s,
+                                    int i,
+                                    Bundle bundle) {
 
         }
 
@@ -204,7 +206,8 @@ public class HandyManMainScreen extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         // BEGIN_INCLUDE(onRequestPermissionsResult)
         if (requestCode == PERMISSION_REQUEST_LOCATION) {

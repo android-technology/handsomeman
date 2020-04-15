@@ -13,7 +13,7 @@ public abstract class BaseFragmentActivity<T extends BaseViewModel, Tx extends V
     @Override
     public void onDestroy() {
         viewBinding = null;
-        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID,""));
+        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID, ""));
         super.onDestroy();
     }
 }

@@ -22,7 +22,8 @@ public class FileAddAdapter extends RecyclerView.Adapter<FileAddAdapter.ViewHold
     private LayoutInflater inflater;
     private ItemFileAddBinding binding;
 
-    public FileAddAdapter(Context context, List<FileRequest> fileRequestNameList) {
+    public FileAddAdapter(Context context,
+                          List<FileRequest> fileRequestNameList) {
         this.context = context;
         this.fileRequestNameList = fileRequestNameList;
         inflater = LayoutInflater.from(context);
@@ -30,14 +31,16 @@ public class FileAddAdapter extends RecyclerView.Adapter<FileAddAdapter.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                         int viewType) {
         binding = ItemFileAddBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,
+                                 int position) {
         String fileName = fileRequestNameList.get(position).getFileName();
         holder.tvFileName.setText(fileName);
         holder.ibDelete.setOnClickListener(v -> {

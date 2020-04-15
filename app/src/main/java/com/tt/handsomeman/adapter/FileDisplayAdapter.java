@@ -22,7 +22,8 @@ public class FileDisplayAdapter extends RecyclerView.Adapter<FileDisplayAdapter.
     private LayoutInflater inflater;
     private ItemFileAddBinding binding;
 
-    public FileDisplayAdapter(Context context, List<FileRequest> fileRequestNameList) {
+    public FileDisplayAdapter(Context context,
+                              List<FileRequest> fileRequestNameList) {
         this.context = context;
         this.fileRequestNameList = fileRequestNameList;
         inflater = LayoutInflater.from(context);
@@ -30,14 +31,16 @@ public class FileDisplayAdapter extends RecyclerView.Adapter<FileDisplayAdapter.
 
     @NonNull
     @Override
-    public FileDisplayAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FileDisplayAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                            int viewType) {
         binding = ItemFileAddBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new FileDisplayAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FileDisplayAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FileDisplayAdapter.ViewHolder holder,
+                                 int position) {
         String fileName = fileRequestNameList.get(position).getFileName();
         holder.tvFileName.setText(fileName);
     }

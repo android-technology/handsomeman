@@ -31,7 +31,8 @@ public class FileNameAdapter extends RecyclerView.Adapter<FileNameAdapter.ViewHo
     private ItemFileNameBinding binding;
     private OnItemClickListener listener;
 
-    public FileNameAdapter(Context context, List<BidFileResponse> bidFileResponses) {
+    public FileNameAdapter(Context context,
+                           List<BidFileResponse> bidFileResponses) {
         this.context = context;
         this.bidFileResponses = bidFileResponses;
         inflater = LayoutInflater.from(context);
@@ -43,14 +44,16 @@ public class FileNameAdapter extends RecyclerView.Adapter<FileNameAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                         int viewType) {
         binding = ItemFileNameBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new ViewHolder(view, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,
+                                 int position) {
         BidFileResponse bidFileResponse = bidFileResponses.get(position);
 
         holder.fileName.setText(bidFileResponse.getFileName());
@@ -93,7 +96,8 @@ public class FileNameAdapter extends RecyclerView.Adapter<FileNameAdapter.ViewHo
         private final Button btnOpen;
         private final ImageButton btnDownload;
 
-        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public ViewHolder(@NonNull View itemView,
+                          final OnItemClickListener listener) {
             super(itemView);
             fileName = binding.fileName;
             btnDownload = binding.downloadButton;

@@ -18,7 +18,8 @@ public class SharedPreferencesUtils {
         this.sharedPreferences = sharedPreferences;
     }
 
-    public <T> void put(String key, T data) {
+    public <T> void put(String key,
+                        T data) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (data instanceof String) {
             editor.putString(key, (String) data);
@@ -37,7 +38,8 @@ public class SharedPreferencesUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T get(String key, Class<T> anonymousClass) {
+    public <T> T get(String key,
+                     Class<T> anonymousClass) {
         if (anonymousClass == String.class) {
             return (T) sharedPreferences.getString(key, "");
         } else if (anonymousClass == Boolean.class) {

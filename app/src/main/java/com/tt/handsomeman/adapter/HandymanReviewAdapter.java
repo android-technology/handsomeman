@@ -23,7 +23,8 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
     private Context context;
     private ItemReviewBinding binding;
 
-    public HandymanReviewAdapter(List<HandymanReviewResponse> handymanReviewResponseList, Context context) {
+    public HandymanReviewAdapter(List<HandymanReviewResponse> handymanReviewResponseList,
+                                 Context context) {
         this.handymanReviewResponseList = handymanReviewResponseList;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -31,14 +32,16 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
 
     @NonNull
     @Override
-    public HandymanReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HandymanReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                       int viewType) {
         binding = ItemReviewBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new HandymanReviewViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HandymanReviewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HandymanReviewViewHolder holder,
+                                 int position) {
         HandymanReviewResponse handymanReviewResponse = handymanReviewResponseList.get(position);
 
         holder.customerName.setText(handymanReviewResponse.getCustomerName());

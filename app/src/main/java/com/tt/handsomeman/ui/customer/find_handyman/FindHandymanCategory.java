@@ -68,7 +68,9 @@ public class FindHandymanCategory extends BaseAppCompatActivity<CustomerViewMode
         });
     }
 
-    private void fetchData(Double lat, Double lng, Integer categoryId) {
+    private void fetchData(Double lat,
+                           Double lng,
+                           Integer categoryId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());

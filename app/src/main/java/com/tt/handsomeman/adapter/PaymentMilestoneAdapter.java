@@ -23,7 +23,8 @@ public class PaymentMilestoneAdapter extends RecyclerView.Adapter<PaymentMilesto
     private LayoutInflater inflater;
     private ItemPaymentMilestoneBinding binding;
 
-    public PaymentMilestoneAdapter(Context context, List<PaymentPaid> paymentPaidList) {
+    public PaymentMilestoneAdapter(Context context,
+                                   List<PaymentPaid> paymentPaidList) {
         this.context = context;
         this.paymentPaidList = paymentPaidList;
         inflater = LayoutInflater.from(context);
@@ -31,14 +32,16 @@ public class PaymentMilestoneAdapter extends RecyclerView.Adapter<PaymentMilesto
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                         int viewType) {
         binding = ItemPaymentMilestoneBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new PaymentMilestoneAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,
+                                 int position) {
         PaymentPaid paymentPaid = paymentPaidList.get(position);
 
         int paymentMilestoneOrder = paymentPaid.getPaymentMilestoneOrder();

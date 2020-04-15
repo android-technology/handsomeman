@@ -22,7 +22,16 @@ public class AddNewPayoutRequest {
 
     private String country;
 
-    public AddNewPayoutRequest(String firstName, String lastName, String address, int portalCode, String birthday, String type, String email, String accountNumber, String accountRouting, String country) {
+    public AddNewPayoutRequest(String firstName,
+                               String lastName,
+                               String address,
+                               int portalCode,
+                               String birthday,
+                               String type,
+                               String email,
+                               String accountNumber,
+                               String accountRouting,
+                               String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

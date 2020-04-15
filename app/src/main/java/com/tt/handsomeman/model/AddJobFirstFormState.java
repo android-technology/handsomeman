@@ -14,7 +14,10 @@ public class AddJobFirstFormState {
 
     private boolean isDataValid;
 
-    public AddJobFirstFormState(@Nullable Integer budgetMinError, @Nullable Integer budgetMaxError, @Nullable Integer titleError, @Nullable Integer detailError) {
+    public AddJobFirstFormState(@Nullable Integer budgetMinError,
+                                @Nullable Integer budgetMaxError,
+                                @Nullable Integer titleError,
+                                @Nullable Integer detailError) {
         this.budgetMinError = budgetMinError;
         this.budgetMaxError = budgetMaxError;
         this.titleError = titleError;

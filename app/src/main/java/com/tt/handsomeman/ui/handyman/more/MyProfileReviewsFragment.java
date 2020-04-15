@@ -43,7 +43,8 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
     private List<HandymanReviewResponse> handymanReviewResponseList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
@@ -52,7 +53,8 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         countReviewers = viewBinding.reviewCountHandymanProfile;
         rtCountPoint = viewBinding.ratingBarHandymanProfile;

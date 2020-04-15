@@ -21,27 +21,42 @@ import retrofit2.http.Query;
 
 public interface UserService {
     @POST(Constants.LOGIN_SUFFIX)
-    Call<DataBracketResponse<TokenState>> doLogin(@Body UserLogin user, @Query("type") String type);
+    Call<DataBracketResponse<TokenState>> doLogin(@Body UserLogin user,
+                                                  @Query("type") String type);
 
     @POST(Constants.SIGN_UP_SUFFIX)
-    Call<StandardResponse> doSignUp(@Query("type") String type, @Body UserRegistration userRegistration);
+    Call<StandardResponse> doSignUp(@Query("type") String type,
+                                    @Body UserRegistration userRegistration);
 
     @POST(Constants.SIGN_UP_ADD_PAYOUT_SUFFIX)
-    Call<StandardResponse> doSignUpAddPayout(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body UserActivatingAccount userActivatingAccount, @Query("kindOfHandyman") String kindOfHandyman);
+    Call<StandardResponse> doSignUpAddPayout(@Header("Accept-Language") String locale,
+                                             @Header("Authorization") String token,
+                                             @Body UserActivatingAccount userActivatingAccount,
+                                             @Query("kindOfHandyman") String kindOfHandyman);
 
     // Both handyman and customer can have payout
     @POST(Constants.USER_ADD_PAYOUT)
-    Call<StandardResponse> addPayout(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body AddNewPayoutRequest request);
+    Call<StandardResponse> addPayout(@Header("Accept-Language") String locale,
+                                     @Header("Authorization") String token,
+                                     @Body AddNewPayoutRequest request);
 
     @POST(Constants.USER_EDIT_PAYOUT)
-    Call<StandardResponse> editPayout(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body AddNewPayoutRequest request, @Path("payoutId") Integer payoutId);
+    Call<StandardResponse> editPayout(@Header("Accept-Language") String locale,
+                                      @Header("Authorization") String token,
+                                      @Body AddNewPayoutRequest request,
+                                      @Path("payoutId") Integer payoutId);
 
     @POST(Constants.USER_REMOVE_PAYOUT)
-    Single<Response<StandardResponse>> removePayout(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Path("payoutId") Integer payoutId);
+    Single<Response<StandardResponse>> removePayout(@Header("Accept-Language") String locale,
+                                                    @Header("Authorization") String token,
+                                                    @Path("payoutId") Integer payoutId);
 
     @POST(Constants.CHANGE_PASSWORD)
-    Single<Response<StandardResponse>> changePassword(@Header("Accept-Language") String locale, @Header("Authorization") String token, @Body ChangePasswordRequest changePasswordRequest);
+    Single<Response<StandardResponse>> changePassword(@Header("Accept-Language") String locale,
+                                                      @Header("Authorization") String token,
+                                                      @Body ChangePasswordRequest changePasswordRequest);
 
     @POST(Constants.FORGET_PASSWORD)
-    Single<Response<StandardResponse>> forgetPassword(@Header("Accept-Language") String locale, @Query("email") String email);
+    Single<Response<StandardResponse>> forgetPassword(@Header("Accept-Language") String locale,
+                                                      @Query("email") String email);
 }

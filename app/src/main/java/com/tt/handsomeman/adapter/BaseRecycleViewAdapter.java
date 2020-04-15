@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<BaseRecycleViewAdapter.MyViewHolder> {
 
     @NonNull
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                           int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
         return new MyViewHolder(binding);
     }
 
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder,
+                                 int position) {
         Object obj = getObjForPosition(position);
         holder.itemView.setOnClickListener(getOnItemClickListener(position));
         holder.bind(obj);

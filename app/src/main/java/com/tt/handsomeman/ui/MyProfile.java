@@ -72,7 +72,8 @@ public class MyProfile extends AppCompatActivity {
 
         rdAbout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     ibEdit.setVisibility(View.VISIBLE);
                     fm.beginTransaction().hide(active).show(aboutFragment).commit();
@@ -83,7 +84,8 @@ public class MyProfile extends AppCompatActivity {
 
         rdReviews.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     ibEdit.setVisibility(View.GONE);
                     fm.beginTransaction().hide(active).show(reviewsFragment).commit();

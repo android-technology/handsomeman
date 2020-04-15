@@ -5,7 +5,9 @@ public class AcceptBidRequest {
     private Integer handymanId;
     private String acceptBidTime;
 
-    public AcceptBidRequest(Integer jobId, Integer handymanId, String acceptBidTime) {
+    public AcceptBidRequest(Integer jobId,
+                            Integer handymanId,
+                            String acceptBidTime) {
         this.jobId = jobId;
         this.handymanId = handymanId;
         this.acceptBidTime = acceptBidTime;

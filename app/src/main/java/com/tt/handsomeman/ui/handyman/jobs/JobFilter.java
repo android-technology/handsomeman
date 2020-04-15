@@ -125,7 +125,9 @@ public class JobFilter extends AppCompatActivity {
     private void seekBarDistance() {
         skDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+            public void onProgressChanged(SeekBar seekBar,
+                                          int progress,
+                                          boolean b) {
                 int val = (progress * (seekBar.getWidth() - 20 * seekBar.getThumbOffset())) / seekBar.getMax();
                 tvDistance.setText(progress + " km");
                 tvDistance.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
@@ -153,17 +155,22 @@ public class JobFilter extends AppCompatActivity {
         rgPrice.getRightSeekBar().setIndicatorText("$" + (int) rgPrice.getRightSeekBar().getProgress());
         rgPrice.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
-            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+            public void onRangeChanged(RangeSeekBar view,
+                                       float leftValue,
+                                       float rightValue,
+                                       boolean isFromUser) {
                 rgPrice.getLeftSeekBar().setIndicatorText("$" + (int) leftValue);
                 rgPrice.getRightSeekBar().setIndicatorText("$" + (int) rightValue);
             }
 
             @Override
-            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+            public void onStartTrackingTouch(RangeSeekBar view,
+                                             boolean isLeft) {
             }
 
             @Override
-            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+            public void onStopTrackingTouch(RangeSeekBar view,
+                                            boolean isLeft) {
                 priceMin = (int) view.getLeftSeekBar().getProgress();
                 priceMax = (int) view.getRightSeekBar().getProgress();
             }

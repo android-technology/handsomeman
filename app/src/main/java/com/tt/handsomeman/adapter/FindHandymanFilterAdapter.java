@@ -28,7 +28,8 @@ public class FindHandymanFilterAdapter extends RecyclerView.Adapter<FindHandyman
     private ItemHandymanFilterBinding binding;
     private OnItemClickListener mListener;
 
-    public FindHandymanFilterAdapter(Context context, List<HandymanResponse> handymanResponseList) {
+    public FindHandymanFilterAdapter(Context context,
+                                     List<HandymanResponse> handymanResponseList) {
         this.context = context;
         this.handymanResponseList = handymanResponseList;
         this.inflater = LayoutInflater.from(context);
@@ -40,14 +41,16 @@ public class FindHandymanFilterAdapter extends RecyclerView.Adapter<FindHandyman
 
     @NonNull
     @Override
-    public FindHandymanFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FindHandymanFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                           int viewType) {
         binding = ItemHandymanFilterBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new FindHandymanFilterViewHolder(view, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindHandymanFilterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FindHandymanFilterViewHolder holder,
+                                 int position) {
         HandymanResponse handymanResponse = handymanResponseList.get(position);
         int distance = Integer.parseInt(DecimalFormat.formatGetDistance(handymanResponse.getDistance() * 1000));
 
@@ -71,7 +74,8 @@ public class FindHandymanFilterAdapter extends RecyclerView.Adapter<FindHandyman
         private final RatingBar rtHandymanReviewPoint;
         private final ImageButton ibViewHandymanDetail;
 
-        FindHandymanFilterViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        FindHandymanFilterViewHolder(@NonNull View itemView,
+                                     final OnItemClickListener listener) {
             super(itemView);
             imgAvatar = binding.imageButtonHandymanAvatar;
             tvHandymanName = binding.textViewHandymanNameItem;

@@ -14,7 +14,10 @@ public class SignUpFormState {
 
     private boolean isDataValid;
 
-    public SignUpFormState(@Nullable Integer nameError, @Nullable Integer mailError, @Nullable Integer passwordError, @Nullable Integer rePasswordError) {
+    public SignUpFormState(@Nullable Integer nameError,
+                           @Nullable Integer mailError,
+                           @Nullable Integer passwordError,
+                           @Nullable Integer rePasswordError) {
         this.nameError = nameError;
         this.mailError = mailError;
         this.passwordError = passwordError;

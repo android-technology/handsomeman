@@ -90,7 +90,8 @@ public class FCMService extends FirebaseMessagingService {
         }
     }
 
-    private void sendPaidPaymentNotification(String accountName, String milestoneOrder) {
+    private void sendPaidPaymentNotification(String accountName,
+                                             String milestoneOrder) {
         createNotificationChannel("Paid payment", "Receive customer paid payment", "Paid payment");
         NotificationCompat.Builder notificationBuilder = null;
 
@@ -127,7 +128,8 @@ public class FCMService extends FirebaseMessagingService {
         notificationManager.notify(47, notificationBuilder.build());
     }
 
-    private void sendAcceptBidNotification(String accountName, String jobName) {
+    private void sendAcceptBidNotification(String accountName,
+                                           String jobName) {
         createNotificationChannel("Accept bid", "Receive customer accept bid", "Accept bid");
         NotificationCompat.Builder notificationBuilder = null;
 
@@ -147,7 +149,8 @@ public class FCMService extends FirebaseMessagingService {
         notificationManager.notify(37, notificationBuilder.build());
     }
 
-    private void sendMadeABidNotification(String accountName, String jobName) {
+    private void sendMadeABidNotification(String accountName,
+                                          String jobName) {
         createNotificationChannel("Made a bid", "Receive handyman bid job", "Made a bid");
         NotificationCompat.Builder notificationBuilder = null;
 
@@ -167,7 +170,8 @@ public class FCMService extends FirebaseMessagingService {
         notificationManager.notify(27, notificationBuilder.build());
     }
 
-    private void sendMessageNotification(String message, String accountName) {
+    private void sendMessageNotification(String message,
+                                         String accountName) {
         createNotificationChannel("Message", "Receive message notification", "Message");
         NotificationCompat.Builder notificationBuilder = null;
 
@@ -187,7 +191,9 @@ public class FCMService extends FirebaseMessagingService {
         notificationManager.notify(17, notificationBuilder.build());
     }
 
-    private void createNotificationChannel(CharSequence name, String description, String channelId) {
+    private void createNotificationChannel(CharSequence name,
+                                           String description,
+                                           String channelId) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

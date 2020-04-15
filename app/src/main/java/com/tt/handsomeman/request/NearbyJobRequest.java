@@ -9,13 +9,18 @@ public class NearbyJobRequest {
 
     private String dateRequest;
 
-    public NearbyJobRequest(Double lat, Double lng, double radius) {
+    public NearbyJobRequest(Double lat,
+                            Double lng,
+                            double radius) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;
     }
 
-    public NearbyJobRequest(Double lat, Double lng, double radius, String dateRequest) {
+    public NearbyJobRequest(Double lat,
+                            Double lng,
+                            double radius,
+                            String dateRequest) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;

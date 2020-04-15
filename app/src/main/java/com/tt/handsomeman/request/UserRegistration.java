@@ -9,7 +9,10 @@ public class UserRegistration {
 
     private String rePassword;
 
-    public UserRegistration(String name, String mail, String password, String rePassword) {
+    public UserRegistration(String name,
+                            String mail,
+                            String password,
+                            String rePassword) {
         this.name = name;
         this.mail = mail;
         this.password = password;

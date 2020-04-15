@@ -38,7 +38,8 @@ public class JobsChildWishListFragment extends BaseFragment<HandymanViewModel, F
     private List<Job> jobArrayList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
@@ -47,7 +48,8 @@ public class JobsChildWishListFragment extends BaseFragment<HandymanViewModel, F
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createJobRecycleView(view);
 

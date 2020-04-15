@@ -25,7 +25,8 @@ public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.JobF
 
     private OnItemClickListener mListener;
 
-    public JobFilterAdapter(Context context, List<Job> jobList) {
+    public JobFilterAdapter(Context context,
+                            List<Job> jobList) {
         this.jobList = jobList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -37,14 +38,16 @@ public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.JobF
 
     @NonNull
     @Override
-    public JobFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public JobFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                  int viewType) {
         binding = ItemJobFilterBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new JobFilterViewHolder(item, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull JobFilterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull JobFilterViewHolder holder,
+                                 int position) {
         Job job = jobList.get(position);
 
         holder.tvJobTitle.setText(job.getTitle());
@@ -68,7 +71,8 @@ public class JobFilterAdapter extends RecyclerView.Adapter<JobFilterAdapter.JobF
         private final TextView tvJobTitle, tvCreateTime, tvBudget, tvLocationName, tvDeadline;
         private final ImageButton btnJobDetail;
 
-        JobFilterViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        JobFilterViewHolder(@NonNull View itemView,
+                            final OnItemClickListener listener) {
             super(itemView);
 
             tvJobTitle = binding.textViewJobName;

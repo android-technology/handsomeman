@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.SpinnerItemBlackTextBinding;
 import com.tt.handsomeman.response.PayoutResponse;
@@ -21,7 +20,8 @@ public class SpinnerBankAccount extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private SpinnerItemBlackTextBinding binding;
 
-    public SpinnerBankAccount(Context context, List<PayoutResponse> payoutResponseList) {
+    public SpinnerBankAccount(Context context,
+                              List<PayoutResponse> payoutResponseList) {
         this.context = context;
         this.payoutResponseList = payoutResponseList;
         layoutInflater = LayoutInflater.from(context);
@@ -43,7 +43,9 @@ public class SpinnerBankAccount extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position,
+                        View convertView,
+                        ViewGroup parent) {
         binding = SpinnerItemBlackTextBinding.inflate(layoutInflater, parent, false);
         convertView = binding.getRoot();
         TextView tvLastPayoutNumber = binding.textViewSpinnerItemName;

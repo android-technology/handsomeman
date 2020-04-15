@@ -5,7 +5,9 @@ public class SendMessageRequest {
     private String body;
     private String sendTime;
 
-    public SendMessageRequest(Integer receiveId, String body, String sendTime) {
+    public SendMessageRequest(Integer receiveId,
+                              String body,
+                              String sendTime) {
         this.receiveId = receiveId;
         this.body = body;
         this.sendTime = sendTime;

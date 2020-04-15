@@ -117,7 +117,8 @@ public class Login extends AppCompatActivity {
 
                 userService.doLogin(new UserLogin(mail, password), type).enqueue(new Callback<DataBracketResponse<TokenState>>() {
                     @Override
-                    public void onResponse(Call<DataBracketResponse<TokenState>> call, Response<DataBracketResponse<TokenState>> response) {
+                    public void onResponse(Call<DataBracketResponse<TokenState>> call,
+                                           Response<DataBracketResponse<TokenState>> response) {
                         if (response.body().getStatus().equals(StatusConstant.OK) && response.body().getStatusCode().equals(StatusCodeConstant.OK)) {
                             String token = response.body().getData().getToken();
                             Integer state = response.body().getData().getState();
@@ -178,7 +179,8 @@ public class Login extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<DataBracketResponse<TokenState>> call, Throwable t) {
+                    public void onFailure(Call<DataBracketResponse<TokenState>> call,
+                                          Throwable t) {
                         pgLogin.setVisibility(View.GONE);
                         btLogin.setEnabled(true);
                         Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
@@ -191,12 +193,18 @@ public class Login extends AppCompatActivity {
     private void edtChangedListener() {
         edtMail.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i,
+                                          int i1,
+                                          int i2) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence,
+                                      int i,
+                                      int i1,
+                                      int i2) {
 
             }
 
@@ -219,12 +227,18 @@ public class Login extends AppCompatActivity {
 
         edtPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i,
+                                          int i1,
+                                          int i2) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence,
+                                      int i,
+                                      int i1,
+                                      int i2) {
 
             }
 

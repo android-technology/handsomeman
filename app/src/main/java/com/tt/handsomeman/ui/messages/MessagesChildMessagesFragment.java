@@ -45,7 +45,8 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
 
     private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
         @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView,
+                                         int newState) {
             super.onScrollStateChanged(recyclerView, newState);
             switch (newState) {
                 case RecyclerView.SCROLL_STATE_DRAGGING:
@@ -59,7 +60,8 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
@@ -68,7 +70,8 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         createMessageRecycleView(view);

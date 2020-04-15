@@ -52,7 +52,9 @@ public class JobsChildJobsFragment extends BaseFragment<HandymanViewModel, Fragm
     private LinearLayout showMoreYourLocation;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         viewBinding = FragmentJobsChildJobsBinding.inflate(inflater, container, false);
@@ -60,7 +62,8 @@ public class JobsChildJobsFragment extends BaseFragment<HandymanViewModel, Fragm
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         pgJob = viewBinding.progressBarJobs;
         pgCategory = viewBinding.progressBarCategory;
@@ -128,7 +131,8 @@ public class JobsChildJobsFragment extends BaseFragment<HandymanViewModel, Fragm
         rcvCategory.setAdapter(categoryAdapter);
     }
 
-    private void fetchData(Double lat, Double lng) {
+    private void fetchData(Double lat,
+                           Double lng) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());

@@ -34,14 +34,16 @@ public class CustomerMyProjectsChildInProgressFragment extends Fragment {
     private FragmentCustomerMyProjectChildInProgressBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCustomerMyProjectChildInProgressBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createJobRecycleView();
 
@@ -76,7 +78,9 @@ public class CustomerMyProjectsChildInProgressFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
 
         if (requestCode == ADD_NEW_JOB_CODE && resultCode == Activity.RESULT_OK) {
             ((MyProjectsFragment) getParentFragment()).fetchData();

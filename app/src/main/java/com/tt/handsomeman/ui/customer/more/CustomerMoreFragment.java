@@ -59,7 +59,8 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
     private List<Payout> payoutList = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
@@ -68,7 +69,8 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imgAvatar = viewBinding.accountAvatar;
         viewMyProfileLayout = viewBinding.viewMyProfileLayout;
@@ -176,7 +178,9 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
 
         if (requestCode == REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMoreFragmentEdit", false)) {

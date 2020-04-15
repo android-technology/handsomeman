@@ -58,7 +58,8 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
     private List<Payout> payoutList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         viewBinding = FragmentMoreBinding.inflate(inflater, container, false);
@@ -66,7 +67,8 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imgAvatar = viewBinding.accountAvatar;
         viewMyProfileLayout = viewBinding.viewMyProfileLayout;
@@ -179,7 +181,9 @@ public class MoreFragment extends BaseFragment<HandymanViewModel, FragmentMoreBi
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
 
         if (requestCode == REQUEST_MORE_FRAGMENT_MY_PROFILE_EDIT_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMoreFragmentEdit", false)) {

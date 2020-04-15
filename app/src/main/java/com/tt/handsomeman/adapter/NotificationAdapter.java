@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +33,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ItemNotificationBinding binding;
     private OnItemClickListener listener;
 
-    public NotificationAdapter(Context context, List<NotificationResponse> notificationList) {
+    public NotificationAdapter(Context context,
+                               List<NotificationResponse> notificationList) {
         this.context = context;
         this.notificationList = notificationList;
         layoutInflater = LayoutInflater.from(context);
@@ -46,7 +46,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                      int viewType) {
         binding = ItemNotificationBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         switch (viewType) {
@@ -62,7 +63,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,
+                                 int position) {
         NotificationResponse notification = notificationList.get(position);
 
         switch (holder.getItemViewType()) {
@@ -153,7 +155,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView tvSendTime;
         private final TextView tvNotificationBody;
 
-        MadeBidViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        MadeBidViewHolder(@NonNull View itemView,
+                          final OnItemClickListener listener) {
             super(itemView);
             accountAvatar = binding.accountAvatarNotification;
             tvSendTime = binding.pushTimeNotification;
@@ -178,7 +181,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView tvSendTime;
         private final TextView tvNotificationBody;
 
-        AcceptBidViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        AcceptBidViewHolder(@NonNull View itemView,
+                            final OnItemClickListener listener) {
             super(itemView);
 
             accountAvatar = binding.accountAvatarNotification;
@@ -204,7 +208,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView tvSendTime;
         private final TextView tvNotificationBody;
 
-        PaidPaymentViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        PaidPaymentViewHolder(@NonNull View itemView,
+                              final OnItemClickListener listener) {
             super(itemView);
 
             accountAvatar = binding.accountAvatarNotification;

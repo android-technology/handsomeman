@@ -10,12 +10,14 @@ import com.tt.handsomeman.model.Category;
 import java.util.List;
 
 public class CategorySelectionAdapter extends RadioAdapter<Category> {
-    public CategorySelectionAdapter(Context context, List<Category> items) {
+    public CategorySelectionAdapter(Context context,
+                                    List<Category> items) {
         super(context, items);
     }
 
     @Override
-    public void onBindViewHolder(RadioAdapter.RadioViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RadioAdapter.RadioViewHolder viewHolder,
+                                 int position) {
         super.onBindViewHolder(viewHolder, position);
         viewHolder.mText.setText(mItems.get(position).getName());
     }

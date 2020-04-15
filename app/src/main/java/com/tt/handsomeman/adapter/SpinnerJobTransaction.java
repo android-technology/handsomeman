@@ -19,7 +19,8 @@ public class SpinnerJobTransaction extends BaseAdapter {
     private LayoutInflater inflater;
     private SpinnerItemBlackTextBinding binding;
 
-    public SpinnerJobTransaction(Context context, List<JobTransactionResponse> transactionResponses) {
+    public SpinnerJobTransaction(Context context,
+                                 List<JobTransactionResponse> transactionResponses) {
         this.context = context;
         this.transactionResponses = transactionResponses;
         this.inflater = LayoutInflater.from(context);
@@ -41,7 +42,9 @@ public class SpinnerJobTransaction extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position,
+                        View convertView,
+                        ViewGroup parent) {
         binding = SpinnerItemBlackTextBinding.inflate(inflater, parent, false);
         convertView = binding.getRoot();
         TextView tvLastPayoutNumber = binding.textViewSpinnerItemName;

@@ -31,7 +31,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ItemMessageSenderBinding senderBinding;
     private ItemMessageReceiverBinding receiverBinding;
 
-    public MessageAdapter(List<MessageResponse> messageResponseList, Context context) {
+    public MessageAdapter(List<MessageResponse> messageResponseList,
+                          Context context) {
         this.messageResponseList = messageResponseList;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -39,7 +40,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                      int viewType) {
         View view;
         switch (viewType) {
             case SENDER:
@@ -58,7 +60,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,
+                                 int position) {
         MessageResponse messageResponse = messageResponseList.get(position);
 
         switch (holder.getItemViewType()) {

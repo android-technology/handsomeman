@@ -4,7 +4,8 @@ public class PageableRequest {
     private int page;
     private int size;
 
-    public PageableRequest(int page, int size) {
+    public PageableRequest(int page,
+                           int size) {
         this.page = page;
         this.size = size;
     }

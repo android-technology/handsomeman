@@ -5,7 +5,9 @@ public class PlaceResponse {
     private String primaryPlaceName;
     private String secondaryPlaceName;
 
-    public PlaceResponse(String placeId, String primaryPlaceName, String secondaryPlaceName) {
+    public PlaceResponse(String placeId,
+                         String primaryPlaceName,
+                         String secondaryPlaceName) {
         this.placeId = placeId;
         this.primaryPlaceName = primaryPlaceName;
         this.secondaryPlaceName = secondaryPlaceName;

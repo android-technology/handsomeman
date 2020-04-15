@@ -80,7 +80,12 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
         });
     }
 
-    private void cbViewPassword(CheckBox cbCurrentPassword, CheckBox cbNewPassword, CheckBox cbRePassword, EditText edtCurrentPassword, EditText edtNewPassword, EditText edtRePassword) {
+    private void cbViewPassword(CheckBox cbCurrentPassword,
+                                CheckBox cbNewPassword,
+                                CheckBox cbRePassword,
+                                EditText edtCurrentPassword,
+                                EditText edtNewPassword,
+                                EditText edtRePassword) {
         cbCurrentPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,15 +123,23 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
         });
     }
 
-    private void editTextChangeListener(EditText edtCurrentPassword, EditText edtNewPassword, EditText edtRePassword) {
+    private void editTextChangeListener(EditText edtCurrentPassword,
+                                        EditText edtNewPassword,
+                                        EditText edtRePassword) {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
 
             }
 
@@ -140,7 +153,10 @@ public class ChangePassword extends BaseAppCompatActivity<UserViewModel> {
         edtRePassword.addTextChangedListener(textWatcher);
     }
 
-    private void observeEditTextChange(EditText edtCurrentPassword, EditText edtNewPassword, EditText edtRePassword, ImageButton ibChangePassword) {
+    private void observeEditTextChange(EditText edtCurrentPassword,
+                                       EditText edtNewPassword,
+                                       EditText edtRePassword,
+                                       ImageButton ibChangePassword) {
         changePasswordViewModel.getChangePasswordFormStateMutableLiveData().observe(this, changePasswordFormState -> {
             if (changePasswordFormState == null) {
                 return;

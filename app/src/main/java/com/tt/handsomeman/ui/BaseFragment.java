@@ -12,7 +12,7 @@ public abstract class BaseFragment<T extends BaseViewModel, Tx extends ViewBindi
 
     @Override
     public void onDestroy() {
-        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID,""));
+        baseViewModel.clearSubscriptions(this.getClass().getName().replace(BuildConfig.APPLICATION_ID, ""));
         super.onDestroy();
     }
 

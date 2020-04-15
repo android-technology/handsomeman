@@ -178,7 +178,9 @@ public class BidJobDetail extends BaseFragmentActivity<HandymanViewModel, Activi
     private void viewPagerUILogic() {
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position,
+                                       float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 

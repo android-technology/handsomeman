@@ -46,7 +46,8 @@ public class MyProjectsFragment extends BaseFragment<CustomerViewModel, Fragment
     private EditText edtSearchByWord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
         viewBinding = FragmentMyProjectsBinding.inflate(inflater, container, false);
@@ -54,7 +55,8 @@ public class MyProjectsFragment extends BaseFragment<CustomerViewModel, Fragment
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RadioButton rdInProgress = viewBinding.radioButtonInProgress;
         RadioButton rdInPast = viewBinding.radioButtonInPast;
@@ -68,7 +70,8 @@ public class MyProjectsFragment extends BaseFragment<CustomerViewModel, Fragment
 
         rdInProgress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childInProgressFragment).commit();
                     active = childInProgressFragment;
@@ -78,7 +81,8 @@ public class MyProjectsFragment extends BaseFragment<CustomerViewModel, Fragment
 
         rdInPast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(childInPastFragment).commit();
                     active = childInPastFragment;

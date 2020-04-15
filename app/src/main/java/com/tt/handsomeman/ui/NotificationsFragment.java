@@ -45,7 +45,8 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
     private NotificationAdapter notificationAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(NotificationViewModel.class);
         viewBinding = FragmentNotificationsBinding.inflate(inflater, container, false);
@@ -53,7 +54,8 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         createJobRecycleView();
@@ -120,7 +122,9 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
 
         if (requestCode == NOTIFICATION_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             boolean isRead = data.getBooleanExtra("isRead", false);

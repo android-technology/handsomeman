@@ -16,7 +16,9 @@ public class ContactDivider extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(Canvas canvas,
+                       RecyclerView parent,
+                       RecyclerView.State state) {
         int dividerLeftWithPadding = DimensionConverter.dpToPx(15, parent.getContext());
         int dividerRightWithPadding = parent.getWidth() - DimensionConverter.dpToPx(15, parent.getContext());
 

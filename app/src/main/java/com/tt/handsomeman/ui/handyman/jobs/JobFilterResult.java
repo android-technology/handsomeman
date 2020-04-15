@@ -96,7 +96,13 @@ public class JobFilterResult extends BaseAppCompatActivity<HandymanViewModel> {
     }
 
 
-    private void fetchData(Double lat, Double lng, Integer radius, Integer priceMin, Integer priceMax, String createTime, Integer categoryId) {
+    private void fetchData(Double lat,
+                           Double lng,
+                           Integer radius,
+                           Integer priceMin,
+                           Integer priceMax,
+                           String createTime,
+                           Integer categoryId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
         baseViewModel.fetchJobsByFilter(authorizationCode, new JobFilterRequest(lat, lng, radius, priceMin, priceMax, createTime, categoryId));

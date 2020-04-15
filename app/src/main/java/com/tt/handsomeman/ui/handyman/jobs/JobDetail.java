@@ -233,10 +233,10 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 ibSendMessage.setOnClickListener(v -> {
                     sendMessage(jobDetail.getCustomer().getCustomerName(), jobDetail.getJob().getCustomerId());
                 });
-            } else if (jobDetail.isBid()){
+            } else if (jobDetail.isBid()) {
                 this.isAccept = false;
                 tvHired.setText(getString(R.string.no));
-            } else{
+            } else {
                 this.isAccept = false;
                 btnPlaceABid.setVisibility(View.VISIBLE);
                 btnPlaceABid.setOnClickListener(v -> bidJob());
@@ -255,14 +255,16 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
         startActivity(intent);
     }
 
-    private void sendMessage(String receiverName, Integer customerId) {
+    private void sendMessage(String receiverName,
+                             Integer customerId) {
         Intent intent = new Intent(JobDetail.this, Conversation.class);
         intent.putExtra("addressName", receiverName);
         intent.putExtra("receiveId", customerId);
         startActivity(intent);
     }
 
-    private void markAsRead(Integer notificationId, String token) {
+    private void markAsRead(Integer notificationId,
+                            String token) {
         if (!isRead) {
             baseViewModel.markNotificationAsRead(token, notificationId);
             baseViewModel.getStandardResponseMarkReadMutableLiveData().observe(this, new Observer<StandardResponse>() {

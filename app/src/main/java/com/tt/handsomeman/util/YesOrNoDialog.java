@@ -19,7 +19,11 @@ public class YesOrNoDialog extends Dialog implements android.view.View.OnClickLi
     private OnItemClickListener mListener;
     private DialogYesOrNoBinding binding;
 
-    public YesOrNoDialog(Activity activity, int theme, String dialogDescription, int imgDescriptionSource, OnItemClickListener listener) {
+    public YesOrNoDialog(Activity activity,
+                         int theme,
+                         String dialogDescription,
+                         int imgDescriptionSource,
+                         OnItemClickListener listener) {
         super(activity, theme);
         this.dialogDescription = dialogDescription;
         this.imgDescriptionSource = imgDescriptionSource;

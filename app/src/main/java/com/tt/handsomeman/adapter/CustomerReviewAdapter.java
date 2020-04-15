@@ -23,7 +23,8 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
     private Context context;
     private ItemReviewBinding binding;
 
-    public CustomerReviewAdapter(Context context, List<CustomerReviewResponse> customerReviewResponses) {
+    public CustomerReviewAdapter(Context context,
+                                 List<CustomerReviewResponse> customerReviewResponses) {
         this.customerReviewResponses = customerReviewResponses;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -31,14 +32,16 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
 
     @NonNull
     @Override
-    public CustomerReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomerReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                       int viewType) {
         binding = ItemReviewBinding.inflate(layoutInflater, parent, false);
         View item = binding.getRoot();
         return new CustomerReviewViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerReviewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomerReviewViewHolder holder,
+                                 int position) {
         CustomerReviewResponse customerReviewResponse = customerReviewResponses.get(position);
 
 //        holder.handymenAvatar.setImageResource();

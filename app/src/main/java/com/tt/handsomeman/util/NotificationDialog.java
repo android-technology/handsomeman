@@ -16,7 +16,10 @@ public class NotificationDialog extends Dialog implements View.OnClickListener {
     private OnItemClickListener mListener;
     private DialogNotificationBinding binding;
 
-    public NotificationDialog(Activity activity, int theme, String dialogDescription, OnItemClickListener listener) {
+    public NotificationDialog(Activity activity,
+                              int theme,
+                              String dialogDescription,
+                              OnItemClickListener listener) {
         super(activity, theme);
         this.dialogDescription = dialogDescription;
         mListener = listener;

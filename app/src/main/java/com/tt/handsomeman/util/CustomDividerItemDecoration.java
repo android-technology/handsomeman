@@ -18,14 +18,17 @@ public class CustomDividerItemDecoration extends RecyclerView.ItemDecoration {
     private boolean mShowLastDivider = false;
 
 
-    public CustomDividerItemDecoration(Context context, AttributeSet attrs) {
+    public CustomDividerItemDecoration(Context context,
+                                       AttributeSet attrs) {
         final TypedArray a = context
                 .obtainStyledAttributes(attrs, new int[]{android.R.attr.listDivider});
         mDivider = a.getDrawable(0);
         a.recycle();
     }
 
-    public CustomDividerItemDecoration(Context context, AttributeSet attrs, boolean showFirstDivider,
+    public CustomDividerItemDecoration(Context context,
+                                       AttributeSet attrs,
+                                       boolean showFirstDivider,
                                        boolean showLastDivider) {
         this(context, attrs);
         mShowFirstDivider = showFirstDivider;
@@ -36,7 +39,8 @@ public class CustomDividerItemDecoration extends RecyclerView.ItemDecoration {
         mDivider = divider;
     }
 
-    public CustomDividerItemDecoration(Drawable divider, boolean showFirstDivider,
+    public CustomDividerItemDecoration(Drawable divider,
+                                       boolean showFirstDivider,
                                        boolean showLastDivider) {
         this(divider);
         mShowFirstDivider = showFirstDivider;
@@ -44,7 +48,9 @@ public class CustomDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+    public void getItemOffsets(Rect outRect,
+                               View view,
+                               RecyclerView parent,
                                RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (mDivider == null) {
@@ -62,7 +68,9 @@ public class CustomDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(Canvas c,
+                           RecyclerView parent,
+                           RecyclerView.State state) {
         if (mDivider == null) {
             super.onDrawOver(c, parent, state);
             return;

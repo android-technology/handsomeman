@@ -115,11 +115,17 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
     private void listenToEditTextChange() {
         edtBalanceTransfer.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
             }
 
             @Override
@@ -151,7 +157,10 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
     private void listenToProjectSpinner() {
         spProject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
                 JobTransactionResponse jobTransactionResponse = jobTransactionResponses.get(position);
                 jobId = jobTransactionResponse.getJobId();
                 handymanId = jobTransactionResponse.getHandymanId();
@@ -187,7 +196,10 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
     private void listenToBankSpinner() {
         spBankAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
                 PayoutResponse payoutResponse = payoutResponseList.get(position);
                 payoutId = payoutResponse.getPayoutId();
             }

@@ -26,7 +26,8 @@ public class CustomerTransferHistoryAdapter extends RecyclerView.Adapter<Custome
     private LayoutInflater inflater;
     private ItemCustomerTransferHistoryBinding binding;
 
-    public CustomerTransferHistoryAdapter(List<CustomerTransferHistoryResponse> historyResponseList, Context context) {
+    public CustomerTransferHistoryAdapter(List<CustomerTransferHistoryResponse> historyResponseList,
+                                          Context context) {
         this.historyResponseList = historyResponseList;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -34,14 +35,16 @@ public class CustomerTransferHistoryAdapter extends RecyclerView.Adapter<Custome
 
     @NonNull
     @Override
-    public CustomerTransferHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomerTransferHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                        int viewType) {
         binding = ItemCustomerTransferHistoryBinding.inflate(inflater, parent, false);
         View view = binding.getRoot();
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerTransferHistoryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomerTransferHistoryAdapter.ViewHolder holder,
+                                 int position) {
         CustomerTransferHistoryResponse historyResponse = historyResponseList.get(position);
         holder.jobTitle.setText(historyResponse.getJobTitle());
         holder.lastPayoutNumber.setText(context.getString(R.string.account_ends_with, historyResponse.getLastPayoutNumber()));

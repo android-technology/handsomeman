@@ -21,14 +21,16 @@ public abstract class RadioAdapter<T> extends RecyclerView.Adapter<RadioAdapter.
     private LayoutInflater inflater;
     private ItemSkillCategoryNameBinding binding;
 
-    RadioAdapter(Context context, List<T> items) {
+    RadioAdapter(Context context,
+                 List<T> items) {
         mContext = context;
         mItems = items;
         inflater = LayoutInflater.from(mContext);
     }
 
     @Override
-    public void onBindViewHolder(RadioAdapter.RadioViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(RadioAdapter.RadioViewHolder viewHolder,
+                                 final int position) {
         viewHolder.mRadio.setChecked(position == mSelectedItem);
     }
 
@@ -39,7 +41,8 @@ public abstract class RadioAdapter<T> extends RecyclerView.Adapter<RadioAdapter.
 
     @NonNull
     @Override
-    public RadioViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RadioViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+                                              int i) {
         binding = ItemSkillCategoryNameBinding.inflate(inflater, viewGroup, false);
         final View view = binding.getRoot();
         return new RadioViewHolder(view);

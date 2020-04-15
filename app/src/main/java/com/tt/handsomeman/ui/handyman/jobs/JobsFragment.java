@@ -30,13 +30,15 @@ public class JobsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         binding = FragmentJobsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RadioButton rdJobs = binding.radioButtonJobs;
         RadioButton rdWishList = binding.radioButtonWishList;
@@ -59,7 +61,8 @@ public class JobsFragment extends Fragment {
 
         rdJobs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(jobsChildJobsFragment).commit();
                     active = jobsChildJobsFragment;
@@ -69,7 +72,8 @@ public class JobsFragment extends Fragment {
 
         rdWishList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
                 if (isChecked) {
                     fm.beginTransaction().hide(active).show(jobsChildWishListFragment).commit();
                     active = jobsChildWishListFragment;

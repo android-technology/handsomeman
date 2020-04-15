@@ -15,7 +15,13 @@ public class JobFilterRequest {
 
     private Integer categoryId;
 
-    public JobFilterRequest(double lat, double lng, double radius, double budgetMin, double budgetMax, String createTime, Integer categoryId) {
+    public JobFilterRequest(double lat,
+                            double lng,
+                            double radius,
+                            double budgetMin,
+                            double budgetMax,
+                            String createTime,
+                            Integer categoryId) {
         this.lat = lat;
         this.lng = lng;
         this.radius = radius;

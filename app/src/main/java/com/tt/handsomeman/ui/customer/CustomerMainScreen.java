@@ -108,7 +108,9 @@ public class CustomerMainScreen extends AppCompatActivity {
         }
 
         @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
+        public void onStatusChanged(String s,
+                                    int i,
+                                    Bundle bundle) {
 
         }
 
@@ -204,7 +206,8 @@ public class CustomerMainScreen extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         // BEGIN_INCLUDE(onRequestPermissionsResult)
         if (requestCode == PERMISSION_REQUEST_LOCATION) {
