@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,7 +22,7 @@ import com.tt.handsomeman.databinding.ActivityCustomerProfileJobDetailBinding;
 import com.tt.handsomeman.response.CustomerReviewResponse;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
-import com.tt.handsomeman.ui.messages.Conversation;
+import com.tt.handsomeman.ui.handyman.HandymanReview;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
@@ -33,6 +34,9 @@ import javax.inject.Inject;
 
 public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
+    private static final Integer REVIEW_REQUEST = 777;
+    private static boolean isReviewed;
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -43,7 +47,8 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
     private ImageView customerAvatar;
     private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
-    private Button btnChat;
+    private Button btnReview;
+    private int customerId, jobId;
     private ActivityCustomerProfileJobDetailBinding binding;
 
     @Override
@@ -52,34 +57,49 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
         binding = ActivityCustomerProfileJobDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        HandymanApp.getComponent().inject(this);
+        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
+        bindView();
+
+        customerId = getIntent().getIntExtra("customerId", 0);
+        jobId = getIntent().getIntExtra("jobId", 0);
+
+        createCustomerReviewRecycleView();
+        fetchData(customerId);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isReviewed) {
+            Intent intent = new Intent();
+            intent.putExtra("isReviewed", true);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+
+        super.onBackPressed();
+    }
+
+    private void bindView() {
         customerName = binding.customerNameCustomerProfileJobDetail;
         customerAllProjectCount = binding.allProjectsCustomerJobDetail;
         customerSuccessedProject = binding.successedProjectsCustomerJobDetail;
         countReviews = binding.reviewCountCustomerProfileJobDetail;
         countPoint = binding.ratingBarCustomerJobDetail;
-        btnChat = binding.chat;
-
-        HandymanApp.getComponent().inject(this);
-
-        baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
-
+        btnReview = binding.review;
         binding.customerProfileJobDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-        createCustomerReviewRecycleView();
-
-        Integer customerId = getIntent().getIntExtra("customerId", 0);
-        fetchData(customerId);
     }
 
-    private void sendMessage(String receiverName) {
-        Intent intent = new Intent(CustomerProfileJobDetail.this, Conversation.class);
-        intent.putExtra("addressName", receiverName);
-        intent.putExtra("receiveId", getIntent().getIntExtra("customerId", 0));
+    private void review() {
+        Intent intent = new Intent(CustomerProfileJobDetail.this, HandymanReview.class);
+        intent.putExtra("jobId", jobId);
+        intent.putExtra("customerId", customerId);
         startActivity(intent);
     }
 
@@ -100,11 +120,11 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
                 customerReviewResponses.addAll(jobDetailProfile.getCustomerReviewResponses());
                 customerReviewAdapter.notifyDataSetChanged();
 
-                boolean isAccept = getIntent().getBooleanExtra("isAccept", false);
-                if (isAccept) {
-                    btnChat.setVisibility(View.VISIBLE);
-                    btnChat.setOnClickListener(v -> {
-                        sendMessage(jobDetailProfile.getCustomerName());
+                boolean succeed = getIntent().getBooleanExtra("succeed", false);
+                if (succeed) {
+                    btnReview.setVisibility(View.VISIBLE);
+                    btnReview.setOnClickListener(v -> {
+                        review();
                     });
                 }
             }
@@ -119,5 +139,20 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
         rcvReview.setItemAnimator(new DefaultItemAnimator());
         rcvReview.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvReview.setAdapter(customerReviewAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
+
+        if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
+            isReviewed = getIntent().getBooleanExtra("isReviewed", false);
+            if (isReviewed) {
+                fetchData(customerId);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

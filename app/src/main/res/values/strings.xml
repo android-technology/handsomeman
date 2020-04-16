@@ -518,4 +518,7 @@
     <string name="i_have_received">I have received</string>
     <string name="bonus">Bonus</string>
     <string name="in_total">In Total</string>
+    <string name="review">Review</string>
+    <string name="comment">Comment</string>
+    <string name="describe_your_experience_optional">Describe your experience (optional)</string>
 </resources>

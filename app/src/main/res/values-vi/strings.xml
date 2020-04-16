@@ -250,4 +250,7 @@
     <string name="i_have_received">Tôi đã nhận</string>
     <string name="bonus">Thưởng</string>
     <string name="in_total">Tổng</string>
+    <string name="review">Đánh giá</string>
+    <string name="comment">Bình luận</string>
+    <string name="describe_your_experience_optional">Mô tả trải nghiệm của bạn (không bắt buộc)</string>
 </resources>

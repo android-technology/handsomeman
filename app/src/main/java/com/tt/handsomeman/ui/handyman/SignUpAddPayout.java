@@ -150,7 +150,19 @@ public class SignUpAddPayout extends AppCompatActivity {
                 String address = edtAddress.getText().toString();
                 Integer portalCode = Integer.parseInt(edtPortalCode.getText().toString());
                 String birthday = sdf.format(myCalendar.getTime());
-                String selectedType = type[spinnerType.getSelectedItemPosition()];
+
+                String selectedType;
+                switch (spinnerType.getSelectedItemPosition()) {
+                    case 0:
+                        selectedType = "Individual";
+                        break;
+                    case 1:
+                        selectedType = "Business";
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + spinnerType.getSelectedItemPosition());
+                }
+
                 String email = edtEmail.getText().toString();
                 String accountNumber = edtAccountNumber.getText().toString();
                 String accountRouting = edtAccountRouting.getText().toString();

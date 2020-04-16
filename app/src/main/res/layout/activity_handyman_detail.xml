@@ -57,7 +57,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@+id/buttonInviteToProject"
+        app:layout_constraintBottom_toTopOf="@+id/layoutButtonBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -331,20 +331,41 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/buttonInviteToProject"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layoutButtonBottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_ripple_primary_color_bg"
-        android:gravity="center"
-        android:text="@string/invite_to_project"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/design_6sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <Button
+            android:id="@+id/buttonInviteToProject"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple_primary_color_bg"
+            android:gravity="center"
+            android:text="@string/invite_to_project"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/design_6sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/buttonReview"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple_primary_color_bg"
+            android:gravity="center"
+            android:text="@string/review"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/design_6sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

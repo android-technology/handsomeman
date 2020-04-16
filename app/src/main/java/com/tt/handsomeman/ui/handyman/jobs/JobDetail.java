@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -44,6 +45,8 @@ import javax.inject.Inject;
 
 public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
+    private static final Integer REVIEW_REQUEST = 777;
+
     private static HandymanJobDetail handymanJobDetail;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -58,8 +61,10 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
     private Button btnPlaceABid, btnViewTransaction;
     private TableLayout tlMileStone;
     private GoogleMap mMap;
-    private boolean isAccept, isRead, isReadForFirstTime = false;
-    private int notificationId, notificationPos;
+    private boolean isRead;
+    private boolean isReadForFirstTime = false;
+    private boolean succeed = false;
+    private int notificationId, notificationPos, jobId;
     private ActivityJobDetailBinding binding;
 
     @Override
@@ -71,7 +76,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
 
         Intent intent = getIntent();
-        Integer jobId = intent.getIntExtra("jobId", 0);
+        jobId = intent.getIntExtra("jobId", 0);
         notificationId = intent.getIntExtra("notificationId", 0);
         isRead = intent.getBooleanExtra("isRead", false);
         notificationPos = intent.getIntExtra("notificationPos", 0);
@@ -79,7 +84,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
         bindView();
         goBack();
         fetchData(jobId);
-        showClientProfile();
+        showClientProfile(jobId);
     }
 
     private void bindView() {
@@ -131,12 +136,15 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
         startActivity(intent);
     }
 
-    private void showClientProfile() {
+    private void showClientProfile(int jobId) {
         tvShowClientProfile.setOnClickListener(v -> {
             Intent intent = new Intent(JobDetail.this, CustomerProfileJobDetail.class);
             intent.putExtra("customerId", handymanJobDetail.getCustomer().getAccountId());
-            intent.putExtra("isAccept", this.isAccept);
-            startActivity(intent);
+            intent.putExtra("succeed", this.succeed);
+            if (succeed) {
+                intent.putExtra("jobId", jobId);
+            }
+            startActivityForResult(intent, REVIEW_REQUEST);
         });
     }
 
@@ -224,7 +232,6 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
             if (jobDetail.isAccepted()) {
                 tvHired.setText(getString(R.string.yes));
-                this.isAccept = true;
                 btnViewTransaction.setVisibility(View.VISIBLE);
                 btnViewTransaction.setOnClickListener(v -> {
                     viewJobTransaction(jobId);
@@ -234,10 +241,8 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                     sendMessage(jobDetail.getCustomer().getCustomerName(), jobDetail.getJob().getCustomerId());
                 });
             } else if (jobDetail.isBid()) {
-                this.isAccept = false;
                 tvHired.setText(getString(R.string.no));
             } else {
-                this.isAccept = false;
                 btnPlaceABid.setVisibility(View.VISIBLE);
                 btnPlaceABid.setOnClickListener(v -> bidJob());
                 tvHired.setText(getString(R.string.no));
@@ -246,6 +251,7 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
             if (!isRead) {
                 markAsRead(notificationId, authorizationCode);
             }
+            succeed = jobDetail.isSucceed();
         });
     }
 
@@ -277,5 +283,20 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
+
+        if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
+            boolean isReviewed = getIntent().getBooleanExtra("isReviewed", false);
+            if (isReviewed) {
+                fetchData(jobId);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

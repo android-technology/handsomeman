@@ -10,6 +10,7 @@ public class HandymanJobDetail implements Serializable {
     private CustomerResponse customer;
     private boolean isBid;
     private boolean accepted;
+    private boolean succeed;
 
     public Job getJob() {
         return job;
@@ -49,5 +50,13 @@ public class HandymanJobDetail implements Serializable {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public boolean isSucceed() {
+        return succeed;
+    }
+
+    public void setSucceed(boolean succeed) {
+        this.succeed = succeed;
     }
 }

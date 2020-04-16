@@ -14,14 +14,17 @@ import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.request.HandymanTransferRequest;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
+import com.tt.handsomeman.request.ReviewRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListCategory;
+import com.tt.handsomeman.response.ListCustomerTransfer;
 import com.tt.handsomeman.response.ListPayoutResponse;
 import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.MyProjectList;
+import com.tt.handsomeman.response.ReviewResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.response.TransactionDetailResponse;
@@ -55,6 +58,7 @@ public class HandymanViewModel extends BaseViewModel {
     private MutableLiveData<String> messageResponse = new MutableLiveData<>();
     private MutableLiveData<StandardResponse> standardResponseMarkReadMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<DataBracketResponse<TransactionDetailResponse>> jobTransactionLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ReviewResponse>> reviewResponseLiveData = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -118,6 +122,10 @@ public class HandymanViewModel extends BaseViewModel {
 
     public MutableLiveData<DataBracketResponse<TransactionDetailResponse>> getJobTransactionLiveData() {
         return jobTransactionLiveData;
+    }
+
+    public MutableLiveData<DataBracketResponse<ReviewResponse>> getReviewResponseLiveData() {
+        return reviewResponseLiveData;
     }
 
     public MutableLiveData<String> getMessageResponse() {
@@ -332,5 +340,23 @@ public class HandymanViewModel extends BaseViewModel {
                             standardResponseMarkReadMutableLiveData.setValue(response.body());
                         }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                 ));
+    }
+
+    public void loadReviewWithCustomer(String authorization, int customerId){
+        compositeDisposable.add(handymanService.loadReviewWithCustomer(authorization, customerId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    reviewResponseLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void reviewCustomer(String authorization, ReviewRequest reviewRequest){
+        compositeDisposable.add(handymanService.reviewCustomer(locale, authorization, reviewRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(standardResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

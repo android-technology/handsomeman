@@ -20,6 +20,7 @@ import com.tt.handsomeman.ui.SignUp;
 import com.tt.handsomeman.ui.Start;
 import com.tt.handsomeman.ui.ViewPayout;
 import com.tt.handsomeman.ui.customer.CustomerMainScreen;
+import com.tt.handsomeman.ui.customer.CustomerReview;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanCategory;
 import com.tt.handsomeman.ui.customer.find_handyman.FindHandymanChildHandymanFragment;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
@@ -38,6 +39,7 @@ import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJobChildFirstFra
 import com.tt.handsomeman.ui.customer.my_projects.add_job.AddNewJobChildSecondFragment;
 import com.tt.handsomeman.ui.customer.notification.ViewMadeBid;
 import com.tt.handsomeman.ui.handyman.HandyManMainScreen;
+import com.tt.handsomeman.ui.handyman.HandymanReview;
 import com.tt.handsomeman.ui.handyman.SignUpAddPayout;
 import com.tt.handsomeman.ui.handyman.ViewJobTransaction;
 import com.tt.handsomeman.ui.handyman.jobs.CustomerProfileJobDetail;
@@ -179,4 +181,8 @@ public interface AppComponent {
     void inject(ViewTransaction viewTransaction);
 
     void inject(ViewJobTransaction viewJobTransaction);
+
+    void inject (CustomerReview customerReview);
+
+    void inject (HandymanReview handymanReview);
 }

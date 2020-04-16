@@ -48,7 +48,7 @@
         android:background="@color/white"
         android:fillViewport="true"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@+id/chat"
+        app:layout_constraintBottom_toTopOf="@+id/review"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -212,13 +212,13 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/chat"
+        android:id="@+id/review"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_ripple_primary_color_bg"
         android:gravity="center"
-        android:text="@string/chat"
+        android:text="@string/review"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/design_6sp"

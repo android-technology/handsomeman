@@ -7,12 +7,10 @@ import java.util.List;
 
 public class CustomerJobDetail {
     private Job job;
-
     private List<PaymentMilestone> listPaymentMilestone;
-
     private HandymanResponse handyman;
-
     private boolean accepted;
+    private boolean succeed;
 
     public Job getJob() {
         return job;
@@ -44,5 +42,13 @@ public class CustomerJobDetail {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public boolean isSucceed() {
+        return succeed;
+    }
+
+    public void setSucceed(boolean succeed) {
+        this.succeed = succeed;
     }
 }

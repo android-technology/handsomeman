@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +40,8 @@ import javax.inject.Inject;
 
 public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
 
+    private static final Integer REVIEW_REQUEST = 777;
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
@@ -52,6 +55,8 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
     private LinearLayout layoutHandyman;
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
+    private boolean succeed = false, accepted = false;
+    private int jobId;
     private ActivityMyJobDetailBinding binding;
 
     @Override
@@ -63,7 +68,7 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
-        Integer jobId = getIntent().getIntExtra("jobId", 0);
+        jobId = getIntent().getIntExtra("jobId", 0);
 
         bindView();
         goBack();
@@ -174,6 +179,9 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
             } else {
                 tvHired.setText(getString(R.string.no));
             }
+
+            accepted = customerJobDetail.isAccepted();
+            succeed = customerJobDetail.isSucceed();
         });
     }
 
@@ -191,7 +199,27 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
         tvShowHandymanProfile.setOnClickListener(v -> {
             Intent intent = new Intent(MyJobDetail.this, HandymanDetail.class);
             intent.putExtra("handymanId", handymanResponse.getHandymanId());
-            startActivity(intent);
+            intent.putExtra("succeed", succeed);
+            intent.putExtra("accepted", accepted);
+            if (succeed) {
+                intent.putExtra("jobId", jobId);
+            }
+            startActivityForResult(intent, REVIEW_REQUEST);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
+
+        if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
+            boolean isReviewed = getIntent().getBooleanExtra("isReviewed", false);
+            if (isReviewed) {
+                fetchData(jobId);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

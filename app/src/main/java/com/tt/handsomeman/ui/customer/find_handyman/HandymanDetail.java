@@ -1,10 +1,13 @@
 package com.tt.handsomeman.ui.customer.find_handyman;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,6 +24,7 @@ import com.tt.handsomeman.request.HandymanDetailRequest;
 import com.tt.handsomeman.response.HandymanDetailResponse;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
+import com.tt.handsomeman.ui.customer.CustomerReview;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.DecimalFormat;
@@ -34,18 +38,22 @@ import javax.inject.Inject;
 
 public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
 
+    private static final Integer REVIEW_REQUEST = 777;
+    private static boolean isReviewed;
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
     private TextView tvDistance, accountName, education, about, allProjects, successedProject, countReviews;
     private RatingBar rtCountPoint;
-    private Button btnInviteToProject;
+    private Button btnInviteToProject, btnReview;
     private SkillAdapter skillAdapter;
     private RecyclerView rcvSkill, rcvReview;
     private List<Skill> skillList = new ArrayList<>();
     private HandymanReviewAdapter handymanReviewAdapter;
     private List<HandymanReviewResponse> handymanReviewResponses = new ArrayList<>();
+    private int handymanId;
     private ActivityHandymanDetailBinding binding;
 
     @Override
@@ -56,6 +64,47 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
+        bindView();
+
+        Intent intent = getIntent();
+        boolean succeed = intent.getBooleanExtra("succeed", false);
+        boolean accepted = intent.getBooleanExtra("accepted", false);
+        handymanId = intent.getIntExtra("handymanId", 0);
+        int jobId = intent.getIntExtra("jobId", 0);
+
+        if (succeed) {
+            btnReview.setVisibility(View.VISIBLE);
+        } else if (!accepted) {
+            btnInviteToProject.setVisibility(View.VISIBLE);
+        }
+
+        btnReview.setOnClickListener(v -> {
+            Intent startIntent = new Intent(HandymanDetail.this, CustomerReview.class);
+            startIntent.putExtra("handymanId", handymanId);
+            startIntent.putExtra("jobId", jobId);
+            startActivityForResult(startIntent, REVIEW_REQUEST);
+        });
+
+        goBack();
+        createSkillRecyclerView();
+        createHandymanReviewRecycleView();
+        fetchHandymanDetail(handymanId);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isReviewed) {
+            Intent intent = new Intent();
+            intent.putExtra("isReviewed", true);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+
+        super.onBackPressed();
+    }
+
+    private void bindView() {
         tvDistance = binding.textViewHandymanDistance;
         accountName = binding.accountName;
         education = binding.education;
@@ -63,23 +112,19 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
         allProjects = binding.allProjects;
         successedProject = binding.successedProjects;
         btnInviteToProject = binding.buttonInviteToProject;
+        btnReview = binding.buttonReview;
         rcvSkill = binding.mySkillRecyclerView;
         rcvReview = binding.reviewHandymanDetailRecycleView;
         countReviews = binding.reviewCountHandymanDetail;
         rtCountPoint = binding.ratingBarHandymanDetail;
-
-        goBack();
-        createSkillRecyclerView();
-        createHandymanReviewRecycleView();
-        fetchHandymanDetail();
     }
 
-    private void fetchHandymanDetail() {
+    private void fetchHandymanDetail(int handymanId) {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
 
         Double lat = Constants.Latitude.getValue();
         Double lng = Constants.Longitude.getValue();
-        Integer handymanId = getIntent().getIntExtra("handymanId", 0);
+
 
         baseViewModel.fetchHandymanDetail(authorizationCode, new HandymanDetailRequest(lat, lng, handymanId));
         baseViewModel.getHandymanDetailResponseMutableLiveData().observe(this, new Observer<HandymanDetailResponse>() {
@@ -127,5 +172,20 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
         rcvSkill.setItemAnimator(new DefaultItemAnimator());
         rcvSkill.addItemDecoration(new CustomDividerItemDecoration(getResources().getDrawable(R.drawable.recycler_view_divider)));
         rcvSkill.setAdapter(skillAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
+
+        if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
+            isReviewed = getIntent().getBooleanExtra("isReviewed", false);
+            if (isReviewed) {
+                fetchHandymanDetail(handymanId);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

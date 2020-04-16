@@ -6,6 +6,7 @@ import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.request.HandymanTransferRequest;
 import com.tt.handsomeman.request.JobFilterRequest;
 import com.tt.handsomeman.request.NearbyJobRequest;
+import com.tt.handsomeman.request.ReviewRequest;
 import com.tt.handsomeman.response.DataBracketResponse;
 import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
@@ -15,6 +16,7 @@ import com.tt.handsomeman.response.ListJob;
 import com.tt.handsomeman.response.ListPayoutResponse;
 import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.MyProjectList;
+import com.tt.handsomeman.response.ReviewResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenHandyman;
 import com.tt.handsomeman.response.TransactionDetailResponse;
@@ -130,4 +132,13 @@ public interface HandymanService {
     Single<Response<DataBracketResponse<TransactionDetailResponse>>> viewPaymentTransaction(@Header("Accept-Language") String locale,
                                                                                             @Header("Authorization") String token,
                                                                                             @Query("jobId") Integer jobId);
+
+    @GET(Constants.HANDYMAN_LOAD_REVIEW)
+    Single<Response<DataBracketResponse<ReviewResponse>>> loadReviewWithCustomer(@Header("Authorization") String token,
+                                                                                 @Query("customerId") int customerId);
+
+    @POST(Constants.HANDYMAN_REVIEW_CUSTOMER)
+    Single<Response<StandardResponse>> reviewCustomer(@Header("Accept-Language") String locale,
+                                                      @Header("Authorization") String token,
+                                                      @Body ReviewRequest reviewRequest);
 }

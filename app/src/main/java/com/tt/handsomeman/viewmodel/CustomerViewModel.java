@@ -11,6 +11,7 @@ import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.HandymanDetailRequest;
 import com.tt.handsomeman.request.MadeTheTransactionRequest;
 import com.tt.handsomeman.request.NearbyHandymanRequest;
+import com.tt.handsomeman.request.ReviewRequest;
 import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.response.CustomerReviewProfile;
@@ -20,6 +21,7 @@ import com.tt.handsomeman.response.ListCategory;
 import com.tt.handsomeman.response.ListCustomerTransfer;
 import com.tt.handsomeman.response.MyProjectList;
 import com.tt.handsomeman.response.NearbyHandymanResponse;
+import com.tt.handsomeman.response.ReviewResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.response.StartScreenCustomer;
 import com.tt.handsomeman.response.ViewMadeTransactionResponse;
@@ -46,6 +48,7 @@ public class CustomerViewModel extends BaseViewModel {
     private MutableLiveData<CustomerJobDetail> customerJobDetailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<DataBracketResponse<ViewMadeTransactionResponse>> viewTransactionLiveData = new MutableLiveData<>();
     private MutableLiveData<DataBracketResponse<ListCustomerTransfer>> listTransferHistoryLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataBracketResponse<ReviewResponse>> reviewResponseLiveData = new MutableLiveData<>();
     private String locale = Constants.language.getValue();
 
     @Inject
@@ -101,6 +104,10 @@ public class CustomerViewModel extends BaseViewModel {
 
     public MutableLiveData<DataBracketResponse<ViewMadeTransactionResponse>> getViewTransactionLiveData() {
         return viewTransactionLiveData;
+    }
+
+    public MutableLiveData<DataBracketResponse<ReviewResponse>> getReviewResponseLiveData() {
+        return reviewResponseLiveData;
     }
 
     public void fetchDataStartScreen(String authorization,
@@ -264,6 +271,24 @@ public class CustomerViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataBracketResponseResponse -> {
                     listTransferHistoryLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void loadReviewWithHandyman(String authorization, int handymanId){
+        compositeDisposable.add(customerService.loadReviewWithHandyman(authorization, handymanId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataBracketResponseResponse -> {
+                    reviewResponseLiveData.setValue(dataBracketResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void reviewHandyman(String authorization, ReviewRequest reviewRequest){
+        compositeDisposable.add(customerService.reviewHandyman(locale, authorization, reviewRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(standardResponseResponse.body());
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 }

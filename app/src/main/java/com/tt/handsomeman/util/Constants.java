@@ -44,6 +44,8 @@ public class Constants {
     public static final String TRANSFER_TO_BANK = "api/handyman/transfer";
     public static final String VIEW_TRANSFER_HISTORY = "api/handyman/viewTransferHistory";
     public static final String VIEW_PAYMENT_TRANSACTION = "api/handyman/viewTransaction";
+    public static final String HANDYMAN_LOAD_REVIEW = "api/handyman/loadReview";
+    public static final String HANDYMAN_REVIEW_CUSTOMER = "api/handyman/reviewCustomer";
 
     public static final String CUSTOMER_GET_LIST_CATEGORY = "api/customer/categories";
     public static final String FIND_HANDYMAN_CATEGORY = "api/customer/byCategory/{id}";
@@ -62,6 +64,8 @@ public class Constants {
     public static final String CUSTOMER_VIEW_MAKE_TRANSACTION = "api/customer/viewMakeTransaction";
     public static final String CUSTOMER_MAKE_TRANSACTION = "api/customer/makeTheTransaction";
     public static final String CUSTOMER_VIEW_TRANSFER_HISTORY = "api/customer/viewTransferHistory";
+    public static final String CUSTOMER_LOAD_REVIEW = "api/customer/loadReview";
+    public static final String CUSTOMER_REVIEW_HANDYMAN = "api/customer/reviewHandyman";
 
     public static final String ACCEPT_BID = "api/user/notification/acceptBid";
     public static final String GET_ALL_NOTIFICATION = "api/user/notification/getAll";
