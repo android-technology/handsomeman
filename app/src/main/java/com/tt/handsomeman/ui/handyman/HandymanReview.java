@@ -60,9 +60,7 @@ public class HandymanReview extends BaseAppCompatActivity<HandymanViewModel> {
             public void onRatingChanged(RatingBar ratingBar,
                                         float rating,
                                         boolean fromUser) {
-                if (rating != 0) {
-                    btnCheck.setEnabled(true);
-                }
+                btnCheck.setEnabled(rating != 0f);
             }
         });
     }
@@ -81,7 +79,7 @@ public class HandymanReview extends BaseAppCompatActivity<HandymanViewModel> {
                     Toast.makeText(HandymanReview.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     if (standardResponse.getStatus().equals(StatusConstant.OK)) {
                         Intent intent = new Intent();
-                        intent.putExtra("isReviewed", true);
+                        intent.putExtra("reviewed", true);
                         setResult(RESULT_OK, intent);
                         finish();
                     }

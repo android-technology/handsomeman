@@ -35,7 +35,7 @@ import javax.inject.Inject;
 public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
     private static final Integer REVIEW_REQUEST = 777;
-    private static boolean isReviewed;
+    private static boolean reviewed;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -71,9 +71,9 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
     @Override
     public void onBackPressed() {
 
-        if (isReviewed) {
+        if (reviewed) {
             Intent intent = new Intent();
-            intent.putExtra("isReviewed", true);
+            intent.putExtra("reviewed", true);
             setResult(RESULT_OK, intent);
             finish();
         }
@@ -100,7 +100,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
         Intent intent = new Intent(CustomerProfileJobDetail.this, HandymanReview.class);
         intent.putExtra("jobId", jobId);
         intent.putExtra("customerId", customerId);
-        startActivity(intent);
+        startActivityForResult(intent, REVIEW_REQUEST);
     }
 
     private void fetchData(Integer customerId) {
@@ -147,8 +147,8 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
                                     @Nullable Intent data) {
 
         if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
-            isReviewed = getIntent().getBooleanExtra("isReviewed", false);
-            if (isReviewed) {
+            reviewed = data.getBooleanExtra("reviewed", false);
+            if (reviewed) {
                 fetchData(customerId);
             }
         }

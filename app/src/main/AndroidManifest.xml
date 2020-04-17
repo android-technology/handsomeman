@@ -36,10 +36,10 @@
 
         <activity
             android:name=".ui.handyman.HandymanReview"
-            android:screenOrientation="locked" />/>
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.customer.CustomerReview"
-            android:screenOrientation="locked" />/>
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.handyman.ViewJobTransaction"
             android:screenOrientation="locked" />

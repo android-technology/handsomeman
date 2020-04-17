@@ -60,9 +60,7 @@ public class CustomerReview extends BaseAppCompatActivity<CustomerViewModel> {
             public void onRatingChanged(RatingBar ratingBar,
                                         float rating,
                                         boolean fromUser) {
-                if (rating != 0) {
-                    btnCheck.setEnabled(true);
-                }
+                btnCheck.setEnabled(rating != 0f);
             }
         });
     }
@@ -79,9 +77,9 @@ public class CustomerReview extends BaseAppCompatActivity<CustomerViewModel> {
                 @Override
                 public void onChanged(StandardResponse standardResponse) {
                     Toast.makeText(CustomerReview.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (standardResponse.getStatus().equals(StatusConstant.OK)){
+                    if (standardResponse.getStatus().equals(StatusConstant.OK)) {
                         Intent intent = new Intent();
-                        intent.putExtra("isReviewed", true);
+                        intent.putExtra("reviewed", true);
                         setResult(RESULT_OK, intent);
                         finish();
                     }

@@ -167,6 +167,8 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
 
             List<PaymentMilestone> listPaymentMilestone = jobDetail.getListPaymentMilestone();
             tvPaymentMilestoneCount.setText(String.valueOf(listPaymentMilestone.size()));
+
+            tlMileStone.removeAllViews();
             for (int i = 0; i < listPaymentMilestone.size(); i++) {
                 TableRow tr = new TableRow(JobDetail.this);
                 tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
@@ -291,8 +293,8 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
                                     @Nullable Intent data) {
 
         if (data != null && requestCode == REVIEW_REQUEST && resultCode == RESULT_OK) {
-            boolean isReviewed = getIntent().getBooleanExtra("isReviewed", false);
-            if (isReviewed) {
+            boolean reviewed = data.getBooleanExtra("reviewed", false);
+            if (reviewed) {
                 fetchData(jobId);
             }
         }
