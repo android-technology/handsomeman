@@ -20,7 +20,6 @@ import com.tt.handsomeman.response.HandymanProfileResponse;
 import com.tt.handsomeman.response.HandymanReviewProfile;
 import com.tt.handsomeman.response.JobDetailProfile;
 import com.tt.handsomeman.response.ListCategory;
-import com.tt.handsomeman.response.ListCustomerTransfer;
 import com.tt.handsomeman.response.ListPayoutResponse;
 import com.tt.handsomeman.response.ListTransferHistory;
 import com.tt.handsomeman.response.MyProjectList;
@@ -137,7 +136,7 @@ public class HandymanViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((dataBracketResponseResponse) -> {
-                            handymanMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
+                            handymanProfileResponseMutableLiveData.setValue(dataBracketResponseResponse.body().getData());
                         },
                         throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
@@ -342,7 +341,8 @@ public class HandymanViewModel extends BaseViewModel {
                 ));
     }
 
-    public void loadReviewWithCustomer(String authorization, int customerId){
+    public void loadReviewWithCustomer(String authorization,
+                                       int customerId) {
         compositeDisposable.add(handymanService.loadReviewWithCustomer(authorization, customerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -351,8 +351,20 @@ public class HandymanViewModel extends BaseViewModel {
                 }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
     }
 
-    public void reviewCustomer(String authorization, ReviewRequest reviewRequest){
+    public void reviewCustomer(String authorization,
+                               ReviewRequest reviewRequest) {
         compositeDisposable.add(handymanService.reviewCustomer(locale, authorization, reviewRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(standardResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void updateAvatar(String authorizationCode,
+                             MultipartBody.Part body,
+                             RequestBody updateDate) {
+        compositeDisposable.add(handymanService.updateAvatar(locale, authorizationCode, body, updateDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(standardResponseResponse -> {

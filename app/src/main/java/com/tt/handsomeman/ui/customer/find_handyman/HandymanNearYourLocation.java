@@ -41,6 +41,7 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
     private ProgressBar pgHandyman;
     private FindHandymanFilterAdapter findHandymanfilterAdapter;
     private List<HandymanResponse> handymanResponseList = new ArrayList<>();
+    private String authorizationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
         binding = ActivityHandymanNearYourLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         pgHandyman = binding.progressBarHandymanYourLocation;
@@ -65,7 +67,6 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
 
     private void fetchData(Double lat,
                            Double lng) {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
         String dateRequest = formatter.format(now.getTime());
@@ -83,7 +84,7 @@ public class HandymanNearYourLocation extends BaseAppCompatActivity<CustomerView
 
     private void createJobRecycleView() {
         RecyclerView rcvHandyman = binding.recycleViewHandymanYourLocation;
-        findHandymanfilterAdapter = new FindHandymanFilterAdapter(this, handymanResponseList);
+        findHandymanfilterAdapter = new FindHandymanFilterAdapter(this, handymanResponseList, authorizationCode);
         findHandymanfilterAdapter.setOnItemClickListener(new FindHandymanFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

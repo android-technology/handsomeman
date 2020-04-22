@@ -7,13 +7,15 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 public class Constants {
     public static final String BASE_URL = "https://handsomeman.herokuapp.com/";
-//    public static final String BASE_URL = "http://7.7.7.17:8080/";
+    //    public static final String BASE_URL = "http://7.7.7.17:8080/";
 
     public static final String SIGN_UP_ADD_PAYOUT_SUFFIX = "api/user/active-account";
     public static final String CHANGE_PASSWORD = "api/user/changePassword";
     public static final String LOGIN_SUFFIX = "api/user/login";
     public static final String SIGN_UP_SUFFIX = "api/user/registration";
     public static final String FORGET_PASSWORD = "api/user/resetPassword";
+    public static final String UPDATE_AVATAR = "api/user/updateAvatar";
+    public static final String VIEW_AVATAR = "api/user/viewAvatar/";
 
     // Both handyman and customer can have payout
     public static final String USER_ADD_PAYOUT = "api/user/payout/add";

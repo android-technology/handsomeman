@@ -4,16 +4,26 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.tt.handsomeman.R;
@@ -30,10 +40,13 @@ public class FCMService extends FirebaseMessagingService {
     public static final String REQUEST_ACCEPT_BID = "Accept Bid";
     public static final String REQUEST_PAID_PAYMENT = "Paid Payment";
     private final String TAG = "JSA-FCM";
+    private String authorizationCode;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         LocalBroadcastManager broadcaster = LocalBroadcastManager.getInstance(getBaseContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        authorizationCode = sharedPreferences.getString("token", "");
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Data: " + remoteMessage.getData());
@@ -42,7 +55,10 @@ public class FCMService extends FirebaseMessagingService {
                 case SEND_MESSAGE:
                     int receiveId = Conversation.receiveDefaultId == null ? 0 : Conversation.receiveDefaultId;
                     if (receiveId != (Integer.parseInt(remoteMessage.getData().get("accountId")))) {
-                        sendMessageNotification(remoteMessage.getData().get("body"), remoteMessage.getData().get("accountName"));
+                        sendMessageNotification(remoteMessage.getData().get("body"),
+                                remoteMessage.getData().get("accountName"),
+                                remoteMessage.getData().get("avatar"),
+                                remoteMessage.getData().get("updateDate"));
                     }
                     Intent intent = new Intent(REQUEST_MESSAGE);
                     Bundle bundle = new Bundle();
@@ -54,7 +70,10 @@ public class FCMService extends FirebaseMessagingService {
                     broadcaster.sendBroadcast(intent);
                     break;
                 case MADE_A_BID:
-                    sendMadeABidNotification(remoteMessage.getData().get("accountName"), remoteMessage.getData().get("jobName"));
+                    sendMadeABidNotification(remoteMessage.getData().get("accountName"),
+                            remoteMessage.getData().get("jobName"),
+                            remoteMessage.getData().get("avatar"),
+                            remoteMessage.getData().get("updateDate"));
                     Intent intent1 = new Intent(REQUEST_MADE_BID);
                     Bundle bundle1 = new Bundle();
                     Map<String, String> dataMap1 = remoteMessage.getData();
@@ -65,7 +84,10 @@ public class FCMService extends FirebaseMessagingService {
                     broadcaster.sendBroadcast(intent1);
                     break;
                 case ACCEPT_BID:
-                    sendAcceptBidNotification(remoteMessage.getData().get("accountName"), remoteMessage.getData().get("jobName"));
+                    sendAcceptBidNotification(remoteMessage.getData().get("accountName"),
+                            remoteMessage.getData().get("jobName"),
+                            remoteMessage.getData().get("avatar"),
+                            remoteMessage.getData().get("updateDate"));
                     Intent intent2 = new Intent(REQUEST_ACCEPT_BID);
                     Bundle bundle2 = new Bundle();
                     Map<String, String> dataMap2 = remoteMessage.getData();
@@ -76,7 +98,10 @@ public class FCMService extends FirebaseMessagingService {
                     broadcaster.sendBroadcast(intent2);
                     break;
                 case PAID_PAYMENT:
-                    sendPaidPaymentNotification(remoteMessage.getData().get("accountName"), remoteMessage.getData().get("milestoneOrder"));
+                    sendPaidPaymentNotification(remoteMessage.getData().get("accountName"),
+                            remoteMessage.getData().get("milestoneOrder"),
+                            remoteMessage.getData().get("avatar"),
+                            remoteMessage.getData().get("updateDate"));
                     Intent intent3 = new Intent(REQUEST_PAID_PAYMENT);
                     Bundle bundle3 = new Bundle();
                     Map<String, String> dataMap3 = remoteMessage.getData();
@@ -91,9 +116,11 @@ public class FCMService extends FirebaseMessagingService {
     }
 
     private void sendPaidPaymentNotification(String accountName,
-                                             String milestoneOrder) {
+                                             String milestoneOrder,
+                                             String avatar,
+                                             String updateDate) {
         createNotificationChannel("Paid payment", "Receive customer paid payment", "Paid payment");
-        NotificationCompat.Builder notificationBuilder = null;
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Paid payment");
 
         int paymentMilestoneOrder = Integer.parseInt(milestoneOrder);
         String result;
@@ -112,83 +139,177 @@ public class FCMService extends FirebaseMessagingService {
                 break;
         }
 
-        try {
-            notificationBuilder = new NotificationCompat.Builder(this, "Paid payment")
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(getResources().getColor(R.color.colorPrimary))
-                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
-                    .setContentText(getString(R.string.paid_payment_notification, URLDecoder.decode(accountName, "UTF-8"), result))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        GlideUrl glideUrl = new GlideUrl((avatar),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(47, notificationBuilder.build());
+        Glide.with(this)
+                .asBitmap()
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", Long.parseLong(updateDate), 0))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource,
+                                                @Nullable Transition<? super Bitmap> transition) {
+                        try {
+                            notificationBuilder
+                                    .setSmallIcon(R.drawable.ic_notification)
+                                    .setColor(getResources().getColor(R.color.colorPrimary))
+                                    .setLargeIcon(resource)
+                                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
+                                    .setContentText(getString(R.string.paid_payment_notification, URLDecoder.decode(accountName, "UTF-8"), result))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(FCMService.this);
+                        notificationManager.notify(47, notificationBuilder.build());
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 
     private void sendAcceptBidNotification(String accountName,
-                                           String jobName) {
+                                           String jobName,
+                                           String avatar,
+                                           String updateDate) {
         createNotificationChannel("Accept bid", "Receive customer accept bid", "Accept bid");
-        NotificationCompat.Builder notificationBuilder = null;
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Accept bid");
 
-        try {
-            notificationBuilder = new NotificationCompat.Builder(this, "Accept bid")
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(getResources().getColor(R.color.colorPrimary))
-                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
-                    .setContentText(getString(R.string.accept_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        GlideUrl glideUrl = new GlideUrl((avatar),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(37, notificationBuilder.build());
+        Glide.with(this)
+                .asBitmap()
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", Long.parseLong(updateDate), 0))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource,
+                                                @Nullable Transition<? super Bitmap> transition) {
+                        try {
+                            notificationBuilder
+                                    .setSmallIcon(R.drawable.ic_notification)
+                                    .setColor(getResources().getColor(R.color.colorPrimary))
+                                    .setLargeIcon(resource)
+                                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
+                                    .setContentText(getString(R.string.accept_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(FCMService.this);
+                        notificationManager.notify(37, notificationBuilder.build());
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 
     private void sendMadeABidNotification(String accountName,
-                                          String jobName) {
+                                          String jobName,
+                                          String avatar,
+                                          String updateDate) {
         createNotificationChannel("Made a bid", "Receive handyman bid job", "Made a bid");
-        NotificationCompat.Builder notificationBuilder = null;
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Made a bid");
 
-        try {
-            notificationBuilder = new NotificationCompat.Builder(this, "Made a bid")
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(getResources().getColor(R.color.colorPrimary))
-                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
-                    .setContentText(getString(R.string.made_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        GlideUrl glideUrl = new GlideUrl((avatar),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(27, notificationBuilder.build());
+        Glide.with(this)
+                .asBitmap()
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", Long.parseLong(updateDate), 0))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource,
+                                                @Nullable Transition<? super Bitmap> transition) {
+                        try {
+                            notificationBuilder
+                                    .setSmallIcon(R.drawable.ic_notification)
+                                    .setColor(getResources().getColor(R.color.colorPrimary))
+                                    .setLargeIcon(resource)
+                                    .setContentTitle(URLDecoder.decode(accountName, "UTF-8"))
+                                    .setContentText(getString(R.string.made_bid_notification, URLDecoder.decode(accountName, "UTF-8"), URLDecoder.decode(jobName, "UTF-8")))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(FCMService.this);
+                        notificationManager.notify(27, notificationBuilder.build());
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 
     private void sendMessageNotification(String message,
-                                         String accountName) {
+                                         String accountName,
+                                         String avatar,
+                                         String updateDate) {
         createNotificationChannel("Message", "Receive message notification", "Message");
-        NotificationCompat.Builder notificationBuilder = null;
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Message");
 
-        try {
-            notificationBuilder = new NotificationCompat.Builder(this, "Message")
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(getResources().getColor(R.color.colorPrimary))
-                    .setContentTitle(getString(R.string.sent, URLDecoder.decode(accountName, "UTF-8")))
-                    .setContentText(URLDecoder.decode(message, "UTF-8"))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        GlideUrl glideUrl = new GlideUrl((avatar),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(17, notificationBuilder.build());
+        Glide.with(this)
+                .asBitmap()
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", Long.parseLong(updateDate), 0))
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource,
+                                                @Nullable Transition<? super Bitmap> transition) {
+                        try {
+                            notificationBuilder
+                                    .setSmallIcon(R.drawable.ic_notification)
+                                    .setColor(getResources().getColor(R.color.colorPrimary))
+                                    .setLargeIcon(resource)
+                                    .setContentTitle(getString(R.string.sent, URLDecoder.decode(accountName, "UTF-8")))
+                                    .setContentText(URLDecoder.decode(message, "UTF-8"))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(FCMService.this);
+                        notificationManager.notify(17, notificationBuilder.build());
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 
     private void createNotificationChannel(CharSequence name,

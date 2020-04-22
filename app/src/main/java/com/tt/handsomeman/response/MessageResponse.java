@@ -11,6 +11,7 @@ public class MessageResponse {
     private Date sendTime;
     // type = 1 mean this is sender; type = 2 mean this is receiver
     private byte type;
+    private long updateDate;
 
     // Loading ViewHolder in MessageAdapter
     public MessageResponse(int type) {
@@ -21,12 +22,14 @@ public class MessageResponse {
                            int accountId,
                            String body,
                            Date sendTime,
-                           byte type) {
+                           byte type,
+                           long updateDate) {
         this.avatar = avatar;
         this.accountId = accountId;
         this.body = body;
         this.sendTime = sendTime;
         this.type = type;
+        this.updateDate = updateDate;
     }
 
     public int getMessageId() {
@@ -75,6 +78,14 @@ public class MessageResponse {
 
     public void setType(byte type) {
         this.type = type;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 
     @Override

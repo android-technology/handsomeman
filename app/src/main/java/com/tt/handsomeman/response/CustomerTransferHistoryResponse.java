@@ -10,6 +10,7 @@ public class CustomerTransferHistoryResponse {
     private int paymentMilestoneOrder;
     private double balance;
     private Date dateTransfer;
+    private long updateDate;
 
     public String getHandymanAvatar() {
         return handymanAvatar;
@@ -65,5 +66,13 @@ public class CustomerTransferHistoryResponse {
 
     public void setDateTransfer(Date dateTransfer) {
         this.dateTransfer = dateTransfer;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

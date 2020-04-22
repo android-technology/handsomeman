@@ -5,6 +5,7 @@ public class Contact {
     private String avatar;
     private String name;
     private boolean isHeader;
+    private long updateDate;
 
     public String getFirstCharacter(String name) {
         return String.valueOf(name.toUpperCase().charAt(0));
@@ -40,5 +41,13 @@ public class Contact {
 
     public void setIsHeader(boolean isheader) {
         isHeader = isheader;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

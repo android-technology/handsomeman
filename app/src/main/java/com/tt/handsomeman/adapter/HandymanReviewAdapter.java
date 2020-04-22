@@ -11,6 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemReviewBinding;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 
@@ -21,12 +27,15 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
     private List<HandymanReviewResponse> handymanReviewResponseList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private String authorizationCode;
     private ItemReviewBinding binding;
 
     public HandymanReviewAdapter(List<HandymanReviewResponse> handymanReviewResponseList,
-                                 Context context) {
+                                 Context context,
+                                 String authorizationCode) {
         this.handymanReviewResponseList = handymanReviewResponseList;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -47,6 +56,18 @@ public class HandymanReviewAdapter extends RecyclerView.Adapter<HandymanReviewAd
         holder.customerName.setText(handymanReviewResponse.getCustomerName());
         holder.customerRating.setRating(handymanReviewResponse.getVote());
         holder.customerComment.setText(handymanReviewResponse.getComment());
+
+        GlideUrl glideUrl = new GlideUrl((handymanReviewResponse.getAvatar()),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+        Glide.with(context)
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", handymanReviewResponse.getUpdateDate(), 0))
+                .into(holder.customerAvatar);
     }
 
     @Override

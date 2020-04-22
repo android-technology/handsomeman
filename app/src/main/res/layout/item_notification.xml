@@ -14,7 +14,6 @@
         android:id="@+id/accountAvatarNotification"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:src="@drawable/review_demo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

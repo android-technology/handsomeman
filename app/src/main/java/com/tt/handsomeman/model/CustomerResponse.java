@@ -8,6 +8,7 @@ public class CustomerResponse implements Serializable {
     private String customerAvatar;
     private Float averageReviewPoint;
     private Integer countReviewers;
+    private long updateDate;
 
     public Integer getAccountId() {
         return accountId;
@@ -47,5 +48,13 @@ public class CustomerResponse implements Serializable {
 
     public void setCustomerAvatar(String customerAvatar) {
         this.customerAvatar = customerAvatar;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

@@ -77,7 +77,6 @@ import dagger.Component;
         CustomerModule.class,
         ViewModelModule.class})
 public interface AppComponent {
-
     void inject(JobsChildJobsFragment fragment);
 
     void inject(JobsChildWishListFragment fragment);
@@ -182,7 +181,7 @@ public interface AppComponent {
 
     void inject(ViewJobTransaction viewJobTransaction);
 
-    void inject (CustomerReview customerReview);
+    void inject(CustomerReview customerReview);
 
-    void inject (HandymanReview handymanReview);
+    void inject(HandymanReview handymanReview);
 }

@@ -124,7 +124,7 @@ public class Login extends AppCompatActivity {
                             Integer state = response.body().getData().getState();
                             String userId = response.body().getData().getUserId();
 
-                            pgLogin.setVisibility(View.GONE);
+                            pgLogin.setVisibility(View.INVISIBLE);
 
                             sharedPreferencesUtils.put("token", token);
                             sharedPreferencesUtils.put("state", state);
@@ -172,7 +172,7 @@ public class Login extends AppCompatActivity {
                                     break;
                             }
                         } else {
-                            pgLogin.setVisibility(View.GONE);
+                            pgLogin.setVisibility(View.INVISIBLE);
                             btLogin.setEnabled(true);
                             Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -181,7 +181,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<DataBracketResponse<TokenState>> call,
                                           Throwable t) {
-                        pgLogin.setVisibility(View.GONE);
+                        pgLogin.setVisibility(View.INVISIBLE);
                         btLogin.setEnabled(true);
                         Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }

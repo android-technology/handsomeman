@@ -15,6 +15,11 @@ import android.widget.Toast;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SpinnerBankAccount;
@@ -63,6 +68,7 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
     private double minPay;
     private double bonus;
     private int paymentMilestoneOrder;
+    private String authorization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
         HandymanApp.getComponent().inject(this);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
-        String authorization = sharedPreferencesUtils.get("token", String.class);
+        authorization = sharedPreferencesUtils.get("token", String.class);
 
         bindView();
         generateBankAccountSpinner();
@@ -185,6 +191,18 @@ public class CustomerMakeTransaction extends BaseAppCompatActivity<CustomerViewM
                 }
                 paymentMilestonePercentage.setText(getString(R.string.percentage, jobTransactionResponse.getPaymentMileStonePercentage()));
                 handymanName.setText(jobTransactionResponse.getHandymanName());
+
+                GlideUrl glideUrl1 = new GlideUrl((jobTransactionResponse.getHandymanAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorization).build());
+
+                Glide.with(CustomerMakeTransaction.this)
+                        .load(glideUrl1)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", jobTransactionResponse.getUpdateDate(), 0))
+                        .into(imgHandymanAvatar);
             }
 
             @Override

@@ -13,6 +13,12 @@ import android.widget.Toast;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.ObjectKey;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ActivityCustomerProfileEditBinding;
@@ -95,6 +101,18 @@ public class CustomerProfileEdit extends BaseAppCompatActivity<CustomerViewModel
             @Override
             public void onChanged(CustomerProfileResponse customerProfileResponse) {
                 Customer customer = customerProfileResponse.getCustomer();
+
+                GlideUrl glideUrl = new GlideUrl((customerProfileResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(CustomerProfileEdit.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", customerProfileResponse.getUpdateDate(), 0))
+                        .into(binding.accountAvatar);
 
                 yourNameEdit.setText(customer.getName());
             }

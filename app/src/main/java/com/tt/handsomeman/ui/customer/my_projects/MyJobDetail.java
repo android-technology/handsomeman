@@ -14,6 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +34,7 @@ import com.tt.handsomeman.response.CustomerJobDetail;
 import com.tt.handsomeman.response.HandymanResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.customer.find_handyman.HandymanDetail;
+import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -177,7 +183,7 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
                 tvHired.setText(getString(R.string.yes));
 
                 layoutHandyman.setVisibility(View.VISIBLE);
-                loadHandyman(customerJobDetail);
+                loadHandyman(customerJobDetail, authorizationCode);
             } else {
                 tvHired.setText(getString(R.string.no));
             }
@@ -187,7 +193,7 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
         });
     }
 
-    private void loadHandyman(CustomerJobDetail customerJobDetail) {
+    private void loadHandyman(CustomerJobDetail customerJobDetail, String authorizationCode) {
         HandymanResponse handymanResponse = customerJobDetail.getHandyman();
         tvHandymanName.setText(handymanResponse.getName());
         rtReview.setRating(handymanResponse.getAverageReviewPoint());
@@ -208,6 +214,18 @@ public class MyJobDetail extends BaseAppCompatActivity<CustomerViewModel> {
             }
             startActivityForResult(intent, REVIEW_REQUEST);
         });
+
+        GlideUrl glideUrl = new GlideUrl((customerJobDetail.getHandyman().getAvatar()),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+        Glide.with(MyJobDetail.this)
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", customerJobDetail.getHandyman().getUpdateDate(), 0))
+                .into(imgHandymanAvatar);
     }
 
     @Override

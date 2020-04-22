@@ -10,6 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemLoadingProgressBinding;
 import com.tt.handsomeman.databinding.ItemMessageReceiverBinding;
 import com.tt.handsomeman.databinding.ItemMessageSenderBinding;
@@ -28,13 +34,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<MessageResponse> messageResponseList;
     private LayoutInflater layoutInflater;
     private Context context;
+    private String authorizationCode;
     private ItemMessageSenderBinding senderBinding;
     private ItemMessageReceiverBinding receiverBinding;
 
     public MessageAdapter(List<MessageResponse> messageResponseList,
-                          Context context) {
+                          Context context,
+                          String authorizationCode) {
         this.messageResponseList = messageResponseList;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -73,6 +82,18 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     e.printStackTrace();
                 }
                 senderViewHolder.tvMessageBody.setText(messageResponse.getBody());
+
+                GlideUrl glideUrl = new GlideUrl((messageResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", messageResponse.getUpdateDate(), 0))
+                        .into(senderViewHolder.imgAvatar);
                 break;
             case RECEIVER:
                 ReceiverViewHolder receiverViewHolder = (ReceiverViewHolder) holder;
@@ -82,6 +103,18 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     e.printStackTrace();
                 }
                 receiverViewHolder.tvMessageBody.setText(messageResponse.getBody());
+
+                GlideUrl glideUrl1 = new GlideUrl((messageResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl1)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", messageResponse.getUpdateDate(), 0))
+                        .into(receiverViewHolder.imgAvatar);
                 break;
         }
     }

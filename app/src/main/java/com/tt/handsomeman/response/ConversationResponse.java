@@ -9,6 +9,7 @@ public class ConversationResponse {
     private String accountName;
     private String latestMessage;
     private Date sendTime;
+    private long updateDate;
 
     public int getConversationId() {
         return conversationId;
@@ -56,5 +57,13 @@ public class ConversationResponse {
 
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

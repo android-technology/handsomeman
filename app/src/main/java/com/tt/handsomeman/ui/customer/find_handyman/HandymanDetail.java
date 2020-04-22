@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.HandymanReviewAdapter;
@@ -25,6 +30,7 @@ import com.tt.handsomeman.response.HandymanDetailResponse;
 import com.tt.handsomeman.response.HandymanReviewResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.customer.CustomerReview;
+import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.DecimalFormat;
@@ -55,6 +61,7 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
     private List<HandymanReviewResponse> handymanReviewResponses = new ArrayList<>();
     private int handymanId;
     private ActivityHandymanDetailBinding binding;
+    private String authorizationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,7 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
         binding = ActivityHandymanDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         bindView();
@@ -120,8 +128,6 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
     }
 
     private void fetchHandymanDetail(int handymanId) {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-
         Double lat = Constants.Latitude.getValue();
         Double lng = Constants.Longitude.getValue();
 
@@ -141,6 +147,18 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
                 countReviews.setText(getResources().getQuantityString(R.plurals.numberOfReview, handymanDetailResponse.getCountReviewers(), handymanDetailResponse.getCountReviewers()));
                 rtCountPoint.setRating(handymanDetailResponse.getAverageReviewPoint());
 
+                GlideUrl glideUrl = new GlideUrl((handymanDetailResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(HandymanDetail.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", handymanDetailResponse.getUpdateDate(), 0))
+                        .into(binding.accountAvatar);
+
                 handymanReviewResponses.clear();
                 handymanReviewResponses.addAll(handymanDetailResponse.getHandymanReviewResponseList());
                 handymanReviewAdapter.notifyDataSetChanged();
@@ -157,7 +175,7 @@ public class HandymanDetail extends BaseAppCompatActivity<CustomerViewModel> {
     }
 
     private void createHandymanReviewRecycleView() {
-        handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponses, this);
+        handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponses, this, authorizationCode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());

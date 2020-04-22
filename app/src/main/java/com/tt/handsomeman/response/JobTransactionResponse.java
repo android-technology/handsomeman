@@ -9,6 +9,7 @@ public class JobTransactionResponse {
     private int paymentMileStonePercentage;
     private String handymanAvatar;
     private String handymanName;
+    private long updateDate;
 
     public int getJobId() {
         return jobId;
@@ -72,5 +73,13 @@ public class JobTransactionResponse {
 
     public void setHandymanName(String handymanName) {
         this.handymanName = handymanName;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

@@ -30,6 +30,7 @@ import com.tt.handsomeman.response.MessageResponse;
 import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.FCMService;
+import com.tt.handsomeman.util.Constants;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
 import com.tt.handsomeman.util.StatusCodeConstant;
 import com.tt.handsomeman.util.StatusConstant;
@@ -75,6 +76,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
 
         tvReceiverName = binding.textViewConversationAccountName;
@@ -89,7 +91,6 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
             }
         });
 
-        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         sendId = Integer.parseInt(sharedPreferencesUtils.get("userId", String.class));
 
         String addressName = getIntent().getStringExtra("addressName");
@@ -128,7 +129,10 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
                     MessageResponse messageResponse = null;
                     try {
                         messageResponse = new MessageResponse(bundle.getString("avatar"), Integer.parseInt(bundle.getString("accountId"))
-                                , URLDecoder.decode(bundle.getString("body"), "UTF-8"), sendTime, type);
+                                , URLDecoder.decode(bundle.getString("body"), "UTF-8"),
+                                sendTime,
+                                type,
+                                Long.parseLong(bundle.getString("updateDate")));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -193,7 +197,8 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
             public void onChanged(StandardResponse standardResponse) {
                 Toast.makeText(Conversation.this, standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 if (standardResponse.getStatus().equals(StatusConstant.OK)) {
-                    MessageResponse messageResponse = new MessageResponse(null, sendId, bodyMessage, now.getTime(), (byte) 1);
+                    MessageResponse messageResponse = new MessageResponse(Constants.BASE_URL + Constants.VIEW_AVATAR + sendId,
+                            sendId, bodyMessage, now.getTime(), (byte) 1, sharedPreferencesUtils.get("updateDate", Long.class));
                     if (!messageResponseList.contains(messageResponse)) {
                         messageResponseList.add(0, messageResponse);
                         messageAdapter.notifyItemInserted(0);
@@ -287,7 +292,7 @@ public class Conversation extends BaseAppCompatActivity<MessageViewModel> {
 
     private void createRecyclerViewMessage() {
         rcvMessage = binding.messageRecyclerView;
-        messageAdapter = new MessageAdapter(messageResponseList, this);
+        messageAdapter = new MessageAdapter(messageResponseList, this, authorizationCode);
         LinearLayoutManager layoutManagerMessage = new LinearLayoutManager(this);
         layoutManagerMessage.setStackFromEnd(true);
         layoutManagerMessage.setReverseLayout(true);

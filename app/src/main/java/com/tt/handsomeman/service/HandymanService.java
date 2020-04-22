@@ -1,6 +1,5 @@
 package com.tt.handsomeman.service;
 
-import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.HandymanJobDetail;
 import com.tt.handsomeman.request.HandymanEditRequest;
 import com.tt.handsomeman.request.HandymanTransferRequest;
@@ -40,8 +39,8 @@ import retrofit2.http.Query;
 public interface HandymanService {
 
     @GET(Constants.GET_HANDYMAN_INFO)
-    Single<Response<DataBracketResponse<Handyman>>> getHandymanInfo(@Header("Accept-Language") String locale,
-                                                                    @Header("Authorization") String header);
+    Single<Response<DataBracketResponse<HandymanProfileResponse>>> getHandymanInfo(@Header("Accept-Language") String locale,
+                                                                                   @Header("Authorization") String header);
 
     @GET(Constants.GET_HANDYMAN_REVIEW)
     Single<Response<DataBracketResponse<HandymanReviewProfile>>> getHandymanReview(@Header("Accept-Language") String locale,
@@ -141,4 +140,11 @@ public interface HandymanService {
     Single<Response<StandardResponse>> reviewCustomer(@Header("Accept-Language") String locale,
                                                       @Header("Authorization") String token,
                                                       @Body ReviewRequest reviewRequest);
+
+    @Multipart
+    @POST(Constants.UPDATE_AVATAR)
+    Single<Response<StandardResponse>> updateAvatar(@Header("Accept-Language") String locale,
+                                                    @Header("Authorization") String authorizationCode,
+                                                    @Part MultipartBody.Part avatar,
+                                                    @Part("updateDate") RequestBody updateDate);
 }

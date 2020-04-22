@@ -31,8 +31,7 @@
         <ImageView
             android:id="@+id/imageViewContactAvatarHeader"
             android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/review_demo" />
+            android:layout_height="55dp" />
 
         <TextView
             android:id="@+id/textViewContactNameHeader"

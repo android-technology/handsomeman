@@ -14,10 +14,11 @@
         tools:context=".ui.handyman.more.MyProfileAboutFragment">
 
         <ImageView
+            android:id="@+id/handymanAvatar"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/avatar_demo" />
+            android:background="@drawable/custom_ripple_transparent_color_radius_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"

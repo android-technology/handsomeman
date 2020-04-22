@@ -5,6 +5,7 @@ public class HandymanReviewResponse {
     private String avatar;
     private Integer vote;
     private String comment;
+    private long updateDate;
 
     public String getCustomerName() {
         return customerName;
@@ -36,5 +37,13 @@ public class HandymanReviewResponse {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

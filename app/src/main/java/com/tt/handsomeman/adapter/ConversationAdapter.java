@@ -4,17 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemConversationBinding;
 import com.tt.handsomeman.response.ConversationResponse;
+import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.util.TimeParseUtil;
 
 import java.text.ParseException;
@@ -27,13 +34,15 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
     private Context context;
     private SwipeLayout deleteSwipeLayout;
     private ItemConversationBinding binding;
-
+    private String authorizationCode;
     private OnItemClickListener mListener;
 
     public ConversationAdapter(List<ConversationResponse> conversationResponsesList,
-                               Context context) {
+                               Context context,
+                               String authorizationCode) {
         this.conversationResponsesList = conversationResponsesList;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -65,6 +74,18 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         holder.conversationId = conversationResponse.getConversationId();
 
         mItemManger.bindView(holder.itemView, position);
+
+        GlideUrl glideUrl = new GlideUrl((conversationResponse.getAvatar()),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+        Glide.with(context)
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", conversationResponse.getUpdateDate(), 0))
+                .into(holder.avatar);
     }
 
     @Override
@@ -99,6 +120,8 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
         private final TextView tvAccountName, tvLatestMessage, tvLatestMessageSendTime;
         private final SwipeLayout swipeLayout;
         private final LinearLayout layoutConversation, layoutDelete;
+        private final ImageView avatar;
+
         int conversationId;
 
         ConversationViewHolder(@NonNull View itemView,
@@ -110,6 +133,7 @@ public class ConversationAdapter extends RecyclerSwipeAdapter<ConversationAdapte
             layoutConversation = binding.linearLayoutConversation;
             layoutDelete = binding.linearLayoutDeleteConversation;
             swipeLayout = binding.swipeLayoutMessage;
+            avatar = binding.accountAvatarConversation;
             swipeLayout.setClickToClose(true);
 
             layoutConversation.setOnClickListener(new View.OnClickListener() {

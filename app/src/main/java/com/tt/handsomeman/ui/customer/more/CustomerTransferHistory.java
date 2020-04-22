@@ -35,6 +35,7 @@ public class CustomerTransferHistory extends BaseAppCompatActivity<CustomerViewM
     private List<CustomerTransferHistoryResponse> historyResponseList = new ArrayList<>();
     private ActivityCustomerTransferHistoryBinding binding;
     private RecyclerView rcvTransferHistory;
+    private String authorizationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class CustomerTransferHistory extends BaseAppCompatActivity<CustomerViewM
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
+
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         bindView();
@@ -56,7 +59,7 @@ public class CustomerTransferHistory extends BaseAppCompatActivity<CustomerViewM
     }
 
     private void createRecyclerView() {
-        customerTransferHistoryAdapter = new CustomerTransferHistoryAdapter(historyResponseList, this);
+        customerTransferHistoryAdapter = new CustomerTransferHistoryAdapter(historyResponseList, this, authorizationCode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvTransferHistory.setLayoutManager(layoutManager);
         rcvTransferHistory.setItemAnimator(new DefaultItemAnimator());
@@ -65,7 +68,7 @@ public class CustomerTransferHistory extends BaseAppCompatActivity<CustomerViewM
     }
 
     private void fetchData() {
-        baseViewModel.fetchTransferHistory(sharedPreferencesUtils.get("token", String.class));
+        baseViewModel.fetchTransferHistory(authorizationCode);
         baseViewModel.getListTransferHistoryLiveData().observe(this, new Observer<DataBracketResponse<ListCustomerTransfer>>() {
             @Override
             public void onChanged(DataBracketResponse<ListCustomerTransfer> listCustomerTransferDataBracketResponse) {

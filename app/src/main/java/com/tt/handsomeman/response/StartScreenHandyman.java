@@ -9,6 +9,7 @@ public class StartScreenHandyman {
 
     private List<Job> jobList;
     private List<Category> categoryList;
+    private long updateDate;
 
     public StartScreenHandyman(List<Job> jobList,
                                List<Category> categoryList) {
@@ -32,4 +33,11 @@ public class StartScreenHandyman {
         this.categoryList = categoryList;
     }
 
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
+    }
 }

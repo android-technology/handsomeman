@@ -13,5 +13,6 @@
     <color name="divider_bg_bid_job">#b9b9b9</color>
     <color name="text_white_bg">#a2a2a2</color>
     <color name="text_bg_bid_job">#8c8c8c</color>
+    <color name="night_mode">#303030</color>
     <color name="black">#000000</color>
 </resources>

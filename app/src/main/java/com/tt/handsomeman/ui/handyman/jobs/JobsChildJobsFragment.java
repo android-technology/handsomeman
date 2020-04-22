@@ -151,6 +151,8 @@ public class JobsChildJobsFragment extends BaseFragment<HandymanViewModel, Fragm
             categoryArrayList.clear();
             categoryArrayList.addAll(data.getCategoryList());
             categoryAdapter.notifyDataSetChanged();
+
+            sharedPreferencesUtils.put("updateDate", data.getUpdateDate());
         });
     }
 

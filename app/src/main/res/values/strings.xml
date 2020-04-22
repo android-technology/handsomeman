@@ -521,4 +521,5 @@
     <string name="review">Review</string>
     <string name="comment">Comment</string>
     <string name="describe_your_experience_optional">Describe your experience (optional)</string>
+    <string name="select_image">Please select an image</string>
 </resources>

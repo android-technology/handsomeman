@@ -20,6 +20,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
@@ -27,6 +32,7 @@ import com.tt.handsomeman.adapter.PayoutAdapter;
 import com.tt.handsomeman.databinding.FragmentMoreCustomerBinding;
 import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.model.Payout;
+import com.tt.handsomeman.response.CustomerProfileResponse;
 import com.tt.handsomeman.ui.AddNewPayout;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.ChangePassword;
@@ -119,10 +125,23 @@ public class CustomerMoreFragment extends BaseFragment<CustomerViewModel, Fragme
     private void fetchCustomerInfo() {
         String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchCustomerInfo(authorizationCode);
-        baseViewModel.getCustomerMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
+        baseViewModel.getCustomerProfileResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<CustomerProfileResponse>() {
             @Override
-            public void onChanged(Customer customer) {
+            public void onChanged(CustomerProfileResponse customerProfileResponse) {
+                Customer customer = customerProfileResponse.getCustomer();
                 tvAccountName.setText(customer.getName());
+
+                GlideUrl glideUrl = new GlideUrl((customerProfileResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(CustomerMoreFragment.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", customerProfileResponse.getUpdateDate(), 0))
+                        .into(imgAvatar);
 
                 payoutList.clear();
                 payoutList.addAll(customer.getAccount().getPayoutList());

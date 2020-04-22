@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tt.handsomeman.BuildConfig;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemFileNameBinding;
 import com.tt.handsomeman.response.BidFileResponse;
@@ -71,7 +72,7 @@ public class FileNameAdapter extends RecyclerView.Adapter<FileNameAdapter.ViewHo
                     shareIntent.setAction(Intent.ACTION_VIEW);
                     shareIntent.setDataAndType(FileProvider.getUriForFile(
                             context,
-                            "com.tt.handsomeman.fileprovider",
+                            BuildConfig.APPLICATION_ID + ".fileprovider",
                             file), mimeType);
                     shareIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.open_with)));

@@ -14,6 +14,7 @@ public class NotificationResponse {
     private Date creationTime;
     private Boolean read;
     private Integer contentId;
+    private long updateDate;
 
     public int getId() {
         return id;
@@ -85,5 +86,13 @@ public class NotificationResponse {
 
     public void setContentId(Integer contentId) {
         this.contentId = contentId;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

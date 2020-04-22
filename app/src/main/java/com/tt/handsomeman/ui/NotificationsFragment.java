@@ -43,11 +43,13 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
     SharedPreferencesUtils sharedPreferencesUtils;
     private List<NotificationResponse> responseList = new ArrayList<>();
     private NotificationAdapter notificationAdapter;
+    private String authorization;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
+        authorization = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(NotificationViewModel.class);
         viewBinding = FragmentNotificationsBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -63,7 +65,6 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
     }
 
     private void fetchData() {
-        String authorization = sharedPreferencesUtils.get("token", String.class);
         String type = sharedPreferencesUtils.get("type", String.class);
         baseViewModel.fetchNotificationOfAccount(authorization, type);
         baseViewModel.getListNotificationMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<NotificationResponse>>() {
@@ -78,7 +79,7 @@ public class NotificationsFragment extends BaseFragment<NotificationViewModel, F
 
     private void createJobRecycleView() {
         RecyclerView rcvNotification = viewBinding.recyclerViewNotification;
-        notificationAdapter = new NotificationAdapter(getContext(), responseList);
+        notificationAdapter = new NotificationAdapter(getContext(), responseList, authorization);
         notificationAdapter.setOnItemClickListener(new NotificationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

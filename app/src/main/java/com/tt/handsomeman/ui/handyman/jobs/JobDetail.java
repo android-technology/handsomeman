@@ -16,6 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,6 +38,7 @@ import com.tt.handsomeman.response.StandardResponse;
 import com.tt.handsomeman.ui.BaseAppCompatActivity;
 import com.tt.handsomeman.ui.handyman.ViewJobTransaction;
 import com.tt.handsomeman.ui.handyman.jobs.bid_job_detail.BidJobDetail;
+import com.tt.handsomeman.ui.handyman.more.MyProfileEdit;
 import com.tt.handsomeman.ui.messages.Conversation;
 import com.tt.handsomeman.util.DimensionConverter;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
@@ -210,6 +216,18 @@ public class JobDetail extends BaseAppCompatActivity<HandymanViewModel> {
             Integer countReview = customerResponse.getCountReviewers();
             tvReviewCount.setText(getResources().getQuantityString(R.plurals.numberOfReview, countReview, countReview));
             rtReview.setRating(customerResponse.getAverageReviewPoint());
+
+            GlideUrl glideUrl = new GlideUrl((customerResponse.getCustomerAvatar()),
+                    new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+            Glide.with(JobDetail.this)
+                    .load(glideUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .circleCrop()
+                    .placeholder(R.drawable.custom_progressbar)
+                    .error(R.drawable.logo)
+                    .signature(new MediaStoreSignature("", customerResponse.getUpdateDate(), 0))
+                    .into(binding.clientAvatarJobDetail);
 
             Double lat = job.getLat();
             Double lng = job.getLng();

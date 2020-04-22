@@ -50,12 +50,13 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
     private CategoryAdapter categoryAdapter;
     private List<HandymanResponse> handymanResponseList = new ArrayList<>();
     private List<Category> categoryArrayList = new ArrayList<>();
-
+    private String authorizationCode;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
         viewBinding = FragmentFindHandymanChildHandymanBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -69,8 +70,8 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         pgCategory = viewBinding.progressBarCategory;
         showMoreYourLocation = viewBinding.showMoreYourLocation;
 
-        createJobRecycleView(view);
-        createCategoryRecycleView(view);
+        createJobRecycleView();
+        createCategoryRecycleView();
         showMoreByYourLocation();
 
         Constants.Longitude.observe(getViewLifecycleOwner(), new Observer<Double>() {
@@ -90,9 +91,9 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         });
     }
 
-    private void createJobRecycleView(View view) {
+    private void createJobRecycleView() {
         RecyclerView rcvFindHandyman = viewBinding.recycleViewFindHandyman;
-        findHandymanAdapter = new FindHandymanAdapter(getContext(), handymanResponseList);
+        findHandymanAdapter = new FindHandymanAdapter(getContext(), handymanResponseList, authorizationCode);
         findHandymanAdapter.setOnItemClickListener(new FindHandymanAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -108,7 +109,7 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
         rcvFindHandyman.setAdapter(findHandymanAdapter);
     }
 
-    private void createCategoryRecycleView(View view) {
+    private void createCategoryRecycleView() {
         RecyclerView rcvCategory = viewBinding.recycleViewCategories;
         categoryAdapter = new CategoryAdapter(getContext(), categoryArrayList);
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
@@ -131,7 +132,6 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
 
     private void fetchData(Double lat,
                            Double lng) {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
         String dateRequest = formatter.format(now.getTime());
@@ -149,6 +149,8 @@ public class FindHandymanChildHandymanFragment extends BaseFragment<CustomerView
             categoryArrayList.clear();
             categoryArrayList.addAll(data.getCategoryList());
             categoryAdapter.notifyDataSetChanged();
+
+            sharedPreferencesUtils.put("updateDate", data.getUpdateDate());
         });
     }
 

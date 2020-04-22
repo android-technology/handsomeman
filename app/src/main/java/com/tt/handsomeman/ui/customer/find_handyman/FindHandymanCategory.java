@@ -42,6 +42,7 @@ public class FindHandymanCategory extends BaseAppCompatActivity<CustomerViewMode
     private ProgressBar pgHandyman;
     private FindHandymanFilterAdapter findHandymanFilterAdapter;
     private List<HandymanResponse> handymanResponseList = new ArrayList<>();
+    private String authorizationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class FindHandymanCategory extends BaseAppCompatActivity<CustomerViewMode
         binding = ActivityFindHandymanCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
 
         pgHandyman = binding.progressBarHandymanCategory;
@@ -71,7 +73,6 @@ public class FindHandymanCategory extends BaseAppCompatActivity<CustomerViewMode
     private void fetchData(Double lat,
                            Double lng,
                            Integer categoryId) {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         Calendar now = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
         String dateRequest = formatter.format(now.getTime());
@@ -89,7 +90,7 @@ public class FindHandymanCategory extends BaseAppCompatActivity<CustomerViewMode
 
     private void createHandymanRecycleView() {
         RecyclerView rcvHandyman = binding.recycleViewHandymanByCategory;
-        findHandymanFilterAdapter = new FindHandymanFilterAdapter(this, handymanResponseList);
+        findHandymanFilterAdapter = new FindHandymanFilterAdapter(this, handymanResponseList, authorizationCode);
         findHandymanFilterAdapter.setOnItemClickListener(new FindHandymanFilterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

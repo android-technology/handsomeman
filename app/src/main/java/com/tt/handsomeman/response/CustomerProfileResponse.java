@@ -4,8 +4,10 @@ import com.tt.handsomeman.model.Customer;
 
 public class CustomerProfileResponse {
     private Customer customer;
+    private String avatar;
     private int allProject;
     private int successedProject;
+    private long updateDate;
 
     public Customer getCustomer() {
         return customer;
@@ -13,6 +15,14 @@ public class CustomerProfileResponse {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getAllProject() {
@@ -29,5 +39,13 @@ public class CustomerProfileResponse {
 
     public void setSuccessedProject(int successedProject) {
         this.successedProject = successedProject;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

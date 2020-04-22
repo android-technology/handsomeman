@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.ObjectKey;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.SkillAdapter;
@@ -23,16 +31,28 @@ import com.tt.handsomeman.databinding.FragmentMyProfileAboutBinding;
 import com.tt.handsomeman.model.Handyman;
 import com.tt.handsomeman.model.Skill;
 import com.tt.handsomeman.response.HandymanProfileResponse;
+import com.tt.handsomeman.response.StandardResponse;
+import com.tt.handsomeman.ui.AvatarOptionDialogFragment;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.util.CustomDividerItemDecoration;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.HandymanViewModel;
 
+import java.io.File;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, FragmentMyProfileAboutBinding> {
     private static final Integer REQUEST_MY_PROFILE_RESULT_CODE = 77;
@@ -41,11 +61,14 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
     ViewModelProvider.Factory viewModelFactory;
     @Inject
     SharedPreferencesUtils sharedPreferencesUtils;
+    private ImageView imAvatar;
     private TextView yourName, education, about, allProjects, successedProject;
     private SkillAdapter skillAdapter;
     private RecyclerView rcvSkill;
     private List<Skill> skillList = new ArrayList<>();
     private boolean isMyProfileEdit = false;
+    private String authorizationCode, avatarLink = "";
+    private long updateDate = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -61,15 +84,24 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        bindView();
+        createSkillRecyclerView();
+        fetchHandymanProfile(authorizationCode);
+
+        imAvatar.setOnClickListener(v -> {
+            AvatarOptionDialogFragment.newInstance().show(getChildFragmentManager(), "avatar_option");
+        });
+    }
+
+    private void bindView() {
         yourName = viewBinding.aboutYourName;
         education = viewBinding.aboutEducation;
         about = viewBinding.about;
         allProjects = viewBinding.aboutAllProjects;
         successedProject = viewBinding.aboutSuccessedProjects;
         rcvSkill = viewBinding.aboutMySkillRecyclerView;
-
-        createSkillRecyclerView();
-        fetchHandymanProfile();
+        imAvatar = viewBinding.handymanAvatar;
     }
 
     private void createSkillRecyclerView() {
@@ -81,8 +113,7 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
         rcvSkill.setAdapter(skillAdapter);
     }
 
-    private void fetchHandymanProfile() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+    private void fetchHandymanProfile(String authorizationCode) {
         baseViewModel.fetchHandymanProfile(authorizationCode);
         baseViewModel.getHandymanProfileResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<HandymanProfileResponse>() {
             @Override
@@ -95,11 +126,57 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
                 allProjects.setText(String.valueOf(handymanProfileResponse.getAllProject()));
                 successedProject.setText(String.valueOf(handymanProfileResponse.getSuccessedProject()));
 
+                avatarLink = handymanProfileResponse.getAvatar();
+                updateDate = handymanProfileResponse.getUpdateDate();
+
+                GlideUrl glideUrl = new GlideUrl((handymanProfileResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(MyProfileAboutFragment.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", handymanProfileResponse.getUpdateDate(), 0))
+                        .into(imAvatar);
+
                 skillList.clear();
                 skillList.addAll(handymanProfileResponse.getSkillList());
                 skillAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public void updateAvatar(String fileDir) {
+        MultipartBody.Part body;
+
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
+        String sendTime = formatter.format(now.getTime());
+        RequestBody updateDate = RequestBody.create(sendTime, MultipartBody.FORM);
+
+        File file = new File(fileDir);
+        if (file.exists()) {
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            RequestBody requestFile = RequestBody.create(file, MediaType.parse(mimeType));
+            body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+
+            baseViewModel.updateAvatar(authorizationCode, body, updateDate);
+            baseViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
+                @Override
+                public void onChanged(StandardResponse standardResponse) {
+                    Toast.makeText(getContext(), standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (standardResponse.getStatus().equals(StatusConstant.OK)) {
+                        isMyProfileEdit = true;
+                        MyProfile myProfile = (MyProfile) getActivity();
+                        myProfile.setMyProfileEditResult(isMyProfileEdit);
+
+                        fetchHandymanProfile(authorizationCode);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -109,7 +186,7 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
 
         if (requestCode == REQUEST_MY_PROFILE_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("isMyProfileEdit", false)) {
-                fetchHandymanProfile();
+                fetchHandymanProfile(authorizationCode);
                 isMyProfileEdit = true;
                 MyProfile myProfile = (MyProfile) getActivity();
                 myProfile.setMyProfileEditResult(isMyProfileEdit);
@@ -117,5 +194,17 @@ public class MyProfileAboutFragment extends BaseFragment<HandymanViewModel, Frag
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getAuthorizationCode() {
+        return authorizationCode;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
     }
 }

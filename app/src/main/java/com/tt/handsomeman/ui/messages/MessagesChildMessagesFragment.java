@@ -74,7 +74,9 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        createMessageRecycleView(view);
+        MessagesFragment messagesFragment = (MessagesFragment) getParentFragment();
+
+        createMessageRecycleView(messagesFragment.getAuthorizationCode());
 
         isScroll.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -85,7 +87,7 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
             }
         });
 
-        ((MessagesFragment) getParentFragment()).conversationList.observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
+        messagesFragment.conversationList.observe(getViewLifecycleOwner(), new Observer<List<ConversationResponse>>() {
             @Override
             public void onChanged(List<ConversationResponse> conversationResponses) {
                 conversationResponseList.clear();
@@ -95,9 +97,9 @@ public class MessagesChildMessagesFragment extends BaseFragment<MessageViewModel
         });
     }
 
-    private void createMessageRecycleView(View view) {
+    private void createMessageRecycleView(String authorizationCode) {
         RecyclerView rcvMessage = viewBinding.recycleViewMessages;
-        conversationAdapter = new ConversationAdapter(conversationResponseList, getContext());
+        conversationAdapter = new ConversationAdapter(conversationResponseList, getContext(), authorizationCode);
         conversationAdapter.setOnItemClickListener(new ConversationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

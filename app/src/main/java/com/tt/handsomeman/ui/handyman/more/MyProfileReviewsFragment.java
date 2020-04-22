@@ -41,12 +41,14 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
     private RatingBar rtCountPoint;
     private HandymanReviewAdapter handymanReviewAdapter;
     private List<HandymanReviewResponse> handymanReviewResponseList = new ArrayList<>();
+    private String authorizationCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         viewBinding = FragmentMyProfileReviewsBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -65,7 +67,7 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
 
     private void createReviewRecyclerView() {
         RecyclerView rcvReview = viewBinding.reviewHandymanProfile;
-        handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponseList, getContext());
+        handymanReviewAdapter = new HandymanReviewAdapter(handymanReviewResponseList, getContext(), authorizationCode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());
@@ -74,8 +76,6 @@ public class MyProfileReviewsFragment extends BaseFragment<HandymanViewModel, Fr
     }
 
     private void fetchData() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-
         baseViewModel.fetchHandymanReview(authorizationCode);
         baseViewModel.getHandymanReviewProfileLiveData().observe(getViewLifecycleOwner(), new Observer<HandymanReviewProfile>() {
             @Override

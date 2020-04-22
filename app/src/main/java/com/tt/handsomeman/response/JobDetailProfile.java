@@ -10,6 +10,7 @@ public class JobDetailProfile {
     private Integer countReviewers;
     private Float averageReviewPoint;
     private List<CustomerReviewResponse> customerReviewResponses;
+    private long updateDate;
 
     public String getCustomerName() {
         return customerName;
@@ -65,5 +66,13 @@ public class JobDetailProfile {
 
     public void setCustomerReviewResponses(List<CustomerReviewResponse> customerReviewResponses) {
         this.customerReviewResponses = customerReviewResponses;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

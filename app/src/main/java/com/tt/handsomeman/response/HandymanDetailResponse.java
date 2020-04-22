@@ -18,6 +18,7 @@ public class HandymanDetailResponse {
     private Integer countReviewers;
     private Float averageReviewPoint;
     private List<HandymanReviewResponse> handymanReviewResponseList;
+    private long updateDate;
 
     public Integer getHandymanId() {
         return handymanId;
@@ -113,5 +114,13 @@ public class HandymanDetailResponse {
 
     public void setHandymanReviewResponseList(List<HandymanReviewResponse> handymanReviewResponseList) {
         this.handymanReviewResponseList = handymanReviewResponseList;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

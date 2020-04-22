@@ -11,6 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemReviewBinding;
 import com.tt.handsomeman.response.CustomerReviewResponse;
 
@@ -21,12 +27,15 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
     private List<CustomerReviewResponse> customerReviewResponses;
     private LayoutInflater layoutInflater;
     private Context context;
+    private String authorizationCode;
     private ItemReviewBinding binding;
 
     public CustomerReviewAdapter(Context context,
-                                 List<CustomerReviewResponse> customerReviewResponses) {
+                                 List<CustomerReviewResponse> customerReviewResponses,
+                                 String authorizationCode) {
         this.customerReviewResponses = customerReviewResponses;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -44,7 +53,18 @@ public class CustomerReviewAdapter extends RecyclerView.Adapter<CustomerReviewAd
                                  int position) {
         CustomerReviewResponse customerReviewResponse = customerReviewResponses.get(position);
 
-//        holder.handymenAvatar.setImageResource();
+        GlideUrl glideUrl = new GlideUrl((customerReviewResponse.getAvatar()),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+        Glide.with(context)
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", customerReviewResponse.getUpdateDate(), 0))
+                .into(holder.handymenAvatar);
+
         holder.handymenName.setText(customerReviewResponse.getHandymanName());
         holder.handymenRating.setRating(customerReviewResponse.getVote());
         holder.handymenComment.setText(customerReviewResponse.getComment());

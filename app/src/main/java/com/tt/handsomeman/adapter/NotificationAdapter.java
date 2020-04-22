@@ -11,6 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemNotificationBinding;
@@ -30,13 +35,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private List<NotificationResponse> notificationList;
     private LayoutInflater layoutInflater;
-    private ItemNotificationBinding binding;
+    private String authorizationCode;
     private OnItemClickListener listener;
+    private ItemNotificationBinding binding;
 
     public NotificationAdapter(Context context,
-                               List<NotificationResponse> notificationList) {
+                               List<NotificationResponse> notificationList,
+                               String authorizationCode) {
         this.context = context;
         this.notificationList = notificationList;
+        this.authorizationCode = authorizationCode;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -80,6 +88,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if (!notification.getRead()) {
                     madeBidViewHolder.tvNotificationBody.setTypeface(madeBidViewHolder.tvNotificationBody.getTypeface(), Typeface.BOLD);
                 }
+
+                GlideUrl glideUrl = new GlideUrl((notification.getSenderAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", notification.getUpdateDate(), 0))
+                        .into(madeBidViewHolder.accountAvatar);
                 break;
             case ACCEPT_BID:
                 AcceptBidViewHolder acceptBidViewHolder = (AcceptBidViewHolder) holder;
@@ -93,6 +113,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if (!notification.getRead()) {
                     acceptBidViewHolder.tvNotificationBody.setTypeface(acceptBidViewHolder.tvNotificationBody.getTypeface(), Typeface.BOLD);
                 }
+
+                GlideUrl glideUrl1 = new GlideUrl((notification.getSenderAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl1)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", notification.getUpdateDate(), 0))
+                        .into(acceptBidViewHolder.accountAvatar);
                 break;
             case PAID_PAYMENT:
                 PaidPaymentViewHolder paidPaymentViewHolder = (PaidPaymentViewHolder) holder;
@@ -122,6 +154,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if (!notification.getRead()) {
                     paidPaymentViewHolder.tvNotificationBody.setTypeface(paidPaymentViewHolder.tvNotificationBody.getTypeface(), Typeface.BOLD);
                 }
+
+                GlideUrl glideUrl2 = new GlideUrl((notification.getSenderAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl2)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", notification.getUpdateDate(), 0))
+                        .into(paidPaymentViewHolder.accountAvatar);
                 break;
         }
     }

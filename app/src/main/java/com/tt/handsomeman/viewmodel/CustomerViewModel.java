@@ -32,6 +32,8 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CustomerViewModel extends BaseViewModel {
 
@@ -176,7 +178,7 @@ public class CustomerViewModel extends BaseViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((nearbyHandymanResponseResponse) -> {
-                                    customerMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
+                                    customerProfileResponseMutableLiveData.setValue(nearbyHandymanResponseResponse.body().getData());
                                 },
                                 throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_LONG).show()));
     }
@@ -285,6 +287,17 @@ public class CustomerViewModel extends BaseViewModel {
 
     public void reviewHandyman(String authorization, ReviewRequest reviewRequest){
         compositeDisposable.add(customerService.reviewHandyman(locale, authorization, reviewRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(standardResponseResponse -> {
+                    standardResponseMutableLiveData.setValue(standardResponseResponse.body());
+                }, throwable -> Toast.makeText(getApplication(), throwable.getMessage(), Toast.LENGTH_SHORT).show()));
+    }
+
+    public void updateAvatar(String authorizationCode,
+                             MultipartBody.Part body,
+                             RequestBody updateDate) {
+        compositeDisposable.add(customerService.updateAvatar(locale, authorizationCode, body, updateDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(standardResponseResponse -> {

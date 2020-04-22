@@ -41,9 +41,12 @@ public class MessagesChildContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        createContactRecyclerView();
 
-        ((MessagesFragment) getParentFragment()).contactList.observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
+        MessagesFragment messagesFragment = (MessagesFragment) getParentFragment();
+
+        createContactRecyclerView(messagesFragment.getAuthorizationCode());
+
+        messagesFragment.contactList.observe(getViewLifecycleOwner(), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 contactList.clear();
@@ -53,9 +56,9 @@ public class MessagesChildContactsFragment extends Fragment {
         });
     }
 
-    private void createContactRecyclerView() {
+    private void createContactRecyclerView(String authorizationCode) {
         RecyclerView rcvContact = binding.recycleViewContacts;
-        contactAdapter = new ContactAdapter(contactList, getContext());
+        contactAdapter = new ContactAdapter(contactList, getContext(), authorizationCode);
 
         RecyclerView.LayoutManager layoutManagerMessage = new LinearLayoutManager(getContext());
         rcvContact.setLayoutManager(layoutManagerMessage);

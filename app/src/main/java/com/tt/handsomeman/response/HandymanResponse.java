@@ -8,6 +8,7 @@ public class HandymanResponse {
     private Integer countReviewers;
     private Float averageReviewPoint;
     private Double distance;
+    private long updateDate;
 
     public Integer getHandymanId() {
         return handymanId;
@@ -55,5 +56,13 @@ public class HandymanResponse {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 }

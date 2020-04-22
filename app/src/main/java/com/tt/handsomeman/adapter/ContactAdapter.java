@@ -10,6 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemContactBinding;
 import com.tt.handsomeman.databinding.ItemContactHeaderBinding;
 import com.tt.handsomeman.response.Contact;
@@ -26,11 +32,14 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private LayoutInflater layoutInflater;
     private ItemContactBinding contactBinding;
     private ItemContactHeaderBinding headerBinding;
+    private String authorizationCode;
 
     public ContactAdapter(List<Contact> contactList,
-                          Context context) {
+                          Context context,
+                          String authorizationCode) {
         this.contactList = contactList;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -63,10 +72,34 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ContactAdapter.HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
                 headerViewHolder.tvHeaderCharacter.setText(contact.getFirstCharacter(contact.getName()));
                 headerViewHolder.tvContactNameHeader.setText(contact.getName());
+
+                GlideUrl glideUrl = new GlideUrl((contact.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", contact.getUpdateDate(), 0))
+                        .into(headerViewHolder.imgContactAvatarHeader);
                 break;
             case ITEM:
-                ContactAdapter.ContactViewHolder contactViewHolder1 = (ContactViewHolder) holder;
-                contactViewHolder1.tvContactName.setText(contact.getName());
+                ContactAdapter.ContactViewHolder contactViewHolder = (ContactViewHolder) holder;
+                contactViewHolder.tvContactName.setText(contact.getName());
+
+                GlideUrl glideUrl1 = new GlideUrl((contact.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(context)
+                        .load(glideUrl1)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", contact.getUpdateDate(), 0))
+                        .into(contactViewHolder.imgContactAvatar);
                 break;
         }
     }

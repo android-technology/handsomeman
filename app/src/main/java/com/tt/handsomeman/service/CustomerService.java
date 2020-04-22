@@ -1,6 +1,5 @@
 package com.tt.handsomeman.service;
 
-import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.request.AddJobRequest;
 import com.tt.handsomeman.request.HandymanDetailRequest;
 import com.tt.handsomeman.request.MadeTheTransactionRequest;
@@ -21,12 +20,17 @@ import com.tt.handsomeman.response.StartScreenCustomer;
 import com.tt.handsomeman.response.ViewMadeTransactionResponse;
 import com.tt.handsomeman.util.Constants;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -58,8 +62,8 @@ public interface CustomerService {
                                                                                     @Body HandymanDetailRequest handymanDetailRequest);
 
     @GET(Constants.GET_CUSTOMER_INFO)
-    Single<Response<DataBracketResponse<Customer>>> getCustomerInfo(@Header("Accept-Language") String locale,
-                                                                    @Header("Authorization") String token);
+    Single<Response<DataBracketResponse<CustomerProfileResponse>>> getCustomerInfo(@Header("Accept-Language") String locale,
+                                                                                   @Header("Authorization") String token);
 
     @GET(Constants.GET_CUSTOMER_PROFILE)
     Single<Response<DataBracketResponse<CustomerProfileResponse>>> getCustomerProfile(@Header("Accept-Language") String locale,
@@ -108,4 +112,11 @@ public interface CustomerService {
     Single<Response<StandardResponse>> reviewHandyman(@Header("Accept-Language") String locale,
                                                       @Header("Authorization") String token,
                                                       @Body ReviewRequest reviewRequest);
+
+    @Multipart
+    @POST(Constants.UPDATE_AVATAR)
+    Single<Response<StandardResponse>> updateAvatar(@Header("Accept-Language") String locale,
+                                                    @Header("Authorization") String authorizationCode,
+                                                    @Part MultipartBody.Part avatar,
+                                                    @Part("updateDate") RequestBody updateDate);
 }

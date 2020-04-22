@@ -41,12 +41,14 @@ public class CustomerProfileReviewFragment extends BaseFragment<CustomerViewMode
     private RatingBar rtCountPoint;
     private CustomerReviewAdapter customerReviewAdapter;
     private List<CustomerReviewResponse> customerReviewResponseList = new ArrayList<>();
+    private String authorizationCode;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(CustomerViewModel.class);
         viewBinding = FragmentCustomerProfileReviewBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -64,8 +66,6 @@ public class CustomerProfileReviewFragment extends BaseFragment<CustomerViewMode
     }
 
     private void fetchData() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-
         baseViewModel.fetchCustomerReview(authorizationCode);
         baseViewModel.getCustomerReviewProfileMutableLiveData().observe(getViewLifecycleOwner(), new Observer<CustomerReviewProfile>() {
             @Override
@@ -82,7 +82,7 @@ public class CustomerProfileReviewFragment extends BaseFragment<CustomerViewMode
 
     private void createReviewRecyclerView() {
         RecyclerView rcvReview = viewBinding.reviewCustomerProfile;
-        customerReviewAdapter = new CustomerReviewAdapter(getContext(), customerReviewResponseList);
+        customerReviewAdapter = new CustomerReviewAdapter(getContext(), customerReviewResponseList, authorizationCode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());

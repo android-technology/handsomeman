@@ -15,6 +15,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.HandymanApp;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.adapter.CustomerReviewAdapter;
@@ -44,12 +49,12 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
 
     private CustomerReviewAdapter customerReviewAdapter;
     private List<CustomerReviewResponse> customerReviewResponses = new ArrayList<>();
-    private ImageView customerAvatar;
     private TextView customerName, customerAllProjectCount, customerSuccessedProject, countReviews;
     private RatingBar countPoint;
     private Button btnReview;
     private int customerId, jobId;
     private ActivityCustomerProfileJobDetailBinding binding;
+    private String authorizationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,8 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
         setContentView(binding.getRoot());
 
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
+
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(HandymanViewModel.class);
         bindView();
 
@@ -104,8 +111,6 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
     }
 
     private void fetchData(Integer customerId) {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
-
         baseViewModel.fetchJobDetailProfile(authorizationCode, customerId);
         baseViewModel.getJobDetailProfileLiveData().observe(this, new Observer<JobDetailProfile>() {
             @Override
@@ -115,6 +120,18 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
                 customerSuccessedProject.setText(String.valueOf(jobDetailProfile.getSuccessedProject()));
                 countReviews.setText(getResources().getQuantityString(R.plurals.numberOfReview, jobDetailProfile.getCountReviewers(), jobDetailProfile.getCountReviewers()));
                 countPoint.setRating(jobDetailProfile.getAverageReviewPoint());
+
+                GlideUrl glideUrl = new GlideUrl((jobDetailProfile.getCustomerAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(CustomerProfileJobDetail.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", jobDetailProfile.getUpdateDate(), 0))
+                        .into(binding.customerAvatarCustomerProfileJobDetail);
 
                 customerReviewResponses.clear();
                 customerReviewResponses.addAll(jobDetailProfile.getCustomerReviewResponses());
@@ -133,7 +150,7 @@ public class CustomerProfileJobDetail extends BaseAppCompatActivity<HandymanView
 
     private void createCustomerReviewRecycleView() {
         RecyclerView rcvReview = binding.reviewCustomerRecycleView;
-        customerReviewAdapter = new CustomerReviewAdapter(this, customerReviewResponses);
+        customerReviewAdapter = new CustomerReviewAdapter(this, customerReviewResponses, authorizationCode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcvReview.setLayoutManager(layoutManager);
         rcvReview.setItemAnimator(new DefaultItemAnimator());

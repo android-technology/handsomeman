@@ -46,11 +46,13 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     private Fragment childContactsFragment = new MessagesChildContactsFragment();
     private Fragment active = childMessagesFragment;
     private EditText edtSearchByWord;
+    String authorizationCode;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         HandymanApp.getComponent().inject(this);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel = new ViewModelProvider(this, viewModelFactory).get(MessageViewModel.class);
         viewBinding = FragmentMessagesBinding.inflate(inflater, container, false);
         return viewBinding.getRoot();
@@ -60,6 +62,7 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         RadioButton rdMessage = viewBinding.radioButtonMessages;
         RadioButton rdContact = viewBinding.radioButtonContacts;
         edtSearchByWord = viewBinding.editTextSearchByWordMessageFragment;
@@ -96,7 +99,6 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     }
 
     private void fetchData() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
         String type = sharedPreferencesUtils.get("type", String.class);
 
         baseViewModel.fetchAllConversationByAccountId(authorizationCode, type);
@@ -120,5 +122,9 @@ public class MessagesFragment extends BaseFragment<MessageViewModel, FragmentMes
     public void onDestroyView() {
         viewBinding = null;
         super.onDestroyView();
+    }
+
+    public String getAuthorizationCode() {
+        return authorizationCode;
     }
 }

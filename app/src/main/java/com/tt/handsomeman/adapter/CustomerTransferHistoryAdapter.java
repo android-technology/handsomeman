@@ -10,6 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.ItemCustomerTransferHistoryBinding;
 import com.tt.handsomeman.response.CustomerTransferHistoryResponse;
@@ -24,12 +29,15 @@ public class CustomerTransferHistoryAdapter extends RecyclerView.Adapter<Custome
     private List<CustomerTransferHistoryResponse> historyResponseList;
     private Context context;
     private LayoutInflater inflater;
+    private String authorizationCode;
     private ItemCustomerTransferHistoryBinding binding;
 
     public CustomerTransferHistoryAdapter(List<CustomerTransferHistoryResponse> historyResponseList,
-                                          Context context) {
+                                          Context context,
+                                          String authorizationCode) {
         this.historyResponseList = historyResponseList;
         this.context = context;
+        this.authorizationCode = authorizationCode;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -69,6 +77,18 @@ public class CustomerTransferHistoryAdapter extends RecyclerView.Adapter<Custome
         }
         holder.handymanName.setText(historyResponse.getHandymanName());
         holder.transferBalance.setText(context.getString(R.string.money_currency_string, DecimalFormat.format(historyResponse.getBalance())));
+
+        GlideUrl glideUrl = new GlideUrl((historyResponse.getHandymanAvatar()),
+                new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+        Glide.with(context)
+                .load(glideUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .circleCrop()
+                .placeholder(R.drawable.custom_progressbar)
+                .error(R.drawable.logo)
+                .signature(new MediaStoreSignature("", historyResponse.getUpdateDate(), 0))
+                .into(holder.handymanAvatar);
     }
 
     @Override

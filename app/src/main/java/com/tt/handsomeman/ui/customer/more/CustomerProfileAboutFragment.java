@@ -6,23 +6,44 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.tt.handsomeman.HandymanApp;
+import com.tt.handsomeman.R;
 import com.tt.handsomeman.databinding.FragmentCustomerProfileAboutBinding;
 import com.tt.handsomeman.model.Customer;
 import com.tt.handsomeman.response.CustomerProfileResponse;
+import com.tt.handsomeman.response.StandardResponse;
+import com.tt.handsomeman.ui.AvatarOptionDialogFragment;
 import com.tt.handsomeman.ui.BaseFragment;
 import com.tt.handsomeman.ui.MyProfile;
 import com.tt.handsomeman.util.SharedPreferencesUtils;
+import com.tt.handsomeman.util.StatusConstant;
 import com.tt.handsomeman.viewmodel.CustomerViewModel;
 
+import java.io.File;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel, FragmentCustomerProfileAboutBinding> {
 
@@ -34,6 +55,9 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
     SharedPreferencesUtils sharedPreferencesUtils;
     private TextView yourName, allProjects, successedProject;
     private boolean isMyProfileEdit = false;
+    private ImageView imgAvatar;
+    private String authorizationCode, avatarLink = "";
+    private long updateDate = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -52,23 +76,74 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
         yourName = viewBinding.aboutYourName;
         allProjects = viewBinding.aboutAllProjects;
         successedProject = viewBinding.aboutSuccessedProjects;
+        imgAvatar = viewBinding.customerAvatar;
 
         fetchCustomerProfile();
+
+        imgAvatar.setOnClickListener(v -> {
+            AvatarOptionDialogFragment.newInstance().show(getChildFragmentManager(), "avatar_option");
+        });
     }
 
     private void fetchCustomerProfile() {
-        String authorizationCode = sharedPreferencesUtils.get("token", String.class);
+        authorizationCode = sharedPreferencesUtils.get("token", String.class);
         baseViewModel.fetchCustomerProfile(authorizationCode);
         baseViewModel.getCustomerProfileResponseMutableLiveData().observe(getViewLifecycleOwner(), new Observer<CustomerProfileResponse>() {
             @Override
             public void onChanged(CustomerProfileResponse customerProfileResponse) {
                 Customer customer = customerProfileResponse.getCustomer();
 
+                avatarLink = customerProfileResponse.getAvatar();
+                updateDate = customerProfileResponse.getUpdateDate();
+
+                GlideUrl glideUrl = new GlideUrl((customerProfileResponse.getAvatar()),
+                        new LazyHeaders.Builder().addHeader("Authorization", authorizationCode).build());
+
+                Glide.with(CustomerProfileAboutFragment.this)
+                        .load(glideUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .circleCrop()
+                        .placeholder(R.drawable.custom_progressbar)
+                        .error(R.drawable.logo)
+                        .signature(new MediaStoreSignature("", customerProfileResponse.getUpdateDate(), 0))
+                        .into(imgAvatar);
+
                 yourName.setText(customer.getName());
                 allProjects.setText(String.valueOf(customerProfileResponse.getAllProject()));
                 successedProject.setText(String.valueOf(customerProfileResponse.getSuccessedProject()));
             }
         });
+    }
+
+    public void updateAvatar(String fileDir) {
+        MultipartBody.Part body;
+
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ZZ", Locale.getDefault());
+        String sendTime = formatter.format(now.getTime());
+        RequestBody updateDate = RequestBody.create(sendTime, MultipartBody.FORM);
+
+        File file = new File(fileDir);
+        if (file.exists()) {
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            RequestBody requestFile = RequestBody.create(file, MediaType.parse(mimeType));
+            body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+
+            baseViewModel.updateAvatar(authorizationCode, body, updateDate);
+            baseViewModel.getStandardResponseMutableLiveData().observe(this, new Observer<StandardResponse>() {
+                @Override
+                public void onChanged(StandardResponse standardResponse) {
+                    Toast.makeText(getContext(), standardResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (standardResponse.getStatus().equals(StatusConstant.OK)) {
+                        isMyProfileEdit = true;
+                        MyProfile myProfile = (MyProfile) getActivity();
+                        myProfile.setMyProfileEditResult(isMyProfileEdit);
+
+                        fetchCustomerProfile();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -86,5 +161,17 @@ public class CustomerProfileAboutFragment extends BaseFragment<CustomerViewModel
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getAuthorizationCode() {
+        return authorizationCode;
+    }
+
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public long getUpdateDate() {
+        return updateDate;
     }
 }
